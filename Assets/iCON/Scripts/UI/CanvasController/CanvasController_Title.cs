@@ -23,7 +23,7 @@ namespace iCON.UI
 
         private void HandleStartButtonClicked()
         {
-            SceneLoader.Instance.LoadScene(3);
+            ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, true)).Forget();
             OnStartButtonClicked?.Invoke();
         }
 

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using iCON.System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,7 @@ namespace iCON.Boot
         [SerializeField] private SceneSelector _sceneSelector;
         private Button _button;
 
-        private void Awake()
+        private void Start()
         {
             _button = GetComponent<Button>();
             _button.onClick.AddListener(HandleStart);
@@ -21,7 +22,8 @@ namespace iCON.Boot
 
         private void HandleStart()
         {
-            SceneLoader.Instance.LoadScene(_sceneSelector.SelectedSceneIndex);
+            ServiceLocator.Get<SceneLoader>().LoadSceneAsync(
+                new SceneTransitionData(SceneType.Title, true, true)).Forget();
         }
     }
 

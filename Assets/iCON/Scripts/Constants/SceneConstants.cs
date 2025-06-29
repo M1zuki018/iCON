@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace iCON.Constants
 {
     /// <summary>
@@ -15,7 +13,12 @@ namespace iCON.Constants
         /// <summary>
         /// Systemシーンの個数
         /// </summary>
-        public const int SYSTEM_SCENE_COUNT = 2; 
+        public const int SYSTEM_SCENE_COUNT = 2;
+
+        /// <summary>
+        /// アセットのプリロードのために待つ時間（ミリ秒）
+        /// </summary>
+        public const int PRELOAD_TIME = 500;
     }
 
 }
