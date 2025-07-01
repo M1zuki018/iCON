@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using iCON.Enums;
 using iCON.Utility;
 using UnityEngine;
@@ -36,20 +37,20 @@ namespace iCON.UI
         #endregion
 
         /// <summary>
-        /// 表示
+        /// 登場
         /// </summary>
-        public void Show(CharacterPositionType position, string fileName)
+        public Tween Entry(CharacterPositionType position, string fileName, float duration)
         {
             ChangeSprite(position,fileName);
-            GetCharacterPosition(position).Image.Show();
+            return GetCharacterPosition(position).Image.DOFade(1, duration);
         }
         
         /// <summary>
-        /// 非表示
+        /// 退場
         /// </summary>
-        public void Hide(CharacterPositionType position)
+        public Tween Exit(CharacterPositionType position, float duration)
         {
-            GetCharacterPosition(position).Image.Hide();
+            return GetCharacterPosition(position).Image.DOFade(0, duration);
         }
 
         /// <summary>

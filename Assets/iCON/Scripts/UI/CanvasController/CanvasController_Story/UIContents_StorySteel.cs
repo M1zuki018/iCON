@@ -1,5 +1,7 @@
 using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
+using iCON.Constants;
 using iCON.Utility;
 using UnityEngine;
 
@@ -53,7 +55,7 @@ namespace iCON.UI
         /// <summary>
         /// ファイル名を元に画像を変更する
         /// </summary>
-        public async UniTask SetImage(string fileName)
+        public async UniTask SetImageAsync(string fileName)
         {
             try
             {
@@ -63,25 +65,50 @@ namespace iCON.UI
 
                 // オブジェクトをhierarchyの末尾に移動させて、最前面に表示されるようにする
                 _steelImages[nextIndex].transform.SetAsLastSibling();
-                _steelImages[nextIndex].Show();
 
                 // アクティブインデックスを更新
                 _activeImageIndex = nextIndex;
-                
-                // CanvasGroupが非表示だったら表示する
-                if (!IsVisible)
-                {
-                    SetVisibility(true);
-                }
             }
             catch (Exception ex)
             {
                 LogUtility.Error($"画像設定中にエラーが発生しました: {ex.Message}", LogCategory.UI, _steelImages[_activeImageIndex]);
             }
         }
+        
+        /// <summary>
+        /// フェードイン
+        /// </summary>
+        public void FadeIn()
+        {
+            _steelImages[_activeImageIndex].DOFade(1, StoryConstants.IMAGE_FADE_DURATION)
+                .SetEase(StoryConstants.FADE_EASE)
+                .OnComplete(() =>
+                {
+                    // 前面のスチルが表示されたら、裏面のスチルの透明度をゼロにしておく
+                    int prevIndex = _activeImageIndex == 0 ? _steelImages.Length - 1 : _activeImageIndex - 1;
+                    _steelImages[prevIndex].Hide();
+                });
+        }
 
         /// <summary>
-        /// 非表示にする
+        /// フェードアウト
+        /// </summary>
+        public void FadeOut()
+        {
+            _steelImages[_activeImageIndex].DOFade(0, StoryConstants.IMAGE_FADE_DURATION)
+                .SetEase(StoryConstants.FADE_EASE);
+        }
+
+        /// <summary>
+        /// 表示
+        /// </summary>
+        public void Show()
+        {
+            SetVisibility(true);
+        }
+        
+        /// <summary>
+        /// 非表示
         /// </summary>
         public void Hide()
         {

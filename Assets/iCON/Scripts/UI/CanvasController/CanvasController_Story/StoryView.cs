@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using iCON.Enums;
 using UnityEngine;
 
@@ -11,88 +13,149 @@ namespace iCON.UI
         /// <summary>
         /// 背景管理クラス
         /// </summary>
-        [SerializeField]
+        [SerializeField, HighlightIfNull]
         private UIContents_StoryBackground _background;
         
         /// <summary>
         /// キャラクター立ち絵管理クラス
         /// </summary>
-        [SerializeField]
+        [SerializeField, HighlightIfNull]
         private UIContents_StoryCharacters _characters;
         
         /// <summary>
         /// スチル管理クラス
         /// </summary>
-        [SerializeField]
+        [SerializeField, HighlightIfNull]
         private UIContents_StorySteel _steel;
         
         /// <summary>
         /// ダイアログ管理クラス
         /// </summary>
-        [SerializeField]
+        [SerializeField, HighlightIfNull]
         private UIContents_StoryDialog _dialog;
+        
+        /// <summary>
+        /// フェードパネル管理クラス
+        /// </summary>
+        [SerializeField, HighlightIfNull]
+        private UIContents_FadePanel _fadePanel;
 
         /// <summary>
-        /// 背景を変更する
+        /// 会話テキストを更新する
         /// </summary>
-        public void SetBackground(string fileName)
+        public Tween SetTalk(string name, string dialog, float duration)
         {
-            Debug.Log(fileName);
-            _background.SetImage(fileName);
+            var tween = _dialog.SetTalk(name, dialog, duration);
+            
+            if (!_dialog.IsVisible)
+            {
+                // ダイアログのオブジェクトが非表示だったら表示する
+                _dialog.Show();
+            }
+
+            return tween;
+        }
+        
+        /// <summary>
+        /// 地の文のテキストを更新する
+        /// </summary>
+        /// <returns></returns>
+        public Tween SetDescription(string description, float duration)
+        {
+            if (!_dialog.IsVisible)
+            {
+                _dialog.Show();
+            }
+            
+            return _dialog.SetDescription(description, duration);
         }
 
-        public void InCharacter(CharacterPositionType position, string fileName)
+        /// <summary>
+        /// フェードイン
+        /// </summary>
+        public Tween FadeIn(float duration)
         {
-            Debug.Log(fileName);
-            _characters.Show(position, fileName);
+            return _fadePanel.FadeIn(duration);
         }
 
-        public void OutCharacter(CharacterPositionType position)
+        /// <summary>
+        /// フェードアウト
+        /// </summary>
+        public Tween FadeOut(float duration)
         {
-            Debug.Log(position);
-            _characters.Hide(position);
+            return _fadePanel.FadeOut(duration);
         }
 
-        public void HideAll()
+        /// <summary>
+        /// フェードパネルの表示/非表示を即座に切り替える
+        /// </summary>
+        public void FadePanelSetVisible(bool visible)
         {
-            _characters.HideAll();
+            _fadePanel.SetVisible(visible);
+        }
+        
+        /// <summary>
+        /// キャラクター登場
+        /// </summary>
+        public Tween CharacterEntry(CharacterPositionType position, string fileName, float duration)
+        {
+            return _characters.Entry(position, fileName, duration);
         }
 
+        /// <summary>
+        /// キャラクター退場
+        /// </summary>
+        public Tween CharacterExit(CharacterPositionType position, float duration)
+        {
+            return _characters.Exit(position, duration);
+        }
+        
+        /// <summary>
+        /// キャラクターを切り替える
+        /// </summary>
         public void ChangeCharacter(CharacterPositionType position, string fileName)
         {
             _characters.ChangeSprite(position, fileName);
         }
 
-        public void SetSteel(string fileName)
+        /// <summary>
+        /// 全てのキャラクターを非表示にする
+        /// </summary>
+        public void HideAllCharacters()
         {
-            Debug.Log(fileName);
-            _steel.SetImage(fileName);
-        }
-
-        public void HideSteel()
-        {
-            Debug.Log("HideSteel");
-            _steel.Hide();
-        }
-
-        public void SetTalk(string name, string dialog)
-        {
-            Debug.Log(dialog);
-            if (!_dialog.IsVisible)
-            {
-                _dialog.Show();
-            }
-            _dialog.SetTalk(name, dialog);
+            _characters.HideAll();
         }
         
-        public void SetDescription(string description)
+        /// <summary>
+        /// スチルを表示/切り替える
+        /// </summary>
+        public async UniTask SetSteel(string fileName)
         {
-            Debug.Log(description);
-            if (!_dialog.IsVisible)
+            await _steel.SetImageAsync(fileName);
+    
+            if (!_steel.IsVisible)
             {
-                _dialog.Show();
+                _steel.Show();
             }
-            _dialog.SetDescription(description);
+            
+            _steel.FadeIn();
+        }
+        
+        /// <summary>
+        /// スチルを非表示にする
+        /// </summary>
+        public void HideSteel()
+        {
+            _steel.FadeOut();
+        }
+        
+        /// <summary>
+        /// 背景を変更する
+        /// </summary>
+        public async UniTask SetBackground(string fileName)
+        {
+            await _background.SetImageAsync(fileName);
+            _background.FadeIn();
         }
     }
    

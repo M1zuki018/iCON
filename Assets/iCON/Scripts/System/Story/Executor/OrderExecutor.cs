@@ -1,5 +1,5 @@
-using System;
 using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using iCON.Enums;
 using iCON.UI;
 using UnityEngine;
@@ -11,8 +11,26 @@ namespace iCON.System
     /// </summary>
     public class OrderExecutor
     {
+        /// <summary>
+        /// Viewを操作するクラス
+        /// </summary>
         private StoryView _view;
-
+        
+        /// <summary>
+        /// オーダーを実行中か
+        /// </summary>
+        private bool _isExecuting;
+        
+        /// <summary>
+        /// 実行中のオーダーのSequence
+        /// </summary>
+        private Sequence _currentSequence;
+        
+        /// <summary>
+        /// オーダーを実行中か
+        /// </summary>
+        public bool IsExecuting => _isExecuting;
+        
         /// <summary>
         /// コンストラクタ
         /// </summary>
@@ -26,6 +44,15 @@ namespace iCON.System
         /// </summary>
         public void Execute(OrderData data)
         {
+            if (data.Sequence == SequenceType.Append)
+            {
+                // 念のため実行中のシーケンスがあればキルする
+                _currentSequence?.Kill(true);
+                _currentSequence = DOTween.Sequence();
+            }
+            
+            _isExecuting = true;
+            
             switch (data.OrderType)
             {
                 #region case
@@ -82,6 +109,24 @@ namespace iCON.System
                     Debug.LogWarning($"未知のオーダータイプです: {data.OrderType}");
                     break;
             }
+            
+            if (data.Sequence == SequenceType.Append)
+            {
+                _currentSequence.OnComplete(() => _isExecuting = false);
+            }
+        }
+
+        /// <summary>
+        /// オーダーの演出をスキップする
+        /// </summary>
+        public void Skip()
+        {
+            if (_currentSequence != null && _isExecuting)
+            {
+                // 演出実行中であれば、シーケンスをキルしてコンプリートの状態にする
+                _currentSequence.Kill(true);
+                _isExecuting = false;
+            }
         }
 
         /// <summary>
@@ -90,7 +135,12 @@ namespace iCON.System
         private void HandleStart(OrderData data)
         {
             Debug.Log("Story started");
-            _view.HideAll();
+            
+            // 全キャラクター非表示
+            _view.HideAllCharacters();
+            
+            // フェードイン
+            _currentSequence.AddTween(data.Sequence, _view.FadeIn(data.Duration));
             // TODO
         }
 
@@ -99,7 +149,7 @@ namespace iCON.System
         /// </summary>
         private void HandleTalk(OrderData data)
         {
-            _view.SetTalk(data.DisplayName, data.DialogText);
+            _currentSequence.AddTween(data.Sequence, _view.SetTalk(data.DisplayName, data.DialogText, data.Duration));
         }
 
         /// <summary>
@@ -107,7 +157,7 @@ namespace iCON.System
         /// </summary>
         private void HandleDescriptive(OrderData data)
         {
-            _view.SetDescription(data.DialogText);
+            _currentSequence.AddTween(data.Sequence, _view.SetDescription(data.DialogText, data.Duration));
         }
 
         /// <summary>
@@ -116,7 +166,9 @@ namespace iCON.System
         private void HandleEnd(OrderData data)
         {
             Debug.Log("Story ended");
-            _view.HideAll();
+            
+            // フェードアウト
+            _currentSequence.AddTween(data.Sequence, _view.FadeOut(data.Duration));
             // TODO
         }
 
@@ -133,7 +185,7 @@ namespace iCON.System
         /// </summary>
         private void HandleCharacterEntry(OrderData data)
         {
-            _view.InCharacter(data.Position, data.FilePath);
+            _currentSequence.AddTween(data.Sequence,_view.CharacterEntry(data.Position, data.FilePath, data.Duration));
         }
 
         /// <summary>
@@ -141,7 +193,7 @@ namespace iCON.System
         /// </summary>
         private void HandleCharacterExit(OrderData data)
         {
-            _view.OutCharacter(data.Position);
+            _currentSequence.AddTween(data.Sequence,_view.CharacterExit(data.Position, data.Duration));
         }
 
         /// <summary>
@@ -149,7 +201,9 @@ namespace iCON.System
         /// </summary>
         private void HandleShowSteel(OrderData data)
         {
-            _view.SetSteel(data.FilePath);
+            // 非同期処理を先に実行してからTweenを取得
+            _view.SetSteel(data.FilePath).Forget();
+            _currentSequence.AppendInterval(data.Duration);
         }
 
         /// <summary>
@@ -158,6 +212,7 @@ namespace iCON.System
         private void HandleHideSteel(OrderData data)
         {
             _view.HideSteel();
+            _currentSequence.AppendInterval(data.Duration);
         }
 
         /// <summary>
@@ -190,14 +245,15 @@ namespace iCON.System
         private void HandleChangeBackground(OrderData data)
         {
             _view.SetBackground(data.FilePath);
+            _currentSequence.AppendInterval(data.Duration);
         }
 
         /// <summary>
         /// Wait - 待機処理
         /// </summary>
-        private async UniTask HandleWait(OrderData data)
+        private void HandleWait(OrderData data)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(data.Duration));
+            _currentSequence.AppendInterval(data.Duration);
         }
 
         /// <summary>
