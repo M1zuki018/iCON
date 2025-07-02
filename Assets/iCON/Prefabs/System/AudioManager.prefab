@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4801339468575427108
+--- !u!1 &7482452493075937763
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6468932585991293504}
-  - component: {fileID: 8349254557646403581}
+  - component: {fileID: 2288170572954476951}
+  - component: {fileID: 1543567049627230370}
   m_Layer: 0
-  m_Name: InGameManager
+  m_Name: AudioManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6468932585991293504
+--- !u!4 &2288170572954476951
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4801339468575427108}
+  m_GameObject: {fileID: 7482452493075937763}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -32,26 +32,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8349254557646403581
+--- !u!114 &1543567049627230370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4801339468575427108}
+  m_GameObject: {fileID: 7482452493075937763}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95ff09852990d9f4294c7fc381663983, type: 3}
+  m_Script: {fileID: 11500000, guid: 30d2c4c56a12141488223c7a377e74ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _storyManager: {fileID: 0}
-  _playStoryName: Maki
-  _storyLine:
-  - SceneName: VictorAndFlose
-    SpreadsheetName: TestStory
-    HeaderRange: TestStory!A2:N2
-    Range: TestStory!A3:N14
-  - SceneName: Maki
-    SpreadsheetName: TestStory
-    HeaderRange: TestStory!A2:N2
-    Range: TestStory!A15:N89
+  _mixer: {fileID: 24100000, guid: 9e6af2f64a3ac4b408b8683a242e7176, type: 2}
+  _gameSettings: {fileID: 11400000, guid: 65fe5f0636ecc4b42ae026c332982d1d, type: 2}

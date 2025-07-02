@@ -190,7 +190,8 @@ namespace iCON.System
         /// </summary>
         private void HandleChangeBGM(OrderData data)
         {
-            // TODO
+            AudioManager.Instance.CrossFadeBGM(data.FilePath, 10).Forget(); // TODO: フェード処理について考える
+            _currentSequence.AppendInterval(data.Duration);
         }
 
         /// <summary>
@@ -257,7 +258,7 @@ namespace iCON.System
         /// </summary>
         private void HandleChangeBackground(OrderData data)
         {
-            _view.SetBackground(data.FilePath);
+            _view.SetBackground(data.FilePath).Forget();
             _currentSequence.AppendInterval(data.Duration);
         }
 
@@ -290,6 +291,9 @@ namespace iCON.System
             _view.ResetTalk();
             _view.ResetDescription();
 
+            // BGMのAudioSourceの音量をゼロに変更
+            AudioManager.Instance.SetBGMVolume(0);
+            
             _endAction?.Invoke();
         }
 
