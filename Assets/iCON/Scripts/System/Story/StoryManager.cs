@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
+using iCON.Constants;
 using iCON.UI;
 using iCON.Utility;
 using UnityEngine;
@@ -17,6 +19,12 @@ namespace iCON.System
         /// </summary>
         [SerializeField] 
         private StoryView _view;
+        
+        /// <summary>
+        /// オーバーレイ
+        /// </summary>
+        [SerializeField]
+        private StoryOverlayController _overlayController;
         
         /// <summary>
         /// ストーリーの現在位置の保持と移動を行う
@@ -38,6 +46,16 @@ namespace iCON.System
         /// NOTE: 初期化後すぐにストーリーが進まないようにDefaultはtrueにしておく
         /// </summary>
         private bool _isStoryComplete = true;
+        
+        /// <summary>
+        /// オート再生開始予約済み
+        /// </summary>
+        private bool _isAutoPlayReserved = false;
+        
+        /// <summary>
+        /// CancellationTokenSource
+        /// </summary>
+        private CancellationTokenSource _cts = new CancellationTokenSource();
 
         /// <summary>
         /// 現在のストーリー位置
@@ -58,6 +76,7 @@ namespace iCON.System
         {
             await base.OnAwake();
             InitializeComponents();
+            _overlayController.Setup(_view, CancelAutoPlay, () => MoveToNextScene()); // TODO: 第三引数のスキップボタンのMethodについては仮
         }
         
         /// <summary>
@@ -65,6 +84,19 @@ namespace iCON.System
         /// </summary>
         private void Update()
         {
+            if (_overlayController.IsImmerseMode)
+            {
+                // UI非表示モードの場合ストーリーを進めない
+                return;
+            }
+            
+            if (_overlayController.AutoPlayMode && !_orderExecutor.IsExecuting && !_isAutoPlayReserved)
+            {
+                // フラグを予約済みに切り替える
+                _isAutoPlayReserved = true;
+                AutoPlay().Forget();
+            }
+            
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 ProcessNextOrder();
@@ -77,6 +109,7 @@ namespace iCON.System
         private void OnDestroy()
         {
             _orderExecutor.Dispose();
+            CancelAutoPlay();
         }
         
         #endregion
@@ -121,6 +154,12 @@ namespace iCON.System
         /// </summary>
         private void ProcessNextOrder()
         {
+            if (_isAutoPlayReserved)
+            {
+                // オート再生中に手動でオーダーを進めた場合、オート再生の予約をキャンセルする
+                CancelAutoPlay();
+            }
+            
             if (_orderExecutor.IsExecuting)
             {
                 // オーダーが実行中であれば演出をスキップする
@@ -192,8 +231,49 @@ namespace iCON.System
             }
         }
 
+        /// <summary>
+        /// オート再生
+        /// </summary>
+        private async UniTask AutoPlay()
+        {
+            // 新しいCancellationTokenSourceを作成
+            _cts = new CancellationTokenSource();
+            var token = _cts.Token;
+            
+            try
+            {
+                // 定数で設定しているインターバル分待機してから次のオーダーを実行する
+                await UniTask.Delay(TimeSpan.FromSeconds(StoryConstants.AUTO_PLAY_INTERVAL), cancellationToken: token);
+                
+                // キャンセルされていない場合のみ次のオーダーを実行
+                if (!token.IsCancellationRequested)
+                {
+                    ProcessNextOrder();
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                // オート再生がキャンセルされた
+            }
+            finally
+            {
+                // 予約が実行されたのでフラグを戻す
+                _isAutoPlayReserved = false;
+            }
+        }
+
         #endregion
 
+        /// <summary>
+        /// オート再生を止める処理
+        /// </summary>
+        private void CancelAutoPlay()
+        {
+            // オート再生用のUniTaskをキャンセルする
+            _cts?.Cancel();
+            _cts?.Dispose();
+        }
+        
         /// <summary>
         /// 次のシーンに進む
         /// </summary>
