@@ -19,22 +19,22 @@ namespace iCON.Field.Player
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.A))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.A))
             {
                 _directionType = MoveDirectionType.Left;
             }
 
-            if (Input.GetKeyDown(KeyCode.D))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.D))
             {
                 _directionType = MoveDirectionType.Right;
             }
 
-            if (Input.GetKeyDown(KeyCode.W))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.W))
             {
                 _directionType = MoveDirectionType.Up;
             }
 
-            if (Input.GetKeyDown(KeyCode.S))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.S))
             {
                 _directionType = MoveDirectionType.Down;
             }
