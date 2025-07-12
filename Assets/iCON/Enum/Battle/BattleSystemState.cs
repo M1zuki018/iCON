@@ -1,13 +1,16 @@
+using UnityEngine;
+
 namespace iCON.Enums
 {
     /// <summary>
-    /// Battleシーンのキャンバスの列挙型
+    /// バトルの進行状態の列挙型
     /// </summary>
-    public enum BattleCanvasType
+    public enum BattleSystemState
     {
-        Battle,
+        None,
         FirstSelect,
         TryEscape,
         ActionSelect,
     }
+
 }
