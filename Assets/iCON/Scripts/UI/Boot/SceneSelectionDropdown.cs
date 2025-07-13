@@ -2,25 +2,28 @@ using iCON.Constants;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace iCON.Boot
+namespace iCON.UI
 {
     /// <summary>
-    /// Scene選択用のドロップダウンを管理
+    /// 開始シーンを選択するためのドロップダウンコンポーネント
     /// </summary>
     [RequireComponent(typeof(Dropdown))]
-    public class SceneSelector : MonoBehaviour
+    public class SceneSelectionDropdown : MonoBehaviour
     {
         private int _selectedSceneIndex = SceneConstants.SYSTEM_SCENE_COUNT;
         private Dropdown _dropdown;
         
         /// <summary>
-        /// 選択中の開始シーンのIndex
+        /// 現在選択されているシーンのビルドインデックス
         /// </summary>
         public int SelectedSceneIndex => _selectedSceneIndex;
 
         private void Awake()
         {
             _dropdown = GetComponent<Dropdown>();
+            
+            // ドロップダウンの値変更アクションを登録
+            _dropdown.onValueChanged.RemoveAllListeners();
             _dropdown.onValueChanged.AddListener(ChangeSelectedSceneIndex);
         }
 
