@@ -13,9 +13,13 @@ public class CustomText : Text
     {
         base.Awake();
 
-        if (_wordingKey != string.Empty)
+        if (!string.IsNullOrEmpty(_wordingKey))
         {
-            // TODO: Wordingから定型文をセットする処理
+            string wordingText = WordingMaster.GetText(_wordingKey);
+            if (wordingText != null)
+            {
+                m_Text = wordingText;
+            }
         }
     }
 
