@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using iCON.Battle;
 using iCON.Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace iCON.UI
 {
@@ -15,8 +17,21 @@ namespace iCON.UI
         /// TODO: 管理方法は検討中
         /// </summary>
         [SerializeField]
-        private CharacterIconContents _iconContents;
+        private CharacterIconContents _unitIconPrefab;
         private List<CharacterIconContents> _icons;
+
+        /// <summary>
+        /// エネミーアイコンのPrefab
+        /// </summary>
+        [SerializeField] 
+        private EnemyIconContents _enemyIconPrefab;
+        private List<EnemyIconContents> _enemyIcons;
+         
+        /// <summary>
+        /// ダメージテキストのオブジェクトプールを管理するクラス
+        /// </summary>
+        [SerializeField]
+        private DamageTextPool _damageTextPool;
         
         /// <summary>
         /// 現在表示中のウィンドウを取得する
@@ -34,7 +49,7 @@ namespace iCON.UI
         /// <summary>
         /// キャラクターアイコンを生成する
         /// </summary>
-        public void SetupIcons(IReadOnlyList<BattleUnit> unitData)
+        public void SetupIcons(IReadOnlyList<BattleUnit> unitData, IReadOnlyList<BattleUnit> enemyData)
         {
             // リストを新規作成
             _icons = new List<CharacterIconContents>(unitData.Count);
@@ -42,11 +57,26 @@ namespace iCON.UI
             for (int i = 0; i < unitData.Count; i++)
             {
                 // 自身の子オブジェクトとしてアイコンを生成
-                var icon = Instantiate(_iconContents, transform);
+                var icon = Instantiate(_unitIconPrefab, transform);
+                icon.transform.SetSiblingIndex(2);
                 _icons.Add(icon);
+                icon.Setup(_damageTextPool);
             }
             
             SubscribeToUnitEvents(unitData);
+
+            _enemyIcons = new List<EnemyIconContents>(enemyData.Count);
+            
+            for (int i = 0; i < enemyData.Count; i++)
+            {
+                // 自身の子オブジェクトとしてアイコンを生成
+                var icon = Instantiate(_enemyIconPrefab, transform);
+                icon.transform.SetSiblingIndex(2);
+                _enemyIcons.Add(icon);
+                icon.Setup(_damageTextPool);
+            }
+            
+            SubscribeToEnemyEvents(enemyData);
         }
 
         /// <summary>
@@ -60,18 +90,45 @@ namespace iCON.UI
                 var unit = unitData[i];
                 var index = i; // ローカル変数でキャプチャ
                 
-                unit.OnHpChanged += (currentHp, maxHp) => UpdatePlayerIcon(index, currentHp, maxHp);
-                //unit.OnSpChanged += (newSp) => UpdatePlayerIcon(index);
-                //unit.OnDeath += () => UpdatePlayerIcon(index);
+                unit.OnHpChanged += (currentHp, maxHp, damage) => UpdatePlayer(index, currentHp, maxHp, damage);
+                //unit.OnSpChanged += (newSp) => UpdatePlayer(index);
+                //unit.OnDeath += () => UpdatePlayer(index);
+            }
+        }
+        
+        /// <summary>
+        /// エネミーのHP変動アクションを購読する
+        /// </summary>
+        private void SubscribeToEnemyEvents(IReadOnlyList<BattleUnit> enemyData)
+        {
+            // エネミーのイベント購読
+            for (int i = 0; i < enemyData.Count; i++)
+            {
+                var unit = enemyData[i];
+                var index = i; // ローカル変数でキャプチャ
+                
+                unit.OnHpChanged += (currentHp, maxHp, damage) => UpdateEnemy(index, damage);
             }
         }
 
         /// <summary>
-        /// プレイヤーのHPバーを更新
+        /// ダメージを受けた時のUI更新
         /// </summary>
-        private void UpdatePlayerIcon(int index, int value, int maxValue)
+        private void UpdatePlayer(int index, int value, int maxValue, int damage)
         {
+            // HPバーを更新
             _icons[index].SetHpSlider(value, maxValue);
+            
+            // ダメージ量の表記を行う
+            _icons[index].SetDamageText(damage).Forget();
+        }
+
+        /// <summary>
+        /// 敵がダメージを受けた時のUI更新
+        /// </summary>
+        private void UpdateEnemy(int index, int damage)
+        {
+            _enemyIcons[index].SetDamageText(damage).Forget();
         }
     }
 
