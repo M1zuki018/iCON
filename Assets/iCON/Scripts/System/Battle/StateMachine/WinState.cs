@@ -17,7 +17,7 @@ namespace iCON.Battle
             
             await UniTask.Delay(1000);
             
-            await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame));
+            await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, false, true));
         }
     }
 }

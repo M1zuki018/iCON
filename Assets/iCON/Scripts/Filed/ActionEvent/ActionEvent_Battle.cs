@@ -13,7 +13,7 @@ namespace iCON.Field.System
         protected override void OnPlayerEnter(Collider2D playerCollider)
         {
             base.OnPlayerEnter(playerCollider);
-            ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Battle)).Forget();
+            ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Battle, false, true)).Forget();
         }
     }
 }

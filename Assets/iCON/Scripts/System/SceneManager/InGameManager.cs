@@ -50,7 +50,7 @@ namespace iCON.System
 
             if (UnityEngine.Input.GetKeyDown(KeyCode.F8))
             {
-                await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Title));
+                await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Title, true, true));
             }
         }
         
