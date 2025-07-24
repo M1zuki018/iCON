@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using iCON.Enums;
 using iCON.UI;
+using iCON.Utility;
 using UnityEngine;
 
 namespace iCON.System
@@ -154,10 +155,8 @@ namespace iCON.System
         /// </summary>
         private void HandleStart(OrderData data)
         {
-            Debug.Log("Story started");
-            // フェードイン
+            LogUtility.Verbose("Story started", LogCategory.System);
             _currentSequence.AddTween(data.Sequence, _view.FadeIn(data.Duration));
-            // TODO
         }
 
         /// <summary>
@@ -181,23 +180,22 @@ namespace iCON.System
         /// </summary>
         private void HandleEnd(OrderData data)
         {
-            Debug.Log("Story ended");
+            LogUtility.Verbose("Story ended", LogCategory.System);
             
             // フェードアウト
             _currentSequence.AddTween(data.Sequence, _view.FadeOut(data.Duration));
             
             // 終了時の処理を実行
             _currentSequence.OnKill(HandleReset);
-            // TODO
         }
 
         /// <summary>
         /// ChangeBGM - BGM変更
         /// </summary>
-        private void HandleChangeBGM(OrderData data)
+        private async void HandleChangeBGM(OrderData data)
         {
-            AudioManager.Instance.CrossFadeBGM(data.FilePath, 10).Forget(); // TODO: フェード処理について考える
-            _currentSequence.AppendInterval(data.Duration);
+            var tween = await AudioManager.Instance.CrossFadeBGM(data.FilePath, data.Duration);
+            _currentSequence.AddTween(data.Sequence, tween);
         }
 
         /// <summary>
