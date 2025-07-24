@@ -116,6 +116,9 @@ namespace iCON.System
                 case OrderType.Custom:
                     HandleCustom(data);
                     break;
+                case OrderType.ChangeLighting:
+                    HandleChangeLighting(data);
+                    break;
 
                 #endregion
 
@@ -199,7 +202,7 @@ namespace iCON.System
         /// </summary>
         private void HandleCharacterEntry(OrderData data)
         {
-            _currentSequence.AddTween(data.Sequence,_view.CharacterEntry(data.Position, data.FilePath, data.Duration));
+            _currentSequence.AddTween(data.Sequence,_view.CharacterEntry(data.Position, data.FacialExpressionPath, data.Duration));
         }
 
         /// <summary>
@@ -276,6 +279,14 @@ namespace iCON.System
         private void HandleCustom(OrderData data)
         {
             // TODO
+        }
+        
+        /// <summary>
+        /// ChangeLighting - Global Volume変更処理
+        /// </summary>
+        private void HandleChangeLighting(OrderData data)
+        {
+            _view.ChangeGlobalVolume(data.FilePath);
         }
         
         /// <summary>
