@@ -55,6 +55,6 @@ namespace iCON.System
         public string DisplayName => !string.IsNullOrEmpty(OverrideDisplayName) ? OverrideDisplayName : StoryCharacterMaster.GetCharacter(SpeakerId).DisplayName;
 
         /// <summary>表情差分のパス</summary>
-        public string FacialExpressionPath => StoryCharacterMaster.GetCharacter(SpeakerId).ExpressionPaths[FacialExpressionType];
+        public string FacialExpressionPath => StoryCharacterMaster.GetExpressionPath(SpeakerId, FacialExpressionType);
     }
 }
