@@ -225,11 +225,10 @@ namespace iCON.System
         /// <summary>
         /// ShowSteel - スチル画像表示
         /// </summary>
-        private void HandleShowSteel(OrderData data)
+        private async void HandleShowSteel(OrderData data)
         {
-            // 非同期処理を先に実行してからTweenを取得
-            _view.SetSteel(data.FilePath).Forget();
-            _currentSequence.AppendInterval(data.Duration);
+            var tween = await _view.SetSteel(data.FilePath, data.Duration);
+            _currentSequence.AddTween(data.Sequence, tween);
         }
 
         /// <summary>
@@ -237,8 +236,7 @@ namespace iCON.System
         /// </summary>
         private void HandleHideSteel(OrderData data)
         {
-            _view.HideSteel();
-            _currentSequence.AppendInterval(data.Duration);
+            _view.HideSteel(data.Duration);
         }
 
         /// <summary>
@@ -307,7 +305,7 @@ namespace iCON.System
             // 全キャラクター非表示
             _view.HideAllCharacters();
             // スチル非表示
-            _view.HideSteel();
+            _view.HideSteel(0);
             //ダイアログをリセット
             _view.ResetTalk();
             _view.ResetDescription();
