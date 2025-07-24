@@ -213,7 +213,7 @@ namespace iCON.System
         /// </summary>
         private void HandleCharacterChange(OrderData data)
         {
-            _view.ChangeCharacter(data.Position, data.FacialExpressionPath);
+            _currentSequence.AddTween(data.Sequence, _view.ChangeCharacter(data.Position, data.FacialExpressionPath, data.Duration));
         }
 
         /// <summary>
