@@ -176,33 +176,27 @@ namespace iCON.UI
         /// <summary>
         /// スチルを表示/切り替える
         /// </summary>
-        public async UniTask SetSteel(string fileName)
+        public async UniTask<Tween> SetSteel(string fileName, float duration)
         {
             await _steel.SetImageAsync(fileName);
-    
-            if (!_steel.IsVisible)
-            {
-                _steel.Show();
-            }
-            
-            _steel.FadeIn();
+            return _steel.FadeIn(duration);
         }
         
         /// <summary>
         /// スチルを非表示にする
         /// </summary>
-        public void HideSteel()
+        public Tween HideSteel(float duration)
         {
-            _steel.FadeOut();
+            return _steel.FadeOut(duration);
         }
         
         /// <summary>
         /// 背景を変更する
         /// </summary>
-        public async UniTask SetBackground(string fileName)
+        public async UniTask<Tween> SetBackground(string fileName, float duration)
         {
             await _background.SetImageAsync(fileName);
-            _background.FadeIn();
+            return _background.FadeIn(duration);
         }
 
         /// <summary>
