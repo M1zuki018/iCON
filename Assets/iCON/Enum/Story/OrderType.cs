@@ -11,6 +11,7 @@ namespace iCON.Enums
         End = 3,
         ChangeBGM = 4,
         CharacterEntry = 5,
+        CharacterChange = 16,
         CharacterExit = 6,
         ShowSteel = 7,
         HideSteel = 8,
@@ -22,4 +23,3 @@ namespace iCON.Enums
         Custom = 14,
     }
 }
-
