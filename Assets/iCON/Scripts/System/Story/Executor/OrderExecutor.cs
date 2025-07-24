@@ -89,9 +89,6 @@ namespace iCON.System
                 case OrderType.CharacterEntry:
                     HandleCharacterEntry(data);
                     break;
-                case OrderType.CharacterChange:
-                    HandleCharacterChange(data);
-                    break;
                 case OrderType.CharacterExit:
                     HandleCharacterExit(data);
                     break;
@@ -209,14 +206,6 @@ namespace iCON.System
         }
 
         /// <summary>
-        /// CharacterChange - キャラクター切り替え
-        /// </summary>
-        private void HandleCharacterChange(OrderData data)
-        {
-            _view.ChangeCharacter(data.Position, data.FacialExpressionPath);
-        }
-
-        /// <summary>
         /// CharacterExit - キャラクター退場
         /// </summary>
         private void HandleCharacterExit(OrderData data)
@@ -297,7 +286,6 @@ namespace iCON.System
         /// </summary>
         private void HandleChangeLighting(OrderData data)
         {
-            Debug.Log("Story ended");
             _view.ChangeGlobalVolume(data.FilePath);
         }
         

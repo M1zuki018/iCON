@@ -2,6 +2,8 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using iCON.Enums;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.Rendering;
 
 namespace iCON.UI
 {
@@ -46,6 +48,12 @@ namespace iCON.UI
         /// </summary>
         [SerializeField, HighlightIfNull]
         private CanvasShaker _canvasShaker;
+        
+        /// <summary>
+        /// シーンで使用しているGlobal Volume
+        /// </summary>
+        [SerializeField, HighlightIfNull]
+        private Volume _volume;
         
         /// <summary>
         /// 会話テキストを更新する
@@ -203,6 +211,15 @@ namespace iCON.UI
         public Tween CameraShake(float duration, float strengthLate)
         {
             return _canvasShaker.ExplosionShake(duration, strengthLate);
+        }
+
+        /// <summary>
+        /// Volume変更
+        /// </summary>
+        public async void ChangeGlobalVolume(string volumePath)
+        {
+            var volumeProfile = await Addressables.LoadAssetAsync<VolumeProfile>(volumePath);
+            _volume.sharedProfile = volumeProfile;
         }
     }
    
