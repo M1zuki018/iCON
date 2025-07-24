@@ -236,7 +236,7 @@ namespace iCON.System
         /// </summary>
         private void HandleHideSteel(OrderData data)
         {
-            _view.HideSteel(data.Duration);
+            _currentSequence.AddTween(data.Sequence,_view.HideSteel(data.Duration));
         }
 
         /// <summary>
