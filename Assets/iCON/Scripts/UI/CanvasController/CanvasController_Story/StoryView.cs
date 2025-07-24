@@ -193,10 +193,10 @@ namespace iCON.UI
         /// <summary>
         /// 背景を変更する
         /// </summary>
-        public async UniTask SetBackground(string fileName)
+        public async UniTask<Tween> SetBackground(string fileName, float duration)
         {
             await _background.SetImageAsync(fileName);
-            _background.FadeIn();
+            return _background.FadeIn(duration);
         }
 
         /// <summary>

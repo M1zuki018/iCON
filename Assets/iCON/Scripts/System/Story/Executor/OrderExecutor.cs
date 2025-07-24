@@ -266,10 +266,10 @@ namespace iCON.System
         /// <summary>
         /// ChangeBackground - 背景変更
         /// </summary>
-        private void HandleChangeBackground(OrderData data)
+        private async void HandleChangeBackground(OrderData data)
         {
-            _view.SetBackground(data.FilePath).Forget();
-            _currentSequence.AppendInterval(data.Duration);
+            var tween = await _view.SetBackground(data.FilePath, data.Duration);
+            _currentSequence.AddTween(data.Sequence, tween);
         }
 
         /// <summary>
