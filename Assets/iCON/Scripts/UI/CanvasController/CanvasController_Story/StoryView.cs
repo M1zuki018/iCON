@@ -150,19 +150,19 @@ namespace iCON.UI
         }
 
         /// <summary>
+        /// キャラクターを切り替え
+        /// </summary>
+        public Tween ChangeCharacter(CharacterPositionType position, string fileName, float duration)
+        {
+            return _characters.Change(position, fileName, duration);
+        }
+        
+        /// <summary>
         /// キャラクター退場
         /// </summary>
         public Tween CharacterExit(CharacterPositionType position, float duration)
         {
             return _characters.Exit(position, duration);
-        }
-        
-        /// <summary>
-        /// キャラクターを切り替える
-        /// </summary>
-        public void ChangeCharacter(CharacterPositionType position, string fileName)
-        {
-            _characters.ChangeSprite(position, fileName);
         }
 
         /// <summary>
