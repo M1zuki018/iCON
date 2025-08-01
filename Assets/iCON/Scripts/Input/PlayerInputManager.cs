@@ -1,4 +1,8 @@
 using System.Collections.Generic;
+using CryStar.Attribute;
+using CryStar.Core;
+using CryStar.Utility;
+using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Constants;
 using iCON.Enums;
@@ -12,7 +16,7 @@ namespace iCON.Input
     /// <summary>
     /// PlayerのInputActionを管理するクラス
     /// </summary>
-    public class PlayerInputManager : ViewBase
+    public class PlayerInputManager : CustomBehaviour
     {
         /// <summary>
         /// InputActionAssetの参照

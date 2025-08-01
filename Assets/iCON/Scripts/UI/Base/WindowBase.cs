@@ -1,16 +1,19 @@
+using CryStar.Core;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
 /// 開閉を行うCanvasにつけるクラスが継承すべきベースクラス
 /// </summary>
 [RequireComponent(typeof(CanvasGroup))]
-public class WindowBase : ViewBase
+public class WindowBase : CustomBehaviour
 {
     private CanvasGroup _canvasGroup;
     
-    protected virtual void Awake()
+    public override async UniTask OnAwake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
+        await base.OnAwake();
     }
     
     /// <summary>

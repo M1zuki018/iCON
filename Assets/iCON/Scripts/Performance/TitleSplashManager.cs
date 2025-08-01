@@ -1,4 +1,6 @@
 using System;
+using CryStar.Attribute;
+using CryStar.Core;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -10,7 +12,7 @@ namespace iCON.Performance
     /// <summary>
     /// タイトルスプラッシュの演出を管理するクラス
     /// </summary>
-    public class TitleSplashManager : ViewBase
+    public class TitleSplashManager : CustomBehaviour
     {
         /// <summary>
         ///  タイトルスプラッシュのアニメーション終了

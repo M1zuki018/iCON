@@ -1,3 +1,4 @@
+using CryStar.Core;
 using iCON.System;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ namespace iCON.Field.System
         protected override void OnPlayerEnter(Collider2D playerCollider)
         {
             var storyManager = ServiceLocator.GetLocal<InGameManager>();
-            storyManager.PlayStory(_storyLine.SpreadsheetName, _storyLine.HeaderRange, _storyLine.Range);
+            //storyManager.PlayStory(_storyLine.SpreadsheetName, _storyLine.HeaderRange, _storyLine.Range);
         }
     }
 }

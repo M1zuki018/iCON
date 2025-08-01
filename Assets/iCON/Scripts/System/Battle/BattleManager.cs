@@ -1,6 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using CryStar.Attribute;
+using CryStar.Core;
+using CryStar.Core.Enums;
+using CryStar.Utility;
+using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Enums;
 using iCON.UI;
@@ -74,7 +79,7 @@ namespace iCON.Battle
         private void Awake()
         {
             // サービスロケーターに登録（特にGrobalで使用する必要はないのでLocalで登録する）
-            ServiceLocator.Resister(this, ServiceType.Local);
+            ServiceLocator.Register(this, ServiceType.Local);
             
             // ステートマシンの初期化
             InitializeStates();

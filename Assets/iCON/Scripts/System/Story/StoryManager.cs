@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using CryStar.Core;
+using CryStar.Utility;
+using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Constants;
 using iCON.UI;
@@ -12,7 +15,7 @@ namespace iCON.System
     /// <summary>
     /// ストーリー全体の進行を管理するマネージャー
     /// </summary>
-    public class StoryManager : ViewBase
+    public class StoryManager : CustomBehaviour
     {
         /// <summary>
         /// View

@@ -1,4 +1,8 @@
 using System;
+using CryStar.Attribute;
+using CryStar.Core;
+using CryStar.Utility;
+using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using iCON.Constants;
@@ -16,7 +20,7 @@ namespace iCON.System
     /// <summary>
     /// Audioを管理するManagerクラス
     /// </summary>
-    public class AudioManager : ViewBase
+    public class AudioManager : CustomBehaviour
     {
         /// <summary>
         /// シングルトン

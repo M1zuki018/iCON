@@ -176,11 +176,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a46f3370a39d8e44a83f6a6dbf6d7f51, type: 3}
---- !u!1 &481724442 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7241587270615209574, guid: 8d48e8f7173fe4f45a2b8dbbabace2c1, type: 3}
-  m_PrefabInstance: {fileID: 1196833104}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &673552442
 GameObject:
   m_ObjectHideFlags: 0
@@ -405,6 +400,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1172079534740235444, guid: 8d48e8f7173fe4f45a2b8dbbabace2c1, type: 3}
+      propertyPath: _defaultCanvasIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1589449183755271990, guid: 8d48e8f7173fe4f45a2b8dbbabace2c1, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -533,6 +532,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7241587270615209574, guid: 8d48e8f7173fe4f45a2b8dbbabace2c1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7633246186647970004, guid: 8d48e8f7173fe4f45a2b8dbbabace2c1, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.000016212463
@@ -627,14 +630,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 101238449623391728, guid: b9c22db4f7720384f93c1a61d709d190, type: 3}
-      propertyPath: _debugMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 101238449623391728, guid: b9c22db4f7720384f93c1a61d709d190, type: 3}
-      propertyPath: '_prefabsToInstantiate.Array.data[0]'
-      value: 
-      objectReference: {fileID: 481724442}
     - target: {fileID: 2103566965361464748, guid: b9c22db4f7720384f93c1a61d709d190, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

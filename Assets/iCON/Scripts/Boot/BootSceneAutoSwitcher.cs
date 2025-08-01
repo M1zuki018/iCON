@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using System.IO;
+using CryStar.Utility;
+using CryStar.Utility.Enum;
 using iCON.Constants;
 using iCON.Utility;
 using UnityEngine.SceneManagement;

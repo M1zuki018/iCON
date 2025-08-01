@@ -1,4 +1,7 @@
 using System.Linq;
+using CryStar.Attribute;
+using CryStar.Core;
+using CryStar.Core.Enums;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -7,7 +10,7 @@ namespace iCON.System
     /// <summary>
     /// インゲームのGameManager
     /// </summary>
-    public class InGameManager : ViewBase
+    public class InGameManager : CustomBehaviour
     {
         /// <summary>
         /// ストーリーマネージャー
@@ -31,35 +34,18 @@ namespace iCON.System
         {
             await base.OnStart();
             
-            ServiceLocator.Resister(this, ServiceType.Local);
+            ServiceLocator.Register(this, ServiceType.Local);
             
             // ストーリー再生時以外はゲームオブジェクトを非アクティブにしておく
-            _storyManager.gameObject.SetActive(false);
+            // _storyManager.gameObject.SetActive(false);
         }
 
         private async void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.F7))
-            {
-                var playLine = _storyLine.FirstOrDefault(line => line.SceneName == _playStoryName);
-                if (playLine != null)
-                {
-                    PlayStory(playLine.SpreadsheetName, playLine.HeaderRange, playLine.Range);
-                }
-            }
-
             if (UnityEngine.Input.GetKeyDown(KeyCode.F8))
             {
                 await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Title, true, true));
             }
-        }
-        
-        [MethodButtonInspector]
-        public void PlayStory(string spreadsheetName, string headerRange, string range)
-        {
-            _storyManager.gameObject.SetActive(true);
-            _storyManager.PlayStory(spreadsheetName, headerRange, range, 
-                () => _storyManager.gameObject.SetActive(false)).Forget();
         }
     }
 }

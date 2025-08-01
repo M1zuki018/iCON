@@ -1,3 +1,7 @@
+using CryStar.Attribute;
+using CryStar.Core;
+using CryStar.Utility;
+using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Performance;
 using iCON.Utility;
@@ -8,7 +12,7 @@ namespace iCON.System
     /// <summary>
     /// タイトルシーンのマネージャー
     /// </summary>
-    public class TitleSceneManager : ViewBase
+    public class TitleSceneManager : CustomBehaviour
     {
         /// <summary>
         /// タイトルスプラッシュの演出マネージャー

@@ -1,3 +1,5 @@
+using CryStar.Utility;
+using CryStar.Utility.Enum;
 using iCON.Enums;
 using iCON.UI;
 using iCON.Utility;

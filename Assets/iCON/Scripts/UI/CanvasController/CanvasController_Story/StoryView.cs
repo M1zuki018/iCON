@@ -1,3 +1,4 @@
+using CryStar.Attribute;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using iCON.Enums;

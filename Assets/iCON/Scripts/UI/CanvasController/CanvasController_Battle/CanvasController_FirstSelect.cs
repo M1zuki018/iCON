@@ -1,4 +1,5 @@
 using System;
+using CryStar.Attribute;
 using Cysharp.Threading.Tasks;
 using iCON.Utility;
 using UnityEngine;
@@ -40,7 +41,7 @@ namespace iCON.UI
             _escape.onClick.SafeReplaceListener(() => OnTryEscape?.Invoke());
             return base.OnAwake();
         }
-        
+
         private void OnDestroy()
         {
             _battle.onClick.SafeRemoveAllListeners();

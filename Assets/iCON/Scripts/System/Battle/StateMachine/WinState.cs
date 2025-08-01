@@ -1,3 +1,4 @@
+using CryStar.Core;
 using Cysharp.Threading.Tasks;
 using iCON.Enums;
 using iCON.System;

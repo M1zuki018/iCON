@@ -1,5 +1,38 @@
 {
   "dependencies": {
+    "com.crystar.core": {
+      "version": "https://github.com/M1zuki018/crystar-core.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.cysharp.unitask": "2.3.3",
+        "com.crystar.custom-attributes": "https://github.com/M1zuki018/crystar-custom-attributes.git"
+      },
+      "hash": "dff41c8804846300286878db1300f972607af614"
+    },
+    "com.crystar.custom-attributes": {
+      "version": "https://github.com/M1zuki018/crystar-custom-attributes.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "694c5bc4db353872f0f271643b510b3dda8d5c11"
+    },
+    "com.crystar.editor-tools": {
+      "version": "https://github.com/M1zuki018/crystar-editor-tools.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "1ad5682cbb63febe556c1d158f2b9f8bd944d404"
+    },
+    "com.crystar.network": {
+      "version": "https://github.com/M1zuki018/crystar-network.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.cysharp.unitask": "2.3.3"
+      },
+      "hash": "469688eaf7fe7f930baa80ece4e0447feade1aaa"
+    },
     "com.cysharp.unitask": {
       "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.3.3",
       "depth": 0,
@@ -385,7 +418,7 @@
       "url": "https://unitynuget-registry.openupm.com"
     },
     "org.nuget.observablecollections": {
-      "version": "3.3.3",
+      "version": "3.3.4",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -395,11 +428,11 @@
       "url": "https://unitynuget-registry.openupm.com"
     },
     "org.nuget.observablecollections.r3": {
-      "version": "3.3.3",
+      "version": "3.3.4",
       "depth": 0,
       "source": "registry",
       "dependencies": {
-        "org.nuget.observablecollections": "3.3.3",
+        "org.nuget.observablecollections": "3.3.4",
         "org.nuget.r3": "1.0.0"
       },
       "url": "https://unitynuget-registry.openupm.com"
