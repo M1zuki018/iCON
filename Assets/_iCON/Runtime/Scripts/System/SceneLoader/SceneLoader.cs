@@ -99,7 +99,7 @@ namespace iCON.System
                     // 遷移成功時は現在のシーン情報とロード状態を更新する
                     _currentScene = data.TargetScene;
                     _loadingState = LoadingStateType.Completed;
-                    LogUtility.Info($"シーン遷移が完了しました: {data.TargetScene}", LogCategory.System);
+                    LogUtility.Info($"シーン遷移が完了しました: {data.TargetScene} CurrentScene: {_currentScene}", LogCategory.System);
                 }
 
                 return result;
