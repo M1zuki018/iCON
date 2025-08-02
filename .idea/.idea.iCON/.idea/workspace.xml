@@ -6,7 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="e98df84d-2589-499c-b455-344a5dd5de9f" name="変更" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.iCON/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.iCON/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Bootstrap.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Bootstrap.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_CryStar/Runtime/Story/Runtime/Scripts/Constants/KStoryPresentation.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_CryStar/Runtime/Story/Runtime/Scripts/Constants/KStoryPresentation.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_CryStar/Runtime/Story/Runtime/Scripts/Orchestrators/StoryOrchestrator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_CryStar/Runtime/Story/Runtime/Scripts/Orchestrators/StoryOrchestrator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_iCON/Runtime/Prefabs/System/SheetsDataService.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_iCON/Runtime/Prefabs/System/SheetsDataService.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/_iCON/Runtime/Scenes/Bootstrap.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/_iCON/Runtime/Scenes/Bootstrap.unity" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,57 +62,16 @@
     <setting file="file://$PROJECT_DIR$/../Documents/BEAT-KEEPER/Assets/Scripts/Runtime/System/PhaseSystem/BGMManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Documents/BEAT-KEEPER/Assets/Scripts/Runtime/System/PhaseSystem/PhaseManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Documents/BEAT-KEEPER/Library/PackageCache/symphony.framework@e7a1ab85955f/Runtime/System/ServiceLocator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../com.crystar.core/Runtime/Core/Lifecycle/LifecycleController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../com.crystar.core/Runtime/Core/ServiceLocator/ServiceLocator.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/AssetStoreTools/DOTwennUniTaskExtensions.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Editor/CustomUI/CustomButtonEditor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Editor/CustomUI/CustomImageEditor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Editor/CustomUI/CustomUIMenuItems.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Editor/LogUtilitySettingsWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Editor/ProductDataSOEditor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Editor/TextReplacementWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Editor/WordingMasterGeneratorWindow.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Enum/Battle/BattleSystemState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Enum/Battle/CommandType.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Enum/Field/InteractionBehaviorType.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Enum/GameStateType.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Enum/Story/OrderType.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Enum/Story/StoryDaraColumn.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Boot/BootSceneAutoSwitcher.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/CustomUI/CustomButton.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/CustomUI/CustomImage.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/CustomUI/CustomText.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Filed/ActionEvent/ActionEventBase.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Filed/ActionEvent/ActionEvent_Story.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Input/IPlayerInputReceiver.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Input/PlayerInputManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Input/PlayerInputProcessor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Network/MasterDataManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Settings/ProductDataSO.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/BattleData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/Command/BattleCommandEntry.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/Command/BattleCommandResult.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/Command/BattleEffectData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/Command/CommandFactory/BattleCommandFactory.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/Idea/IdeaData.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/StateMachine/BattleStateBase.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/StateMachine/CommandSelectState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/StateMachine/LoseState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Battle/StateMachine/TryEscapeState.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Story/Data/StoryLine.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Story/Data/StoryPosition.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Story/Executor/OrderExecutor.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Story/Executor/StoryOverlayController.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/System/Story/StoryManager.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/UI/CanvasController/CanvasController_Battle/CharacterIconContents.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/UI/CanvasController/CanvasController_Battle/EnemyIconContents.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/UI/CanvasController/CanvasController_Battle/IdeaContents.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/UI/CanvasController/CanvasController_Story/CanvasController_Story.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/UI/CanvasController/CanvasController_Story/UIContents_FadePanel.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/UI/CanvasController/CanvasController_Title/TitleBackground.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Utility/AddressableLoader.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Utility/Field/DirectionUtility.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Utility/Log/LogCategory.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Utility/Log/LogColorSettings.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/iCON/Scripts/Utility/Log/LogLevel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.crystar.core/Runtime/Core/Lifecycle/CustomBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.crystar.core/Runtime/Core/Lifecycle/LifecycleController.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.crystar.core/Runtime/Core/ServiceLocator/ServiceLocator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.crystar.core/Runtime/Utility/Log/LogUtility.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.crystar.editor-tools/Editor/HierarchyHighlighter/HierarchyHighlighterSettings.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.crystar.network/Editor/GoogleApis/SheetsServiceSetupWizard.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.crystar.network/Runtime/GoogleApis/SheetsDataService.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask/Runtime/CompilerServices/StateMachineRunner.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask/Runtime/UniTaskCompletionSource.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.cysharp.unitask/Runtime/UniTaskExtensions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -214,6 +176,8 @@
       <workItem from="1752586268864" duration="247000" />
       <workItem from="1752586525821" duration="2470000" />
       <workItem from="1753329599441" duration="717000" />
+      <workItem from="1754064120770" duration="4790000" />
+      <workItem from="1754089637166" duration="4166000" />
     </task>
     <servers />
   </component>

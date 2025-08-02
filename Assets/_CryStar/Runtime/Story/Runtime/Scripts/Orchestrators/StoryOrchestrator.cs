@@ -77,7 +77,7 @@ namespace CryStar.Story.Orchestrators
             {
                 // 初期化されていなかったらヘッダーの初期化を先に行う
                 await _sceneDataService.InitializeAsync(
-                    KStoryPresentation.SPREAD_SHEET_NAME, 
+                    KStoryPresentation.SERVICE_NAME, 
                     BuildSheetRange(KStoryPresentation.HEADER_RANGE)
                 );
             }
@@ -87,7 +87,7 @@ namespace CryStar.Story.Orchestrators
                 // シーンデータを取得する
                 await _sceneDataService.GetSceneDataAsync(
                     sceneId,
-                    KStoryPresentation.SPREAD_SHEET_NAME,
+                    KStoryPresentation.SERVICE_NAME,
                     BuildSheetRange(sceneData.Range)
                 );
             }

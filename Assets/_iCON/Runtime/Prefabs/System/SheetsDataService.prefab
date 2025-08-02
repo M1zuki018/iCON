@@ -46,9 +46,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _apiSettings: {fileID: 11400000, guid: 74f1d60a11d5f7249b1e36806c65b3e4, type: 2}
   _spreadsheetConfigs:
-  - _name: TestStory
+  - _name: iCON
     _spreadsheetId: 1P2Uq8shFwjMMpR8-frGEYyjXqEl6kBjJVAzBJz5_iZs
-    _description: "\u30B9\u30C8\u30FC\u30EA\u30FC\u518D\u751F\u7528\u306E\u30B9\u30D7\u30EC\u30C3\u30C9\u30B7\u30FC\u30C8"
+    _description: "iCON\u306E\u30E1\u30A4\u30F3\u30B9\u30D7\u30EC\u30C3\u30C9\u30B7\u30FC\u30C8"
   - _name: WordingMaster
     _spreadsheetId: 1ItGwkW6CEC4Xtr9tYC9jwmB9AGCPp-1KrfJ8VwnBXnI
     _description: "\u6587\u8A00\u30AD\u30FC\u3092\u7BA1\u7406\u3059\u308B\u30B9\u30D7\u30EC\u30C3\u30C9\u30B7\u30FC\u30C8"

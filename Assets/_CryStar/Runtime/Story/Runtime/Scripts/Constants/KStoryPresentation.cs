@@ -7,10 +7,12 @@ namespace CryStar.Story.Constants
     /// </summary>
     public static class KStoryPresentation
     {
+        public const string SERVICE_NAME = "iCON";
+        
         /// <summary>
         /// ストーリーのスプレッドシート名 TODO: 仮
         /// </summary>
-        public const string SPREAD_SHEET_NAME = "TestStory";
+        public const string SPREAD_SHEET_NAME = "ストーリーデータ";
         
         /// <summary>
         /// ヘッダーの範囲 TODO: 仮

@@ -949,6 +949,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2481674219279586343, guid: 9e6194a68ba0e2d4c971a68c9c3414f9, type: 3}
+      propertyPath: _volume
+      value: 
+      objectReference: {fileID: 835740965}
     - target: {fileID: 2645920889907406468, guid: 9e6194a68ba0e2d4c971a68c9c3414f9, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1229,6 +1233,10 @@ PrefabInstance:
     - target: {fileID: 4750481651180263137, guid: 978d61a8171e13147a165fffae57bae9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7991292631236175323, guid: 978d61a8171e13147a165fffae57bae9, type: 3}
+      propertyPath: _playStoryId
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7991292631236175323, guid: 978d61a8171e13147a165fffae57bae9, type: 3}
       propertyPath: _storyLine.Range
