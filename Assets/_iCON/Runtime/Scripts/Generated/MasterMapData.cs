@@ -11,7 +11,7 @@ using UnityEditor;
 using CryStar.Field.Data;
 
 /// <summary>
-/// マップデータの定数クラス（安全版）
+/// マップデータの定数クラス
 /// </summary>
 public static class MasterMapData
 {
