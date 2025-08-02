@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using CryStar.Core;
 using UnityEngine;
 
-namespace CryStar.Field
+namespace CryStar.Field.Manager
 {
     /// <summary>
     /// フィールドマップの生成・非表示などを行う
     /// </summary>
-    public class FieldMapService : CustomBehaviour
+    public class MapInstanceManager : CustomBehaviour
     {
         /// <summary>
         /// 既に生成済みのマップの辞書
