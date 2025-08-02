@@ -1,6 +1,5 @@
-using iCON.Enums;
+using CryStar.Field.Enums;
 using UnityEngine;
-using NotImplementedException = System.NotImplementedException;
 
 namespace CryStar.Field.Event
 {
