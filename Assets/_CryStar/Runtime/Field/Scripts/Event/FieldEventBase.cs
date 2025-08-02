@@ -1,14 +1,13 @@
-using iCON.Enums;
+using CryStar.Field.Enums;
 using UnityEngine;
-using NotImplementedException = System.NotImplementedException;
 
-namespace iCON.Field.System
+namespace CryStar.Field.Event
 {
     /// <summary>
-    /// アクションイベントのベースクラス
+    /// フィールドイベントのベースクラス
     /// </summary>
     [RequireComponent(typeof(Collider2D))]
-    public abstract class ActionEventBase : MonoBehaviour
+    public abstract class FieldEventBase : MonoBehaviour
     {
         /// <summary>
         /// インタラクション後の振る舞い

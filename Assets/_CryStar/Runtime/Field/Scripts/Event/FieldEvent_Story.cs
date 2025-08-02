@@ -2,12 +2,12 @@ using CryStar.Core;
 using iCON.System;
 using UnityEngine;
 
-namespace iCON.Field.System
+namespace CryStar.Field.Event
 {
     /// <summary>
-    /// ストーリー再生を行うアクションイベント
+    /// ストーリー再生を行うフィールドイベント
     /// </summary>
-    public class ActionEvent_Story : ActionEventBase
+    public class FieldEvent_Story : FieldEventBase
     {
         [SerializeField] private int _playStoryId;
         

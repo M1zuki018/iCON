@@ -1,7 +1,7 @@
 using System;
 using UnityEngine.InputSystem;
 
-namespace iCON.Field.Player
+namespace CryStar.Field.Player
 {
 
     /// <summary>

@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using iCON.Enums;
 using UnityEngine;
 
-namespace iCON.Field.Player
+namespace CryStar.Field.Player
 {
     /// <summary>
     /// プレイヤーの歩行アニメーションのSpriteを設定するスクリプタブルオブジェクト
     /// </summary>
-    [CreateAssetMenu(fileName = "PlayerAnimationSetting", menuName = "Scriptable Objects/Player Animation Setting")]
+    [CreateAssetMenu(fileName = "PlayerAnimationSetting", menuName = "CryStar/Field/Player Animation Setting")]
     public class PlayerAnimationSetting : ScriptableObject
     {
         [SerializeField] private List<Sprite> _leftSprites = new List<Sprite>();

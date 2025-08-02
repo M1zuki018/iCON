@@ -5,7 +5,7 @@ using iCON.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace iCON.Field.Player
+namespace CryStar.Field.Player
 {
     /// <summary>
     /// プレイヤーの動きを管理するクラス

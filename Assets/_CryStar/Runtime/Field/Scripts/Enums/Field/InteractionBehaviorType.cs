@@ -1,4 +1,4 @@
-namespace iCON.Enums
+namespace CryStar.Field.Enums
 {
     /// <summary>
     /// フィールドインタラクションオブジェクトの振る舞いの列挙型

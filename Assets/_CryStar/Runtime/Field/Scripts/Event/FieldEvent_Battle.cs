@@ -1,15 +1,14 @@
-
 using CryStar.Core;
 using Cysharp.Threading.Tasks;
 using iCON.System;
 using UnityEngine;
 
-namespace iCON.Field.System
+namespace CryStar.Field.Event
 {
     /// <summary>
-    /// バトルを行うアクションイベント
+    /// バトルを行うフィールドイベント
     /// </summary>
-    public class ActionEvent_Battle : ActionEventBase
+    public class FieldEvent_Battle : FieldEventBase
     {
         protected override void OnPlayerEnter(Collider2D playerCollider)
         {
