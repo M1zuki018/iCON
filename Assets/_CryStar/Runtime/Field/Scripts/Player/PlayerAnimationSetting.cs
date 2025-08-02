@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using iCON.Enums;
 using UnityEngine;
 
-namespace iCON.Field.Player
+namespace CryStar.Field.Player
 {
     /// <summary>
     /// プレイヤーの歩行アニメーションのSpriteを設定するスクリプタブルオブジェクト

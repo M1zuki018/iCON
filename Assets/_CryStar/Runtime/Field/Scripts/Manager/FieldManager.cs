@@ -3,7 +3,7 @@ using CryStar.Core;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace CryStar.Field
+namespace CryStar.Field.Manager
 {
     /// <summary>
     /// Field Manager
@@ -14,10 +14,13 @@ namespace CryStar.Field
         /// マップ表示/非表示などの処理を行うクラス
         /// </summary>
         [SerializeField, HighlightIfNull] 
-        private FieldMapService _mapService;
+        private MapInstanceManager _mapInstanceManager;
 
+        // TODO: UI管理もこのクラスから行う
+        
         public override async UniTask OnAwake()
         {
+            // TODO: 仮実装
             ShowMap(1);
             await base.OnAwake();
         }
@@ -27,7 +30,7 @@ namespace CryStar.Field
         /// </summary>
         public void ShowMap(int mapId)
         {
-            _mapService.ShowMap(mapId);
+            _mapInstanceManager.ShowMap(mapId);
         }
     }
 }
