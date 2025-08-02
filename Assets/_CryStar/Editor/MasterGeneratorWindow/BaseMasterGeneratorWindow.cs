@@ -15,7 +15,7 @@ public abstract class BaseMasterGeneratorWindow : EditorWindow
     protected string _className = "Masterxx";
     protected string _outputPath = "Assets/_iCON/Runtime/Scripts/Generated/";
     
-    private void OnGUI()
+    protected void OnGUI()
     {
         GUILayout.Label(GetWindowTitle(), EditorStyles.boldLabel);
         
@@ -25,6 +25,8 @@ public abstract class BaseMasterGeneratorWindow : EditorWindow
         _range = EditorGUILayout.TextField("Range", _range);
         _className = EditorGUILayout.TextField("Class Name", _className);
         _outputPath = EditorGUILayout.TextField("Output Path", _outputPath);
+        
+        UniqueGUI();
         
         EditorGUILayout.Space();
         
@@ -38,6 +40,11 @@ public abstract class BaseMasterGeneratorWindow : EditorWindow
     /// ウィンドウ名
     /// </summary>
     protected abstract string GetWindowTitle();
+
+    /// <summary>
+    /// ウィンドウごとに追加で表示するGUI
+    /// </summary>
+    protected virtual void UniqueGUI(){}
 
     /// <summary>
     /// クラス生成用のメソッド
