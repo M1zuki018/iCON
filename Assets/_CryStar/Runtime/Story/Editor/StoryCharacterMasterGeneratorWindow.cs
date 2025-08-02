@@ -31,7 +31,8 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
         sb.AppendLine();
         sb.AppendLine("using System.Collections.Generic;");
         sb.AppendLine("using UnityEngine;");
-        sb.AppendLine("using iCON.System;");
+        sb.AppendLine("using CryStar.Story.Data;");
+        sb.AppendLine("using CryStar.Story.Enums;");
         sb.AppendLine();
         sb.AppendLine("/// <summary>");
         sb.AppendLine("/// ストーリーキャラクター情報の定数クラス");
