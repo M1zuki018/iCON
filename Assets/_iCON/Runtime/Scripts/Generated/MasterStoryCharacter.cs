@@ -1,12 +1,13 @@
 // ============================================================================
 // AUTO GENERATED - DO NOT MODIFY
-// Generated at: 2025-08-02 09:14:46
+// Generated at: 2025-08-03 13:30:30
 // ============================================================================
 
 using System.Collections.Generic;
+using UnityEngine;
 using CryStar.Story.Data;
 using CryStar.Story.Enums;
-using UnityEngine;
+using iCON.Story.Data;
 
 /// <summary>
 /// ストーリーキャラクター情報の定数クラス
@@ -18,20 +19,37 @@ public static class MasterStoryCharacter
         {
             1, new CharacterData(1, "六ノ花雪紀乃", "ロクノハナ ユキノ", 
                 new Color(1.000f, 0.000f, 0.000f, 1.000f), 0.06f,
+                    new CharacterBasePathData(
+                        "Assets/AssetStoreTools/Images/Characters/Yukino/Yukino_hair.png",
+                        "Assets/AssetStoreTools/Images/Characters/Yukino/Yukino_body.png",
+                        "Assets/AssetStoreTools/Images/Characters/Yukino/Yukino_rearHair.png"
+                ),
                 new Dictionary<FacialExpressionType, string>
                 {
+                    { FacialExpressionType.Default, "Assets/AssetStoreTools/Images/Characters/Yukino/Yukino_face_default.png" },
                 })
         },
         {
             2, new CharacterData(2, "蘇芳縢", "スオウ カガル", 
                 new Color(0.208f, 0.110f, 0.459f, 1.000f), 0.06f,
+                    new CharacterBasePathData(
+                        "Assets/AssetStoreTools/Images/Characters/Kagaru/Kagaru_hair.png",
+                        "Assets/AssetStoreTools/Images/Characters/Kagaru/Kagaru_body.png",
+                        null
+                ),
                 new Dictionary<FacialExpressionType, string>
                 {
+                    { FacialExpressionType.Default, "Assets/AssetStoreTools/Images/Characters/Kagaru/Kagaru_face_default.png" },
                 })
         },
         {
             3, new CharacterData(3, "鳥嶋 霖", "トリシマ リン", 
                 new Color(0.110f, 0.271f, 0.529f, 1.000f), 0.07f,
+                    new CharacterBasePathData(
+                        null,
+                        null,
+                        null
+                ),
                 new Dictionary<FacialExpressionType, string>
                 {
                 })
@@ -39,6 +57,11 @@ public static class MasterStoryCharacter
         {
             4, new CharacterData(4, "穂鷹 時優", "ホダカ シユウ", 
                 new Color(0.651f, 0.302f, 0.475f, 1.000f), 0.05f,
+                    new CharacterBasePathData(
+                        null,
+                        null,
+                        null
+                ),
                 new Dictionary<FacialExpressionType, string>
                 {
                 })
@@ -46,6 +69,11 @@ public static class MasterStoryCharacter
         {
             5, new CharacterData(5, "鳥嶋 俊也", "トリシマ シュンヤ", 
                 new Color(0.271f, 0.506f, 0.557f, 1.000f), 0.06f,
+                    new CharacterBasePathData(
+                        null,
+                        null,
+                        null
+                ),
                 new Dictionary<FacialExpressionType, string>
                 {
                 })
@@ -53,6 +81,11 @@ public static class MasterStoryCharacter
         {
             6, new CharacterData(6, "ヴェルデ母", "???", 
                 new Color(1.000f, 0.427f, 0.004f, 1.000f), 0.07f,
+                    new CharacterBasePathData(
+                        null,
+                        null,
+                        null
+                ),
                 new Dictionary<FacialExpressionType, string>
                 {
                 })
