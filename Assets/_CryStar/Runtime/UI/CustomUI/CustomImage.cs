@@ -77,6 +77,9 @@ public class CustomImage : Image
             if (this != null)
             {
                 sprite = loadedSprite;
+                
+                // スプライト設定が確実に完了するまで1フレーム待つ
+                await UniTask.WaitUntil(() => sprite == loadedSprite);
             }
         }
         catch (Exception e)
