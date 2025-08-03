@@ -18,7 +18,7 @@ namespace CryStar.Story.Execution
 
         public override async UniTask<Tween> HandleOrderAsync(OrderData data, StoryView view, CancellationToken cancellationToken)
         {
-            return await view.ChangeCharacter(data.Position, data.FacialExpressionPath, data.Duration);
+            return await view.ChangeCharacter(data.Position, data.BasePathData, data.FacialExpressionPath, data.Duration);
         }
     }
 }

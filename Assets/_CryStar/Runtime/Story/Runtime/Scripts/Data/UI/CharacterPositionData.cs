@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using CryStar.Story.Enums;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
+using iCON.Story.UI;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -21,17 +23,17 @@ namespace CryStar.Story.Data
         private CharacterPositionType _positionType;
 
         /// <summary>
-        /// メインとなるCustomImage
+        /// メインとなるオブジェクト
         /// </summary>
         [Header("Image Objects"), SerializeField] 
-        private CustomImage _primaryImage;
+        private UIContents_Character _primaryImage;
 
         #region Private Fields
 
         /// <summary>
-        /// プライマリイメージのコピー。フェードでのキャラクター入れ替え用
+        /// プライマリオブジェクトのコピー。フェードでのキャラクター入れ替え用
         /// </summary>
-        private CustomImage _secondaryImage;
+        private UIContents_Character _secondaryImage;
         
         /// <summary>
         /// 現在アクティブなImageのインデックス（0: PrimaryImage, 1: SecondaryImage）
@@ -65,12 +67,12 @@ namespace CryStar.Story.Data
         /// <summary>
         /// プライマリImageオブジェクト
         /// </summary>
-        public CustomImage PrimaryImage => _primaryImage;
+        public UIContents_Character PrimaryImage => _primaryImage;
         
         /// <summary>
         /// セカンダリImageオブジェクト
         /// </summary>
-        public CustomImage SecondaryImage => _secondaryImage;
+        public UIContents_Character SecondaryImage => _secondaryImage;
         
         /// <summary>
         /// 初期拡大率
@@ -82,11 +84,6 @@ namespace CryStar.Story.Data
         /// </summary>
         public Vector3 InitialPosition => _initialPosition;
         
-        /// <summary>
-        /// アセットが既に設定されているかを確認
-        /// </summary>
-        public bool HasAsset => PrimaryImage != null && PrimaryImage.HasAsset;
-
         /// <summary>
         /// 初期化が完了しているか
         /// </summary>
@@ -125,22 +122,22 @@ namespace CryStar.Story.Data
             }
             
             // Transformのリセット
-            ResetImageTransform(_primaryImage);
-            ResetImageTransform(_secondaryImage);
+            ResetImageTransform(_primaryImage.gameObject);
+            ResetImageTransform(_secondaryImage.gameObject);
         }
 
         /// <summary>
-        /// 現在アクティブなImageを取得
+        /// 現在アクティブなCanvasGroupを取得
         /// </summary>
-        public CustomImage GetActiveImage()
+        public UIContents_Character GetActiveImage()
         {
             return _activeImageIndex == 0 ? _primaryImage : _secondaryImage;
         }
         
         /// <summary>
-        /// 現在非アクティブなImageを取得
+        /// 現在非アクティブなCanvasGroupを取得
         /// </summary>
-        public CustomImage GetInactiveImage()
+        public UIContents_Character GetInactiveImage()
         {
             return _activeImageIndex == 0 ? _secondaryImage : _primaryImage;
         }
@@ -214,7 +211,7 @@ namespace CryStar.Story.Data
                 }
                 
                 // セカンダリイメージは初期状態では非表示
-                _secondaryImage.Hide();
+                _secondaryImage.SetVisibility(false);
             }
             else
             {
@@ -229,7 +226,7 @@ namespace CryStar.Story.Data
         /// <summary>
         /// 指定されたImageのTransformを初期状態にリセット
         /// </summary>
-        private void ResetImageTransform(CustomImage image)
+        private void ResetImageTransform(GameObject image)
         {
             if (image == null)
             {
