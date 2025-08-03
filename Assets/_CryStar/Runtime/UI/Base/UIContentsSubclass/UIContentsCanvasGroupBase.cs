@@ -38,6 +38,11 @@ namespace CryStar.UI
         /// </summary>
         public override void SetVisibility(bool isVisible)
         {
+            if (_canvasGroup == null)
+            {
+                _canvasGroup = GetComponent<CanvasGroup>();
+            }
+            
             _canvasGroup.alpha = isVisible ? 1 : 0;
             _canvasGroup.interactable = isVisible;
             _canvasGroup.blocksRaycasts = isVisible;
