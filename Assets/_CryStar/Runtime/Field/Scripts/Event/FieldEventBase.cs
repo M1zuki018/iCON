@@ -1,3 +1,4 @@
+using System;
 using CryStar.Field.Enums;
 using UnityEngine;
 
@@ -9,6 +10,12 @@ namespace CryStar.Field.Event
     [RequireComponent(typeof(Collider2D))]
     public abstract class FieldEventBase : MonoBehaviour
     {
+        /// <summary>
+        /// イベントID
+        /// </summary>
+        [SerializeField]
+        private int _eventID;
+        
         /// <summary>
         /// インタラクション後の振る舞い
         /// </summary>
@@ -73,6 +80,16 @@ namespace CryStar.Field.Event
                     Destroy(gameObject);
                     break;
             }
+        }
+
+        protected bool Equals(FieldEventBase other)
+        {
+            return base.Equals(other) && _eventID == other._eventID && _behaviorType == other._behaviorType && Equals(_col, other._col);
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(base.GetHashCode(), _eventID, (int)_behaviorType, _col);
         }
     }
 }
