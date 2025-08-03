@@ -11,6 +11,8 @@ using UnityEngine;
 /// </summary>
 public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
 {
+    private const int MIN_COLUMN = 8;
+    
     [MenuItem("Tools/Story Character Master Generator")]
     public static void ShowWindow()
     {
@@ -33,6 +35,7 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
         sb.AppendLine("using UnityEngine;");
         sb.AppendLine("using CryStar.Story.Data;");
         sb.AppendLine("using CryStar.Story.Enums;");
+        sb.AppendLine("using iCON.Story.Data;");
         sb.AppendLine();
         sb.AppendLine("/// <summary>");
         sb.AppendLine("/// ストーリーキャラクター情報の定数クラス");
@@ -67,6 +70,45 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
                 sb.AppendLine($"                Color.white, {textSpeed:F2}f,");
             }
             
+            sb.AppendLine("                    new CharacterBasePathData(");
+
+            for (int i = 0; i < 3; i++)
+            {
+                var columnIndex = i + 5;
+                string path = null;
+    
+                // 配列の境界チェック
+                if (row.Count > columnIndex)
+                {
+                    path = row[columnIndex].ToString();
+                }
+
+                if (i != 2)
+                {
+                    // パスが空ならnull、そうでなければパスを書き込む
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        sb.AppendLine($"                        \"{path}\",");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"                        null,");
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        sb.AppendLine($"                        \"{path}\"");
+                    }
+                    else
+                    {
+                        sb.AppendLine($"                        null");
+                    }
+                }
+            }
+            sb.AppendLine("                ),");
+            
             sb.AppendLine($"                new Dictionary<FacialExpressionType, string>");
             sb.AppendLine($"                {{");
             
@@ -77,7 +119,7 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
             
             for (int i = 0; i < expressionTypes.Length; i++)
             {
-                var columnIndex = i + 5;
+                var columnIndex = i + MIN_COLUMN;
                 if (row.Count > columnIndex && !string.IsNullOrEmpty(row[columnIndex].ToString()))
                 {
                     sb.AppendLine($"                    {{ FacialExpressionType.{expressionTypes[i]}, \"{row[columnIndex]}\" }},");
