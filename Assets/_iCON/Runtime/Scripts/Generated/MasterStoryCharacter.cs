@@ -1,6 +1,6 @@
 // ============================================================================
 // AUTO GENERATED - DO NOT MODIFY
-// Generated at: 2025-08-03 13:30:30
+// Generated at: 2025-08-03 16:44:17
 // ============================================================================
 
 using System.Collections.Generic;
@@ -27,6 +27,8 @@ public static class MasterStoryCharacter
                 new Dictionary<FacialExpressionType, string>
                 {
                     { FacialExpressionType.Default, "Assets/AssetStoreTools/Images/Characters/Yukino/Yukino_face_default.png" },
+                    { FacialExpressionType.Nervous, "Assets/AssetStoreTools/Images/Characters/Yukino/Yukino_face_nervous.png" },
+                    { FacialExpressionType.Panicked, "Assets/AssetStoreTools/Images/Characters/Yukino/Yukino_face_panicked.png" },
                 })
         },
         {
@@ -40,6 +42,8 @@ public static class MasterStoryCharacter
                 new Dictionary<FacialExpressionType, string>
                 {
                     { FacialExpressionType.Default, "Assets/AssetStoreTools/Images/Characters/Kagaru/Kagaru_face_default.png" },
+                    { FacialExpressionType.Surprised, "Assets/AssetStoreTools/Images/Characters/Kagaru/Kagaru_face_surprised.png" },
+                    { FacialExpressionType.Panicked, "Assets/AssetStoreTools/Images/Characters/Kagaru/Kagaru_face_panicked.png" },
                 })
         },
         {
@@ -111,6 +115,15 @@ public static class MasterStoryCharacter
                 return kvp.Value;
         }
         return null;
+    }
+
+    /// <summary>
+    /// キャラクターの立ち絵ベース素材のパスを取得
+    /// </summary>
+    public static CharacterBasePathData GetCharacterBasePath(int characterId)
+    {
+        var character = GetCharacter(characterId);
+        return character.BasePathData;
     }
 
     /// <summary>

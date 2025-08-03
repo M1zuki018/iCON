@@ -23,8 +23,8 @@ namespace CryStar.Story.Enums
         /// <summary>照れ</summary>
         Blush,
         
-        /// <summary>恥ずかしい</summary>
-        Embarrassed,
+        /// <summary>慌てる</summary>
+        Panicked,
         
         /// <summary>満面の笑み</summary>
         Beaming,
