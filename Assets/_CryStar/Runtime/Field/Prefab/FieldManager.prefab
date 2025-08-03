@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38c746d40425f0e46a705bf4a8462477, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mapService: {fileID: 2573386593717280682}
+  _mapInstanceManager: {fileID: 2573386593717280682}
 --- !u!114 &2573386593717280682
 MonoBehaviour:
   m_ObjectHideFlags: 0
