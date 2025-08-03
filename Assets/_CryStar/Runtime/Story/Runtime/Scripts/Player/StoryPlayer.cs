@@ -105,6 +105,9 @@ namespace CryStar.Story.Player
 
             // ストーリー開始
             _stateMachine.StartStory();
+            
+            // 自動で1つめのオーダーを読み込み
+            ProcessNextOrder();
         }
 
         #region Private Methods
