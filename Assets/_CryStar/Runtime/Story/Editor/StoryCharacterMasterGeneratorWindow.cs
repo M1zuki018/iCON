@@ -158,6 +158,16 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
         sb.AppendLine();
         
         sb.AppendLine("    /// <summary>");
+        sb.AppendLine("    /// キャラクターの立ち絵ベース素材のパスを取得");
+        sb.AppendLine("    /// </summary>");
+        sb.AppendLine("    public static CharacterBasePathData GetCharacterBasePath(int characterId)");
+        sb.AppendLine("    {");
+        sb.AppendLine("        var character = GetCharacter(characterId);");
+        sb.AppendLine("        return character.BasePathData;");
+        sb.AppendLine("    }");
+        sb.AppendLine();
+        
+        sb.AppendLine("    /// <summary>");
         sb.AppendLine("    /// キャラクターの表情パスを取得");
         sb.AppendLine("    /// </summary>");
         sb.AppendLine("    public static string GetExpressionPath(int characterId, FacialExpressionType expression)");
