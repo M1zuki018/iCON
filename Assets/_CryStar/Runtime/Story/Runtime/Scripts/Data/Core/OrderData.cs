@@ -1,4 +1,5 @@
 using CryStar.Story.Enums;
+using iCON.Story.Data;
 
 namespace CryStar.Story.Data
 {
@@ -111,6 +112,11 @@ namespace CryStar.Story.Data
         /// </summary>
         public string DisplayName => HasOverrideDisplayName ? _overrideDisplayName : MasterStoryCharacter.GetCharacter(_speakerId)?.DisplayName ?? string.Empty;
 
+        /// <summary>
+        /// 立ち絵のベース素材のパス
+        /// </summary>
+        public CharacterBasePathData BasePathData => MasterStoryCharacter.GetCharacterBasePath(_speakerId);
+        
         /// <summary>
         /// 表情差分のパス
         /// </summary>
