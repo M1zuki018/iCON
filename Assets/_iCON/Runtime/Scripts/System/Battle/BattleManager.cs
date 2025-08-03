@@ -9,7 +9,6 @@ using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Enums;
 using iCON.UI;
-using iCON.Utility;
 using UnityEngine;
 
 namespace iCON.Battle

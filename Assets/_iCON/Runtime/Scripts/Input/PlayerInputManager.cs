@@ -6,7 +6,6 @@ using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Constants;
 using iCON.Enums;
-using iCON.System;
 using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -36,20 +35,28 @@ namespace iCON.Input
         /// <summary>
         /// Awake
         /// </summary>
-        public override UniTask OnAwake()
+        public override async UniTask OnAwake()
         {
+            await base.OnAwake();
+            
             // ActionMapの初期化
             InitializeActionMaps();
             
-            // ステートに合わせて入力制限をかけたり解除したりする処理
-            GameManagerServiceLocator.Instance.CurrentGameStateProp
-                .Subscribe(SwitchInputContext)
-                .AddTo(_disposables);
-
             // 入力アクションに各メソッドを登録
             RegisterInputActions();
+
+            var gameManager = GameManagerServiceLocator.Instance;
+
+            if (gameManager == null)
+            {
+                LogUtility.Fatal($"ゲームマネージャーが見つかりませんでした。ステートに合わせた入力制限ができません", LogCategory.Gameplay, this);
+                return;
+            }
             
-            return base.OnAwake();
+            // ステートに合わせて入力制限をかけたり解除したりする処理
+            gameManager.CurrentGameStateProp
+                .Subscribe(SwitchInputContext)
+                .AddTo(_disposables);
         }
 
         /// <summary>
@@ -68,6 +75,12 @@ namespace iCON.Input
         /// </summary>
         private void InitializeActionMaps()
         {
+            if (_actionAsset == null)
+            {
+                LogUtility.Fatal($"アクションアセットが設定されていません", LogCategory.Gameplay, this);
+                return;
+            }
+            
             _contextMaps[GameStateType.Field] = _actionAsset.FindActionMap("Field");
             _contextMaps[GameStateType.Title] = _actionAsset.FindActionMap("UI");
             _contextMaps[GameStateType.Story] = _actionAsset.FindActionMap("UI");

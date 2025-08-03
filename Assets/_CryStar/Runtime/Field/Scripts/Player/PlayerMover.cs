@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using iCON.Enums;
 using iCON.UI;
 using iCON.Utility;

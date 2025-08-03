@@ -17,13 +17,14 @@ public class GameManager : CustomBehaviour, IGameManager
     /// </summary>
     public ReadOnlyReactiveProperty<GameStateType> CurrentGameStateProp => _currentGameState;
 
-    public override UniTask OnAwake()
+    public override async UniTask OnAwake()
     {
+        await base.OnAwake();
+        
         // 既に別のインスタンスが存在する場合、このオブジェクトを破棄
         if (GameManagerServiceLocator.IsInitialized() && GameManagerServiceLocator.Instance != this)
         {
             Destroy(gameObject);
-            return base.OnAwake();
         }
         
         // サービスロケーターに自身を登録
@@ -42,8 +43,6 @@ public class GameManager : CustomBehaviour, IGameManager
         //         }
         //     })
         //     .AddTo(this);
-        
-        return base.OnAwake();
     }
     
     private void OnDestroy()
