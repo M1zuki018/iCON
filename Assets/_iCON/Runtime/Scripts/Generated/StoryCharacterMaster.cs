@@ -16,14 +16,6 @@ public static class StoryCharacterMaster
 {
     private static readonly Dictionary<int, CharacterData> _characterData = new Dictionary<int, CharacterData>
     {
-        {
-            0, new CharacterData(0, "黒華琴葉", "琴葉", 
-                new Color(0.545f, 0.000f, 0.000f, 1.000f), 0.06f,
-                new Dictionary<FacialExpressionType, string>
-                {
-                    { FacialExpressionType.Default, "Assets/AssetStoreTools/Images/Characters/kotoha/kotoha_Default.png" },
-                })
-        },
     };
 
     /// <summary>
