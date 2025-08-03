@@ -131,11 +131,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3474607623859444959, guid: b41388db0eaeb6540a406b5f9c6250bf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 3474607623859444959, guid: b41388db0eaeb6540a406b5f9c6250bf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -35.6
+      value: 3.7
       objectReference: {fileID: 0}
     - target: {fileID: 3474607623859444959, guid: b41388db0eaeb6540a406b5f9c6250bf, type: 3}
       propertyPath: m_LocalPosition.z
@@ -169,6 +169,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4222205437735456145, guid: b41388db0eaeb6540a406b5f9c6250bf, type: 3}
+      propertyPath: _eventID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222205437735456145, guid: b41388db0eaeb6540a406b5f9c6250bf, type: 3}
+      propertyPath: _playStoryId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4402359612101370174, guid: b41388db0eaeb6540a406b5f9c6250bf, type: 3}
       propertyPath: m_Name
       value: ActionEvent_Story
@@ -193,11 +201,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 72783444916117582, guid: bb7f000895ead1c48aa9d099a6f7a642, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -70.3
+      value: -65.2
       objectReference: {fileID: 0}
     - target: {fileID: 72783444916117582, guid: bb7f000895ead1c48aa9d099a6f7a642, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -33.6
+      value: -5.8999996
       objectReference: {fileID: 0}
     - target: {fileID: 72783444916117582, guid: bb7f000895ead1c48aa9d099a6f7a642, type: 3}
       propertyPath: m_LocalPosition.z
@@ -234,6 +242,10 @@ PrefabInstance:
     - target: {fileID: 2548224902999918037, guid: bb7f000895ead1c48aa9d099a6f7a642, type: 3}
       propertyPath: m_Name
       value: ActionEvent_Battle
+      objectReference: {fileID: 0}
+    - target: {fileID: 3460836212411914540, guid: bb7f000895ead1c48aa9d099a6f7a642, type: 3}
+      propertyPath: _eventID
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
