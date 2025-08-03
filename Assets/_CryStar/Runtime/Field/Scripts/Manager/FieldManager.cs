@@ -1,5 +1,6 @@
 using CryStar.Attribute;
 using CryStar.Core;
+using CryStar.Core.Enums;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -20,16 +21,28 @@ namespace CryStar.Field.Manager
         
         public override async UniTask OnAwake()
         {
+            ServiceLocator.Register(this, ServiceType.Local);
+            
             // TODO: 仮実装
-            ShowMap(1);
+            ShowMapAndDisable(1);
             await base.OnAwake();
         }
         
         /// <summary>
-        /// 指定したマップを表示状態にする
+        /// 現在表示中のマップを非表示にしたあと指定したマップを表示状態にする
         /// </summary>
-        public void ShowMap(int mapId)
+        public void ShowMapAndDisable(int mapId)
         {
+            _mapInstanceManager.DisableMap(_mapInstanceManager.CurrentMapId);
+            _mapInstanceManager.ShowMap(mapId);
+        }
+
+        /// <summary>
+        /// 現在表示中のマップのインスタンスを削除したあと指定したマップを表示状態にする
+        /// </summary>
+        public void ShowMapAndRemove(int mapId)
+        {
+            _mapInstanceManager.RemoveMap(_mapInstanceManager.CurrentMapId);
             _mapInstanceManager.ShowMap(mapId);
         }
     }
