@@ -1,6 +1,6 @@
 // ============================================================================
 // AUTO GENERATED - DO NOT MODIFY
-// Generated at: 2025-08-02 09:22:03
+// Generated at: 2025-08-03 10:33:32
 // ============================================================================
 
 using System.Collections.Generic;
@@ -17,7 +17,7 @@ public static class MasterStoryScene
     {
         {
             1, new StorySceneData(1, "朝～キャスト用オフィス", 1, 1, 1, 
-                "A3:O218", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
+                "A3:O36", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
             )
         },
         {
