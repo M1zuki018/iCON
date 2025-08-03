@@ -26,6 +26,7 @@ namespace CryStar.Story.Enums
         PlaySE = 18,
         StopBGM = 19,
         HideDialog = 20,
+        ChangeMap = 21,
         
         Custom = 99,
     }
