@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CryStar.Story.Enums;
+using iCON.Story.Data;
 using UnityEngine;
 
 namespace CryStar.Story.Data
@@ -16,6 +17,7 @@ namespace CryStar.Story.Data
         private string _displayName;
         private Color _characterColor;
         private float _textSpeed;
+        private CharacterBasePathData _basePathData;
         private Dictionary<FacialExpressionType, string> _expressionPaths;
         
         #endregion
@@ -46,6 +48,11 @@ namespace CryStar.Story.Data
         public float TextSpeed => _textSpeed;
         
         /// <summary>
+        /// 立ち絵のベース素材のファイルパス
+        /// </summary>
+        public CharacterBasePathData BasePathData => _basePathData;
+        
+        /// <summary>
         /// 表情差分とファイルパスのkvp
         /// </summary>
         public Dictionary<FacialExpressionType, string> ExpressionPaths => _expressionPaths;
@@ -54,13 +61,14 @@ namespace CryStar.Story.Data
         /// コンストラクタ
         /// </summary>
         public CharacterData(int id, string fullName, string displayName, Color characterColor, 
-            float textSpeed, Dictionary<FacialExpressionType, string> expressionPaths)
+            float textSpeed, CharacterBasePathData basePathData, Dictionary<FacialExpressionType, string> expressionPaths)
         {
             _id = id;
             _fullName = fullName;
             _displayName = displayName;
             _characterColor = characterColor;
             _textSpeed = textSpeed;
+            _basePathData = basePathData;
             _expressionPaths = expressionPaths;
         }
         
