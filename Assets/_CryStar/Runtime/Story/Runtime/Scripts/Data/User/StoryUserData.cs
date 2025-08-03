@@ -1,11 +1,16 @@
 using System.Collections.Generic;
+using CryStar.Data;
 
 /// <summary>
 /// ストーリーのユーザーデータ
 /// </summary>
-public class StoryUserData
+public class StoryUserData : BaseUserData
 {
     private static Dictionary<StorySaveData, bool> _storySaveData = new Dictionary<StorySaveData, bool>();
+
+    public StoryUserData(int userId) : base(userId)
+    {
+    }
 
     /// <summary>
     /// クリアしたか
