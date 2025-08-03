@@ -45,6 +45,10 @@ namespace CryStar.Story.Execution
             // BGMのフェードアウト
             AudioManager.Instance.FadeOutBGM(data.Duration).Forget();
             
+            HandleReset(view);
+            return null;
+            
+            // iCONでは終了時のフェードアウトは行わない
             // View全体を非表示
             var tween = view.FadeOut(data.Duration);
             tween.OnComplete(() => HandleReset(view));
