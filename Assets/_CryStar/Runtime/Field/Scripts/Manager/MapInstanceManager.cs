@@ -13,6 +13,16 @@ namespace CryStar.Field.Manager
         /// 既に生成済みのマップの辞書
         /// </summary>
         private Dictionary<int, GameObject> _instantiatedMaps = new Dictionary<int, GameObject>();
+        
+        /// <summary>
+        /// 現在のマップ
+        /// </summary>
+        private int _currentMapId = 0;
+        
+        /// <summary>
+        /// 現在のマップ
+        /// </summary>
+        public int CurrentMapId => _currentMapId;
 
         #region Life cycle
 
@@ -31,6 +41,14 @@ namespace CryStar.Field.Manager
         /// </summary>
         public void ShowMap(int mapId)
         {
+            if (_currentMapId == mapId)
+            {
+                // マップ移動が無ければ早期return
+                return;
+            }
+            
+            _currentMapId = mapId;
+            
             if (_instantiatedMaps.ContainsKey(mapId))
             {
                 // 既に生成済みであればアクティブ状態にする
