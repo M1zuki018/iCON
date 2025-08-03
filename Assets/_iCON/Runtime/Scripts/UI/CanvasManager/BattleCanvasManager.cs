@@ -3,7 +3,6 @@ using Cysharp.Threading.Tasks;
 using iCON.Battle;
 using iCON.Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace iCON.UI
 {

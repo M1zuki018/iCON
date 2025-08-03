@@ -1,6 +1,4 @@
 using Cysharp.Threading.Tasks;
-using iCON.Battle;
-using UnityEngine;
 
 namespace iCON.Battle
 {

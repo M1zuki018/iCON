@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
-using iCON.Utility;
-using UnityEngine;
 
 namespace iCON.Battle
 {
