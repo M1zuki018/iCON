@@ -7,6 +7,7 @@ using CryStar.Story.Data;
 using CryStar.Story.Enums;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using iCON.Story.Data;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Rendering;
@@ -180,17 +181,17 @@ namespace CryStar.Story.UI
         /// <summary>
         /// キャラクター登場
         /// </summary>
-        public async UniTask<Tween> CharacterEntry(CharacterPositionType position, string fileName, float duration)
+        public async UniTask<Tween> CharacterEntry(CharacterPositionType position, CharacterBasePathData basePathData, string fileName, float duration)
         {
-            return await _characters.Entry(position, fileName, duration);
+            return await _characters.Entry(position, basePathData, fileName, duration);
         }
 
         /// <summary>
         /// キャラクターを切り替え
         /// </summary>
-        public async UniTask<Tween> ChangeCharacter(CharacterPositionType position, string fileName, float duration)
+        public async UniTask<Tween> ChangeCharacter(CharacterPositionType position, CharacterBasePathData basePathData, string fileName, float duration)
         {
-            return await _characters.Change(position, fileName, duration);
+            return await _characters.Change(position, basePathData, fileName, duration);
         }
         
         /// <summary>

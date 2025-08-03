@@ -5,6 +5,7 @@ using CryStar.Story.Enums;
 using CryStar.UI;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using iCON.Story.Data;
 using UnityEngine;
 
 namespace CryStar.Story.UI
@@ -12,7 +13,7 @@ namespace CryStar.Story.UI
     /// <summary>
     /// UIContents ストーリーのキャラクター画像管理
     /// </summary>
-    public class UIContents_StoryCharacters : UIContentsBase, ICharacterController
+    public class UIContents_StoryCharacters : UIContentsBase
     {
         /// <summary>
         /// 各立ち位置のキャラクター表示データ配列
@@ -39,7 +40,7 @@ namespace CryStar.Story.UI
         /// <summary>
         /// 登場
         /// </summary>
-        public async UniTask<Tween> Entry(CharacterPositionType position, string fileName, float duration)
+        public async UniTask<Tween> Entry(CharacterPositionType position, CharacterBasePathData basePathData, string fileName, float duration)
         {
             // 指定された立ち位置の配置データを取得する
             var positionData = GetCharacterPosition(position);
@@ -51,15 +52,18 @@ namespace CryStar.Story.UI
             // アクティブなImageに画像を設定
             var activeImage = positionData.GetActiveImage();
             
-            await activeImage.ChangeSpriteAsync(fileName);
+            await UniTask.WhenAll(
+                activeImage.SetBaseImage(basePathData.Rear, basePathData.Body, basePathData.Hair),
+                activeImage.SetFaceImage(fileName)
+            );
             
-            return activeImage.DOFade(1, duration);
+            return activeImage.FadeIn(duration);
         }
         
         /// <summary>
         /// キャラクター画像の差し替え
         /// </summary>
-        public async UniTask<Tween> Change(CharacterPositionType position, string fileName, float duration)
+        public async UniTask<Tween> Change(CharacterPositionType position, CharacterBasePathData basePathData, string fileName, float duration)
         {
             // 指定された立ち位置の配置データを取得する
             var positionData = GetCharacterPosition(position);
@@ -71,7 +75,7 @@ namespace CryStar.Story.UI
             if (!IsCharacterVisible(position))
             {
                 // まだ画像が表示されていなければ通常の登場処理Tweenを実行する
-                return await Entry(position, fileName, duration);
+                return await Entry(position, basePathData, fileName, duration);
             }
 
             // クロスフェード処理
@@ -79,18 +83,21 @@ namespace CryStar.Story.UI
             var nextImage = positionData.GetInactiveImage();
             
             // 次のImageに新しい画像を設定
-            await nextImage.ChangeSpriteAsync(fileName);
+            await UniTask.WhenAll(
+                nextImage.SetBaseImage(basePathData.Rear, basePathData.Body, basePathData.Hair),
+                nextImage.SetFaceImage(fileName)
+            );
             
             var sequence = DOTween.Sequence();
             
             // 現在のImageをフェードアウト、次のImageをフェードイン
-            sequence.Join(currentImage.DOFade(0, duration));
-            sequence.Join(nextImage.DOFade(1, duration));
+            sequence.Join(currentImage.FadeOut(duration));
+            sequence.Join(nextImage.FadeIn(duration));
             
             // 完了時にアクティブImageを切り替え、古いImageを非表示にする
             sequence.OnComplete(() =>
             {
-                currentImage.Hide();
+                currentImage.SetVisibility(false);
                 positionData.SwitchActiveImage();
             });
 
@@ -111,14 +118,14 @@ namespace CryStar.Story.UI
             
             // 念のため両方のImageを同時にフェードアウト
             var sequence = DOTween.Sequence()
-                .Append(positionData.PrimaryImage.DOFade(0, duration))
-                .Join(positionData.SecondaryImage.DOFade(0, duration));
+                .Append(positionData.PrimaryImage.FadeOut(duration))
+                .Join(positionData.SecondaryImage.FadeOut(duration));
 
             // フェードアウト完了後に両方を非表示にする
             sequence.OnComplete(() =>
             {
-                positionData.PrimaryImage?.Hide();
-                positionData.SecondaryImage?.Hide();
+                positionData.PrimaryImage.SetVisibility(false);
+                positionData.SecondaryImage.SetVisibility(false);
                 positionData.ResetActiveImageIndex();
             });
 
@@ -132,8 +139,8 @@ namespace CryStar.Story.UI
         {
             foreach (var positionData in _characterPositions)
             {
-                positionData.PrimaryImage?.Hide();
-                positionData.SecondaryImage?.Hide();
+                positionData.PrimaryImage.SetVisibility(false);
+                positionData.SecondaryImage.SetVisibility(false);
                 positionData.ResetActiveImageIndex();
             }
         }
