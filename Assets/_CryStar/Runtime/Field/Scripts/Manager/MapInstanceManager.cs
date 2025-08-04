@@ -88,6 +88,15 @@ namespace CryStar.Field.Manager
         }
 
         /// <summary>
+        /// マップのInstanceを削除してから新しいマップを生成
+        /// </summary>
+        public void RemoveAndShowMap(int newMapId)
+        {
+            RemoveMap(_currentMapId);
+            ShowMap(newMapId);
+        }
+
+        /// <summary>
         /// 全てのマップインスタンスを削除する
         /// </summary>
         public void DestoryAllMap()
