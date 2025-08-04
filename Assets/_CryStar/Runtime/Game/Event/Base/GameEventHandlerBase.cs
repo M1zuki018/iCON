@@ -1,3 +1,4 @@
+using CryStar.Game.Data;
 using CryStar.Game.Enums;
 using CryStar.Story.Factory;
 using Cysharp.Threading.Tasks;
