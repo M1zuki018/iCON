@@ -8,7 +8,7 @@ using UnityEngine;
 namespace CryStar.Field.Editor
 {
     /// <summary>
-    /// MapDataMasterの辞書を生成するウィンドウ（安全版）
+    /// MapDataMasterの辞書を生成するウィンドウ
     /// </summary>
     public class SafeMapDataMasterGeneratorWindow : BaseMasterGeneratorWindow
     {
@@ -29,11 +29,6 @@ namespace CryStar.Field.Editor
             EditorGUILayout.Space();
 
             _prefabOutputPath = EditorGUILayout.TextField("Prefab Output Path", _prefabOutputPath);
-            
-            EditorGUILayout.HelpBox(
-                "この実装では、staticクラスでGameObject参照を保持せず、\n" +
-                "都度AssetDatabaseから読み込む安全な方式を使用します。", 
-                MessageType.Info);
         }
 
         protected override string GetWindowTitle() => "Safe Map Data Master Generator";
@@ -42,7 +37,6 @@ namespace CryStar.Field.Editor
         {
             var sb = new StringBuilder();
 
-            // クラス定義の開始
             sb.AppendLine("// ============================================================================");
             sb.AppendLine("// AUTO GENERATED - DO NOT MODIFY");
             sb.AppendLine($"// Generated at: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
@@ -279,9 +273,9 @@ namespace CryStar.Field.Editor
                 }
 
                 GameObject emptyObject = new GameObject($"Map_{prefabName}Prefab");
-
-                // 必要に応じて基本コンポーネントを追加
-                // emptyObject.AddComponent<Transform>(); // Transformは自動で追加される
+                
+                // TODO: 必要に合わせてプレハブの初期状態をここで設定する
+                // SpriteRendererのオブジェクトをつけるなど。マップ生成Editorを作るタイミングで検討
 
                 GameObject prefabAsset = PrefabUtility.SaveAsPrefabAsset(emptyObject, fullPath);
                 DestroyImmediate(emptyObject);
