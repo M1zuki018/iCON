@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using CryStar.Core;
 using UnityEngine;
 
-namespace CryStar.Field.Manager
+namespace CryStar.Field.Map
 {
     /// <summary>
     /// フィールドマップの生成・非表示などを行う
@@ -85,6 +85,15 @@ namespace CryStar.Field.Manager
                 }
                 _instantiatedMaps.Remove(mapId);
             }
+        }
+
+        /// <summary>
+        /// マップのInstanceを削除してから新しいマップを生成
+        /// </summary>
+        public void RemoveAndShowMap(int newMapId)
+        {
+            RemoveMap(_currentMapId);
+            ShowMap(newMapId);
         }
 
         /// <summary>

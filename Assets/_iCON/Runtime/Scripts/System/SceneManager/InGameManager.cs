@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
-using CryStar.Field.Manager;
+using CryStar.Field.Map;
+using CryStar.Field.UI;
 using CryStar.Story.Orchestrators;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
@@ -20,27 +21,26 @@ namespace iCON.System
     public class InGameManager : CustomBehaviour
     {
         /// <summary>
+        /// イベント終了アクション
+        /// </summary>
+        private event Action<int> _onEventEnd;
+        
+        /// <summary>
         /// ストーリーオーケストレーター
         /// </summary>
         [SerializeField, HighlightIfNull]
         private StoryOrchestrator _storyOrchestrator;
-
-        /// <summary>
-        /// フィールドマネージャー
-        /// </summary>
-        [SerializeField, HighlightIfNull]
-        private FieldManager _fieldManager;
         
         /// <summary>
-        /// CanvasController
+        /// Field View
         /// </summary>
-        [SerializeField, HighlightIfNull]
-        private CanvasController_InGame _canvasController;
+        [SerializeField]
+        private FieldView _fieldView;
         
         /// <summary>
-        /// イベント終了アクション
+        /// マップ管理クラス
         /// </summary>
-        private event Action<int> _onEventEnd;
+        private MapInstanceManager _mapInstanceManager;
         
         /// <summary>
         /// 現在のイベントのindex
@@ -55,7 +55,8 @@ namespace iCON.System
             
             // ストーリー再生時以外はゲームオブジェクトを非アクティブにしておく
             _storyOrchestrator.gameObject.SetActive(false);
-            
+
+            _mapInstanceManager = ServiceLocator.GetLocal<MapInstanceManager>();
             _currentEventIndex.Subscribe(x => PlayEvent(x).Forget());
             _onEventEnd += EndEvent;
         }
@@ -101,7 +102,7 @@ namespace iCON.System
         /// </summary>
         public async UniTask ShowObjective(string message)
         {
-            await _fieldManager.ShowObjectiveTewt(message);
+            await _fieldView.ShowObjectiveText(message);
         }
         
         // TODO: 動くものは作ったのであとで設計の手直しを行う
@@ -136,7 +137,7 @@ namespace iCON.System
                 case 2:
                     break;
                 case 5:
-                    _fieldManager.ShowMapAndDisable(3);
+                    _mapInstanceManager.RemoveAndShowMap(3);
                     _currentEventIndex.Value = 7;
                     break;
                 case 6:

@@ -1,5 +1,5 @@
 using CryStar.Core;
-using CryStar.Field.Manager;
+using CryStar.Field.Map;
 using CryStar.Story.Attributes;
 using CryStar.Story.Data;
 using CryStar.Story.Enums;
@@ -17,7 +17,7 @@ namespace CryStar.Story.Execution
         /// <summary>
         /// フィールドの管理クラス
         /// </summary>
-        private FieldManager _mapInstanceManager = ServiceLocator.GetLocal<FieldManager>();
+        private MapInstanceManager _mapInstanceManager = ServiceLocator.GetLocal<MapInstanceManager>();
         
         public override OrderType SupportedOrderType => OrderType.ChangeMap;
 
@@ -26,11 +26,11 @@ namespace CryStar.Story.Execution
             if (_mapInstanceManager == null)
             {
                 // FieldManagerがnullの場合、もう一度サービスロケーターから取得を試す
-                _mapInstanceManager = ServiceLocator.GetLocal<FieldManager>();
+                _mapInstanceManager = ServiceLocator.GetLocal<MapInstanceManager>();
             }
             
             // マップを移動する
-            _mapInstanceManager.ShowMapAndRemove((int)data.OverrideTextSpeed);
+            _mapInstanceManager.RemoveAndShowMap((int)data.OverrideTextSpeed);
             return null;
         }
     }
