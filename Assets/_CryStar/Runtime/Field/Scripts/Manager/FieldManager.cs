@@ -1,6 +1,7 @@
 using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Field.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -17,7 +18,11 @@ namespace CryStar.Field.Manager
         [SerializeField, HighlightIfNull] 
         private MapInstanceManager _mapInstanceManager;
 
-        // TODO: UI管理もこのクラスから行う
+        /// <summary>
+        /// View
+        /// </summary>
+        [SerializeField, HighlightIfNull]
+        private FieldView _view;
         
         public override async UniTask OnAwake()
         {
@@ -44,6 +49,14 @@ namespace CryStar.Field.Manager
         {
             _mapInstanceManager.RemoveMap(_mapInstanceManager.CurrentMapId);
             _mapInstanceManager.ShowMap(mapId);
+        }
+        
+        /// <summary>
+        /// 目標UIを表示する
+        /// </summary>
+        public async UniTask ShowObjectiveTewt(string message)
+        {
+            await _view.ShowObjectiveText(message);
         }
     }
 }
