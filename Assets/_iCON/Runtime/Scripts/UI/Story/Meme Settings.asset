@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65216df8ebada2348b55f0c6f5b67dc4, type: 3}
   m_Name: Meme Settings
   m_EditorClassIdentifier: 
-  beatInterval: 0.5
-  rearHeight: 2
-  bodyHeight: -5
-  faceHeight: -10
-  hairHeight: -6
-  animationDuration: 0.5
-  easeType: 9
+  _beatInterval: 0.5
+  _rearHeight: 2
+  _bodyHeight: -5
+  _faceHeight: -10
+  _hairHeight: -7
+  _animationDuration: 0.5
+  _easeType: 6

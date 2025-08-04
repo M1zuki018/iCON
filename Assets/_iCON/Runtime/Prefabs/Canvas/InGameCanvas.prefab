@@ -1372,19 +1372,19 @@ PrefabInstance:
     - target: {fileID: 1010422569074836678, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
       propertyPath: _characterPositions.Array.data[0]._primaryImage
       value: 
-      objectReference: {fileID: 6088128138336222357}
+      objectReference: {fileID: 4589579788627695914}
     - target: {fileID: 1010422569074836678, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
       propertyPath: _characterPositions.Array.data[1]._primaryImage
       value: 
-      objectReference: {fileID: 1639304875488468603}
+      objectReference: {fileID: 93257638708811963}
     - target: {fileID: 1010422569074836678, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
       propertyPath: _characterPositions.Array.data[2]._primaryImage
       value: 
-      objectReference: {fileID: 8521345187468655152}
+      objectReference: {fileID: 4604343719433886440}
     - target: {fileID: 1010422569074836678, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
       propertyPath: _characterPositions.Array.data[3]._primaryImage
       value: 
-      objectReference: {fileID: 4023944433894115926}
+      objectReference: {fileID: 1671525784206717125}
     - target: {fileID: 1477504123214714526, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
       propertyPath: m_FontData.m_Font
       value: 
@@ -1628,15 +1628,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2019219173176361768, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6088128138336222357}
+    - targetCorrespondingSourceObject: {fileID: 2019219173176361768, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4589579788627695914}
     - targetCorrespondingSourceObject: {fileID: 5285597918317534843, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1639304875488468603}
+    - targetCorrespondingSourceObject: {fileID: 5285597918317534843, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 93257638708811963}
     - targetCorrespondingSourceObject: {fileID: 1003333268384398078, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8521345187468655152}
+    - targetCorrespondingSourceObject: {fileID: 1003333268384398078, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4604343719433886440}
     - targetCorrespondingSourceObject: {fileID: 5914796240678760880, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4023944433894115926}
+    - targetCorrespondingSourceObject: {fileID: 5914796240678760880, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1671525784206717125}
   m_SourcePrefab: {fileID: 100100000, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
 --- !u!114 &783740288820301993 stripped
 MonoBehaviour:
@@ -1671,6 +1683,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1671525784206717125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076323302679114173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 003378cd973b4d245bf5e4f58531473a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rearImage: {fileID: 4124594817576998277}
+  _bodyImage: {fileID: 3474401608176071337}
+  _faceImage: {fileID: 4867393860486411398}
+  _hairImage: {fileID: 3490416374524474246}
 --- !u!224 &1315808808458094459 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5672561509153720182, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
@@ -1693,6 +1721,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &93257638708811963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558380496001212022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 003378cd973b4d245bf5e4f58531473a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rearImage: {fileID: 1036096906576708525}
+  _bodyImage: {fileID: 1533570515612970514}
+  _faceImage: {fileID: 212872004673907164}
+  _hairImage: {fileID: 8987801791811324256}
 --- !u!114 &2320229620072204510 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8991807239890045139, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
@@ -1721,6 +1765,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &4589579788627695914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4683735518046126885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 003378cd973b4d245bf5e4f58531473a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rearImage: {fileID: 1714649724321522019}
+  _bodyImage: {fileID: 4275082982029168770}
+  _faceImage: {fileID: 8987338142597961541}
+  _hairImage: {fileID: 8750407875438456500}
 --- !u!1 &5843072839828306675 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1003333268384398078, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
@@ -1738,6 +1798,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &4604343719433886440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5843072839828306675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 003378cd973b4d245bf5e4f58531473a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rearImage: {fileID: 2260484393245684613}
+  _bodyImage: {fileID: 3874297264465916712}
+  _faceImage: {fileID: 1968689477682602998}
+  _hairImage: {fileID: 5136837395692295697}
 --- !u!224 &6167082344438923724 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 679952521079112129, guid: ad883ec367aab28458fc4a45fa44ee8b, type: 3}
