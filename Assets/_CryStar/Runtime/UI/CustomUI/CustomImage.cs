@@ -15,6 +15,7 @@ public class CustomImage : Image
     private AsyncOperationHandle<Sprite> _loadHandle;
     private bool _isLoading = false;
 
+    public string AssetName => _assetName;
     public bool HasAsset => sprite != null; 
     
     protected override void Awake()
@@ -45,9 +46,28 @@ public class CustomImage : Image
 
     /// <summary>
     /// スプライトを非同期で読み込む
+    /// NOTE: nullが渡された場合は早期returnします
     /// </summary>
     public async UniTask ChangeSpriteAsync(string filePath)
     {
+        _assetName = filePath;
+        await LoadSpriteAsync();
+    }
+
+    /// <summary>
+    /// スプライトを非同期で読み込む
+    /// NOTE: nullが渡された場合はスプライトはnullに設定して非表示にします
+    /// </summary>
+    public async UniTask CanBeNullChangeSpriteAsync(string filePath)
+    {
+        if (filePath == null || string.IsNullOrEmpty(filePath))
+        {
+            sprite = null;
+            _assetName = "";
+            enabled = false;
+            return;
+        }
+        
         _assetName = filePath;
         await LoadSpriteAsync();
     }
@@ -77,6 +97,12 @@ public class CustomImage : Image
             if (this != null)
             {
                 sprite = loadedSprite;
+
+                if (!enabled)
+                {
+                    // 非表示になっていたら表示する
+                    enabled = true;
+                }
                 
                 // スプライト設定が確実に完了するまで1フレーム待つ
                 await UniTask.WaitUntil(() => sprite == loadedSprite);
