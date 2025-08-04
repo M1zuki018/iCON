@@ -17,7 +17,7 @@ public static class MasterStoryScene
     {
         {
             1, new StorySceneData(1, "朝～キャスト用オフィス", 1, 1, 1, 
-                "A3:O36", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
+                "A3:O63", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
             )
         },
         {
