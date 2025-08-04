@@ -9,6 +9,11 @@ public class WindowBase : CustomBehaviour
 {
     private CanvasGroup _canvasGroup;
     
+    /// <summary>
+    /// 表示されているか
+    /// </summary>
+    protected bool IsVisible => _canvasGroup.alpha > 0;
+    
     protected virtual void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
