@@ -1,6 +1,6 @@
 // ============================================================================
 // AUTO GENERATED - DO NOT MODIFY
-// Generated at: 2025-08-03 10:33:32
+// Generated at: 2025-08-04 16:52:55
 // ============================================================================
 
 using System.Collections.Generic;
@@ -21,13 +21,33 @@ public static class MasterStoryScene
             )
         },
         {
-            2, new StorySceneData(2, "お昼休憩", 1, 1, 2, 
-                "A220:O298", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), 1
+            2, new StorySceneData(2, "探索はじめ", 1, 1, 2, 
+                "A66:O68", 1.0f, new Vector3(0.0f, 0.0f, 1.0f), null
             )
         },
         {
-            3, new StorySceneData(3, "警察陣登場", 1, 1, 3, 
-                "A300:O359", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), 2
+            3, new StorySceneData(3, "かがるエリア会話1", 1, 1, 3, 
+                "A71:O73", 1.0f, new Vector3(0.0f, 0.0f, 2.0f), null
+            )
+        },
+        {
+            4, new StorySceneData(4, "かがるエリア会話２", 1, 1, 4, 
+                "A71:O73", 1.0f, new Vector3(0.0f, 0.0f, 3.0f), null
+            )
+        },
+        {
+            5, new StorySceneData(5, "衣装スタッフ会話", 1, 1, 5, 
+                "A76:O82", 1.0f, new Vector3(0.0f, 0.0f, 4.0f), null
+            )
+        },
+        {
+            6, new StorySceneData(6, "お昼休憩", 1, 1, 6, 
+                "A91:O96", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
+            )
+        },
+        {
+            7, new StorySceneData(7, "警察陣登場", 1, 1, 7, 
+                "A102:O104", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
             )
         },
     };
