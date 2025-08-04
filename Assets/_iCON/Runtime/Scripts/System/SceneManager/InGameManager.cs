@@ -101,7 +101,7 @@ namespace iCON.System
         /// </summary>
         public async UniTask ShowObjective(string message)
         {
-            await _canvasController.ShowObjectiveText(message);
+            await _fieldManager.ShowObjectiveTewt(message);
         }
         
         // TODO: 動くものは作ったのであとで設計の手直しを行う
