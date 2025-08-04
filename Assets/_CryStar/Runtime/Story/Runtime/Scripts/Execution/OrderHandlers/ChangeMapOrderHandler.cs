@@ -1,5 +1,5 @@
 using CryStar.Core;
-using CryStar.Field.Manager;
+using CryStar.Field.Map;
 using CryStar.Story.Attributes;
 using CryStar.Story.Data;
 using CryStar.Story.Enums;

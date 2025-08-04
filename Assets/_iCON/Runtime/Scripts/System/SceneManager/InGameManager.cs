@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
-using CryStar.Field.Manager;
+using CryStar.Field.Map;
 using CryStar.Field.UI;
 using CryStar.Story.Orchestrators;
 using CryStar.Utility;
