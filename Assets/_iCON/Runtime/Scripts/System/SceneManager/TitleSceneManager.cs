@@ -4,6 +4,7 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Performance;
+using iCON.UI;
 using UnityEngine;
 
 namespace iCON.System
@@ -18,25 +19,56 @@ namespace iCON.System
         /// </summary>
         [SerializeField, HighlightIfNull]
         private TitleSplashManager _titleSplashManager;
+
+        /// <summary>
+        /// CanvasController
+        /// </summary>
+        [SerializeField]
+        private CanvasController_Title _canvasController;
+        
+        /// <summary>
+        /// Title用BGMのパス
+        /// </summary>
+        [SerializeField] 
+        private string _bgmPath;
+
+        /// <summary>
+        /// BGMのフェードアウト
+        /// </summary>
+        [SerializeField]
+        private float _bgmFadeDuration = 2f;
+
+        /// <summary>
+        /// タイトルスプラッシュ完了済み
+        /// </summary>
+        private bool _isSplashCompleted;
+
+        #region Life cycle
         
         /// <summary>
         /// Start
         /// </summary>
         public override UniTask OnStart()
         {
-            if (_titleSplashManager == null)
+            if (ValidateComponents())
             {
-                LogUtility.Error("TitleSplashManagerがアサインされていません", LogCategory.System);
+                // コンポーネントの検証を行う
                 return base.OnStart();
             }
             
+            // スタートボタン押下処理を追加
+            _canvasController.OnStartButtonClicked += OnStartButtonClicked;
+            
+            // タイトルスプラッシュのゲームオブジェクトを確実にアクティブにしておく
             _titleSplashManager.gameObject.SetActive(true);
+            _titleSplashManager.SetupEndAction(OnSplashCompleted);
             
             // タイトルスプラッシュの演出を開始
             _titleSplashManager.Play();
+            
             return base.OnStart();
         }
-        
+
         /// <summary>
         /// Update
         /// </summary>
@@ -46,6 +78,77 @@ namespace iCON.System
             {
                 _titleSplashManager.Skip();
             }
+        }
+
+        private void OnDestroy()
+        {
+            if (_canvasController != null)
+            {
+                _canvasController.OnStartButtonClicked -= OnStartButtonClicked;
+            }
+        }
+        
+        #endregion
+
+        /// <summary>
+        /// スプラッシュ演出完了時の処理
+        /// </summary>
+        private void OnSplashCompleted() => PlayTitleBGMAsync().Forget();
+
+        /// <summary>
+        /// スタートボタンクリック時の処理
+        /// </summary>
+        private void OnStartButtonClicked() => TransitionToInGameAsync().Forget();
+        
+        /// <summary>
+        /// コンポーネントの検証
+        /// </summary>
+        private bool ValidateComponents()
+        {
+            if (_titleSplashManager == null)
+            {
+                LogUtility.Error("TitleSplashManagerがアサインされていません", LogCategory.System);
+                return true;
+            }
+
+            if (_canvasController == null)
+            {
+                LogUtility.Error("Canvas Controllerがアサインされていません", LogCategory.System);
+                return true;
+            }
+
+            return false;
+        }
+        
+        /// <summary>
+        /// TitleBGMを再生する
+        /// </summary>
+        private async UniTask PlayTitleBGMAsync()
+        {
+            if (_isSplashCompleted)
+            {
+                // 既にスプラッシュを終えてBGMを流していたら以降の処理は行わない
+                return;
+            }
+            
+            if (_bgmPath == null || string.IsNullOrEmpty(_bgmPath))
+            {
+                return;
+            }
+            
+            // 二度処理が行われないようにフラグを立てる
+            _isSplashCompleted = true;
+            await AudioManager.Instance.PlayBGMWithFadeIn(_bgmPath, _bgmFadeDuration);
+        }
+
+        /// <summary>
+        /// インゲームシーンへ遷移する
+        /// </summary>
+        private async UniTask TransitionToInGameAsync()
+        {
+            // BGMのフェードアウト後にシーン遷移
+            await AudioManager.Instance.FadeOutBGM(_bgmFadeDuration);
+            await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, true));
         }
     }
 }
