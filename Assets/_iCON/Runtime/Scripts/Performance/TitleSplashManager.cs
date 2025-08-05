@@ -17,7 +17,7 @@ namespace iCON.Performance
         /// <summary>
         ///  タイトルスプラッシュのアニメーション終了
         /// </summary>
-        public event Action OnFinishedTitleSplash;
+        private event Action _onFinishedTitleSplash;
 
         /// <summary>
         /// 注意書きが表示された状態で選択ボタンが押されるのを待機している状態
@@ -83,9 +83,18 @@ namespace iCON.Performance
         private void OnDestroy()
         {
             _sequence?.Kill();
+            _onFinishedTitleSplash = null;
         }
 
         #endregion
+
+        /// <summary>
+        /// 終了時の処理を登録する
+        /// </summary>
+        public void SetupEndAction(Action onFinished)
+        {
+            _onFinishedTitleSplash = onFinished;
+        }
         
         /// <summary>
         /// 演出を開始する
@@ -209,7 +218,7 @@ namespace iCON.Performance
         /// </summary>
         private void FinishedAnimation()
         {
-            OnFinishedTitleSplash?.Invoke();
+            _onFinishedTitleSplash?.Invoke();
             gameObject.SetActive(false);
         }
 
