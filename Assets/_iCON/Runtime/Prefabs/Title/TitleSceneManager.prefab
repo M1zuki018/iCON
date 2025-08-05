@@ -45,3 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _titleSplashManager: {fileID: 0}
+  _canvasController: {fileID: 0}
+  _bgmPath: Assets/AssetStoreTools/Sounds/BGM/ElectricHighway.mp3
+  _bgmFadeDuration: 2
