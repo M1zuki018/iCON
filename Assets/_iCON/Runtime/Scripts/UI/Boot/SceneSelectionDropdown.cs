@@ -2,7 +2,7 @@ using iCON.Constants;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace iCON.UI
+namespace iCON.Boot.UI
 {
     /// <summary>
     /// 開始シーンを選択するためのドロップダウンコンポーネント

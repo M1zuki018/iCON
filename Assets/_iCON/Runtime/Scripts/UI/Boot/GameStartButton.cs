@@ -5,7 +5,7 @@ using iCON.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace iCON.UI
+namespace iCON.Boot.UI
 {
     /// <summary>
     /// ゲーム開始ボタンのコンポーネント
