@@ -33,6 +33,12 @@ namespace iCON.System
         private string _bgmPath;
 
         /// <summary>
+        /// 決定ボタンSEのパス
+        /// </summary>
+        [SerializeField]
+        private string _selectSe;
+        
+        /// <summary>
         /// BGMのフェードアウト
         /// </summary>
         [SerializeField]
@@ -146,6 +152,8 @@ namespace iCON.System
         /// </summary>
         private async UniTask TransitionToInGameAsync()
         {
+            await AudioManager.Instance.PlaySE(_selectSe, 1);
+            
             // BGMのフェードアウト後にシーン遷移
             await AudioManager.Instance.FadeOutBGM(_bgmFadeDuration);
             await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, true));
