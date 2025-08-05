@@ -1,8 +1,6 @@
 using System;
 using CryStar.Attribute;
-using CryStar.Core;
 using Cysharp.Threading.Tasks;
-using iCON.System;
 using UnityEngine;
 
 namespace iCON.UI
@@ -19,13 +17,20 @@ namespace iCON.UI
         public override UniTask OnAwake()
         {
             // イベント登録
-            if(_startButton != null) _startButton.onClick.AddListener(HandleStartButtonClicked);
+            if (_startButton != null)
+            {
+                _startButton.onClick.AddListener(HandleStartButtonClicked);
+                _startButton.enabled = true;
+            }
             return base.OnAwake();
         }
 
         private void HandleStartButtonClicked()
         {
-            ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, true)).Forget();
+            if (_startButton != null)
+            {
+                _startButton.enabled = false;
+            }
             OnStartButtonClicked?.Invoke();
         }
 
