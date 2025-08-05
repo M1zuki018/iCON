@@ -16,9 +16,9 @@ using CryStar.Field.Data;
 public static class MasterMapData
 {
     // プレハブパス定数
-    private const string OWNROOM_PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/Generated/Map_OwnRoomPrefab.prefab";
-    private const string OFFICEAREA_PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/Generated/Map_OfficeAreaPrefab.prefab";
-    private const string PARKAREA_PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/Generated/Map_ParkAreaPrefab.prefab";
+    private const string OWNROOM_PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_OwnRoomPrefab.prefab";
+    private const string OFFICEAREA_PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_OfficeAreaPrefab.prefab";
+    private const string PARKAREA_PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_ParkAreaPrefab.prefab";
 
     /// <summary>
     /// プレハブを安全に取得（都度読み込み）
@@ -65,9 +65,9 @@ public static class MasterMapData
     /// </summary>
     private static readonly Dictionary<int, (string name, string displayName, string prefabPath)> _mapDefinitions = new()
     {
-        { 1, ("OwnRoom", "自室", "Assets/_iCON/Runtime/Prefabs/Generated/Map_OwnRoomPrefab.prefab") },
-        { 2, ("OfficeArea", "事務所", "Assets/_iCON/Runtime/Prefabs/Generated/Map_OfficeAreaPrefab.prefab") },
-        { 3, ("ParkArea", "園内", "Assets/_iCON/Runtime/Prefabs/Generated/Map_ParkAreaPrefab.prefab") },
+        { 1, ("OwnRoom", "自室", "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_OwnRoomPrefab.prefab") },
+        { 2, ("OfficeArea", "事務所", "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_OfficeAreaPrefab.prefab") },
+        { 3, ("ParkArea", "園内", "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_ParkAreaPrefab.prefab") },
     };
 
     /// <summary>
