@@ -3,6 +3,7 @@ using CryStar.Attribute;
 using CryStar.Core;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using iCON.System;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -26,6 +27,7 @@ namespace iCON.Performance
         
         [FormerlySerializedAs("_prefabCanvasGroup")] [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField, Comment("演出終了時のフェードアウトにかける秒数")] private float _endFadeDuration = 3f;
+        [SerializeField, Comment("演出終了時の画面が黒い状態の秒数")] private float _waitDuration = 2f;
         
         [Header("ロゴ関連の設定")]
         [SerializeField] private Image _logo;
@@ -36,17 +38,19 @@ namespace iCON.Performance
         [SerializeField] private RawImage _glitchImage;
         [SerializeField, Comment("表示にかける時間")] private float _glitchDisplayTime = 0.5f;
         [SerializeField, Comment("表示時間")] private float _glitchDisplayDuration = 1f;
+        [SerializeField, Comment("ノイズSEのパス")] private string _noizeSePath;
         
         [Header("背景の設定")]
         [SerializeField] private Image _background;
         [SerializeField, Comment("デフォルト色")] private Color _defaultColor = Color.white;
         [SerializeField, Comment("ブルースクリーン時に使用する色")] private Color _blueScreenColor = Color.blue;
         [SerializeField, Comment("ブルースクリーン状態の待機時間")] private float _blueScreenDisplayTime = 2f;
+        [SerializeField, Comment("規制音SEのパス")] private string _regulatoryNoiseSePath;
 
         [Header("注意書きの設定")]
         [SerializeField] private CanvasGroup _cautionaryNote;
         [SerializeField, Comment("表示/非表示にかける秒数")] private float _cautionaFadeDuration = 1f;
-        // [SerializeField, Comment("表示時間")] private float _cautionDisplayTime = 5f;
+        [SerializeField, Comment("電源を切るSEのパス")] private string _powerOffSePath;
         
         /// <summary>
         /// 現在再生中のシーケンス
@@ -101,7 +105,7 @@ namespace iCON.Performance
         /// </summary>
         public void Play()
         {
-            LogoAnimation();
+            LogoAnimation().Forget();
         }
 
         /// <summary>
@@ -117,7 +121,7 @@ namespace iCON.Performance
         /// <summary>
         /// 1. ロゴの演出
         /// </summary>
-        private void LogoAnimation()
+        private async UniTask LogoAnimation()
         {
             var seq = DOTween.Sequence()
 
@@ -130,32 +134,37 @@ namespace iCON.Performance
             _sequence = seq;
 
             // キルされたらグリッチアニメーションへ遷移
-            seq.OnKill(GlitchAnimation);
+            seq.OnKill(async () => await GlitchAnimation());
         }
 
         /// <summary>
         /// 2.グリッチアニメーションの演出
         /// </summary>
-        private void GlitchAnimation()
+        private async UniTask GlitchAnimation()
         {
+            await AudioManager.Instance.PlaySE(_noizeSePath, 1f);
+            
             var seq = DOTween.Sequence()
 
                 // グリッジアニメーションを再生しつつ、ロゴを消す
                 .Append(_glitchImage.DOFade(1f, _glitchDisplayDuration))
-                .Join(_logo.DOFade(0f, _glitchDisplayDuration))
-
-                .AppendInterval(_glitchDisplayTime);
+                
+                .AppendInterval(_glitchDisplayTime)
+                .Join(_logo.DOFade(0f, 0.001f));
             
             _sequence = seq;
             
-            seq.OnKill(BlueScreenAnimation);
+            seq.OnKill(async () => await BlueScreenAnimation());
         }
         
         /// <summary>
         /// 3. ブルースクリーンの演出
         /// </summary>
-        private void BlueScreenAnimation()
+        private async UniTask BlueScreenAnimation()
         {
+            // 規制音SEを鳴らす
+            await AudioManager.Instance.PlaySE(_regulatoryNoiseSePath, 1f);
+            
             var seq = DOTween.Sequence()
                 
                 // 即座に背景色を変更して驚かせる
@@ -197,10 +206,22 @@ namespace iCON.Performance
         /// <summary>
         /// 5. 演出終了
         /// </summary>
-        private void EndAnimation()
+        private async UniTask EndAnimation()
         {
+            // 電源を落とすSE
+            await AudioManager.Instance.PlaySE(_powerOffSePath, 1f);
+            
             var seq = DOTween.Sequence()
          
+                .AppendInterval(0.1f)
+                // 画面を黒くして待機
+                .AppendCallback(() =>
+                {
+                    _background.color = Color.black;
+                    _cautionaryNote.alpha = 0f;
+                })
+                .AppendInterval(_waitDuration)
+                
                 // フェードアウト
                 .Append(_canvasGroup.DOFade(0f, _endFadeDuration));
             
