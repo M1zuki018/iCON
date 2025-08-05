@@ -50,7 +50,7 @@ namespace iCON.System
         /// </summary>
         public override UniTask OnStart()
         {
-            if (!ValidateComponents())
+            if (ValidateComponents())
             {
                 // コンポーネントの検証を行う
                 return base.OnStart();
