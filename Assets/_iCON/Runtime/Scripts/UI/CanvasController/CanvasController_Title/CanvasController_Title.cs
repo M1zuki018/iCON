@@ -30,7 +30,11 @@ namespace iCON.UI
             if (_startButton != null)
             {
                 _startButton.enabled = false;
+                
+                // 押したことが分かりやすいように色を変更
+                _startButton.image.color = Color.cyan;
             }
+            
             OnStartButtonClicked?.Invoke();
         }
 
