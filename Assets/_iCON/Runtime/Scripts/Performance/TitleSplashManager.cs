@@ -142,7 +142,7 @@ namespace iCON.Performance
         /// </summary>
         private async UniTask GlitchAnimation()
         {
-            await AudioManager.Instance.PlaySE(_noizeSePath, 1f);
+            var source = await AudioManager.Instance.PlaySE(_noizeSePath, 1f);
             
             var seq = DOTween.Sequence()
 
@@ -154,7 +154,11 @@ namespace iCON.Performance
             
             _sequence = seq;
             
-            seq.OnKill(async () => await BlueScreenAnimation());
+            seq.OnKill(async () =>
+            {
+                AudioManager.Instance.SESourceRelease(source);
+                await BlueScreenAnimation();
+            });
         }
         
         /// <summary>
@@ -163,7 +167,7 @@ namespace iCON.Performance
         private async UniTask BlueScreenAnimation()
         {
             // 規制音SEを鳴らす
-            await AudioManager.Instance.PlaySE(_regulatoryNoiseSePath, 1f);
+            var source = await AudioManager.Instance.PlaySE(_regulatoryNoiseSePath, 1f);
             
             var seq = DOTween.Sequence()
                 
@@ -177,7 +181,12 @@ namespace iCON.Performance
             _sequence = seq;
             
             // 注意書きアニメーションへ遷移
-            seq.OnKill(ShowCautionaryNoteAnimation);
+            seq.OnKill(() =>
+            {
+                // SE再生停止のために、オブジェクトプールのRelease処理を呼び出す
+                AudioManager.Instance.SESourceRelease(source);
+                ShowCautionaryNoteAnimation();
+            });
         }
 
         /// <summary>
