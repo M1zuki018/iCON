@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Story.Constants;
@@ -48,7 +49,10 @@ namespace iCON.System
         // NOTE: 複数同時に音が鳴るものはObjectPoolで管理
         private IObjectPool<AudioSource> _seSourcePool; // SE用のAudioSource
         private IObjectPool<AudioSource> _voiceSourcePool; // Voice用のAudioSource
-
+        
+        // NOTE: SEやボイスなどの中断処理用に使用する、クリップを再生中のAudioSourceとキャンセレーショントークンのkvp
+        private Dictionary<AudioSource, CancellationTokenSource> _ctsDisctionary = new Dictionary<AudioSource, CancellationTokenSource>();
+        
         // NOTE: フェード管理用
         private Tween _bgmFadeTween;
         private Tween _ambienceFadeTween;
@@ -275,26 +279,49 @@ namespace iCON.System
         /// <summary>
         /// SEを再生する
         /// </summary>
-        public async UniTask PlaySE(string filePath, float volume)
+        public async UniTask<AudioSource> PlaySE(string filePath, float volume)
         {
             var clip = await LoadAudioClipAsync(filePath);
 
             if (clip != null)
             {
+                var cts = new CancellationTokenSource();
+                
                 AudioSource source = _seSourcePool.Get();
                 source.volume = volume;
                 source.PlayOneShot(clip);
 
                 // クリップ再生完了を待たずに即座に返す。リソース管理は非同期で行う
-                ReleaseAudioSourceAfterPlay(source, clip.length).Forget();
+                ReleaseAudioSourceAfterPlay(source, clip.length, cts.Token).Forget();
+                
+                // 辞書にAudioSourceとキャンセレーショントークンのkvpを登録
+                _ctsDisctionary[source] = cts;
+                
+                return source;
             }
+
+            return null;
         }
 
         /// <summary>
         /// SEのオブジェクトプールから引数で渡したAudioSourceを解除する
         /// </summary>
-        public void SESourceRelease(AudioSource source) => _seSourcePool.Release(source);
-        
+        public void SESourceRelease(AudioSource source)
+        {
+            if (_ctsDisctionary.TryGetValue(source, out var cts))
+            {
+                // キャンセル処理行う
+                cts?.Cancel();
+                cts?.Dispose();
+                cts = null;
+                
+                // 辞書からも削除
+                _ctsDisctionary.Remove(source);
+            }
+            
+            _seSourcePool.Release(source);
+        }
+
         /// <summary>
         /// 環境音を再生する
         /// </summary>
@@ -433,10 +460,17 @@ namespace iCON.System
         /// <summary>
         /// 指定時間後にAudioSourceをプールに返却する
         /// </summary>
-        private async UniTask ReleaseAudioSourceAfterPlay(AudioSource source, float duration)
+        private async UniTask ReleaseAudioSourceAfterPlay(AudioSource source, float duration, CancellationToken token)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(duration));
-            _seSourcePool.Release(source);
+            try
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(duration), cancellationToken: token);
+                _seSourcePool.Release(source);
+            }
+            catch (Exception ex)
+            {
+                // SEの再生中断時にキャンセル処理があるが、正常な挙動なので特にログなどは出さない
+            }
         }
 
         #endregion
