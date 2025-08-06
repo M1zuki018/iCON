@@ -335,19 +335,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _canvasGroup: {fileID: 5995128931417173026}
-  _endFadeDuration: 3
+  _endFadeDuration: 1
+  _waitDuration: 2
   _logo: {fileID: 1893051067973657093}
   _logoFadeDuration: 0.5
-  _logoDisplayTime: 3
+  _logoDisplayTime: 1
   _glitchImage: {fileID: 276061886501850031}
   _glitchDisplayTime: 1
   _glitchDisplayDuration: 2
+  _noizeSePath: Assets/AssetStoreTools/Sounds/SE/SE_Noise.mp3
   _background: {fileID: 1395914674542943521}
   _defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  _blueScreenColor: {r: 0, g: 0, b: 1, a: 1}
-  _blueScreenDisplayTime: 2
+  _blueScreenColor: {r: 0.023584902, g: 0.043137256, b: 1, a: 1}
+  _blueScreenDisplayTime: 4
+  _regulatoryNoiseSePath: Assets/AssetStoreTools/Sounds/SE/SE_RegulatoryNoise.mp3
   _cautionaryNote: {fileID: 4407776687344654124}
   _cautionaFadeDuration: 0.5
+  _powerOffSePath: Assets/AssetStoreTools/Sounds/SE/SE_TurnOffThePower.mp3
 --- !u!1 &2153463313938631636
 GameObject:
   m_ObjectHideFlags: 0
