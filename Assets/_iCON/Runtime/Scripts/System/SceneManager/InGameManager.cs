@@ -11,6 +11,7 @@ using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.UI;
 using R3;
+using UnityEditor.EventSystems;
 using UnityEngine;
 
 namespace iCON.System
@@ -85,6 +86,12 @@ namespace iCON.System
                 }).Forget();
         }
 
+        [MethodButtonInspector]
+        public void Reset()
+        {
+            _currentEventIndex.Value = 1;
+        }
+        
         /// <summary>
         /// ストーリーの事前ロードを行う
         /// </summary>
