@@ -3,6 +3,7 @@ using CryStar.Attribute;
 using CryStar.Core;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using iCON.Constants;
 using iCON.System;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -38,19 +39,16 @@ namespace iCON.Performance
         [SerializeField] private RawImage _glitchImage;
         [SerializeField, Comment("表示にかける時間")] private float _glitchDisplayTime = 0.5f;
         [SerializeField, Comment("表示時間")] private float _glitchDisplayDuration = 1f;
-        [SerializeField, Comment("ノイズSEのパス")] private string _noizeSePath;
         
         [Header("背景の設定")]
         [SerializeField] private Image _background;
         [SerializeField, Comment("デフォルト色")] private Color _defaultColor = Color.white;
         [SerializeField, Comment("ブルースクリーン時に使用する色")] private Color _blueScreenColor = Color.blue;
         [SerializeField, Comment("ブルースクリーン状態の待機時間")] private float _blueScreenDisplayTime = 2f;
-        [SerializeField, Comment("規制音SEのパス")] private string _regulatoryNoiseSePath;
 
         [Header("注意書きの設定")]
         [SerializeField] private CanvasGroup _cautionaryNote;
         [SerializeField, Comment("表示/非表示にかける秒数")] private float _cautionaFadeDuration = 1f;
-        [SerializeField, Comment("電源を切るSEのパス")] private string _powerOffSePath;
         
         /// <summary>
         /// 現在再生中のシーケンス
@@ -142,7 +140,8 @@ namespace iCON.Performance
         /// </summary>
         private async UniTask GlitchAnimation()
         {
-            var source = await AudioManager.Instance.PlaySE(_noizeSePath, 1f);
+            // グリッジアニメーション中に流すノイズ音を再生
+            var source = await AudioManager.Instance.PlaySE(KSEPath.Noise, 1f);
             
             var seq = DOTween.Sequence()
 
@@ -167,7 +166,7 @@ namespace iCON.Performance
         private async UniTask BlueScreenAnimation()
         {
             // 規制音SEを鳴らす
-            var source = await AudioManager.Instance.PlaySE(_regulatoryNoiseSePath, 1f);
+            var source = await AudioManager.Instance.PlaySE(KSEPath.RegulatoryNoise, 1f);
             
             var seq = DOTween.Sequence()
                 
@@ -218,7 +217,7 @@ namespace iCON.Performance
         private async UniTask EndAnimation()
         {
             // 電源を落とすSE
-            await AudioManager.Instance.PlaySE(_powerOffSePath, 1f);
+            await AudioManager.Instance.PlaySE(KSEPath.TurnoffThePower, 1f);
             
             var seq = DOTween.Sequence()
          

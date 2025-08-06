@@ -3,6 +3,7 @@ using CryStar.Core;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
+using iCON.Constants;
 using iCON.Performance;
 using iCON.UI;
 using UnityEngine;
@@ -31,12 +32,6 @@ namespace iCON.System
         /// </summary>
         [SerializeField] 
         private string _bgmPath;
-
-        /// <summary>
-        /// 決定ボタンSEのパス
-        /// </summary>
-        [SerializeField]
-        private string _selectSe;
         
         /// <summary>
         /// BGMのフェードアウト
@@ -152,7 +147,7 @@ namespace iCON.System
         /// </summary>
         private async UniTask TransitionToInGameAsync()
         {
-            await AudioManager.Instance.PlaySE(_selectSe, 1);
+            await AudioManager.Instance.PlaySE(KSEPath.Select, 1);
             
             // BGMのフェードアウト後にシーン遷移
             await AudioManager.Instance.FadeOutBGM(_bgmFadeDuration);
