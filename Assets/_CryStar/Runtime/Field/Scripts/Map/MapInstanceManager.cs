@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using CryStar.Core;
+using CryStar.Core.Enums;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace CryStar.Field.Map
@@ -25,6 +27,13 @@ namespace CryStar.Field.Map
         public int CurrentMapId => _currentMapId;
 
         #region Life cycle
+
+        public override async UniTask OnAwake()
+        {
+            await base.OnAwake();
+            ServiceLocator.Register(this, ServiceType.Local);
+            ShowMap(1); // TODO: マップ生成。任意のもので初期化できるようにしないといけない
+        }
 
         /// <summary>
         /// Destroy
