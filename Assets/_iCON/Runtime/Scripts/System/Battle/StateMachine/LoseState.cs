@@ -8,7 +8,7 @@ namespace iCON.Battle
     /// </summary>
     public class LoseState : BattleStateBase
     {
-        public override async void Enter(BattleManager manager, BattleCanvasManager view)
+        public override void Enter(BattleManager manager, BattleCanvasManager view)
         {
             base.Enter(manager, view);
             view.ShowCanvas(BattleCanvasType.Lose);
