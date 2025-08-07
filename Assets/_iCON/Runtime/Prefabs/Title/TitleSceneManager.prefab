@@ -48,3 +48,5 @@ MonoBehaviour:
   _canvasController: {fileID: 0}
   _bgmPath: Assets/AssetStoreTools/Sounds/BGM/ElectricHighway.mp3
   _bgmFadeDuration: 2
+  _audioListener: {fileID: 0}
+  _eventSystem: {fileID: 0}
