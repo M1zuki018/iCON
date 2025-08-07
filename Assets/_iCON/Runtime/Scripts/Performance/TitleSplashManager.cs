@@ -85,7 +85,7 @@ namespace iCON.Performance
         {
             if (_isWaiting && UnityEngine.Input.GetKeyDown(KeyCode.Return))
             {
-                EndAnimation();
+                EndAnimation().Forget();
             }
         }
         
@@ -113,7 +113,7 @@ namespace iCON.Performance
         /// </summary>
         public void Play()
         {
-            LogoAnimation().Forget();
+            LogoAnimation();
         }
 
         /// <summary>
@@ -129,7 +129,7 @@ namespace iCON.Performance
         /// <summary>
         /// 1. ロゴの演出
         /// </summary>
-        private async UniTask LogoAnimation()
+        private void LogoAnimation()
         {
             var seq = DOTween.Sequence()
 
@@ -142,7 +142,7 @@ namespace iCON.Performance
             _sequence = seq;
 
             // キルされたらグリッチアニメーションへ遷移
-            seq.OnKill(async () => await GlitchAnimation());
+            seq.OnKill(() => GlitchAnimation().Forget());
         }
 
         /// <summary>
@@ -163,10 +163,10 @@ namespace iCON.Performance
             
             _sequence = seq;
             
-            seq.OnKill(async () =>
+            seq.OnKill(() =>
             {
                 _audioManager.SESourceRelease(source);
-                await BlueScreenAnimation();
+                BlueScreenAnimation().Forget();
             });
         }
         
