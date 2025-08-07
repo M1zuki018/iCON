@@ -145,7 +145,7 @@ namespace CryStar.Story.Execution
                     }
                 }
 
-                BuildAndPlaySequence().Forget();
+                BuildAndPlaySequence();
             }
             catch (Exception ex)
             {
@@ -187,7 +187,7 @@ namespace CryStar.Story.Execution
         /// <summary>
         /// Sequenceを構築して再生する
         /// </summary>
-        private async UniTask BuildAndPlaySequence()
+        private void BuildAndPlaySequence()
         {
             if (_pendingTweens.Count == 0)
             {
