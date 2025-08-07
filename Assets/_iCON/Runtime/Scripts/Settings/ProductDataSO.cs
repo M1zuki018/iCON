@@ -41,6 +41,12 @@ public class ProductDataSO : ScriptableObject
     [ContextMenu("Increment Build Number")]
     public void IncrementBuildNumber()
     {
+        if (!_autoUpdateBuildNumber)
+        {
+            // ビルド番号の自動更新を行わない場合は早期return
+            return;
+        }
+        
         if (int.TryParse(_buildNumber, out int buildNum))
         {
             _buildNumber = (buildNum + 1).ToString("000");
