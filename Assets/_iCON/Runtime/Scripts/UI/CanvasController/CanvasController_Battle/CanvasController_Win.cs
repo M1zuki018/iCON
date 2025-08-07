@@ -12,8 +12,6 @@ namespace iCON.UI
     {
         [SerializeField, HighlightIfNull] private CustomButton _button;
                 
-        public event Action OnButtonClicked;
-                
         public override UniTask OnAwake()
         {
             // イベント登録
