@@ -39,10 +39,6 @@ namespace iCON.System
         /// </summary>
         [SerializeField]
         private float _bgmFadeDuration = 2f;
-        
-        // TODO: 仮。AudioListenerとEventSystemをシーン変更前に一度削除して、警告を出さないようにしている
-        [SerializeField] private AudioListener _audioListener;
-        [SerializeField] private EventSystem _eventSystem;
 
         /// <summary>
         /// AudioManager
@@ -161,11 +157,6 @@ namespace iCON.System
             
             // BGMのフェードアウト後にシーン遷移
             await _audioManager.FadeOutBGM(_bgmFadeDuration);
-
-            // TODO: 仮。警告が出ないように
-            _audioListener.enabled = false;
-            _eventSystem.enabled = false;
-            
             await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, true));
         }
     }

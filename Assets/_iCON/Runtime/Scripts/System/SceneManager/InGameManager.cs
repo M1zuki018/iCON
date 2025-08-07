@@ -36,10 +36,6 @@ namespace iCON.System
         [SerializeField]
         private FieldView _fieldView;
         
-        // TODO: 仮。AudioListenerとEventSystemをシーン変更前に一度削除して、警告を出さないようにしている
-        [SerializeField] private AudioListener _audioListener;
-        [SerializeField] private EventSystem _eventSystem;
-        
         /// <summary>
         /// マップ管理クラス
         /// </summary>
@@ -77,17 +73,11 @@ namespace iCON.System
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.F8))
             {
-                // TODO: 仮。警告が出ないように
-                _audioListener.enabled = false;
-                _eventSystem.enabled = false;
                 await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Title, true, true));
             }
             
             if (UnityEngine.Input.GetKeyDown(KeyCode.F9))
             {
-                // TODO: 仮。警告が出ないように
-                _audioListener.enabled = false;
-                _eventSystem.enabled = false;
                 await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Battle, false, true));
             }
         }
@@ -170,16 +160,10 @@ namespace iCON.System
                     _currentEventIndex.Value = 7;
                     break;
                 case 6:
-                    // TODO: 仮。警告が出ないように
-                    _audioListener.enabled = false;
-                    _eventSystem.enabled = false;
                     await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Battle, false, true));
                     break;
                 case 7:
                     // ゲームクリア
-                    // TODO: 仮。警告が出ないように
-                    _audioListener.enabled = false;
-                    _eventSystem.enabled = false;
                     await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Title, true, true));
                     _currentEventIndex.Value = 1;
                     return;
