@@ -471,9 +471,15 @@ namespace iCON.System
                 await UniTask.Delay(TimeSpan.FromSeconds(duration), cancellationToken: token);
                 _seSourcePool.Release(source);
             }
+            catch (OperationCanceledException)
+            {
+                // SEの再生中断時にキャンセル処理が行われる
+                // 正常な動作なので、特にログなどは出さない
+            }
             catch (Exception ex)
             {
-                // SEの再生中断時にキャンセル処理があるが、正常な挙動なので特にログなどは出さない
+                // 予期しない例外の場合はログ出力
+                LogUtility.Error($"Clip再生終了。AudioSourceをオブジェクトプールに返却する際に予期しないエラーが発生: {ex}");
             }
         }
 
