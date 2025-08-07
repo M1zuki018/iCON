@@ -88,7 +88,7 @@ namespace iCON.Battle
             _data = new BattleData(new List<int>{0}, new List<int>{0}, _units, _enemies);
             
             // アイコンを用意する
-            _view.SetupIcons(_data.UnitData, _data.EnemyData);
+            _view.SetupIcons(_data.UnitData, _data.EnemyData).Forget();
         }
 
         #endregion

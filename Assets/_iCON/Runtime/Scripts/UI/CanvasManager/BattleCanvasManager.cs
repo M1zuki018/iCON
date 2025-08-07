@@ -54,7 +54,7 @@ namespace iCON.UI
         /// <summary>
         /// キャラクターアイコンを生成する
         /// </summary>
-        public void SetupIcons(IReadOnlyList<BattleUnit> unitData, IReadOnlyList<BattleUnit> enemyData)
+        public async UniTask SetupIcons(IReadOnlyList<BattleUnit> unitData, IReadOnlyList<BattleUnit> enemyData)
         {
             // リストを新規作成
             _icons = new List<CharacterIconContents>(unitData.Count);
@@ -64,7 +64,7 @@ namespace iCON.UI
                 var icon = Instantiate(_unitIconPrefab, _unitIconParent);
                 _icons.Add(icon);
                 icon.Setup(_damageTextPool);
-                icon.SetIcon(unitData[i].Data.IconPath);
+                await icon.SetIcon(unitData[i].Data.IconPath);
             }
             
             SubscribeToUnitEvents(unitData);
@@ -76,7 +76,7 @@ namespace iCON.UI
                 var icon = Instantiate(_enemyIconPrefab, _enemyIconParent);
                 _enemyIcons.Add(icon);
                 icon.Setup(_damageTextPool);
-                icon.SetIcon(enemyData[i].Data.IconPath);
+                await icon.SetIcon(enemyData[i].Data.IconPath);
             }
             
             SubscribeToEnemyEvents(enemyData);
