@@ -18,7 +18,6 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace iCON.System
 {
-
     /// <summary>
     /// Audioを管理するManagerクラス
     /// </summary>
