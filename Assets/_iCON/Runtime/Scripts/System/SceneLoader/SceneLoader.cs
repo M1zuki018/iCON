@@ -178,7 +178,6 @@ namespace iCON.System
                 // シーンの初期化完了を待機
                 await WaitForSceneInitialization(token);
                 
-                Debug.LogError("初期化完了");
                 // ロード画面を非表示にするなど
                 await SwitchToNewSceneAsync(data, loadingScene, currentScene);
 
