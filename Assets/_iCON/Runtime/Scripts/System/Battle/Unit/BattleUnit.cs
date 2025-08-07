@@ -101,6 +101,23 @@ namespace iCON.Battle
             var value = Mathf.Max(0, CurrentHp - damage);
             CurrentHp = Mathf.Min(value, Data.Hp);
             OnHpChanged?.Invoke(CurrentHp, Data.Hp, damage);
+
+            if (CurrentHp <= 0)
+            {
+                // 現在HPが0以下になったときには死亡イベントを呼び出す
+                OnDeath?.Invoke();
+            }
+        }
+
+        /// <summary>
+        /// SPを消費する
+        /// </summary>
+        public void ConsumedSp(int amount)
+        {
+            // 最小値は0、最大値はMaxSPにおさまるように調整
+            var value = Mathf.Max(0, CurrentSp - amount);
+            CurrentHp = Mathf.Min(value, Data.Sp);
+            OnSpChanged?.Invoke(CurrentSp, Data.Sp);
         }
     }
 }
