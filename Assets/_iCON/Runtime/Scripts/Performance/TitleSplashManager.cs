@@ -54,6 +54,9 @@ namespace iCON.Performance
         [Header("注意書きの設定")]
         [SerializeField] private CanvasGroup _cautionaryNote;
         [SerializeField, Comment("表示/非表示にかける秒数")] private float _cautionaFadeDuration = 1f;
+
+        // NOTE: 多重実行防止のためのフラグ
+        private bool _isPlayedEndAnimation = false;
         
         /// <summary>
         /// 現在再生中のシーケンス
@@ -223,6 +226,13 @@ namespace iCON.Performance
         /// </summary>
         private async UniTask EndAnimation()
         {
+            // 一度しか流れないようにするための対策
+            if (_isPlayedEndAnimation)
+            {
+                return;
+            }
+            _isPlayedEndAnimation = true;
+            
             // 電源を落とすSE
             await _audioManager.PlaySE(KSEPath.TurnoffThePower, 1f);
             
@@ -240,6 +250,7 @@ namespace iCON.Performance
                 // フェードアウト
                 .Append(_canvasGroup.DOFade(0f, _endFadeDuration));
             
+            // TODO: 現状最後のフェードアウトもスキップ可能となっているが、これをするかしないかは確認する
             _sequence = seq;
             
             seq.OnKill(FinishedAnimation);
