@@ -14,7 +14,7 @@ namespace iCON.System
     /// <summary>
     /// タイトルシーンのマネージャー
     /// </summary>
-    public class TitleSceneManager : CustomBehaviour
+    public class TitleSceneManager : MonoBehaviour
     {
         /// <summary>
         /// タイトルスプラッシュの演出マネージャー
@@ -55,27 +55,16 @@ namespace iCON.System
         private bool _isSplashCompleted;
 
         #region Life cycle
-        
+
         /// <summary>
         /// Start
         /// </summary>
-        public override UniTask OnStart()
+        private void Start()
         {
-            // NOTE: SceneLoaderが万が一取得できなかった場合でも進行不能にならないように
-            var sceneLoader = ServiceLocator.GetGlobal<SceneLoader>();
-            if (sceneLoader != null)
-            {
-                if (ServiceLocator.GetGlobal<SceneLoader>().IsLoading)
-                {
-                    // ロード中であれば不正な処理なのでreturn
-                    return base.OnStart();
-                }
-            }
-            
             if (ValidateComponents())
             {
                 // コンポーネントの検証を行う
-                return base.OnStart();
+                return;
             }
             
             _audioManager = ServiceLocator.GetGlobal<AudioManager>();
@@ -89,8 +78,6 @@ namespace iCON.System
             
             // タイトルスプラッシュの演出を開始
             _titleSplashManager.Play();
-            
-            return base.OnStart();
         }
 
         /// <summary>
