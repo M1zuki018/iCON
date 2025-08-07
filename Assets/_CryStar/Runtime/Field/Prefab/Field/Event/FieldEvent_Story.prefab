@@ -91,9 +91,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19674d5dd8c50b143b50a7891410b3d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _eventID: 0
   _behaviorType: 0
-  _storyLine:
-    SceneName: Maki
-    SpreadsheetName: TestStory
-    HeaderRange: TestStory!A2:N2
-    Range: TestStory!A15:N89
+  _playStoryId: 3,2

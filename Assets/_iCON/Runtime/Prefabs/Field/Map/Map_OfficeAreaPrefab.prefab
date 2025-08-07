@@ -2047,7 +2047,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4222205437735456145, guid: b41388db0eaeb6540a406b5f9c6250bf, type: 3}
       propertyPath: _playStoryId
-      value: 3
+      value: 3,3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222205437735456145, guid: b41388db0eaeb6540a406b5f9c6250bf, type: 3}
+      propertyPath: _behaviorType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4402359612101370174, guid: b41388db0eaeb6540a406b5f9c6250bf, type: 3}
       propertyPath: m_Name
