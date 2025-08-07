@@ -6,9 +6,9 @@ namespace iCON.System
     public enum SceneType
     {
         Title = 0,
-        Load = 1,
-        InGame = 2,
-        Battle = 3,
+        InGame = 1,
+        Battle = 2,
+        Load = 3,
         Bootstrap = 4,
         None = 99,
     }
