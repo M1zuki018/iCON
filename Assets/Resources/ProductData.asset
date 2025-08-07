@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7038fd90d65944589bff299774e58c, type: 3}
   m_Name: ProductData
   m_EditorClassIdentifier: 
-  _version: 1.0.0
-  _buildNumber: 007
+  _version: 0.0.0
+  _buildNumber: 008
   _appName: iCON
   _snsUrl: 
   _isDebugMode: 0
