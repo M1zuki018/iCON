@@ -43,7 +43,11 @@ namespace iCON.System
         // TODO: 仮。AudioListenerとEventSystemをシーン変更前に一度削除して、警告を出さないようにしている
         [SerializeField] private AudioListener _audioListener;
         [SerializeField] private EventSystem _eventSystem;
-        
+
+        /// <summary>
+        /// AudioManager
+        /// </summary>
+        private AudioManager _audioManager;
 
         /// <summary>
         /// タイトルスプラッシュ完了済み
@@ -68,6 +72,8 @@ namespace iCON.System
                 // コンポーネントの検証を行う
                 return base.OnStart();
             }
+            
+            _audioManager = ServiceLocator.GetGlobal<AudioManager>();
             
             // スタートボタン押下処理を追加
             _canvasController.OnStartButtonClicked += OnStartButtonClicked;
@@ -151,7 +157,7 @@ namespace iCON.System
             
             // 二度処理が行われないようにフラグを立てる
             _isSplashCompleted = true;
-            await AudioManager.Instance.PlayBGMWithFadeIn(_bgmPath, _bgmFadeDuration);
+            await _audioManager.PlayBGMWithFadeIn(_bgmPath, _bgmFadeDuration);
         }
 
         /// <summary>
@@ -159,10 +165,10 @@ namespace iCON.System
         /// </summary>
         private async UniTask TransitionToInGameAsync()
         {
-            await AudioManager.Instance.PlaySE(KSEPath.Select, 1);
+            await _audioManager.PlaySE(KSEPath.Select, 1);
             
             // BGMのフェードアウト後にシーン遷移
-            await AudioManager.Instance.FadeOutBGM(_bgmFadeDuration);
+            await _audioManager.FadeOutBGM(_bgmFadeDuration);
 
             // TODO: 仮。警告が出ないように
             _audioListener.enabled = false;

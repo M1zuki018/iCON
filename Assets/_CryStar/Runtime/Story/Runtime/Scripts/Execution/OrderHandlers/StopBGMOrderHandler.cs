@@ -1,3 +1,4 @@
+using CryStar.Core;
 using CryStar.Story.Attributes;
 using CryStar.Story.Data;
 using CryStar.Story.Enums;
@@ -14,11 +15,20 @@ namespace CryStar.Story.Execution
     [OrderHandler(OrderType.StopBGM)]
     public class StopBGMOrderHandler : OrderHandlerBase
     {
+        /// <summary>
+        /// AudioManager
+        /// </summary>
+        private AudioManager _audioManager = ServiceLocator.GetGlobal<AudioManager>();
         public override OrderType SupportedOrderType => OrderType.StopBGM;
         
         public override Tween HandleOrder(OrderData data, StoryView view)
         {
-            AudioManager.Instance.FadeOutBGM(data.Duration).Forget();
+            if (_audioManager == null)
+            {
+                // 万が一初期化時に取得出来ていなかったら、取得しなおし
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+            _audioManager.FadeOutBGM(data.Duration).Forget();
             return null;
         }
     }

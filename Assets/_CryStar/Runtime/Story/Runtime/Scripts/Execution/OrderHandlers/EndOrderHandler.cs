@@ -1,4 +1,5 @@
 using System;
+using CryStar.Core;
 using CryStar.Story.Attributes;
 using CryStar.Story.Data;
 using CryStar.Story.Enums;
@@ -22,6 +23,11 @@ namespace CryStar.Story.Execution
         /// </summary>
         private Action _endAction;
         
+        /// <summary>
+        /// AudioManager
+        /// </summary>
+        private AudioManager _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+        
         public override OrderType SupportedOrderType => OrderType.End;
 
         /// <summary>
@@ -42,8 +48,13 @@ namespace CryStar.Story.Execution
             
             // フェードアウト実行後、ストーリー終了処理を実行する
             
+            if (_audioManager == null)
+            {
+                // 万が一初期化時に取得出来ていなかったら、取得しなおし
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
             // BGMのフェードアウト
-            AudioManager.Instance.FadeOutBGM(data.Duration).Forget();
+            _audioManager.FadeOutBGM(data.Duration).Forget();
             
             HandleReset(view);
             return null;
@@ -88,8 +99,14 @@ namespace CryStar.Story.Execution
             view.ResetTalk();
             view.ResetDescription();
             
+            if (_audioManager == null)
+            {
+                // 万が一初期化時に取得出来ていなかったら、取得しなおし
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+            
             // BGMの音量を確実に0にする
-            AudioManager.Instance.FadeOutBGM(0).Forget();
+            _audioManager.FadeOutBGM(0).Forget();
 
             _endAction?.Invoke();
         }

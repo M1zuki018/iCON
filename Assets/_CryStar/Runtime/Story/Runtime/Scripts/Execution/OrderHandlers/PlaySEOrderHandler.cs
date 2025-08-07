@@ -1,4 +1,5 @@
 using System.Threading;
+using CryStar.Core;
 using CryStar.Story.Attributes;
 using CryStar.Story.Data;
 using CryStar.Story.Enums;
@@ -15,11 +16,21 @@ namespace CryStar.Story.Execution
     [OrderHandler(OrderType.PlaySE)]
     public class PlaySEOrderHandler : AsyncOrderHandlerBase
     {
+        /// <summary>
+        /// AudioManager
+        /// </summary>
+        private AudioManager _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+        
         public override OrderType SupportedOrderType => OrderType.PlaySE;
         
         public override async UniTask<Tween> HandleOrderAsync(OrderData data, StoryView view, CancellationToken cancellationToken)
         {
-            await AudioManager.Instance.PlaySE(data.FilePath, data.OverrideTextSpeed);
+            if (_audioManager == null)
+            {
+                // 万が一初期化時に取得出来ていなかったら、取得しなおし
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+            await _audioManager.PlaySE(data.FilePath, data.OverrideTextSpeed);
             return null;
         }
     }

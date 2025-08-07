@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using CryStar.Core;
 using CryStar.Story.Attributes;
 using CryStar.Story.Data;
 using CryStar.Story.Enums;
@@ -28,6 +29,12 @@ namespace CryStar.Story.Execution
         /// 選択肢を選んだ時に実行するAction
         /// </summary>
         private Action<int> _choiceAction;
+        
+        /// <summary>
+        /// AudioManager
+        /// </summary>
+        private AudioManager _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+        
         public override OrderType SupportedOrderType => OrderType.Choice;
         
         public override Tween HandleOrder(OrderData data, StoryView view)
@@ -83,7 +90,12 @@ namespace CryStar.Story.Execution
 
                         if (bgmPath != null)
                         {
-                            AudioManager.Instance.CrossFadeBGM(bgmPath).Forget();
+                            if (_audioManager == null)
+                            {
+                                // 万が一初期化時に取得出来ていなかったら、取得しなおし
+                                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+                            }
+                            _audioManager.CrossFadeBGM(bgmPath).Forget();
                         }
                         
                     }));

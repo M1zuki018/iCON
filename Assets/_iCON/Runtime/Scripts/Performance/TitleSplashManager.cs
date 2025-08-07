@@ -22,6 +22,11 @@ namespace iCON.Performance
         private event Action _onFinishedTitleSplash;
 
         /// <summary>
+        /// AudioManager
+        /// </summary>
+        private AudioManager _audioManager;
+        
+        /// <summary>
         /// 注意書きが表示された状態で選択ボタンが押されるのを待機している状態
         /// </summary>
         private bool _isWaiting = false;
@@ -60,15 +65,17 @@ namespace iCON.Performance
         /// <summary>
         /// Awake
         /// </summary>
-        public override UniTask OnAwake()
+        public override async UniTask OnAwake()
         {
+            await base.OnAwake();
+            
             // 非表示/デフォルト色にセット
             _logo.DOFade(0f, 0f);
             _cautionaryNote.DOFade(0f, 0f);
             _glitchImage.DOFade(0f, 0f);
             _background.color = _defaultColor;
             
-            return base.OnAwake();
+            _audioManager = ServiceLocator.GetGlobal<AudioManager>();
         }
 
         private void Update()
@@ -141,7 +148,7 @@ namespace iCON.Performance
         private async UniTask GlitchAnimation()
         {
             // グリッジアニメーション中に流すノイズ音を再生
-            var source = await AudioManager.Instance.PlaySE(KSEPath.Noise, 1f);
+            var source = await _audioManager.PlaySE(KSEPath.Noise, 1f);
             
             var seq = DOTween.Sequence()
 
@@ -155,7 +162,7 @@ namespace iCON.Performance
             
             seq.OnKill(async () =>
             {
-                AudioManager.Instance.SESourceRelease(source);
+                _audioManager.SESourceRelease(source);
                 await BlueScreenAnimation();
             });
         }
@@ -166,7 +173,7 @@ namespace iCON.Performance
         private async UniTask BlueScreenAnimation()
         {
             // 規制音SEを鳴らす
-            var source = await AudioManager.Instance.PlaySE(KSEPath.RegulatoryNoise, 1f);
+            var source = await _audioManager.PlaySE(KSEPath.RegulatoryNoise, 1f);
             
             var seq = DOTween.Sequence()
                 
@@ -183,7 +190,7 @@ namespace iCON.Performance
             seq.OnKill(() =>
             {
                 // SE再生停止のために、オブジェクトプールのRelease処理を呼び出す
-                AudioManager.Instance.SESourceRelease(source);
+                _audioManager.SESourceRelease(source);
                 ShowCautionaryNoteAnimation();
             });
         }
@@ -217,7 +224,7 @@ namespace iCON.Performance
         private async UniTask EndAnimation()
         {
             // 電源を落とすSE
-            await AudioManager.Instance.PlaySE(KSEPath.TurnoffThePower, 1f);
+            await _audioManager.PlaySE(KSEPath.TurnoffThePower, 1f);
             
             var seq = DOTween.Sequence()
          
