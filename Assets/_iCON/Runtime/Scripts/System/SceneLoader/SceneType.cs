@@ -5,11 +5,11 @@ namespace iCON.System
     /// </summary>
     public enum SceneType
     {
-        Bootstrap = 0,
-        Load = 1,
         Title = 0,
+        Load = 1,
         InGame = 2,
         Battle = 3,
+        Bootstrap = 4,
         None = 99,
     }
 }
