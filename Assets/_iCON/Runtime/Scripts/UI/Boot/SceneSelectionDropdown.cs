@@ -1,8 +1,7 @@
-using iCON.Constants;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace iCON.Boot.UI
+namespace CryStar.Boot.UI
 {
     /// <summary>
     /// 開始シーンを選択するためのドロップダウンコンポーネント
@@ -10,7 +9,7 @@ namespace iCON.Boot.UI
     [RequireComponent(typeof(Dropdown))]
     public class SceneSelectionDropdown : MonoBehaviour
     {
-        private int _selectedSceneIndex = KSceneManagement.SYSTEM_SCENE_COUNT;
+        private int _selectedSceneIndex = 0;
         private Dropdown _dropdown;
         
         /// <summary>
@@ -32,8 +31,7 @@ namespace iCON.Boot.UI
         /// </summary>
         private void ChangeSelectedSceneIndex(int index)
         {
-            // NOTE: シーンの番号と合わせるために開発シーンの個数分Indexを追加する
-            _selectedSceneIndex = index + KSceneManagement.SYSTEM_SCENE_COUNT;
+            _selectedSceneIndex = index;
         }
     }
 }
