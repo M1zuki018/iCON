@@ -7,9 +7,9 @@ namespace iCON.System
     {
         Bootstrap = 0,
         Load = 1,
-        Title = 2,
-        InGame = 3,
-        Battle = 4,
+        Title = 0,
+        InGame = 2,
+        Battle = 3,
         None = 99,
     }
 }
