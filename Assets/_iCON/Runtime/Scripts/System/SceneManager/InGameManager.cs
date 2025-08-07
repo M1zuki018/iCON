@@ -56,10 +56,19 @@ namespace iCON.System
             
             // ストーリー再生時以外はゲームオブジェクトを非アクティブにしておく
             _storyOrchestrator.gameObject.SetActive(false);
+            
+            // NOTE: ロード画面が表示されている間に事前ロードまで行っておき、スムーズにゲームを進める
+            await _storyOrchestrator.LoadSceneDataAsync(1);
 
             _mapInstanceManager = ServiceLocator.GetLocal<MapInstanceManager>();
-            _currentEventIndex.Subscribe(x => PlayEvent(x).Forget());
             _onEventEnd += EndEvent;
+        }
+
+        private void Start()
+        {
+            // イベント開始処理
+            // NOTE: ロードに被らないようにMonoBehaviorのStartで行う
+            _currentEventIndex.Subscribe(x => PlayEvent(x).Forget());
         }
 
         private async void Update()
