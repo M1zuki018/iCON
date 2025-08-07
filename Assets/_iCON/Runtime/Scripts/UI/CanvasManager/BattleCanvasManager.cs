@@ -37,11 +37,6 @@ namespace iCON.UI
         /// </summary>
         [SerializeField]
         private DamageTextPool _damageTextPool;
-        
-        /// <summary>
-        /// 現在表示中のウィンドウを取得する
-        /// </summary>
-        public WindowBase CurrentCanvas => _canvasObjects[_currentCanvasIndex];
 
         /// <summary>
         /// キャンバスを切り替える
