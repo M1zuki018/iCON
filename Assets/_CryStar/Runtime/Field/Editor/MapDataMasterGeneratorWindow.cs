@@ -12,7 +12,7 @@ namespace CryStar.Field.Editor
     /// </summary>
     public class SafeMapDataMasterGeneratorWindow : BaseMasterGeneratorWindow
     {
-        private string _prefabOutputPath = "Assets/_iCON/Runtime/Prefabs/Generated/";
+        private string _prefabOutputPath = "Assets/_iCON/Runtime/Prefabs/";
 
         [MenuItem("CryStar/Field/Safe Map Data Master Generator")]
         public static void ShowWindow()
@@ -67,11 +67,16 @@ namespace CryStar.Field.Editor
                 
                 if (!string.IsNullOrEmpty(prefabPath))
                 {
-                    prefabPaths[name] = prefabPath;
-                    sb.AppendLine($"    private const string {name.ToUpper()}_PREFAB_PATH = \"{prefabPath}\";");
+                    // Assets/_iCON/Runtime/Prefabs/ から相対パスを生成
+                    var relativePath = prefabPath.Replace(_prefabOutputPath, "");
+                    sb.AppendLine($"    private const string {name.ToUpper()}_PREFAB_PATH = \"{relativePath}\";");
                 }
             }
             sb.AppendLine();
+            
+            // PREFAB_PATH定数を追加
+            sb.AppendLine($"    private const string PREFAB_PATH = \"{_prefabOutputPath}\";");
+            sb.AppendLine("    ");
 
             // プレハブ取得メソッド（参照を保持しない）
             sb.AppendLine("    /// <summary>");
@@ -82,11 +87,12 @@ namespace CryStar.Field.Editor
             sb.AppendLine("        if (string.IsNullOrEmpty(path)) return null;");
             sb.AppendLine();
             sb.AppendLine("#if UNITY_EDITOR");
-            sb.AppendLine("        return AssetDatabase.LoadAssetAtPath<GameObject>(path);");
+            sb.AppendLine("        var editorPath = $\"{PREFAB_PATH}{path}\";");
+            sb.AppendLine("        return AssetDatabase.LoadAssetAtPath<GameObject>(editorPath);");
             sb.AppendLine("#else");
             sb.AppendLine("        // ランタイムでは Resources.Load を使用");
-            sb.AppendLine("        // パスをResourcesフォルダ相対に変換");
-            sb.AppendLine("        string resourcesPath = path.Replace(\"Assets/Resources/\", \"\").Replace(\".prefab\", \"\");");
+            sb.AppendLine("        // .prefab拡張子を除去してResourcesフォルダ相対パスにする");
+            sb.AppendLine("        string resourcesPath = path.Replace(\".prefab\", \"\");");
             sb.AppendLine("        return Resources.Load<GameObject>(resourcesPath);");
             sb.AppendLine("#endif");
             sb.AppendLine("    }");

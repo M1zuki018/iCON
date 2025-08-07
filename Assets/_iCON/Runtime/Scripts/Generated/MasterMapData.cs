@@ -16,23 +16,26 @@ using CryStar.Field.Data;
 public static class MasterMapData
 {
     // プレハブパス定数
-    private const string OWNROOM_PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_OwnRoomPrefab.prefab";
-    private const string OFFICEAREA_PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_OfficeAreaPrefab.prefab";
-    private const string PARKAREA_PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_ParkAreaPrefab.prefab";
+    private const string OWNROOM_PREFAB_PATH = "Field/Map/Map_OwnRoomPrefab.prefab";
+    private const string OFFICEAREA_PREFAB_PATH = "Field/Map/Map_OfficeAreaPrefab.prefab";
+    private const string PARKAREA_PREFAB_PATH = "Field/Map/Map_ParkAreaPrefab.prefab";
 
+    private const string PREFAB_PATH = "Assets/_iCON/Runtime/Prefabs/";
+    
     /// <summary>
     /// プレハブを安全に取得（都度読み込み）
     /// </summary>
     private static GameObject LoadPrefabSafely(string path)
     {
         if (string.IsNullOrEmpty(path)) return null;
-
+        
 #if UNITY_EDITOR
-        return AssetDatabase.LoadAssetAtPath<GameObject>(path);
+        var editorPath = $"{PREFAB_PATH}{path}";
+        return AssetDatabase.LoadAssetAtPath<GameObject>(editorPath);
 #else
         // ランタイムでは Resources.Load を使用
-        // パスをResourcesフォルダ相対に変換
-        string resourcesPath = path.Replace("Assets/Resources/", "").Replace(".prefab", "");
+        // .prefab拡張子を除去してResourcesフォルダ相対パスにする
+        string resourcesPath = path.Replace(".prefab", "");
         return Resources.Load<GameObject>(resourcesPath);
 #endif
     }
@@ -65,9 +68,9 @@ public static class MasterMapData
     /// </summary>
     private static readonly Dictionary<int, (string name, string displayName, string prefabPath)> _mapDefinitions = new()
     {
-        { 1, ("OwnRoom", "自室", "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_OwnRoomPrefab.prefab") },
-        { 2, ("OfficeArea", "事務所", "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_OfficeAreaPrefab.prefab") },
-        { 3, ("ParkArea", "園内", "Assets/_iCON/Runtime/Prefabs/Field/Map/Map_ParkAreaPrefab.prefab") },
+        { 1, ("OwnRoom", "自室", "Field/Map/Map_OwnRoomPrefab.prefab") },
+        { 2, ("OfficeArea", "事務所", "Field/Map/Map_OfficeAreaPrefab.prefab") },
+        { 3, ("ParkArea", "園内", "Field/Map/Map_ParkAreaPrefab.prefab") },
     };
 
     /// <summary>
