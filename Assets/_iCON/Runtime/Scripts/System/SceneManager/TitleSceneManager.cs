@@ -61,10 +61,15 @@ namespace iCON.System
         /// </summary>
         public override UniTask OnStart()
         {
-            if (ServiceLocator.GetGlobal<SceneLoader>().IsLoading)
+            // NOTE: SceneLoaderが万が一取得できなかった場合でも進行不能にならないように
+            var sceneLoader = ServiceLocator.GetGlobal<SceneLoader>();
+            if (sceneLoader != null)
             {
-                // ロード中であれば不正な処理なのでreturn
-                return base.OnStart();
+                if (ServiceLocator.GetGlobal<SceneLoader>().IsLoading)
+                {
+                    // ロード中であれば不正な処理なのでreturn
+                    return base.OnStart();
+                }
             }
             
             if (ValidateComponents())
