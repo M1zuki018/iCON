@@ -1453,6 +1453,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1299315116}
     - target: {fileID: 8349254557646403581, guid: d0e33c4e8257247499aadfe2f0b00205, type: 3}
+      propertyPath: _eventSystem
+      value: 
+      objectReference: {fileID: 732612896}
+    - target: {fileID: 8349254557646403581, guid: d0e33c4e8257247499aadfe2f0b00205, type: 3}
       propertyPath: _fieldManager
       value: 
       objectReference: {fileID: 0}
@@ -1460,6 +1464,10 @@ PrefabInstance:
       propertyPath: _storyManager
       value: 
       objectReference: {fileID: 5484602867204383048}
+    - target: {fileID: 8349254557646403581, guid: d0e33c4e8257247499aadfe2f0b00205, type: 3}
+      propertyPath: _audioListener
+      value: 
+      objectReference: {fileID: 786433889}
     - target: {fileID: 8349254557646403581, guid: d0e33c4e8257247499aadfe2f0b00205, type: 3}
       propertyPath: _playStoryName
       value: Maki
