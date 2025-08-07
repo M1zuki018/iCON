@@ -22,7 +22,7 @@ public class GameManager : CustomBehaviour, IGameManager
         await base.OnAwake();
         
         // 既に別のインスタンスが存在する場合、このオブジェクトを破棄
-        if (GameManagerServiceLocator.IsInitialized() && GameManagerServiceLocator.Instance != this)
+        if (GameManagerServiceLocator.IsInitialized() && (GameManager)GameManagerServiceLocator.Instance != this)
         {
             Destroy(gameObject);
         }
