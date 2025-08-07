@@ -13,6 +13,8 @@ namespace iCON.System
     /// <summary>
     /// SceneLoader
     /// </summary>
+    // NOTE: ServiceLocatorが-1000番を使用
+    [DefaultExecutionOrder(-999)]
     public class SceneLoader : MonoBehaviour
     {
         /// <summary>
