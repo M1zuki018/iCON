@@ -59,11 +59,11 @@ namespace iCON.System
             // ストーリー再生時以外はゲームオブジェクトを非アクティブにしておく
             _storyOrchestrator.gameObject.SetActive(false);
             
-            // NOTE: ロード画面が表示されている間に事前ロードまで行っておき、スムーズにゲームを進める
+            // NOTE: ロード画面が表示されている間に事前ロードまで進めておき、スムーズにゲームを進める
             await _storyOrchestrator.LoadSceneDataAsync(1);
 
             _mapInstanceManager = ServiceLocator.GetLocal<MapInstanceManager>();
-            _onEventEnd += EndEvent;
+            _onEventEnd += index => EndEvent(index).Forget();
         }
 
         private void Start()
@@ -158,7 +158,7 @@ namespace iCON.System
             }
         }
 
-        private void EndEvent(int index)
+        private async UniTask EndEvent(int index)
         {
             switch (index)
             {
@@ -170,14 +170,19 @@ namespace iCON.System
                     _currentEventIndex.Value = 7;
                     break;
                 case 6:
-                    ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Battle,
-                        false, true)).Forget();
+                    // TODO: 仮。警告が出ないように
+                    _audioListener.enabled = false;
+                    _eventSystem.enabled = false;
+                    await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Battle, false, true));
                     break;
                 case 7:
                     // ゲームクリア
-                    ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Title,
-                        true, true)).Forget();
-                    break;
+                    // TODO: 仮。警告が出ないように
+                    _audioListener.enabled = false;
+                    _eventSystem.enabled = false;
+                    await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Title, true, true));
+                    _currentEventIndex.Value = 1;
+                    return;
             }
             
             _currentEventIndex.Value += 1;
