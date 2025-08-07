@@ -22,6 +22,12 @@ namespace iCON.System
         private float _loadingTimeout = 30f;
         
         /// <summary>
+        /// シーン初期化のタイムアウト時間
+        /// </summary>
+        [SerializeField]
+        private float _initializationTimeout = 15f;
+        
+        /// <summary>
         /// 遷移状態
         /// </summary>
         private LoadingStateType _loadingState = LoadingStateType.None;
@@ -168,7 +174,11 @@ namespace iCON.System
                     // タイムアウトした場合
                     throw new TimeoutException($"シーン遷移 タイムアウト: {data.TargetScene}");
                 }
+
+                // シーンの初期化完了を待機
+                await WaitForSceneInitialization(token);
                 
+                Debug.LogError("初期化完了");
                 // ロード画面を非表示にするなど
                 await SwitchToNewSceneAsync(data, loadingScene, currentScene);
 
@@ -182,6 +192,53 @@ namespace iCON.System
             {
                 LogUtility.Error($"シーン遷移に失敗しました: {ex.Message}", LogCategory.System);
                 return false;
+            }
+        }
+        
+        /// <summary>
+        /// シーンの初期化完了を待機
+        /// </summary>
+        private async UniTask WaitForSceneInitialization(CancellationToken token)
+        {
+            try
+            {
+                // シーン初期化開始状態にする
+                SceneLoadingCoordinator.NotifySceneInitializationStarted();
+                
+                LogUtility.Info("🔄 シーン初期化の完了を待機中...", LogCategory.System);
+                
+                // 初期化タイムアウト設定
+                var initTimeoutTask = UniTask.Delay(
+                    delayTimeSpan: TimeSpan.FromSeconds(_initializationTimeout), 
+                    cancellationToken: token
+                );
+                
+                // 初期化完了待機
+                var initWaitTask = SceneLoadingCoordinator.WaitForSceneInitializationAsync(token);
+                
+                // どちらか早い方を待機
+                var completedTask = await UniTask.WhenAny(initWaitTask, initTimeoutTask);
+                
+                if (completedTask == 1)
+                {
+                    // 初期化がタイムアウトした場合
+                    LogUtility.Warning($"⚠️ シーン初期化がタイムアウトしました（{_initializationTimeout}秒）", LogCategory.System);
+                    // タイムアウトしても処理を続行（エラーにはしない）
+                }
+                else
+                {
+                    LogUtility.Info("✅ シーン初期化の完了を確認しました", LogCategory.System);
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                LogUtility.Info("シーン初期化の待機がキャンセルされました", LogCategory.System);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                LogUtility.Error($"シーン初期化の待機中にエラーが発生しました: {ex.Message}", LogCategory.System);
+                // エラーが発生しても処理を続行（ロード画面を閉じる）
             }
         }
 
