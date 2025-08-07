@@ -65,7 +65,22 @@ namespace iCON.System
         /// </summary>
         private void Awake()
         {
+            // GlobalServiceに既に自身が登録されているかチェックする
+            if (ServiceLocator.IsRegisteredGlobal<SceneLoader>())
+            {
+                // 既に登録されていた場合は、登録されているInstanceが自分ではない場合、オブジェクトを削除する
+                if (ServiceLocator.GetGlobal<SceneLoader>() != this)
+                {
+                    Destroy(gameObject);
+                }
+                
+                // 初期化済みなので早期return
+                return;
+            }
+            
             ServiceLocator.Register(this);
+            DontDestroyOnLoad(gameObject);
+            
             _currentScene = GetCurrentSceneType();
         }
 
