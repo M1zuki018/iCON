@@ -39,6 +39,9 @@ namespace iCON.Battle
                 // 小数点以下は丸める
                 damage = Mathf.RoundToInt(damage * executor.Data.CriticalDamage);
             }
+
+            // 演出を実行する
+            await PlayAttackEffectAsync(target, isCritical);
             
             // ダメージ適用
             target.TakeDamage(damage);
@@ -86,6 +89,16 @@ namespace iCON.Battle
         private bool CheckCritical(float criticalLate)
         {
             return Random.Range(0f, 1f) < criticalLate;
+        }
+        
+        /// <summary>
+        /// 攻撃演出を実行する
+        /// </summary>
+        private async UniTask PlayAttackEffectAsync(BattleUnit target, bool isCritical)
+        {
+            // 現在は最小限の待機のみ
+            // TODO: 将来的にエフェクト演出、アニメーション、サウンドなどを追加
+            await UniTask.DelayFrame(1);
         }
     }
 }
