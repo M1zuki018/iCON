@@ -28,12 +28,27 @@ namespace CryStar.Field.Event
         /// </summary>
         private Collider2D _col;
 
+        /// <summary>
+        /// イベントが発火した回数
+        /// </summary>
+        private int _count = 0;
+        
+        /// <summary>
+        /// インタラクション後の振る舞い
+        /// </summary>
+        protected InteractionBehaviorType BehaviorType => _behaviorType;
+        
+        /// <summary>
+        /// イベントが発火した回数
+        /// </summary>
+        protected int Count => _count;
+
         #region Life cycle
 
         /// <summary>
         /// Start
         /// </summary>
-        private void Start()
+        protected virtual void Start()
         {
             // コライダーを取得。トリガーに設定しておく
             if (TryGetComponent(out _col))
@@ -74,6 +89,8 @@ namespace CryStar.Field.Event
         /// </summary>
         protected virtual void PostExecute()
         {
+            _count++;
+            
             switch (_behaviorType)
             {
                 case InteractionBehaviorType.OneTime:
