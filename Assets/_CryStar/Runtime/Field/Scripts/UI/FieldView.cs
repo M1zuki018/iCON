@@ -54,12 +54,17 @@ namespace CryStar.Field.UI
 
                 _objectiveText.enabled = false;
             }
-            catch (Exception ex)
+            catch (OperationCanceledException)
             {
                 // 連続で目標表示が行われた場合にキャンセル処理が行われる
                 // 正常な動作なので、特にログなどは出さない
             }
-            
+            catch (Exception ex)
+            {
+                // 予期しない例外の場合はログ出力
+                LogUtility.Error($"目標表示中に予期しないエラーが発生: {ex}");
+                _objectiveText.enabled = false; // 確実に非表示にする
+            }
         }
 
         /// <summary>
