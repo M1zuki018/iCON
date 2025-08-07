@@ -57,14 +57,15 @@ namespace CryStar.Story.Execution
             _audioManager.FadeOutBGM(data.Duration).Forget();
             
             HandleReset(view);
+            
+            // // iCONでは終了時のフェードアウトは行わない
+            // // View全体を非表示
+            // var tween = view.FadeOut(data.Duration);
+            // tween.OnComplete(() => HandleReset(view));
+            //
+            // return tween;
+            
             return null;
-            
-            // iCONでは終了時のフェードアウトは行わない
-            // View全体を非表示
-            var tween = view.FadeOut(data.Duration);
-            tween.OnComplete(() => HandleReset(view));
-            
-            return tween;
         }
 
         /// <summary>
