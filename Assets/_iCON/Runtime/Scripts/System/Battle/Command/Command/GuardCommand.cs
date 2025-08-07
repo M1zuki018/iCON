@@ -21,9 +21,22 @@ namespace iCON.Battle
             // Unitの状態をガード中に変更
             executor.IsGuarding = true;
             
+            // 演出を実行する
+            await PlayGuardEffectAsync();
+            
             string message = $"{executor.Name}は身を守っている！";
             
             return new BattleCommandResult(true, message);
+        }
+        
+        /// <summary>
+        /// 攻撃演出を実行する
+        /// </summary>
+        private async UniTask PlayGuardEffectAsync()
+        {
+            // 現在は最小限の待機のみ
+            // TODO: 将来的にエフェクト演出、アニメーション、サウンドなどを追加
+            await UniTask.DelayFrame(1);
         }
     }
 }
