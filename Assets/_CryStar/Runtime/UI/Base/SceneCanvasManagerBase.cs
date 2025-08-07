@@ -17,6 +17,11 @@ public abstract class SceneCanvasManagerBase : CustomBehaviour
     public event Action<int, int> OnBeforeCanvasChange; // キャンバス切り替え前のイベント(前のインデックス, 次のインデックス)
     public event Action<int> OnAfterCanvasChange;     // キャンバス切り替え後のイベント(現在のインデックス)
     
+    /// <summary>
+    /// 現在表示中のウィンドウを取得する
+    /// </summary>
+    public WindowBase CurrentCanvas => _canvasObjects[_currentCanvasIndex];
+    
     public override UniTask OnStart()
     {
         ShowCanvas(_defaultCanvasIndex);
@@ -164,5 +169,13 @@ public abstract class SceneCanvasManagerBase : CustomBehaviour
     public int GetCurrentCanvasIndex()
     {
         return _currentCanvasIndex;
+    }
+
+    /// <summary>
+    /// キャンバスの参照を取得する
+    /// </summary>
+    public WindowBase GetCanvas(int index)
+    {
+        return _canvasObjects[index];
     }
 }

@@ -77,8 +77,12 @@ namespace iCON.Performance
             _cautionaryNote.DOFade(0f, 0f);
             _glitchImage.DOFade(0f, 0f);
             _background.color = _defaultColor;
-            
+        }
+
+        public override async UniTask OnBind()
+        {
             _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            await base.OnBind();
         }
 
         private void Update()
