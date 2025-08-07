@@ -141,11 +141,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1498506361281011012, guid: acab3753ba1d3334da0d197d1f478414, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000015258789
+      value: 0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 3110585541070605147, guid: acab3753ba1d3334da0d197d1f478414, type: 3}
       propertyPath: m_Name
       value: BootCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 3615871658075159225, guid: acab3753ba1d3334da0d197d1f478414, type: 3}
+      propertyPath: m_Size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3615871658075159225, guid: acab3753ba1d3334da0d197d1f478414, type: 3}
       propertyPath: m_Value
@@ -229,18 +233,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6198335114576552583, guid: acab3753ba1d3334da0d197d1f478414, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6953770483061384414, guid: acab3753ba1d3334da0d197d1f478414, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6953770483061384414, guid: acab3753ba1d3334da0d197d1f478414, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6953770483061384414, guid: acab3753ba1d3334da0d197d1f478414, type: 3}
-      propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
