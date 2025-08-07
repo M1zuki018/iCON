@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using System.IO;
@@ -149,3 +150,4 @@ namespace iCON.Boot
         }
     }
 }
+#endif
