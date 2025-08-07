@@ -10,6 +10,7 @@ using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using R3;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace iCON.System
 {
@@ -34,6 +35,10 @@ namespace iCON.System
         /// </summary>
         [SerializeField]
         private FieldView _fieldView;
+        
+        // TODO: 仮。AudioListenerとEventSystemをシーン変更前に一度削除して、警告を出さないようにしている
+        [SerializeField] private AudioListener _audioListener;
+        [SerializeField] private EventSystem _eventSystem;
         
         /// <summary>
         /// マップ管理クラス
@@ -72,7 +77,18 @@ namespace iCON.System
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.F8))
             {
+                // TODO: 仮。警告が出ないように
+                _audioListener.enabled = false;
+                _eventSystem.enabled = false;
                 await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Title, true, true));
+            }
+            
+            if (UnityEngine.Input.GetKeyDown(KeyCode.F9))
+            {
+                // TODO: 仮。警告が出ないように
+                _audioListener.enabled = false;
+                _eventSystem.enabled = false;
+                await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Battle, false, true));
             }
         }
         
