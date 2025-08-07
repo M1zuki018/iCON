@@ -149,6 +149,9 @@ namespace iCON.System
                 // タイムアウト設定
                 var timeoutTask = UniTask.Delay(delayTimeSpan:TimeSpan.FromSeconds(_loadingTimeout), cancellationToken: token);
                 
+                // シーンの初期化完了を待機
+                WaitForSceneInitialization(token).Forget();
+                
                 // シーンを保存しておく
                 // NOTE: LoadSceneModeをAdditiveにしているため、自分でシーンを破棄する必要がある
                 Scene currentScene = SceneManager.GetActiveScene();
@@ -176,9 +179,6 @@ namespace iCON.System
                     // タイムアウトした場合
                     throw new TimeoutException($"シーン遷移 タイムアウト: {data.TargetScene}");
                 }
-
-                // シーンの初期化完了を待機
-                await WaitForSceneInitialization(token);
                 
                 // ロード画面を非表示にするなど
                 await SwitchToNewSceneAsync(data, loadingScene, currentScene);
