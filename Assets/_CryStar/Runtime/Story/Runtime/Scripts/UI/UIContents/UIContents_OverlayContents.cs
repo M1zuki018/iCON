@@ -1,7 +1,6 @@
 using System;
 using CryStar.UI;
 using CryStar.Utility;
-using iCON.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 

@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// Meme動画のような動きの設定を行うためのスクリプタブルオブジェクト

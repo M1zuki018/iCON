@@ -1,10 +1,8 @@
-using System;
 using CryStar.Attribute;
 using CryStar.UI;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace iCON.Story.UI

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using CryStar.Story.Enums;
 using CryStar.Utility;
 using CryStar.Utility.Enum;

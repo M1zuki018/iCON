@@ -7,6 +7,7 @@ using iCON.Constants;
 using iCON.Performance;
 using iCON.UI;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace iCON.System
 {
@@ -38,6 +39,11 @@ namespace iCON.System
         /// </summary>
         [SerializeField]
         private float _bgmFadeDuration = 2f;
+        
+        // TODO: 仮。AudioListenerとEventSystemをシーン変更前に一度削除して、警告を出さないようにしている
+        [SerializeField] private AudioListener _audioListener;
+        [SerializeField] private EventSystem _eventSystem;
+        
 
         /// <summary>
         /// タイトルスプラッシュ完了済み
@@ -51,6 +57,12 @@ namespace iCON.System
         /// </summary>
         public override UniTask OnStart()
         {
+            if (ServiceLocator.GetGlobal<SceneLoader>().IsLoading)
+            {
+                // ロード中であれば不正な処理なのでreturn
+                return base.OnStart();
+            }
+            
             if (ValidateComponents())
             {
                 // コンポーネントの検証を行う
@@ -151,6 +163,11 @@ namespace iCON.System
             
             // BGMのフェードアウト後にシーン遷移
             await AudioManager.Instance.FadeOutBGM(_bgmFadeDuration);
+
+            // TODO: 仮。警告が出ないように
+            _audioListener.enabled = false;
+            _eventSystem.enabled = false;
+            
             await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, true));
         }
     }

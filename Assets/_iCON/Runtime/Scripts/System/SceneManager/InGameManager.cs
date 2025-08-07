@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
@@ -9,9 +8,7 @@ using CryStar.Story.Orchestrators;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
-using iCON.UI;
 using R3;
-using UnityEditor.EventSystems;
 using UnityEngine;
 
 namespace iCON.System
