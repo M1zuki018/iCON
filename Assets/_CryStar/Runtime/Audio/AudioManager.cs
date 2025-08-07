@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using CryStar.Attribute;
 using CryStar.Core;
+using CryStar.Core.Enums;
 using CryStar.Story.Constants;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
@@ -23,11 +24,6 @@ namespace iCON.System
     /// </summary>
     public class AudioManager : CustomBehaviour
     {
-        /// <summary>
-        /// シングルトン
-        /// </summary>
-        public static AudioManager Instance { get; private set; }
-
         /// <summary>
         /// AudioMixer
         /// </summary>
@@ -101,17 +97,27 @@ namespace iCON.System
         
         #region Lifecycle
         
-        public override UniTask OnAwake()
+        public override async UniTask OnAwake()
         {
-            if (Instance != null)
+            await base.OnAwake();
+
+            // GlobalServiceに既に自身が登録されているかチェックする
+            if (ServiceLocator.IsRegisteredGlobal<AudioManager>())
             {
-                Destroy(gameObject);
-                return base.OnAwake();
+                // 既に登録されていた場合は、登録されているInstanceが自分ではない場合、オブジェクトを削除する
+                if (ServiceLocator.GetGlobal<AudioManager>() != this)
+                {
+                    Destroy(gameObject);
+                }
+                
+                // 初期化済みなので早期return
+                return;
             }
-
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-
+            
+            // 未登録の場合、GlobalServiceとDDOLに登録
+            ServiceLocator.Register(this, ServiceType.Global);
+            DontDestroyOnLoad(this);
+            
             // BGM用のオブジェクト生成
             _bgmSource = CreateAudioSource(CryStar.Enums.AudioType.BGM, "BGM_Primary");
             _bgmSourceSecondary = CreateAudioSource(CryStar.Enums.AudioType.BGM, "BGM_Secondary");
@@ -144,8 +150,6 @@ namespace iCON.System
             SetVolume("SE", _gameSettings.SEVolume);
             SetVolume("Ambience", _gameSettings.AmbientVolume);
             SetVolume("Voice", _gameSettings.VoiceVolume);
-
-            return base.OnAwake();
         }
         
         /// <summary>
