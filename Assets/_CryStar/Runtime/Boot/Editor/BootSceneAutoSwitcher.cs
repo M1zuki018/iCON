@@ -4,10 +4,9 @@ using UnityEditor.SceneManagement;
 using System.IO;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
-using iCON.Constants;
 using UnityEngine.SceneManagement;
 
-namespace iCON.Boot
+namespace CryStar.Boot.Editor
 {
     /// <summary>
     /// エディター再生時に自動的にBootシーンに切り替えるエディター拡張機能
@@ -24,6 +23,11 @@ namespace iCON.Boot
         /// 自動切り替え機能の有効/無効状態を保存するキー
         /// </summary>
         private const string PREF_KEY_ENABLED = "BootSceneSwitcher_Enabled";
+
+        /// <summary>
+        /// Bootシーンのパス
+        /// </summary>
+        private const string BOOT_SCENE_PATH = "Assets/_CryStar/Runtime/Boot/Runtime/Scenes/Bootstrap.unity";
 
         /// <summary>
         /// コンストラクタ
@@ -65,21 +69,21 @@ namespace iCON.Boot
         {
             // 現在アクティブなシーンの情報を取得
             var currentScene = SceneManager.GetActiveScene();
-            if (currentScene.path != KSceneManagement.BOOT_SCENE_PATH)
+            if (currentScene.path != BOOT_SCENE_PATH)
             {
                 // 現在のシーンパスをEditorPrefsに保存（復帰用）
                 EditorPrefs.SetString(PREF_KEY_PREVIOUS_SCENE, currentScene.path);
 
                 // Bootシーンが実際に存在するかチェック
-                if (File.Exists(KSceneManagement.BOOT_SCENE_PATH))
+                if (File.Exists(BOOT_SCENE_PATH))
                 {
                     // 未保存の変更がある場合はユーザーに保存を促してからBootSceneを開く
                     EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
-                    EditorSceneManager.OpenScene(KSceneManagement.BOOT_SCENE_PATH);
+                    EditorSceneManager.OpenScene(BOOT_SCENE_PATH);
                 }
                 else
                 {
-                    LogUtility.Error($"Bootシーンが見つかりません: {KSceneManagement.BOOT_SCENE_PATH}", LogCategory.System);
+                    LogUtility.Error($"Bootシーンが見つかりません: {BOOT_SCENE_PATH}", LogCategory.System);
                 }
             }
         }
@@ -93,7 +97,7 @@ namespace iCON.Boot
 
             if (!string.IsNullOrEmpty(previousScenePath) &&
                 File.Exists(previousScenePath) &&
-                previousScenePath != KSceneManagement.BOOT_SCENE_PATH)
+                previousScenePath != BOOT_SCENE_PATH)
             {
                 // 元のシーンを開く
                 EditorSceneManager.OpenScene(previousScenePath);
@@ -114,7 +118,7 @@ namespace iCON.Boot
         /// <summary>
         /// メニューからの自動切り替え機能のON/OFF切り替えを行う
         /// </summary>
-        [MenuItem("Tools/Boot Scene Switcher/Toggle Auto Switch")]
+        [MenuItem("CryStar/Boot/Toggle Auto Switch")]
         private static void ToggleAutoSwitch()
         {
             bool currentState = IsAutoSwitchEnabled();
@@ -125,27 +129,27 @@ namespace iCON.Boot
         /// <summary>
         /// メニュー項目の表示状態を制御（チェックマークの表示/非表示を管理する）
         /// </summary>
-        [MenuItem("Tools/Boot Scene Switcher/Toggle Auto Switch", true)]
+        [MenuItem("CryStar/Boot/Toggle Auto Switch", true)]
         private static bool ToggleAutoSwitchValidation()
         {
-            Menu.SetChecked("Tools/Boot Scene Switcher/Toggle Auto Switch", IsAutoSwitchEnabled());
+            Menu.SetChecked("CryStar/Boot/Toggle Auto Switch", IsAutoSwitchEnabled());
             return true;
         }
 
         /// <summary>
         /// 手動でBootシーンに切り替える機能（ショートカット: Ctrl+Alt+B）
         /// </summary>
-        [MenuItem("Tools/Boot Scene Switcher/Go to Boot Scene %&b")]
+        [MenuItem("CryStar/Boot/Go to Boot Scene %&b")]
         private static void GoToBootScene()
         {
-            if (File.Exists(KSceneManagement.BOOT_SCENE_PATH))
+            if (File.Exists(BOOT_SCENE_PATH))
             {
                 EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
-                EditorSceneManager.OpenScene(KSceneManagement.BOOT_SCENE_PATH);
+                EditorSceneManager.OpenScene(BOOT_SCENE_PATH);
             }
             else
             {
-                LogUtility.Error($"Bootシーンが見つかりません: {KSceneManagement.BOOT_SCENE_PATH}", LogCategory.System);
+                LogUtility.Error($"Bootシーンが見つかりません: {BOOT_SCENE_PATH}", LogCategory.System);
             }
         }
     }

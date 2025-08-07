@@ -5,7 +5,7 @@ using iCON.System;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace iCON.Boot.UI
+namespace CryStar.Boot.UI
 {
     /// <summary>
     /// ゲーム開始ボタンのコンポーネント
