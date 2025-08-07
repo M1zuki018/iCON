@@ -9,6 +9,7 @@ namespace CryStar.Field.Player
     /// <summary>
     /// プレイヤーの動きを管理するクラス
     /// </summary>
+    [RequireComponent(typeof(Rigidbody2D))]
     public class PlayerMover : MonoBehaviour
     {
         /// <summary>
@@ -51,8 +52,32 @@ namespace CryStar.Field.Player
         /// 現在向いている方向
         /// </summary>
         private MoveDirectionType _directionType;
+        
+        /// <summary>
+        /// Rigidbody2Dコンポーネント
+        /// </summary>
+        private Rigidbody2D _rigidbody2D;
+        
+        /// <summary>
+        /// 現在の移動入力
+        /// </summary>
+        private Vector2 _currentMoveInput;
 
         #region Life cycle
+
+        /// <summary>
+        /// Awake
+        /// </summary>
+        private void Awake()
+        {
+            _rigidbody2D = GetComponent<Rigidbody2D>();
+            
+            // 重力を無効化
+            _rigidbody2D.gravityScale = 0f;
+            
+            // 回転を固定
+            _rigidbody2D.freezeRotation = true;
+        }
 
         /// <summary>
         /// Start
@@ -64,14 +89,13 @@ namespace CryStar.Field.Player
         }
 
         /// <summary>
-        /// Update
+        /// FixedUpdate
         /// </summary>
-        private void Update()
+        private void FixedUpdate()
         {
-            var direction = DirectionUtility.GetVector2(_directionType);
-            // Time.deltaTimeと移動速度を掛けて適切な移動量にする
-            Vector3 movement = new Vector3(direction.x, direction.y, 0) * _moveSpeed * Time.deltaTime;
-            transform.position += movement;
+            // Rigidbodyのvelocityを設定して移動
+            Vector2 velocity = _currentMoveInput * _moveSpeed;
+            _rigidbody2D.linearVelocity = velocity;
         }
         
         /// <summary>
@@ -90,54 +114,38 @@ namespace CryStar.Field.Player
         /// </summary>
         private void UpdateDirection(InputAction.CallbackContext ctx)
         {
-            var moveInput = ctx.ReadValue<Vector2>();
+            _currentMoveInput = ctx.ReadValue<Vector2>();
             
             // 入力がない場合
-            if (moveInput == Vector2.zero)
+            if (_currentMoveInput == Vector2.zero)
             {
                 _directionType = MoveDirectionType.None;
                 return;
             }
             
-            // 水平移動が優先（左右の判定）
-            if (Mathf.Abs(moveInput.x) > Mathf.Abs(moveInput.y))
+            // 方向を判定して更新
+            var newDirection = DetermineDirection(_currentMoveInput);
+            if (_directionType != newDirection)
             {
-                if (moveInput.x > 0)
-                {
-                    if (_directionType != MoveDirectionType.Right)
-                    {
-                        _directionType = MoveDirectionType.Right;
-                        ChangeAnimationSprites();
-                    }
-                }
-                else
-                {
-                    if (_directionType != MoveDirectionType.Left)
-                    {
-                        _directionType = MoveDirectionType.Left;
-                        ChangeAnimationSprites();
-                    }
-                }
+                _directionType = newDirection;
+                ChangeAnimationSprites();
+            }
+        }
+        
+        /// <summary>
+        /// 入力ベクトルから方向を判定
+        /// </summary>
+        private MoveDirectionType DetermineDirection(Vector2 input)
+        {
+            // 水平移動が優先（左右の判定）
+            if (Mathf.Abs(input.x) > Mathf.Abs(input.y))
+            {
+                return input.x > 0 ? MoveDirectionType.Right : MoveDirectionType.Left;
             }
             // 垂直移動（上下の判定）
             else
             {
-                if (moveInput.y > 0)
-                {
-                    if (_directionType != MoveDirectionType.Up)
-                    {
-                        _directionType = MoveDirectionType.Up;
-                        ChangeAnimationSprites();
-                    }
-                }
-                else
-                {
-                    if (_directionType != MoveDirectionType.Down)
-                    {
-                        _directionType = MoveDirectionType.Down;
-                        ChangeAnimationSprites();
-                    }
-                }
+                return input.y > 0 ? MoveDirectionType.Up : MoveDirectionType.Down;
             }
         }
 
@@ -160,7 +168,7 @@ namespace CryStar.Field.Player
         /// </summary>
         private void HandleDash(InputAction.CallbackContext ctx)
         {
-            // TODO
+            // TODO: ダッシュ実装
         }
     }
 }

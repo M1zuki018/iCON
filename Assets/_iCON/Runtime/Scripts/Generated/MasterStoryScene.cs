@@ -27,27 +27,27 @@ public static class MasterStoryScene
         },
         {
             3, new StorySceneData(3, "かがるエリア会話1", 1, 1, 3, 
-                "A71:O73", 1.0f, new Vector3(0.0f, 0.0f, 2.0f), null
+                "A71:O80", 1.0f, new Vector3(0.0f, 0.0f, 2.0f), null
             )
         },
         {
             4, new StorySceneData(4, "かがるエリア会話２", 1, 1, 4, 
-                "A71:O73", 1.0f, new Vector3(0.0f, 0.0f, 3.0f), null
+                "A71:O80", 1.0f, new Vector3(0.0f, 0.0f, 3.0f), null
             )
         },
         {
             5, new StorySceneData(5, "衣装スタッフ会話", 1, 1, 5, 
-                "A76:O82", 1.0f, new Vector3(0.0f, 0.0f, 4.0f), null
+                "A83:O89", 1.0f, new Vector3(0.0f, 0.0f, 4.0f), null
             )
         },
         {
             6, new StorySceneData(6, "お昼休憩", 1, 1, 6, 
-                "A91:O96", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
+                "A98:O103", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
             )
         },
         {
             7, new StorySceneData(7, "警察陣登場", 1, 1, 7, 
-                "A102:O104", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
+                "A109:O111", 1.0f, new Vector3(0.0f, 0.0f, 0.0f), null
             )
         },
     };
