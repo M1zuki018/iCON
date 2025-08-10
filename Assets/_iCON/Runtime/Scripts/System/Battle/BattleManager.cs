@@ -91,6 +91,14 @@ namespace iCON.Battle
             _view.SetupIcons(_data.UnitData, _data.EnemyData).Forget();
         }
 
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            {
+                _currentStateHandler.Cancel();
+            }
+        }
+
         #endregion
 
         /// <summary>

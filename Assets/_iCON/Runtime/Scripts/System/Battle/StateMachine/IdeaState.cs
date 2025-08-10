@@ -27,10 +27,17 @@ namespace iCON.Battle
             _canvasController.OnIdeaSelected += HandleIdeaSelected;
         }
 
+        public override void Cancel()
+        {
+            // コマンド選択に戻る
+            BattleManager.SetState(BattleSystemState.CommandSelect);
+        }
+
         public override void Exit()
         {
             base.Exit();
             _canvasController.OnIdeaSelected -= HandleIdeaSelected;
+            View.PopCanvas();
         }
 
         /// <summary>
