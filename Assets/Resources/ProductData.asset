@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ProductData
   m_EditorClassIdentifier: 
   _version: 0.0.0
-  _buildNumber: 015
+  _buildNumber: 017
   _appName: iCON
   _snsUrl: 
   _isDebugMode: 0
