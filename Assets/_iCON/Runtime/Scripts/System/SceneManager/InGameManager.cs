@@ -8,6 +8,7 @@ using CryStar.Story.Orchestrators;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
+using iCON.Enums;
 using R3;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -19,6 +20,11 @@ namespace iCON.System
     /// </summary>
     public class InGameManager : CustomBehaviour
     {
+        /// <summary>
+        /// 現在のイベントのindex
+        /// </summary>
+        private static ReactiveProperty<int> _currentEventIndex = new ReactiveProperty<int>(1);
+
         /// <summary>
         /// イベント終了アクション
         /// </summary>
@@ -40,11 +46,16 @@ namespace iCON.System
         /// マップ管理クラス
         /// </summary>
         private MapInstanceManager _mapInstanceManager;
+
+        /// <summary>
+        /// 現在のInGameの状態のリアクティブプロパティ
+        /// </summary>
+        private readonly ReactiveProperty<InGameStateType> _currentStateProp = new ReactiveProperty<InGameStateType>(InGameStateType.Field);
         
         /// <summary>
-        /// 現在のイベントのindex
+        /// 現在のInGameの状態のリアクティブプロパティ
         /// </summary>
-        private static ReactiveProperty<int> _currentEventIndex = new ReactiveProperty<int>(1);
+        public ReadOnlyReactiveProperty<InGameStateType> CurrentStateProp => _currentStateProp;
         
         public override async UniTask OnStart()
         {
@@ -87,6 +98,9 @@ namespace iCON.System
         /// </summary>
         public void PlayStory(int storyId)
         {
+            // 状態をストーリー中に変更する
+            _currentStateProp.Value = InGameStateType.Story;
+            
             _storyOrchestrator.gameObject.SetActive(true);
             _storyOrchestrator.PlayStoryAsync(storyId,
                 () =>
@@ -170,6 +184,9 @@ namespace iCON.System
             }
             
             _currentEventIndex.Value += 1;
+            
+            // 状態をFieldに変更する
+            _currentStateProp.Value = InGameStateType.Field;
         }
     }
 }
