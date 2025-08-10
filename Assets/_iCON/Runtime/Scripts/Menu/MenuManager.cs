@@ -38,11 +38,28 @@ namespace iCON.Menu
 
         #region Life cycle
 
-        private void Awake()
+        private void Start()
         {
             // ステートマシンの初期化
             InitializeStates();
             SetState(_currentState);
+        }
+
+        private void Update()
+        {
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (_currentState == MenuSystemState.None)
+                {
+                    // 現在メニューを開いていない状態だったらメニューを開いて早期リターン
+                    _view.GetCanvas(InGameCanvasType.MainMenu).Show();
+                    SetState(MenuSystemState.MainMenu);
+                    return;
+                }
+                
+                // Escapeキーが押されたら各ハンドルの画面を閉じる処理を呼び出す
+                _currentStateHandler?.Back();
+            }
         }
 
         #endregion
@@ -55,13 +72,18 @@ namespace iCON.Menu
             try
             {
                 _currentStateHandler?.Exit();
+                
                 _currentState = state;
-                _currentStateHandler = _states[state];
-                _currentStateHandler.Enter(this, _view);
+                
+                if (_states.TryGetValue(state, out var newState))
+                {
+                    _currentStateHandler = newState;
+                    _currentStateHandler.Enter(this, _view);
+                }
             }
             catch(Exception e)
             {
-                LogUtility.Error($"メニュー操作中に例外が発生しました {e.Message}", LogCategory.Gameplay);
+                LogUtility.Error($"{state} メニュー操作中に例外が発生しました {e.Message}", LogCategory.Gameplay);
             }
         }
         
