@@ -41,6 +41,13 @@ namespace iCON.Menu
             _cc.OnBackTitleButtonClicked += HandleBackTitleButton;
         }
 
+        public override void Back()
+        {
+            // メニュー画面を閉じる
+            View.CurrentCanvas.Hide();
+            MenuManager.SetState(MenuSystemState.None);
+        }
+
         public override void Exit()
         {
             if (_cc != null)
