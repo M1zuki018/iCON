@@ -13,6 +13,8 @@ namespace iCON.Battle
             View = view;
         }
         
+        public virtual void Cancel(){}
+        
         public virtual void Exit() { }
     }
 }
