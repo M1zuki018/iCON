@@ -25,7 +25,7 @@ namespace iCON.Input
         /// <summary>
         /// ゲームの状態と対応するActionMapの辞書
         /// </summary>
-        private Dictionary<GameStateType, InputActionMap> _contextMaps = new Dictionary<GameStateType, InputActionMap>();
+        private Dictionary<InGameStateType, InputActionMap> _contextMaps = new Dictionary<InGameStateType, InputActionMap>();
 
         private IPlayerInputReceiver _iPlayerInputReceiver = new PlayerInputProcessor();
         private CompositeDisposable _disposables = new CompositeDisposable();
@@ -81,9 +81,8 @@ namespace iCON.Input
                 return;
             }
             
-            _contextMaps[GameStateType.Field] = _actionAsset.FindActionMap("Field");
-            _contextMaps[GameStateType.Title] = _actionAsset.FindActionMap("UI");
-            _contextMaps[GameStateType.Story] = _actionAsset.FindActionMap("UI");
+            _contextMaps[InGameStateType.Field] = _actionAsset.FindActionMap("Field");
+            _contextMaps[InGameStateType.Story] = _actionAsset.FindActionMap("UI");
 
             // 存在確認
             foreach (var kvp in _contextMaps)
@@ -98,7 +97,7 @@ namespace iCON.Input
         /// <summary>
         /// 入力コンテキストを切り替える
         /// </summary>
-        private void SwitchInputContext(GameStateType newState)
+        private void SwitchInputContext(InGameStateType newState)
         {
             // 全てのActionMapを無効化
             foreach (var actionMap in _contextMaps.Values)

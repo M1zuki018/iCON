@@ -1201,7 +1201,7 @@ MonoBehaviour:
   - {fileID: 3589699451968185226}
   - {fileID: 5657044719967337031}
   - {fileID: 2708839658182995585}
-  _defaultCanvasIndex: 1
+  _defaultCanvasIndex: 0
 --- !u!1 &8008067176279644582
 GameObject:
   m_ObjectHideFlags: 0

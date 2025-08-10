@@ -1,12 +1,11 @@
 namespace iCON.Enums
 {
     /// <summary>
-    /// ゲームの状態
+    /// インゲームの状態
     /// </summary>
-    public enum GameStateType
+    public enum InGameStateType
     {
         Field,
-        Title,
         Story,
     }
 }

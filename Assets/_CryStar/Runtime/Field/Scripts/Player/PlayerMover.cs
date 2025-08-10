@@ -1,6 +1,8 @@
+using CryStar.Core;
 using iCON.Enums;
+using iCON.System;
 using iCON.UI;
-using iCON.Utility;
+using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -29,6 +31,12 @@ namespace CryStar.Field.Player
         /// </summary>
         [SerializeField]
         private float _moveSpeed = 5f;
+
+        /// <summary>
+        /// ダッシュ時の移動速度にかかる倍率
+        /// </summary>
+        [SerializeField] 
+        private float _dashMultiply = 1.5f;
         
         /// <summary>
         /// 移動のInputActionReference
@@ -63,6 +71,21 @@ namespace CryStar.Field.Player
         /// </summary>
         private Vector2 _currentMoveInput;
 
+        /// <summary>
+        /// 現在の移動速度
+        /// </summary>
+        private float _currentMoveSpeed;
+        
+        /// <summary>
+        /// 行動可能か
+        /// </summary>
+        private bool _canMove;
+        
+        /// <summary>
+        /// InGameManagerのCurrentStateリアクティブプロパティの監視を解除するためのCompositeDisposable
+        /// </summary>
+        private CompositeDisposable _disposable = new CompositeDisposable();
+
         #region Life cycle
 
         /// <summary>
@@ -77,6 +100,9 @@ namespace CryStar.Field.Player
             
             // 回転を固定
             _rigidbody2D.freezeRotation = true;
+
+            // 移動速度をSerializeFieldで設定した速度に設定
+            _currentMoveSpeed = _moveSpeed;
         }
 
         /// <summary>
@@ -85,7 +111,12 @@ namespace CryStar.Field.Player
         private void Start()
         {
             // 入力を受け取るクラスを生成
-            _input = new PlayerMoveInput(_moveInput, _dashInput, UpdateDirection, HandleDash);
+            _input = new PlayerMoveInput(_moveInput, _dashInput, UpdateDirection, HandleDash, HandleDashCancel);
+            
+            // InGameの状態を監視してStoryの時に行動制限をかけるようにしたいので
+            // InGameManagerのリアクティブプロパティを購読する
+            var inGameManager = ServiceLocator.GetLocal<InGameManager>();
+            inGameManager.CurrentStateProp.Subscribe(ChangeState).AddTo(_disposable);
         }
 
         /// <summary>
@@ -94,7 +125,7 @@ namespace CryStar.Field.Player
         private void FixedUpdate()
         {
             // Rigidbodyのvelocityを設定して移動
-            Vector2 velocity = _currentMoveInput * _moveSpeed;
+            Vector2 velocity = _currentMoveInput * _currentMoveSpeed;
             _rigidbody2D.linearVelocity = velocity;
         }
         
@@ -105,15 +136,41 @@ namespace CryStar.Field.Player
         {
             // 入力購読を破棄
             _input.Dispose();
+            _disposable?.Dispose();
         }
 
         #endregion
 
         /// <summary>
+        /// InGameの状態が変更されたときに呼ばれる処理
+        /// </summary>
+        private void ChangeState(InGameStateType state)
+        {
+            if (state == InGameStateType.Field)
+            {
+                // Fieldの場合は動くことができる
+                _canMove = true;
+                return;
+            }
+            
+            // それ以外の場合は動けない
+            _canMove = false;
+            
+            // 移動が止まるように各変数もリセットする
+            _currentMoveInput = Vector2.zero;
+            _rigidbody2D.linearVelocity = _currentMoveInput;
+        }
+        
+        /// <summary>
         /// 入力に基づいて方向を更新
         /// </summary>
         private void UpdateDirection(InputAction.CallbackContext ctx)
         {
+            if (!_canMove)
+            {
+                return;
+            }
+            
             _currentMoveInput = ctx.ReadValue<Vector2>();
             
             // 入力がない場合
@@ -164,11 +221,26 @@ namespace CryStar.Field.Player
         }
 
         /// <summary>
-        /// ダッシュ切り替え
+        /// ダッシュ開始（長押ししている間だけダッシュする）
         /// </summary>
         private void HandleDash(InputAction.CallbackContext ctx)
         {
-            // TODO: ダッシュ実装
+            if (!_canMove)
+            {
+                return;
+            }
+
+            // デフォルトの速度にダッシュ時の倍率をかけたものをスピードに設定する
+            _currentMoveSpeed = _moveSpeed * _dashMultiply;
+        }
+
+        /// <summary>
+        /// ダッシュキャンセル
+        /// </summary>
+        private void HandleDashCancel(InputAction.CallbackContext ctx)
+        {
+            // 速度をデフォルトに戻す
+            _currentMoveSpeed = _moveSpeed;
         }
     }
 }

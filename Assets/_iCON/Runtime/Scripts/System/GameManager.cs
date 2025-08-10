@@ -9,13 +9,13 @@ using R3;
 public class GameManager : CustomBehaviour, IGameManager
 {
     private bool _isFirstLoad = true; // 最初の読み込みかどうか
-    private readonly ReactiveProperty<GameStateType> _currentGameState = new ReactiveProperty<GameStateType>();
+    private readonly ReactiveProperty<InGameStateType> _currentGameState = new ReactiveProperty<InGameStateType>();
     public bool IsFirstLoad => _isFirstLoad;
     
     /// <summary>
     /// 現在のゲームの進行状態
     /// </summary>
-    public ReadOnlyReactiveProperty<GameStateType> CurrentGameStateProp => _currentGameState;
+    public ReadOnlyReactiveProperty<InGameStateType> CurrentGameStateProp => _currentGameState;
 
     public override async UniTask OnAwake()
     {

@@ -6,7 +6,7 @@ using R3;
 /// </summary>
 public interface IGameManager
 {
-    public ReadOnlyReactiveProperty<GameStateType> CurrentGameStateProp { get; }
+    public ReadOnlyReactiveProperty<InGameStateType> CurrentGameStateProp { get; }
     // GameSettings Settings { get; }
     // bool IsFirstLoad { get; }
     // int VictoryPoints { get; }
