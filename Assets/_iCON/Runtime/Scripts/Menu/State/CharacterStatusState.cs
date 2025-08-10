@@ -16,6 +16,12 @@ namespace iCON.Menu
             // TODO: キャラクターのステータス表示関連の処理を書く
         }
 
+        public override void Back()
+        {
+            // メインメニューへ遷移
+            MenuManager.SetState(MenuSystemState.MainMenu);
+        }
+
         public override void Exit()
         {
             base.Exit();
