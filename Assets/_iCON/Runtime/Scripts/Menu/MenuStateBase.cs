@@ -9,6 +9,7 @@ namespace iCON.Menu
 
         public virtual void Enter(MenuManager manager, InGameCanvasManager view)
         {
+            MenuManager = manager;
             View = view;
         }
         
