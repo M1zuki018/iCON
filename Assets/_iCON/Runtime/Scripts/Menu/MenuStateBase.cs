@@ -13,6 +13,8 @@ namespace iCON.Menu
             View = view;
         }
         
+        public virtual void Back(){}
+        
         public virtual void Exit(){}
     }
 }
