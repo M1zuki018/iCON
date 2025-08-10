@@ -24,6 +24,10 @@ public class WindowBase : CustomBehaviour
     /// </summary>
     public virtual void Show()
     {
+        if (_canvasGroup == null)
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
         _canvasGroup.alpha = 1f;
         _canvasGroup.interactable = true;
         _canvasGroup.blocksRaycasts = true;
@@ -34,6 +38,10 @@ public class WindowBase : CustomBehaviour
     /// </summary>
     public virtual void Hide()
     {
+        if (_canvasGroup == null)
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
         _canvasGroup.alpha = 0f;
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
@@ -44,6 +52,10 @@ public class WindowBase : CustomBehaviour
     /// </summary>
     public virtual void Block()
     {
+        if (_canvasGroup == null)
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
         _canvasGroup.interactable = false;
         _canvasGroup.blocksRaycasts = false;
     }
@@ -53,6 +65,10 @@ public class WindowBase : CustomBehaviour
     /// </summary>
     public virtual void Unblock()
     {
+        if (_canvasGroup == null)
+        {
+            _canvasGroup = GetComponent<CanvasGroup>();
+        }
         _canvasGroup.interactable = true;
         _canvasGroup.blocksRaycasts = true;
     }
