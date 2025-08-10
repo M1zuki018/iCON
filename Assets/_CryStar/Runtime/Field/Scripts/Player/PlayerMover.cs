@@ -31,6 +31,12 @@ namespace CryStar.Field.Player
         /// </summary>
         [SerializeField]
         private float _moveSpeed = 5f;
+
+        /// <summary>
+        /// ダッシュ時の移動速度にかかる倍率
+        /// </summary>
+        [SerializeField] 
+        private float _dashMultiply = 1.5f;
         
         /// <summary>
         /// 移動のInputActionReference
@@ -64,6 +70,11 @@ namespace CryStar.Field.Player
         /// 現在の移動入力
         /// </summary>
         private Vector2 _currentMoveInput;
+
+        /// <summary>
+        /// 現在の移動速度
+        /// </summary>
+        private float _currentMoveSpeed;
         
         /// <summary>
         /// 行動可能か
@@ -89,6 +100,9 @@ namespace CryStar.Field.Player
             
             // 回転を固定
             _rigidbody2D.freezeRotation = true;
+
+            // 移動速度をSerializeFieldで設定した速度に設定
+            _currentMoveSpeed = _moveSpeed;
         }
 
         /// <summary>
@@ -97,7 +111,7 @@ namespace CryStar.Field.Player
         private void Start()
         {
             // 入力を受け取るクラスを生成
-            _input = new PlayerMoveInput(_moveInput, _dashInput, UpdateDirection, HandleDash);
+            _input = new PlayerMoveInput(_moveInput, _dashInput, UpdateDirection, HandleDash, HandleDashCancel);
             
             // InGameの状態を監視してStoryの時に行動制限をかけるようにしたいので
             // InGameManagerのリアクティブプロパティを購読する
@@ -111,7 +125,7 @@ namespace CryStar.Field.Player
         private void FixedUpdate()
         {
             // Rigidbodyのvelocityを設定して移動
-            Vector2 velocity = _currentMoveInput * _moveSpeed;
+            Vector2 velocity = _currentMoveInput * _currentMoveSpeed;
             _rigidbody2D.linearVelocity = velocity;
         }
         
@@ -207,7 +221,7 @@ namespace CryStar.Field.Player
         }
 
         /// <summary>
-        /// ダッシュ切り替え
+        /// ダッシュ開始（長押ししている間だけダッシュする）
         /// </summary>
         private void HandleDash(InputAction.CallbackContext ctx)
         {
@@ -215,8 +229,18 @@ namespace CryStar.Field.Player
             {
                 return;
             }
-            
-            // TODO: ダッシュ実装
+
+            // デフォルトの速度にダッシュ時の倍率をかけたものをスピードに設定する
+            _currentMoveSpeed = _moveSpeed * _dashMultiply;
+        }
+
+        /// <summary>
+        /// ダッシュキャンセル
+        /// </summary>
+        private void HandleDashCancel(InputAction.CallbackContext ctx)
+        {
+            // 速度をデフォルトに戻す
+            _currentMoveSpeed = _moveSpeed;
         }
     }
 }

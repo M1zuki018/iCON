@@ -13,6 +13,7 @@ namespace CryStar.Field.Player
         private readonly InputActionReference _dashInput;
         private readonly Action<InputAction.CallbackContext> _onMove;
         private readonly Action<InputAction.CallbackContext> _onDash;
+        private readonly Action<InputAction.CallbackContext> _onDashCancel;
         
         /// <summary>
         /// コンストラクタ
@@ -23,16 +24,19 @@ namespace CryStar.Field.Player
         /// <param name="onOnDash">ダッシュアクション</param>
         public PlayerMoveInput(
             InputActionReference moveInput, InputActionReference dashInput,
-            Action<InputAction.CallbackContext> onOnMove, Action<InputAction.CallbackContext> onOnDash)
+            Action<InputAction.CallbackContext> onOnMove, Action<InputAction.CallbackContext> onOnDash,
+            Action<InputAction.CallbackContext> onOnDashCancel)
         {
             _moveInput = moveInput;
             _dashInput = dashInput;
             _onMove = onOnMove;
             _onDash = onOnDash;
+            _onDashCancel = onOnDashCancel;
             
             _moveInput.action.performed += _onMove;
             _moveInput.action.canceled += _onMove;
             _dashInput.action.performed += _onDash;
+            _dashInput.action.canceled += _onDashCancel;
         }
 
         /// <summary>
@@ -43,6 +47,7 @@ namespace CryStar.Field.Player
             _moveInput.action.performed -= _onMove;
             _moveInput.action.canceled -= _onMove;
             _dashInput.action.performed -= _onDash;
+            _dashInput.action.canceled -= _onDashCancel;
         }
     }
 }
