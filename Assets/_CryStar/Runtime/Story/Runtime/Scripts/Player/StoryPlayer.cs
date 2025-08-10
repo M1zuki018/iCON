@@ -72,6 +72,12 @@ namespace CryStar.Story.Player
                 // ストーリー再生中のみ、オートモードの監視を行う
                 _modeController.HandleAutoPlay(_orderExecutor.IsExecuting);
             }
+
+            // TODO: デバッグ用のストーリースキップ機能。後で消す
+            if (Input.GetKeyDown(KeyCode.F10))
+            {
+                HandleSkip();
+            }
         }
         
         /// <summary>
