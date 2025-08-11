@@ -32,15 +32,14 @@ namespace iCON.Battle
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public BattleData(IReadOnlyList<int> units, IReadOnlyList<int> enemies, 
-            List<BattleUnitMaster> unitDataList, List<BattleUnitMaster> enemyDataList)
+        public BattleData(IReadOnlyList<int> units, IReadOnlyList<int> enemies)
         {
             // ユニットのデータリストを作成
             UnitData = new List<BattleUnit>(units.Count);
             for (int i = 0; i < units.Count; i++)
             {
                 // キャラクターIDを渡してバトルデータを生成
-                var unitData = new BattleUnit(units[i], unitDataList[i]);
+                var unitData = new BattleUnit(units[i]);
                 UnitData.Add(unitData);
                 LogUtility.Verbose($"生成されたUnitData {UnitCount}", LogCategory.Gameplay);
             }
@@ -50,7 +49,7 @@ namespace iCON.Battle
             for (int i = 0; i < enemies.Count; i++)
             {
                 // キャラクターIDを渡してバトルデータを生成
-                var enemyData = new BattleUnit(enemies[i], enemyDataList[i]);
+                var enemyData = new BattleUnit(enemies[i]);
                 EnemyData.Add(enemyData);
                 LogUtility.Verbose($"生成されたEnemyData {EnemyCount}", LogCategory.Gameplay);
             }
