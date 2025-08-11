@@ -33,11 +33,11 @@ namespace iCON.Battle
             int damage = CalculateDamage(executor, target);
             
             // クリティカル判定を行う
-            bool isCritical = CheckCritical(executor.Data.CriticalLate);
+            bool isCritical = CheckCritical(executor.UserData.CriticalRate);
             if (isCritical)
             {
                 // 小数点以下は丸める
-                damage = Mathf.RoundToInt(damage * executor.Data.CriticalDamage);
+                damage = Mathf.RoundToInt(damage * executor.UserData.CriticalDamage);
             }
 
             // 演出を実行する
@@ -71,10 +71,12 @@ namespace iCON.Battle
         /// </summary>
         private int CalculateDamage(BattleUnit attacker, BattleUnit defender)
         {
-            // 基本ダメージ計算式
-            int baseDamage = attacker.PhysicalAttack;
-            int defense = defender.PhysicalAttack;
-            int damage = Mathf.Max(1, baseDamage - defense / 2);
+            // 攻撃力 * 知力 // TODO: 更にスキルごとの倍率をかける
+            int baseDamage = (int)(attacker.Attack * ((100 + attacker.SkillMultiplier) * 0.01f));
+            // 実効防御力: ディフェンダーの物理防御 × (1 - アタッカーの防御無視率)
+            int defense = (int)(defender.Defense * (1 - attacker.ArmorPenetration / 100f));
+            // 最終物理ダメージ = 物理攻撃 × (100 / (100 + 実効防御力))
+            int damage = Mathf.Max(1, (int)(baseDamage * (100f / (100f + defense))));
             
             // ランダム要素を追加（±10%）
             float randomFactor = Random.Range(0.9f, 1.1f);

@@ -30,13 +30,6 @@ namespace iCON.Battle
         [SerializeField]
         private BattleSystemState _currentState;
         
-        // TODO: 仮
-        [SerializeField]
-        private List<BattleUnitMaster> _units;
-        
-        [SerializeField]
-        private List<BattleUnitMaster> _enemies;
-        
         /// <summary>
         /// 現在のステートのステートマシン用クラスの参照
         /// </summary>
@@ -79,13 +72,15 @@ namespace iCON.Battle
         {
             // サービスロケーターに登録（特にGrobalで使用する必要はないのでLocalで登録する）
             ServiceLocator.Register(this, ServiceType.Local);
-            
             // ステートマシンの初期化
             InitializeStates();
             SetState(_currentState);
-            
+        }
+
+        private void Start()
+        {
             // バトルデータ作成
-            _data = new BattleData(new List<int>{0}, new List<int>{0}, _units, _enemies);
+            _data = new BattleData(new List<int>{1}, new List<int>{1});
             
             // アイコンを用意する
             _view.SetupIcons(_data.UnitData, _data.EnemyData).Forget();
