@@ -35,7 +35,7 @@ namespace iCON
         /// <summary>
         /// アイコンのPath TODO: 仮
         /// </summary>
-        public string IconPath => MasterStoryCharacter.GetCharacter(_characterID).GetExpressionPath(FacialExpressionType.Default);
+        public string IconPath => MasterBattleCharacter.IconPath(_characterID);
         
         /// <summary>
         /// 最大HP
