@@ -209,9 +209,10 @@ namespace iCON.Battle
         }
 
         /// <summary>
-        /// バトル実行
+        /// コマンドリストを作成する
         /// </summary>
-        public async UniTask<(bool isFinish, bool isWin)> ExecuteBattle()
+        /// <returns></returns>
+        public List<BattleCommandEntry> CreateCommandList()
         {
             // 敵のAI行動を追加
             AddEnemyCommands();
@@ -222,35 +223,44 @@ namespace iCON.Battle
                 .ThenByDescending(entry => entry.Executor.Speed)
                 .ToList();
             
-            // コマンドを順次実行
-            foreach (var entry in _commandList)
+            return _commandList;
+        }
+
+        /// <summary>
+        /// コマンドを実行する
+        /// </summary>
+        public async UniTask<string> ExecuteCommandAsync(BattleCommandEntry entry)
+        {
+            // コマンドの実行終了を待機
+            var result = await entry.Command.ExecuteAsync(entry.Executor, entry.Targets);
+            
+            await PlayDamageSound();
+                
+            if (result.IsSuccess)
             {
-                if (!entry.Executor.IsAlive)
-                {
-                    continue; // 実行者が死亡している場合はスキップ
-                }
-                
-                // コマンドの実行終了を待機
-                var result = await entry.Command.ExecuteAsync(entry.Executor, entry.Targets);
-                
-                if (result.IsSuccess)
-                {
-                    LogUtility.Info(result.Message);
+                LogUtility.Info(result.Message);
                     
-                    // エフェクト処理
-                    foreach (var effect in result.Effects)
-                    {
-                        // TODO: エフェクトの表示処理
-                        await UniTask.Delay(100); // エフェクトの表示時間
-                    }
-                    
-                }
-                else
+                // エフェクト処理
+                foreach (var effect in result.Effects)
                 {
-                    LogUtility.Warning($"コマンド実行失敗: {result.Message}");
+                    // TODO: エフェクトの表示処理
+                    await UniTask.Delay(100); // エフェクトの表示時間
                 }
+                    
+            }
+            else
+            {
+                LogUtility.Warning($"コマンド実行失敗: {result.Message}");
             }
             
+            return result.Message;
+        }
+        
+        /// <summary>
+        /// バトル実行
+        /// </summary>
+        public async UniTask<(bool isFinish, bool isWin)> CheckBattleEndAsync()
+        {
             // コマンドリストをクリア
             _commandList.Clear();
             ResetCommandSelectIndex();
