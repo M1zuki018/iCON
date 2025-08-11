@@ -4,10 +4,10 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Constants;
+using iCON.Enums;
 using iCON.Performance;
 using iCON.UI;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace iCON.System
 {
@@ -23,10 +23,10 @@ namespace iCON.System
         private TitleSplashManager _titleSplashManager;
 
         /// <summary>
-        /// CanvasController
+        /// CanvasManager
         /// </summary>
         [SerializeField]
-        private CanvasController_Title _canvasController;
+        private TitleCanvasManager _canvasManager;
         
         /// <summary>
         /// Title用BGMのパス
@@ -44,6 +44,16 @@ namespace iCON.System
         /// AudioManager
         /// </summary>
         private AudioManager _audioManager;
+        
+        /// <summary>
+        /// Title
+        /// </summary>
+        private CanvasController_Title _titleCC;
+        
+        /// <summary>
+        /// コンフィグ
+        /// </summary>
+        private CanvasController_Config _configCC;
 
         /// <summary>
         /// タイトルスプラッシュ完了済み
@@ -65,8 +75,7 @@ namespace iCON.System
             
             _audioManager = ServiceLocator.GetGlobal<AudioManager>();
             
-            // スタートボタン押下処理を追加
-            _canvasController.OnStartButtonClicked += OnStartButtonClicked;
+            BindTitleCanvas();
             
             // タイトルスプラッシュのゲームオブジェクトを確実にアクティブにしておく
             _titleSplashManager.gameObject.SetActive(true);
@@ -81,31 +90,53 @@ namespace iCON.System
         /// </summary>
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Space))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Space) || UnityEngine.Input.GetKeyDown(KeyCode.Return))
             {
                 _titleSplashManager.Skip();
+            }
+
+            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            {
+                if (_canvasManager.CurrentCanvas == _configCC)
+                {
+                    // コンフィグ画面が開かれていたら、画面を閉じる
+                    _canvasManager.PopCanvas();
+                }
             }
         }
 
         private void OnDestroy()
         {
-            if (_canvasController != null)
+            if (_titleCC != null)
             {
-                _canvasController.OnStartButtonClicked -= OnStartButtonClicked;
+                _titleCC.OnNewGameButtonClicked -= OnNewGameButtonClicked;
+                _titleCC.OnLoadGameButtonClicked -= OnLoadGameButtonClicked;
+                _titleCC.OnConfigButtonClicked -= OnConfigButtonClicked;
             }
         }
         
         #endregion
-
+        
         /// <summary>
         /// スプラッシュ演出完了時の処理
         /// </summary>
         private void OnSplashCompleted() => PlayTitleBGMAsync().Forget();
 
         /// <summary>
-        /// スタートボタンクリック時の処理
+        /// ゲームを最初から始めるボタンクリック時の処理
         /// </summary>
-        private void OnStartButtonClicked() => TransitionToInGameAsync().Forget();
+        private void OnNewGameButtonClicked() => TransitionToInGameAsync().Forget();
+        
+        /// <summary>
+        /// ゲームを続きから始めるボタンクリック時の処理
+        /// TODO: 現状1から再生されるようになっている
+        /// </summary>
+        private void OnLoadGameButtonClicked() => TransitionToInGameAsync().Forget();
+        
+        /// <summary>
+        /// 設定画面を開くボタンクリック時の処理
+        /// </summary>
+        private void OnConfigButtonClicked() => ShowConfigCanvas();
         
         /// <summary>
         /// コンポーネントの検証
@@ -118,7 +149,7 @@ namespace iCON.System
                 return true;
             }
 
-            if (_canvasController == null)
+            if (_canvasManager == null)
             {
                 LogUtility.Error("Canvas Controllerがアサインされていません", LogCategory.System);
                 return true;
@@ -158,6 +189,35 @@ namespace iCON.System
             // BGMのフェードアウト後にシーン遷移
             await _audioManager.FadeOutBGM(_bgmFadeDuration);
             await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, true));
+        }
+        
+        /// <summary>
+        /// Canvas
+        /// </summary>
+        private void BindTitleCanvas()
+        {
+            if (_titleCC == null)
+            {
+                _titleCC = _canvasManager.GetCanvas(TitleCanvasType.Title) as CanvasController_Title;
+            }
+            
+            // CanvasControllerのボタン押下処理を追加
+            if (_titleCC != null)
+            {
+                _titleCC.OnNewGameButtonClicked += OnNewGameButtonClicked;
+                _titleCC.OnLoadGameButtonClicked += OnLoadGameButtonClicked;
+                _titleCC.OnConfigButtonClicked += OnConfigButtonClicked;
+            }
+        }
+
+        private void ShowConfigCanvas()
+        {
+            if (_configCC == null)
+            {
+                _configCC = _canvasManager.GetCanvas(TitleCanvasType.Config) as CanvasController_Config;
+            }
+            
+            _canvasManager.PushCanvas(TitleCanvasType.Config);
         }
     }
 }
