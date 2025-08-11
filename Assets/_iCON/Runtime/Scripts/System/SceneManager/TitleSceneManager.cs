@@ -75,7 +75,7 @@ namespace iCON.System
             
             _audioManager = ServiceLocator.GetGlobal<AudioManager>();
             
-            BindTitleCanvas();
+            ShowTitleCanvas();
             
             // タイトルスプラッシュのゲームオブジェクトを確実にアクティブにしておく
             _titleSplashManager.gameObject.SetActive(true);
@@ -107,14 +107,9 @@ namespace iCON.System
 
         private void OnDestroy()
         {
-            if (_titleCC != null)
-            {
-                _titleCC.OnNewGameButtonClicked -= OnNewGameButtonClicked;
-                _titleCC.OnLoadGameButtonClicked -= OnLoadGameButtonClicked;
-                _titleCC.OnConfigButtonClicked -= OnConfigButtonClicked;
-            }
+            UnbindTitleCanvasEvents();
         }
-        
+
         #endregion
         
         /// <summary>
@@ -190,18 +185,12 @@ namespace iCON.System
             await _audioManager.FadeOutBGM(_bgmFadeDuration);
             await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, true));
         }
-        
+
         /// <summary>
-        /// Canvas
+        /// CanvasControllerのボタン押下処理を追加
         /// </summary>
-        private void BindTitleCanvas()
+        private void BindTitleCanvasEvents()
         {
-            if (_titleCC == null)
-            {
-                _titleCC = _canvasManager.GetCanvas(TitleCanvasType.Title) as CanvasController_Title;
-            }
-            
-            // CanvasControllerのボタン押下処理を追加
             if (_titleCC != null)
             {
                 _titleCC.OnNewGameButtonClicked += OnNewGameButtonClicked;
@@ -209,7 +198,37 @@ namespace iCON.System
                 _titleCC.OnConfigButtonClicked += OnConfigButtonClicked;
             }
         }
+        
+        /// <summary>
+        /// CanvasControllerのボタン押下処理を解除
+        /// </summary>
+        private void UnbindTitleCanvasEvents()
+        {
+            if (_titleCC != null)
+            {
+                _titleCC.OnNewGameButtonClicked -= OnNewGameButtonClicked;
+                _titleCC.OnLoadGameButtonClicked -= OnLoadGameButtonClicked;
+                _titleCC.OnConfigButtonClicked -= OnConfigButtonClicked;
+            }
+        }
+        
+        /// <summary>
+        /// タイトル画面を表示する
+        /// </summary>
+        private void ShowTitleCanvas()
+        {
+            if (_titleCC == null)
+            {
+                _titleCC = _canvasManager.GetCanvas(TitleCanvasType.Title) as CanvasController_Title;
+            }
 
+            _canvasManager.ShowCanvas(TitleCanvasType.Title);
+            BindTitleCanvasEvents();
+        }
+
+        /// <summary>
+        /// コンフィグ画面を表示する
+        /// </summary>
         private void ShowConfigCanvas()
         {
             if (_configCC == null)
