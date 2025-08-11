@@ -2,6 +2,7 @@ using System;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace iCON.Battle
 {
@@ -53,6 +54,11 @@ namespace iCON.Battle
         public event Action OnDeath;
 
         /// <summary>
+        /// 回避成功
+        /// </summary>
+        public event Action OnSuccessDodge;
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="id">キャラクターID</param>
@@ -75,11 +81,11 @@ namespace iCON.Battle
                 return;
             }
             
-            // ユーザーデータ参照
-            CurrentHp = UserData.CurrentHp;
-            CurrentWill = UserData.CurrentWill;
-            CurrentStamina = UserData.CurrentStamina;
-            CurrentSp = UserData.CurrentSp;
+            // TODO: ユーザーデータ参照
+            CurrentHp = Data.Hp;
+            CurrentWill = Data.Will;
+            CurrentStamina = Data.Stamina;
+            CurrentSp = Data.Sp;
             
             // マスタデータ参照
             PhysicalAttack = Data.PhysicalAttack;
@@ -97,6 +103,14 @@ namespace iCON.Battle
         /// </summary>
         public void TakeDamage(int damage)
         {
+            if (TryDodge())
+            {
+                // 回避成功したらイベント発火してリターン
+                OnSuccessDodge?.Invoke();
+                LogUtility.Info($"{Name} 回避成功！", LogCategory.Gameplay);
+                return;
+            }
+            
             // 最小値は0、最大値はMaxHPにおさまるように調整
             var value = Mathf.Max(0, CurrentHp - damage);
             CurrentHp = Mathf.Min(value, Data.Hp);
@@ -118,6 +132,26 @@ namespace iCON.Battle
             var value = Mathf.Max(0, CurrentSp - amount);
             CurrentHp = Mathf.Min(value, Data.Sp);
             OnSpChanged?.Invoke(CurrentSp, Data.Sp);
+        }
+
+        /// <summary>
+        /// 回避チェック
+        /// </summary>
+        private bool TryDodge()
+        {
+            // 乱数生成
+            float randomFactor = Random.Range(0f, 100f);
+            // 生成した乱数が回避速度以下なら成功
+            return randomFactor <= (DodgeSpeed + 100) * 0.01f;
+        }
+
+        /// <summary>
+        /// 状態異常チェック
+        /// </summary>
+        private bool CheckAbnormalCondition()
+        {
+            float randomFactor = Random.Range(0f, 100f);
+            return randomFactor <= (CurrentWill + 100) * 0.01f;
         }
     }
 }
