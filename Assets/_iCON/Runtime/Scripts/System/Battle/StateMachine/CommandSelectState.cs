@@ -1,5 +1,6 @@
 using CryStar.Utility;
 using CryStar.Utility.Enum;
+using Cysharp.Threading.Tasks;
 using iCON.Enums;
 using iCON.UI;
 
@@ -52,6 +53,7 @@ namespace iCON.Battle
 
         private void Idea()
         {
+            BattleManager.PlaySelectedSe(false).Forget();
             BattleManager.SetState(BattleSystemState.Idea);
         }
 
@@ -74,6 +76,8 @@ namespace iCON.Battle
         /// </summary>
         private void Next()
         {
+            BattleManager.PlaySelectedSe(true).Forget();
+            
             // 次のコマンド選択に移れるか確認
             if (BattleManager.CheckNextCommandSelect())
             {

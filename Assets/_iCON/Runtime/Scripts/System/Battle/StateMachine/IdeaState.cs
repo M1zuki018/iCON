@@ -1,5 +1,6 @@
 using CryStar.Utility;
 using CryStar.Utility.Enum;
+using Cysharp.Threading.Tasks;
 using iCON.Enums;
 using iCON.UI;
 
@@ -29,6 +30,7 @@ namespace iCON.Battle
 
         public override void Cancel()
         {
+            BattleManager.PlayCancelSound().Forget();
             // コマンド選択に戻る
             BattleManager.SetState(BattleSystemState.CommandSelect);
         }
@@ -55,6 +57,7 @@ namespace iCON.Battle
         /// </summary>
         private void Next()
         {
+            BattleManager.PlaySelectedSe(true).Forget();
             // 次のコマンド選択があるかチェックし、適切な状態に遷移
             BattleManager.SetState(BattleManager.CheckNextCommandSelect()
                 ? BattleSystemState.CommandSelect : BattleSystemState.Execute);
