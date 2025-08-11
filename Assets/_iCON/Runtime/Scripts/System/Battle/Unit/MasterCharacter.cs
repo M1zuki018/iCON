@@ -4,16 +4,21 @@ public static class MasterCharacter
 {
     private static readonly Dictionary<int, int[]> _hp = new Dictionary<int, int[]>()
     {
-        { 
-            1, new int[] {
-            200, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390, 
-            400, 410, 420, 430, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660, 
-            680, 700, 720, 740, 760, 780, 800, 820, 840, 870, 900, 930, 960, 990, 1020, 1050, 
-            1080, 1110, 1140, 1170, 1200, 1230, 1260, 1290, 1320, 1350, 1380, 1410, 1440, 1475, 
-            1510, 1545, 1580, 1615, 1650, 1685, 1720, 1755, 1790, 1825, 1860, 1895, 1930, 1965, 
-            2000, 2035, 2070, 2105, 2140, 2180, 2220, 2260, 2300, 2340, 2380, 2420, 2460, 2500, 
-            2540, 2580, 2620, 2660, 2700, 2740, 2780, 2820, 2860, 2900
-        } },
+        {
+            1, new int[]
+            {
+                200, 250, 260, 270, 280, 290, 300, 310, 320, 330, 340, 350, 360, 370, 380, 390,
+                400, 410, 420, 430, 440, 460, 480, 500, 520, 540, 560, 580, 600, 620, 640, 660,
+                680, 700, 720, 740, 760, 780, 800, 820, 840, 870, 900, 930, 960, 990, 1020, 1050,
+                1080, 1110, 1140, 1170, 1200, 1230, 1260, 1290, 1320, 1350, 1380, 1410, 1440, 1475,
+                1510, 1545, 1580, 1615, 1650, 1685, 1720, 1755, 1790, 1825, 1860, 1895, 1930, 1965,
+                2000, 2035, 2070, 2105, 2140, 2180, 2220, 2260, 2300, 2340, 2380, 2420, 2460, 2500,
+                2540, 2580, 2620, 2660, 2700, 2740, 2780, 2820, 2860, 2900
+            }
+        },
+        {
+            2, new int[] { 200, 250 }
+        },
     };
 
     private static readonly Dictionary<int, int[]> _sp = new Dictionary<int, int[]>()
@@ -29,6 +34,9 @@ public static class MasterCharacter
                 395, 400, 405, 410, 415, 420, 425, 430, 435, 440, 445, 450, 455, 460, 465,
                 470, 475, 480, 485, 490, 495, 500
             }
+        },
+        {
+            2, new int[] { 0, 30 }
         },
     };
 
@@ -46,6 +54,9 @@ public static class MasterCharacter
                 538, 545, 552, 559, 566, 573, 580
             }
         },
+        {
+            2, new int[] { 0, 5 }
+        },
     };
 
     private static readonly Dictionary<int, int[]> _defense = new Dictionary<int, int[]>()
@@ -62,55 +73,79 @@ public static class MasterCharacter
                 474, 481, 488
             }
         },
+        {
+            2, new int[] { 0, 3 }
+        },
     };
     
     private static readonly Dictionary<int, float[]> _skillMultiplier = new Dictionary<int, float[]>()
     {
         {
             1, CreateConstantFloatArray(1.0f, 100)
-        }
+        },
+        {
+            2, CreateConstantFloatArray(1.0f, 2)
+        },
     };
 
     private static readonly Dictionary<int, int[]> _statusResistances = new Dictionary<int, int[]>()
     {
         {
             1, CreateConstantIntArray(5, 100)
-        }
+        },
+        {
+            2, CreateConstantIntArray(5, 2)
+        },
     };
     
     private static readonly Dictionary<int, int[]> _speed = new Dictionary<int, int[]>()
     {
         {
             1, CreateConstantIntArray(30, 100)
-        }
+        },
+        {
+            2, CreateConstantIntArray(30, 2)
+        },
     };
 
     private static readonly Dictionary<int, int[]> _dodgeSpeed = new Dictionary<int, int[]>()
     {
         {
             1, CreateConstantIntArray(5, 100)
-        }
+        },
+        {
+            2, CreateConstantIntArray(5, 2)
+        },
     };
 
     private static readonly Dictionary<int, int[]> _armorPenetration = new Dictionary<int, int[]>()
     {
         {
             1, CreateConstantIntArray(5, 100)
-        }
+        },
+        {
+            2, CreateConstantIntArray(5, 2)
+        },
     };
 
     private static readonly Dictionary<int, int[]> _criticalRate = new Dictionary<int, int[]>()
     {
         {
             1, CreateConstantIntArray(5, 100)
-        }
+        },
+        {
+            2, CreateConstantIntArray(5, 2)
+        },
     };
 
     private static readonly Dictionary<int, int[]> _criticalDamage = new Dictionary<int, int[]>()
     {
         {
             1, CreateConstantIntArray(100, 100)
-        }
+        },
+        {
+            2, CreateConstantIntArray(100, 2)
+        },
     };
     
 
