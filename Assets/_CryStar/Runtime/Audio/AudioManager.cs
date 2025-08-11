@@ -311,6 +311,11 @@ namespace iCON.System
         /// </summary>
         public void SESourceRelease(AudioSource source)
         {
+            if (source == null)
+            {
+                return;
+            }
+            
             if (_ctsDisctionary.TryGetValue(source, out var cts))
             {
                 // キャンセル処理行う
@@ -320,9 +325,10 @@ namespace iCON.System
                 
                 // 辞書からも削除
                 _ctsDisctionary.Remove(source);
+                // プールにリリース（辞書にある場合のみ実行）
+                _seSourcePool.Release(source);
             }
-            
-            _seSourcePool.Release(source);
+            // 辞書にない場合は既にリリース済みなので何もしない
         }
 
         /// <summary>
@@ -468,7 +474,19 @@ namespace iCON.System
             try
             {
                 await UniTask.Delay(TimeSpan.FromSeconds(duration), cancellationToken: token);
-                _seSourcePool.Release(source);
+                
+                if (_ctsDisctionary.TryGetValue(source, out var cts))
+                {
+                    // キャンセル処理行う
+                    cts?.Cancel();
+                    cts?.Dispose();
+                    cts = null;
+                
+                    // 辞書からも削除
+                    _ctsDisctionary.Remove(source);
+                    // プールにリリース（辞書にある場合のみ実行）
+                    _seSourcePool.Release(source);
+                }
             }
             catch (OperationCanceledException)
             {
