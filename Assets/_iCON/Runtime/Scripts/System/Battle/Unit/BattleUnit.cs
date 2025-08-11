@@ -11,16 +11,13 @@ namespace iCON.Battle
     /// </summary>
     public class BattleUnit
     {
-        public BattleUnitMaster Data { get; set; }
-        public BattleUnitUserData UserData { get; set; }
+        public CharacterState UserData { get; set; }
         public int CurrentHp { get; set; }
         public int CurrentWill { get; set; }
-        public int CurrentStamina { get; set; }
         public int CurrentSp { get; set; }
-        public int PhysicalAttack { get; set; }
-        public int SkillAttack { get; set; }
-        public int Intelligence { get; set; }
-        public int PhysicalDefense { get; set; }
+        public int Attack { get; set; }
+        public float SkillMultiplier { get; set; }
+        public int Defense { get; set; }
         public int SkillDefense { get; set; }
         public int Speed { get; set; }
         public int DodgeSpeed { get; set; }
@@ -31,7 +28,10 @@ namespace iCON.Battle
         /// </summary>
         public bool IsGuarding { get; set; }
         
-        public string Name => Data.name;
+        /// <summary>
+        /// 名前
+        /// </summary>
+        public string Name => UserData.Name;
         
         /// <summary>
         /// 生存しているか
@@ -62,18 +62,11 @@ namespace iCON.Battle
         /// コンストラクタ
         /// </summary>
         /// <param name="id">キャラクターID</param>
-        public BattleUnit(int id, BattleUnitMaster data)
+        public BattleUnit(int id)
         {
             // TODO: idを元にデータを検索
 
-            Data = data; // 仮
-            UserData = new BattleUnitUserData();
-            
-            if (Data == null)
-            {
-                LogUtility.Error($"{id} のBattleUnitMasterがありません", LogCategory.Gameplay);
-                return;
-            }
+            UserData = new CharacterState(id);
             
             if (UserData == null)
             {
@@ -81,21 +74,15 @@ namespace iCON.Battle
                 return;
             }
             
-            // TODO: ユーザーデータ参照
-            CurrentHp = Data.Hp;
-            CurrentWill = Data.Will;
-            CurrentStamina = Data.Stamina;
-            CurrentSp = Data.Sp;
-            
-            // マスタデータ参照
-            PhysicalAttack = Data.PhysicalAttack;
-            SkillAttack = Data.SkillAttack;
-            Intelligence = Data.Intelligence;
-            PhysicalDefense = Data.PhysicalDefense;
-            SkillDefense = Data.SkillDefense;
-            Speed = Data.Speed;
-            DodgeSpeed = Data.DodgeSpeed;
-            ArmorPenetration = Data.ArmorPenetration;
+            CurrentHp = UserData.CurrentHp;
+            CurrentWill = UserData.StatusResistance;
+            CurrentSp = UserData.CurrentSp;
+            Attack = UserData.Attack;
+            SkillMultiplier = UserData.SkillMultiplier;
+            Defense = UserData.Defense;
+            Speed = UserData.Speed;
+            DodgeSpeed = UserData.DodgeSpeed;
+            ArmorPenetration = UserData.ArmorPenetration;
         }
 
         /// <summary>
@@ -113,8 +100,8 @@ namespace iCON.Battle
             
             // 最小値は0、最大値はMaxHPにおさまるように調整
             var value = Mathf.Max(0, CurrentHp - damage);
-            CurrentHp = Mathf.Min(value, Data.Hp);
-            OnHpChanged?.Invoke(CurrentHp, Data.Hp, damage);
+            CurrentHp = Mathf.Min(value, UserData.MaxHp);
+            OnHpChanged?.Invoke(CurrentHp, UserData.MaxHp, damage);
 
             if (CurrentHp <= 0)
             {
@@ -130,8 +117,8 @@ namespace iCON.Battle
         {
             // 最小値は0、最大値はMaxSPにおさまるように調整
             var value = Mathf.Max(0, CurrentSp - amount);
-            CurrentHp = Mathf.Min(value, Data.Sp);
-            OnSpChanged?.Invoke(CurrentSp, Data.Sp);
+            CurrentHp = Mathf.Min(value, UserData.MaxSp);
+            OnSpChanged?.Invoke(CurrentSp, UserData.MaxSp);
         }
 
         /// <summary>
