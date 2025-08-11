@@ -61,8 +61,8 @@ namespace iCON.Battle
             
             // ログに表示するメッセージを作成
             string message = isCritical ? 
-                $"{executor.Name}の攻撃！会心の一撃！{target.Name}に{damage}のダメージ！　残りHP{target.CurrentHp}" :
-                $"{executor.Name}の攻撃！{target.Name}に{damage}のダメージ！ 残りHP{target.CurrentHp}";
+                $"会心の一撃！{target.Name}に{damage}のダメージ！" :
+                $"{target.Name}に{damage}のダメージ！";
             
             return new BattleCommandResult(true, message, effects);
         }
