@@ -1,6 +1,4 @@
-using System;
 using CryStar.Attribute;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace iCON.UI
@@ -10,22 +8,20 @@ namespace iCON.UI
     /// </summary>
     public partial class CanvasController_Lose : WindowBase
     {
-        [SerializeField, HighlightIfNull] private CustomButton _button;
-                
-        public override UniTask OnAwake()
+        [SerializeField, HighlightIfNull] private CustomText _textBox;
+
+        public override void Show()
         {
-            // イベント登録
-            if(_button != null) _button.onClick.AddListener(Temporary);
-            return base.OnAwake();
+            base.Show();
+            // メッセージを表示
+            _textBox.SetText($"負けてしまった...");
         }
-        
-        private void Temporary()
+
+        public override void Hide()
         {
-        }
-        
-        private void OnDestroy()
-        {
-            if(_button != null) _button.onClick?.RemoveAllListeners();
+            base.Hide();
+            // テキストはリセットして空にしておく
+            _textBox.SetText("");
         }
     }
 }
