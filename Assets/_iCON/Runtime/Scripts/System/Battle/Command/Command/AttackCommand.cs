@@ -33,11 +33,11 @@ namespace iCON.Battle
             int damage = CalculateDamage(executor, target);
             
             // クリティカル判定を行う
-            bool isCritical = CheckCritical(executor.Data.CriticalLate);
+            bool isCritical = CheckCritical(executor.UserData.CriticalRate);
             if (isCritical)
             {
                 // 小数点以下は丸める
-                damage = Mathf.RoundToInt(damage * executor.Data.CriticalDamage);
+                damage = Mathf.RoundToInt(damage * executor.UserData.CriticalDamage);
             }
             
             // 演出を実行する
@@ -73,9 +73,9 @@ namespace iCON.Battle
         {
             // 基本ダメージ計算式
             // 攻撃力: アタッカー物理攻撃
-            int baseDamage = attacker.PhysicalAttack;
+            int baseDamage = attacker.Attack;
             // 実効防御力: ディフェンダーの物理防御 × (1 - アタッカーの防御無視率)
-            int defense = (int)(defender.PhysicalDefense * (1 - attacker.ArmorPenetration / 100f));
+            int defense = (int)(defender.Defense * (1 - attacker.ArmorPenetration / 100f));
             // 最終物理ダメージ = 物理攻撃 × (100 / (100 + 実効防御力))
             int damage = Mathf.Max(1, (int)(baseDamage * (100f / (100f + defense))));
             
@@ -89,9 +89,9 @@ namespace iCON.Battle
         /// <summary>
         /// クリティカル攻撃か抽選を行う
         /// </summary>
-        private bool CheckCritical(float criticalLate)
+        private bool CheckCritical(int criticalLate)
         {
-            return Random.Range(0f, 1f) < criticalLate;
+            return Random.Range(0, 100) < criticalLate;
         }
         
         /// <summary>
