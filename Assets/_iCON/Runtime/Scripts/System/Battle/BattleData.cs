@@ -20,6 +20,11 @@ namespace iCON.Battle
         public List<BattleUnit> EnemyData {get; private set;}
         
         /// <summary>
+        /// 戦闘BGMのパス
+        /// </summary>
+        public string BGMPath { get; private set; }
+        
+        /// <summary>
         /// 戦闘に参加しているキャラクターの数
         /// </summary>
         public int UnitCount => UnitData.Count;
@@ -32,7 +37,7 @@ namespace iCON.Battle
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public BattleData(IReadOnlyList<int> units, IReadOnlyList<int> enemies)
+        public BattleData(IReadOnlyList<int> units, IReadOnlyList<int> enemies, string bgmPath)
         {
             // ユニットのデータリストを作成
             UnitData = new List<BattleUnit>(units.Count);
@@ -53,6 +58,8 @@ namespace iCON.Battle
                 EnemyData.Add(enemyData);
                 LogUtility.Verbose($"生成されたEnemyData {EnemyCount}", LogCategory.Gameplay);
             }
+            
+            BGMPath = bgmPath;
         }
     }
 }

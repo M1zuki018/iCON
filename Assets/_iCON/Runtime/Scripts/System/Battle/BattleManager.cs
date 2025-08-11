@@ -8,6 +8,7 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Enums;
+using iCON.System;
 using iCON.UI;
 using UnityEngine;
 
@@ -29,6 +30,18 @@ namespace iCON.Battle
         /// </summary>
         [SerializeField]
         private BattleSystemState _currentState;
+
+        /// <summary>
+        /// 戦闘BGMのPath　TODO: 仮
+        /// </summary>
+        [SerializeField] 
+        private string _bgmPath;
+
+        /// <summary>
+        /// ダメージを受けたときのSEのPath TODO: 仮
+        /// </summary>
+        [SerializeField] 
+        private string _damagedSePath;
         
         /// <summary>
         /// 現在のステートのステートマシン用クラスの参照
@@ -56,6 +69,11 @@ namespace iCON.Battle
         private int _currentCommandSelectIndex = 0;
         
         /// <summary>
+        /// AudioManager
+        /// </summary>
+        private AudioManager _audioManager;
+        
+        /// <summary>
         /// バトルで使用する変数をまとめたクラス
         /// </summary>
         public BattleData Data => _data;
@@ -80,10 +98,19 @@ namespace iCON.Battle
         private void Start()
         {
             // バトルデータ作成
-            _data = new BattleData(new List<int>{1}, new List<int>{2});
+            _data = new BattleData(new List<int>{1}, new List<int>{2}, _bgmPath);
             
             // アイコンを用意する
             _view.SetupIcons(_data.UnitData, _data.EnemyData).Forget();
+
+            if (_audioManager == null)
+            {
+                // 参照が無ければServiceLocatorから取得
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+            
+            // 戦闘BGMを再生する
+            _audioManager.PlayBGM(_bgmPath).Forget();
         }
 
         private void Update()
@@ -207,6 +234,40 @@ namespace iCON.Battle
             
             return CheckBattleEnd();
         }
+
+        #region サウンド関連
+
+        /// <summary>
+        /// ダメージを受けたときのSEを再生する
+        /// </summary>
+        public async UniTask PlayDamageSound()
+        {
+            if (_audioManager == null)
+            {
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+
+            if (!string.IsNullOrEmpty(_damagedSePath))
+            {
+                await _audioManager.PlaySE(_damagedSePath, 1f);
+            }
+        }
+        
+        /// <summary>
+        /// BGM再生を止める
+        /// </summary>
+        public void FinishBGM()
+        {
+            if (_audioManager == null)
+            {
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+            
+            _audioManager.FadeOutBGM(0.5f).Forget();
+        }
+
+        #endregion
+        
         
         /// <summary>
         /// StateMachineの初期化
