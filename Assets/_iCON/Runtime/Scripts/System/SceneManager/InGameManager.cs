@@ -2,6 +2,7 @@ using System;
 using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Core.ReactiveExtensions;
 using CryStar.Field.Map;
 using CryStar.Field.UI;
 using CryStar.Story.Orchestrators;
@@ -9,9 +10,7 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Enums;
-using R3;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 namespace iCON.System
 {

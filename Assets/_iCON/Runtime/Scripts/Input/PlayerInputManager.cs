@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using CryStar.Attribute;
 using CryStar.Core;
+using CryStar.Core.ReactiveExtensions;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Constants;
 using iCON.Enums;
-using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 

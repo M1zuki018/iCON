@@ -1,7 +1,7 @@
 using CryStar.Core;
+using CryStar.Core.ReactiveExtensions;
 using Cysharp.Threading.Tasks;
 using iCON.Enums;
-using R3;
 
 /// <summary>
 /// ゲームマネージャー

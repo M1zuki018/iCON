@@ -1,4 +1,4 @@
-using R3;
+using CryStar.Core.ReactiveExtensions;
 
 /// <summary>
 /// プレイヤー情報を保持しておくための静的クラス

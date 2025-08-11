@@ -1,5 +1,5 @@
+using CryStar.Core.ReactiveExtensions;
 using iCON.Enums;
-using R3;
 
 /// <summary>
 /// 依存性を低減させるためのGameManager用のインターフェース

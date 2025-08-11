@@ -1,8 +1,8 @@
 using CryStar.Core;
+using CryStar.Core.ReactiveExtensions;
 using iCON.Enums;
 using iCON.System;
 using iCON.UI;
-using R3;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
