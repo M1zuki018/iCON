@@ -267,6 +267,19 @@ namespace iCON.Battle
             
             return CheckBattleEnd();
         }
+        
+        /// <summary>
+        /// バトル結果のデータを取得する
+        /// </summary>
+        public (string name, int experience) GetResultData()
+        {
+            // バトルに参加しているユニットの数が1人以上であればreturnする名前に「たち」をつける
+            var add = _data.UnitCount != 1 ? "たち" : "";
+            var name = $"{_data.UnitData[0].Name}{add}";
+            
+            // TODO: 経験値取得処理
+            return (name, 300);
+        }
 
         #region サウンド関連
 
