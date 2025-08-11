@@ -44,6 +44,24 @@ namespace iCON.Battle
         private string _damagedSePath;
         
         /// <summary>
+        /// 行動選択をしたときのSEのPath TODO: 仮
+        /// </summary>
+        [SerializeField]
+        private string _selectSePath;
+        
+        /// <summary>
+        /// 重要な行動選択をしたときのSEのPath TODO: 仮
+        /// </summary>
+        [SerializeField]
+        private string _selectSePath2;
+        
+        /// <summary>
+        /// 操作をキャンセルしたときのSEのPath TODO: 仮
+        /// </summary>
+        [SerializeField]
+        private string _cancelSePath;
+        
+        /// <summary>
         /// 現在のステートのステートマシン用クラスの参照
         /// </summary>
         private BattleStateBase _currentStateHandler;
@@ -83,6 +101,11 @@ namespace iCON.Battle
         /// </summary>
         public BattleUnit CurrentSelectingUnit => _currentCommandSelectIndex < _data.UnitCount ? 
             _data.UnitData[_currentCommandSelectIndex] : null;
+        
+        /// <summary>
+        /// AudioManager
+        /// </summary>
+        public AudioManager AudioManager => _audioManager;
 
         #region Life cycle
 
@@ -254,6 +277,22 @@ namespace iCON.Battle
         }
         
         /// <summary>
+        /// ダメージを受けたときのSEを再生する
+        /// </summary>
+        public async UniTask PlayCancelSound()
+        {
+            if (_audioManager == null)
+            {
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+
+            if (!string.IsNullOrEmpty(_cancelSePath))
+            {
+                await _audioManager.PlaySE(_cancelSePath, 1f);
+            }
+        }
+        
+        /// <summary>
         /// BGM再生を止める
         /// </summary>
         public void FinishBGM()
@@ -264,6 +303,23 @@ namespace iCON.Battle
             }
             
             _audioManager.FadeOutBGM(0.5f).Forget();
+        }
+
+        /// <summary>
+        /// 選択したときのSEを再生する
+        /// </summary>
+        /// <param name="isImportant">重要な選択のSEを使用するか</param>
+        public async UniTask PlaySelectedSe(bool isImportant)
+        {
+            if (_audioManager == null)
+            {
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+
+            if (!string.IsNullOrEmpty(_selectSePath) && !string.IsNullOrEmpty(_selectSePath2))
+            {
+                await _audioManager.PlaySE(isImportant ? _selectSePath2 : _selectSePath, 1f);
+            }
         }
 
         #endregion
