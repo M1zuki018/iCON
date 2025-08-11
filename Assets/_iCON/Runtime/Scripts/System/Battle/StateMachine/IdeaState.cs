@@ -47,6 +47,9 @@ namespace iCON.Battle
         /// </summary>
         private void HandleIdeaSelected(int selectedIdeaId)
         {
+            // 現在選択中のユニットのアイデアのIDリストから、選択されたアイデアの情報を取得する
+            var selectedIdea = BattleManager.CurrentSelectingUnit.UserData.IdeaIdList[selectedIdeaId];
+            
             // 選択されたアイデアをコマンドリストに追加
             BattleManager.AddCommandList(CommandType.Idea);
             Next();
