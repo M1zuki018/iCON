@@ -65,5 +65,13 @@ namespace iCON.UI
 
             _damageTextPool.Release(damageText);
         }
+        
+        /// <summary>
+        /// アイコンを非表示にする
+        /// </summary>
+        public void Hide()
+        {
+            _icon.enabled = false;
+        }
     }
 }

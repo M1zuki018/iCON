@@ -121,5 +121,13 @@ namespace iCON.UI
                 _spSlider.value = Mathf.Max((float)value / maxValue, 0);
             }
         }
+
+        /// <summary>
+        /// アイコンを非表示にする
+        /// </summary>
+        public void Hide()
+        {
+            _icon.enabled = false;
+        }
     }
 }
