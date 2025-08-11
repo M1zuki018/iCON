@@ -14,9 +14,21 @@ namespace iCON.Battle
         public override async void Enter(BattleManager manager, BattleCanvasManager view)
         {
             base.Enter(manager, view);
-            view.ShowCanvas(BattleCanvasType.Win);
             
-            await UniTask.Delay(1000);
+            // BGM再生を止める
+            manager.FinishBGM();
+            
+            view.ShowCanvas(BattleCanvasType.Win);
+
+            var cc = view.CurrentCanvas as CanvasController_Win;
+            if (cc != null)
+            {
+                var resultData = manager.GetResultData();
+                
+                // 戦闘結果のパネルを表示
+                cc.SetText(resultData.name, resultData.experience);
+                await UniTask.Delay(4000);   
+            }
             
             await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, false, true));
         }

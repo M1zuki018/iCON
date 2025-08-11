@@ -1,5 +1,6 @@
 using CryStar.Utility;
 using CryStar.Utility.Enum;
+using Cysharp.Threading.Tasks;
 using iCON.Enums;
 using iCON.UI;
 
@@ -40,6 +41,7 @@ namespace iCON.Battle
         /// </summary>
         private void StartBattle()
         {
+            BattleManager.PlaySelectedSe(true).Forget();
             BattleManager.SetState(BattleSystemState.CommandSelect);
         }
         
@@ -48,6 +50,7 @@ namespace iCON.Battle
         /// </summary>
         private void TryEscape()
         {
+            BattleManager.PlaySelectedSe(false).Forget();
             BattleManager.SetState(BattleSystemState.TryEscape);
         }
     }

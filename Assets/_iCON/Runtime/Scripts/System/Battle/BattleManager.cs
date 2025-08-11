@@ -8,6 +8,7 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Enums;
+using iCON.System;
 using iCON.UI;
 using UnityEngine;
 
@@ -29,6 +30,36 @@ namespace iCON.Battle
         /// </summary>
         [SerializeField]
         private BattleSystemState _currentState;
+
+        /// <summary>
+        /// 戦闘BGMのPath　TODO: 仮
+        /// </summary>
+        [SerializeField] 
+        private string _bgmPath;
+
+        /// <summary>
+        /// ダメージを受けたときのSEのPath TODO: 仮
+        /// </summary>
+        [SerializeField] 
+        private string _damagedSePath;
+        
+        /// <summary>
+        /// 行動選択をしたときのSEのPath TODO: 仮
+        /// </summary>
+        [SerializeField]
+        private string _selectSePath;
+        
+        /// <summary>
+        /// 重要な行動選択をしたときのSEのPath TODO: 仮
+        /// </summary>
+        [SerializeField]
+        private string _selectSePath2;
+        
+        /// <summary>
+        /// 操作をキャンセルしたときのSEのPath TODO: 仮
+        /// </summary>
+        [SerializeField]
+        private string _cancelSePath;
         
         /// <summary>
         /// 現在のステートのステートマシン用クラスの参照
@@ -56,6 +87,11 @@ namespace iCON.Battle
         private int _currentCommandSelectIndex = 0;
         
         /// <summary>
+        /// AudioManager
+        /// </summary>
+        private AudioManager _audioManager;
+        
+        /// <summary>
         /// バトルで使用する変数をまとめたクラス
         /// </summary>
         public BattleData Data => _data;
@@ -65,6 +101,11 @@ namespace iCON.Battle
         /// </summary>
         public BattleUnit CurrentSelectingUnit => _currentCommandSelectIndex < _data.UnitCount ? 
             _data.UnitData[_currentCommandSelectIndex] : null;
+        
+        /// <summary>
+        /// AudioManager
+        /// </summary>
+        public AudioManager AudioManager => _audioManager;
 
         #region Life cycle
 
@@ -80,10 +121,19 @@ namespace iCON.Battle
         private void Start()
         {
             // バトルデータ作成
-            _data = new BattleData(new List<int>{1}, new List<int>{2});
+            _data = new BattleData(new List<int>{1}, new List<int>{2}, _bgmPath);
             
             // アイコンを用意する
             _view.SetupIcons(_data.UnitData, _data.EnemyData).Forget();
+
+            if (_audioManager == null)
+            {
+                // 参照が無ければServiceLocatorから取得
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+            
+            // 戦闘BGMを再生する
+            _audioManager.PlayBGM(_bgmPath).Forget();
         }
 
         private void Update()
@@ -159,9 +209,10 @@ namespace iCON.Battle
         }
 
         /// <summary>
-        /// バトル実行
+        /// コマンドリストを作成する
         /// </summary>
-        public async UniTask<(bool isFinish, bool isWin)> ExecuteBattle()
+        /// <returns></returns>
+        public List<BattleCommandEntry> CreateCommandList()
         {
             // 敵のAI行動を追加
             AddEnemyCommands();
@@ -172,41 +223,130 @@ namespace iCON.Battle
                 .ThenByDescending(entry => entry.Executor.Speed)
                 .ToList();
             
-            // コマンドを順次実行
-            foreach (var entry in _commandList)
+            return _commandList;
+        }
+
+        /// <summary>
+        /// コマンドを実行する
+        /// </summary>
+        public async UniTask<string> ExecuteCommandAsync(BattleCommandEntry entry)
+        {
+            // コマンドの実行終了を待機
+            var result = await entry.Command.ExecuteAsync(entry.Executor, entry.Targets);
+            
+            await PlayDamageSound();
+                
+            if (result.IsSuccess)
             {
-                if (!entry.Executor.IsAlive)
-                {
-                    continue; // 実行者が死亡している場合はスキップ
-                }
-                
-                // コマンドの実行終了を待機
-                var result = await entry.Command.ExecuteAsync(entry.Executor, entry.Targets);
-                
-                if (result.IsSuccess)
-                {
-                    LogUtility.Info(result.Message);
+                LogUtility.Info(result.Message);
                     
-                    // エフェクト処理
-                    foreach (var effect in result.Effects)
-                    {
-                        // TODO: エフェクトの表示処理
-                        await UniTask.Delay(100); // エフェクトの表示時間
-                    }
-                    
-                }
-                else
+                // エフェクト処理
+                foreach (var effect in result.Effects)
                 {
-                    LogUtility.Warning($"コマンド実行失敗: {result.Message}");
+                    // TODO: エフェクトの表示処理
+                    await UniTask.Delay(100); // エフェクトの表示時間
                 }
+                    
+            }
+            else
+            {
+                LogUtility.Warning($"コマンド実行失敗: {result.Message}");
             }
             
+            return result.Message;
+        }
+        
+        /// <summary>
+        /// バトル実行
+        /// </summary>
+        public async UniTask<(bool isFinish, bool isWin)> CheckBattleEndAsync()
+        {
             // コマンドリストをクリア
             _commandList.Clear();
             ResetCommandSelectIndex();
             
             return CheckBattleEnd();
         }
+        
+        /// <summary>
+        /// バトル結果のデータを取得する
+        /// </summary>
+        public (string name, int experience) GetResultData()
+        {
+            // バトルに参加しているユニットの数が1人以上であればreturnする名前に「たち」をつける
+            var add = _data.UnitCount != 1 ? "たち" : "";
+            var name = $"{_data.UnitData[0].Name}{add}";
+            
+            // TODO: 経験値取得処理
+            return (name, 300);
+        }
+
+        #region サウンド関連
+
+        /// <summary>
+        /// ダメージを受けたときのSEを再生する
+        /// </summary>
+        public async UniTask PlayDamageSound()
+        {
+            if (_audioManager == null)
+            {
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+
+            if (!string.IsNullOrEmpty(_damagedSePath))
+            {
+                await _audioManager.PlaySE(_damagedSePath, 1f);
+            }
+        }
+        
+        /// <summary>
+        /// ダメージを受けたときのSEを再生する
+        /// </summary>
+        public async UniTask PlayCancelSound()
+        {
+            if (_audioManager == null)
+            {
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+
+            if (!string.IsNullOrEmpty(_cancelSePath))
+            {
+                await _audioManager.PlaySE(_cancelSePath, 1f);
+            }
+        }
+        
+        /// <summary>
+        /// BGM再生を止める
+        /// </summary>
+        public void FinishBGM()
+        {
+            if (_audioManager == null)
+            {
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+            
+            _audioManager.FadeOutBGM(0.5f).Forget();
+        }
+
+        /// <summary>
+        /// 選択したときのSEを再生する
+        /// </summary>
+        /// <param name="isImportant">重要な選択のSEを使用するか</param>
+        public async UniTask PlaySelectedSe(bool isImportant)
+        {
+            if (_audioManager == null)
+            {
+                _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            }
+
+            if (!string.IsNullOrEmpty(_selectSePath) && !string.IsNullOrEmpty(_selectSePath2))
+            {
+                await _audioManager.PlaySE(isImportant ? _selectSePath2 : _selectSePath, 1f);
+            }
+        }
+
+        #endregion
+        
         
         /// <summary>
         /// StateMachineの初期化

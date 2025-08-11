@@ -20,6 +20,12 @@ namespace iCON
         {
             _characterID = characterID;
             _data = CharacterUserData.GetCharacterUserData(_characterID);
+
+            // TODO: テスト用。プレイヤー側のキャラクターのレベルだけ変更する
+            if (_characterID == 1)
+            {
+                _data.Level = 50;
+            }
         }
         
         /// <summary>
@@ -30,12 +36,12 @@ namespace iCON
         /// <summary>
         /// 名前
         /// </summary>
-        public string Name => MasterStoryCharacter.GetCharacter(_characterID).DisplayName;
+        public string Name => MasterBattleCharacter.GetName(_characterID);
         
         /// <summary>
-        /// アイコンのPath TODO: 仮
+        /// アイコンのPath
         /// </summary>
-        public string IconPath => MasterBattleCharacter.IconPath(_characterID);
+        public string IconPath => MasterBattleCharacter.GetIconPath(_characterID);
         
         /// <summary>
         /// 最大HP

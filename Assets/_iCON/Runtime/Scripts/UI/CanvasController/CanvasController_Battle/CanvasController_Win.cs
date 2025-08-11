@@ -1,6 +1,4 @@
-using System;
 using CryStar.Attribute;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace iCON.UI
@@ -10,22 +8,21 @@ namespace iCON.UI
     /// </summary>
     public partial class CanvasController_Win : WindowBase
     {
-        [SerializeField, HighlightIfNull] private CustomButton _button;
-                
-        public override UniTask OnAwake()
+        [SerializeField, HighlightIfNull] private CustomText _textBox;
+
+        /// <summary>
+        /// テキストを設定
+        /// </summary>
+        public void SetText(string name, int experience)
         {
-            // イベント登録
-            if(_button != null) _button.onClick.AddListener(Temporary);
-            return base.OnAwake();
+            _textBox.SetText($"{name}の勝利\n経験値{experience}を手に入れた");
         }
         
-        private void Temporary()
+        public override void Hide()
         {
-        }
-        
-        private void OnDestroy()
-        {
-            if(_button != null) _button.onClick?.RemoveAllListeners();
+            base.Hide();
+            // テキストはリセットして空にしておく
+            _textBox.SetText("");
         }
     }
 }

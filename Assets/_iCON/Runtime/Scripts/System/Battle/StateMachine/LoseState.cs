@@ -11,6 +11,10 @@ namespace iCON.Battle
         public override void Enter(BattleManager manager, BattleCanvasManager view)
         {
             base.Enter(manager, view);
+            
+            // BGM再生を止める
+            manager.FinishBGM();
+            
             view.ShowCanvas(BattleCanvasType.Lose);
         }
     }

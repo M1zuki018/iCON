@@ -90,7 +90,7 @@ namespace iCON.UI
                 
                 unit.OnHpChanged += (currentHp, maxHp, damage) => UpdatePlayer(index, currentHp, maxHp, damage);
                 //unit.OnSpChanged += (newSp) => UpdatePlayer(index);
-                //unit.OnDeath += () => UpdatePlayer(index);
+                unit.OnDeath += () => DisEnableIcon(index, true);
             }
         }
         
@@ -106,6 +106,7 @@ namespace iCON.UI
                 var index = i; // ローカル変数でキャプチャ
                 
                 unit.OnHpChanged += (currentHp, maxHp, damage) => UpdateEnemy(index, damage);
+                unit.OnDeath += () => DisEnableIcon(index, false);
             }
         }
 
@@ -127,6 +128,21 @@ namespace iCON.UI
         private void UpdateEnemy(int index, int damage)
         {
             _enemyIcons[index].SetDamageText(damage).Forget();
+        }
+
+        /// <summary>
+        /// 死亡時にアイコンを非表示にする
+        /// </summary>
+        private void DisEnableIcon(int index, bool isPlayer)
+        {
+            if (isPlayer)
+            {
+                _icons[index].Hide();
+            }
+            else
+            {
+                _enemyIcons[index].Hide();
+            }
         }
     }
 

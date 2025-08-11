@@ -582,10 +582,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _view: {fileID: 1172079534740235444}
   _currentState: 1
-  _units:
-  - {fileID: 11400000, guid: eaa92104263ffcb48ba34e7a5a01f8c2, type: 2}
-  _enemies:
-  - {fileID: 11400000, guid: d741a654993c2ae4280a7514ada36a8c, type: 2}
+  _bgmPath: Assets/AssetStoreTools/Sounds/BGM/Labyrinth.mp3
+  _damagedSePath: Assets/AssetStoreTools/Sounds/SE/SE_Damaged.mp3
+  _selectSePath: Assets/AssetStoreTools/Sounds/SE/SE_Select1.mp3
+  _selectSePath2: Assets/AssetStoreTools/Sounds/SE/SE_Select2.mp3
+  _cancelSePath: Assets/AssetStoreTools/Sounds/SE/SE_Cancel.mp3
 --- !u!1 &7821177172874759546
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,7 +971,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3570343536345582855, guid: 4078384084b9b5d43b1d25e05510fe33, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00001835823
+      value: 0.000002861023
       objectReference: {fileID: 0}
     - target: {fileID: 3814623804113940140, guid: 4078384084b9b5d43b1d25e05510fe33, type: 3}
       propertyPath: m_Name
@@ -990,7 +991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5707080960605190747, guid: 4078384084b9b5d43b1d25e05510fe33, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00001835823
+      value: 0.000002861023
       objectReference: {fileID: 0}
     - target: {fileID: 5992538947425722840, guid: 4078384084b9b5d43b1d25e05510fe33, type: 3}
       propertyPath: m_Size
