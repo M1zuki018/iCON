@@ -6,5 +6,6 @@ namespace iCON.Enums
     public enum TitleCanvasType
     {
         Title,
+        Config,
     }
 }
