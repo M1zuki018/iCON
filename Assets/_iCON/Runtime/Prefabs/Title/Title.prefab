@@ -110,7 +110,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23c12ff123d5a4f40bfd71ff22cae23f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startButton: {fileID: 8035493781265525642}
+  _newGameButton: {fileID: 8035493781265525642}
+  _loadGameButton: {fileID: 2659239726978885009}
+  _configButton: {fileID: 5704249851947241558}
+  _clickedColor: {r: 0, g: 1, b: 1, a: 1}
 --- !u!1 &1454174571294575911
 GameObject:
   m_ObjectHideFlags: 0

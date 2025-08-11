@@ -207,6 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _canvasObjects:
   - {fileID: 864637632518591556}
+  - {fileID: 8779983230956717204}
   _defaultCanvasIndex: 0
 --- !u!1001 &706193675776853747
 PrefabInstance:
@@ -423,3 +424,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3745447715100212943, guid: f9feff62975c28b4e8704d3f2ab688b2, type: 3}
   m_PrefabInstance: {fileID: 6003347785364134524}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8779983230956717204 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3064955982259822312, guid: f9feff62975c28b4e8704d3f2ab688b2, type: 3}
+  m_PrefabInstance: {fileID: 6003347785364134524}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8996f1797de5b09438a84e69dca1d3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
