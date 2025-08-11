@@ -14,6 +14,10 @@ namespace iCON.Battle
         public override async void Enter(BattleManager manager, BattleCanvasManager view)
         {
             base.Enter(manager, view);
+            
+            // BGM再生を止める
+            manager.FinishBGM();
+            
             view.ShowCanvas(BattleCanvasType.Win);
             
             await UniTask.Delay(1000);
