@@ -12,13 +12,20 @@ public class CharacterUserData : BaseUserData
     /// <summary>
     /// キャラクターIDとユーザーデータのkvp
     /// </summary>
-    private static Dictionary<int, CharacterData> _characters;
+    private static Dictionary<int, CharacterData> _characters = new Dictionary<int, CharacterData>();
     
     /// <summary>
     /// コンストラクタ
     /// </summary>
     public CharacterUserData(int userId) : base(userId)
     {
+        if (_characters == null)
+        {
+            // nullの場合、辞書を生成する
+            _characters = new Dictionary<int, CharacterData>();
+        }
+        
+        // Characterのマスターデータに登録されているキャラクター数の数だけ、ユーザーデータ生成処理を行う
         for (int i = 1; i <= MasterCharacter.RegisteredCharacterCount; i++)
         {
             var index = i;
