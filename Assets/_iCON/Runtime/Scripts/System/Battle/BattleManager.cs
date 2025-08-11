@@ -80,7 +80,7 @@ namespace iCON.Battle
         private void Start()
         {
             // バトルデータ作成
-            _data = new BattleData(new List<int>{1}, new List<int>{1});
+            _data = new BattleData(new List<int>{1}, new List<int>{2});
             
             // アイコンを用意する
             _view.SetupIcons(_data.UnitData, _data.EnemyData).Forget();

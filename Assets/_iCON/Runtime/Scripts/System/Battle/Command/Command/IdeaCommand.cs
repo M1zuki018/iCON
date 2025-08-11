@@ -36,8 +36,8 @@ namespace iCON.Battle
             bool isCritical = CheckCritical(executor.UserData.CriticalRate);
             if (isCritical)
             {
-                // 小数点以下は丸める
-                damage = Mathf.RoundToInt(damage * executor.UserData.CriticalDamage);
+                // NOTE: クリティカルダメージは100%といった単位で渡されるので、0.01fをかける
+                damage = Mathf.RoundToInt(damage * executor.UserData.CriticalDamage * 0.01f);
             }
 
             // 演出を実行する
