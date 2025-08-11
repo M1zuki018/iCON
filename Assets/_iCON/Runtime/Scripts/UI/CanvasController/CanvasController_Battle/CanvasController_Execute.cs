@@ -1,6 +1,4 @@
-using System;
 using CryStar.Attribute;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace iCON.UI
@@ -10,22 +8,21 @@ namespace iCON.UI
     /// </summary>
     public partial class CanvasController_Execute : WindowBase
     {
-        [SerializeField, HighlightIfNull] private CustomButton _button;
-                
-        public override UniTask OnAwake()
+        [SerializeField, HighlightIfNull] private CustomText _textBox;
+
+        /// <summary>
+        /// テキストを設定
+        /// </summary>
+        public void SetText(string text)
         {
-            // イベント登録
-            if(_button != null) _button.onClick.AddListener(Temporary);
-            return base.OnAwake();
+            _textBox.SetText(text);
         }
         
-        private void Temporary()
+        public override void Hide()
         {
-        }
-        
-        private void OnDestroy()
-        {
-            if(_button != null) _button.onClick?.RemoveAllListeners();
+            base.Hide();
+            // テキストはリセットして空にしておく
+            _textBox.SetText("");
         }
     }
 }
