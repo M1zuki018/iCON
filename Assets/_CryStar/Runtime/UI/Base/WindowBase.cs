@@ -14,6 +14,8 @@ public class WindowBase : CustomBehaviour
     /// </summary>
     protected bool IsVisible => _canvasGroup.alpha > 0;
     
+    protected CanvasGroup CanvasGroup => _canvasGroup ??= GetComponent<CanvasGroup>();
+    
     protected virtual void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
