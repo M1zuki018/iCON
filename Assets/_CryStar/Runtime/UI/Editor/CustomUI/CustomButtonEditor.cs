@@ -26,9 +26,9 @@ public class CustomButtonEditor : ButtonEditor
         EditorGUILayout.PropertyField(_assetNameProp, new GUIContent("Asset Name"));
         EditorGUILayout.PropertyField(_wordingKeyProp, new GUIContent("Wording Key"));
         
+        serializedObject.ApplyModifiedProperties();
+        
         // 元のプロパティを表示
         base.OnInspectorGUI();
-        
-        serializedObject.ApplyModifiedProperties();
     }
 }
