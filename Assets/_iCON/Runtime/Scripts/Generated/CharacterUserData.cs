@@ -1,0 +1,49 @@
+using System.Collections.Generic;
+using CryStar.Data;
+using CryStar.Utility;
+using CryStar.Utility.Enum;
+using iCON;
+
+/// <summary>
+/// キャラクターステータスのユーザーデータ管理
+/// </summary>
+public class CharacterUserData : BaseUserData
+{
+    /// <summary>
+    /// キャラクターIDとユーザーデータのkvp
+    /// </summary>
+    private static Dictionary<int, CharacterData> _characters;
+    
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    public CharacterUserData(int userId) : base(userId)
+    {
+        for (int i = 1; i <= MasterCharacter.RegisteredCharacterCount; i++)
+        {
+            var index = i;
+            _characters[index] = new CharacterData(index);
+        }
+    }
+
+    /// <summary>
+    /// 引数で指定したキャラクターのユーザーデータを取得する
+    /// </summary>
+    public static CharacterData GetCharacterUserData(int characterId)
+    {
+        if (_characters == null)
+        {
+            LogUtility.Fatal($"{typeof(CharacterUserData)} が初期化されていません", LogCategory.Gameplay);
+            return null;
+        }
+        
+        if (!_characters.TryGetValue(characterId, out var data))
+        {
+            // nullチェック
+            LogUtility.Error($"{characterId} のUserDataが取得できませんでした", LogCategory.Gameplay);
+            return null;
+        }
+        
+        return data;
+    }
+}
