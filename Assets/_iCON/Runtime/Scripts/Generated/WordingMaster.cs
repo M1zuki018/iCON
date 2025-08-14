@@ -1,6 +1,6 @@
 // ============================================================================
 // AUTO GENERATED - DO NOT MODIFY
-// Generated at: 2025-08-11 09:19:03
+// Generated at: 2025-08-15 07:36:27
 // ============================================================================
 
 using System.Collections.Generic;
@@ -31,6 +31,12 @@ public static class WordingMaster
         { "TITLE_CONFIG", "設定" },
         { "TITLE_COPYRIGHT", "©2025 CryStar Studio All rights reserved." },
         { "TITLE_VERSION", "ver. 0.0.0" },
+        { "TITLE_PLAYSTYLE_STORY", "ストーリー体験モード" },
+        { "TITLE_PLAYSTYLE_BATTLE", "戦闘単体モード" },
+        { "TITLE_PLAYSTYLE_DESCRIPTION", "所要時間{0}分！{1}体感したい人向け！" },
+        { "QUIT_CONFIRM", "ゲームを終了しますか？" },
+        { "YES", "はい" },
+        { "NO", "いいえ" },
     };
 
     public static string GetText(string key)
