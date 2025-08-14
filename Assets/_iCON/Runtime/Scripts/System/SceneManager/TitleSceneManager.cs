@@ -127,6 +127,11 @@ namespace iCON.System
         /// TODO: 現状1から再生されるようになっている
         /// </summary>
         private void OnLoadGameButtonClicked() => TransitionToInGameAsync().Forget();
+
+        /// <summary>
+        /// ゲーム終了ボタンクリック時の処理
+        /// </summary>
+        private void OnQuitGameButtonClicked() => _canvasManager.PushCanvas(TitleCanvasType.QuitConfirm);
         
         /// <summary>
         /// 設定画面を開くボタンクリック時の処理
@@ -196,6 +201,7 @@ namespace iCON.System
                 _titleCC.OnNewGameButtonClicked += OnNewGameButtonClicked;
                 _titleCC.OnLoadGameButtonClicked += OnLoadGameButtonClicked;
                 _titleCC.OnConfigButtonClicked += OnConfigButtonClicked;
+                _titleCC.OnQuitButtonClicked += OnQuitGameButtonClicked;
             }
         }
         
@@ -209,6 +215,7 @@ namespace iCON.System
                 _titleCC.OnNewGameButtonClicked -= OnNewGameButtonClicked;
                 _titleCC.OnLoadGameButtonClicked -= OnLoadGameButtonClicked;
                 _titleCC.OnConfigButtonClicked -= OnConfigButtonClicked;
+                _titleCC.OnQuitButtonClicked -= OnQuitGameButtonClicked;
             }
         }
         
