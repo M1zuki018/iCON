@@ -7,6 +7,7 @@ using iCON.Constants;
 using iCON.Enums;
 using iCON.Performance;
 using iCON.UI;
+using UnityEditor;
 using UnityEngine;
 
 namespace iCON.System
@@ -55,6 +56,11 @@ namespace iCON.System
         /// </summary>
         private CanvasController_Config _configCC;
 
+        /// <summary>
+        /// ゲーム終了確認
+        /// </summary>
+        private CanvasController_QuitConfirm _quitConfirmCC;
+        
         /// <summary>
         /// タイトルスプラッシュ完了済み
         /// </summary>
@@ -131,12 +137,31 @@ namespace iCON.System
         /// <summary>
         /// ゲーム終了ボタンクリック時の処理
         /// </summary>
-        private void OnQuitGameButtonClicked() => _canvasManager.PushCanvas(TitleCanvasType.QuitConfirm);
+        private void OnQuitGameButtonClicked() => PushQuitConfirm();
         
         /// <summary>
         /// 設定画面を開くボタンクリック時の処理
         /// </summary>
         private void OnConfigButtonClicked() => ShowConfigCanvas();
+
+        /// <summary>
+        /// ゲーム終了ボタンクリック時の処理
+        /// </summary>
+        private void OnQuit()
+        {
+#if UNITY_EDITOR
+            // エディタ実行中の場合
+            EditorApplication.isPlaying = false;
+#else
+    // ビルド済みアプリケーションの場合
+    Application.Quit();
+#endif
+        }
+        
+        /// <summary>
+        /// ゲーム終了処理をキャンセルする処理
+        /// </summary>
+        private void OnQuitCancel() => _canvasManager.PopCanvas(); 
         
         /// <summary>
         /// コンポーネントの検証
@@ -204,6 +229,15 @@ namespace iCON.System
                 _titleCC.OnQuitButtonClicked += OnQuitGameButtonClicked;
             }
         }
+
+        private void BindQuitConfirmEvents()
+        {
+            if (_quitConfirmCC != null)
+            {
+                _quitConfirmCC.OnYesButtonClicked += OnQuit;
+                _quitConfirmCC.OnNoButtonClicked += OnQuitCancel;
+            }
+        }
         
         /// <summary>
         /// CanvasControllerのボタン押下処理を解除
@@ -216,6 +250,12 @@ namespace iCON.System
                 _titleCC.OnLoadGameButtonClicked -= OnLoadGameButtonClicked;
                 _titleCC.OnConfigButtonClicked -= OnConfigButtonClicked;
                 _titleCC.OnQuitButtonClicked -= OnQuitGameButtonClicked;
+            }
+            
+            if (_quitConfirmCC != null)
+            {
+                _quitConfirmCC.OnYesButtonClicked -= OnQuit;
+                _quitConfirmCC.OnNoButtonClicked -= OnQuitCancel;
             }
         }
         
@@ -244,6 +284,20 @@ namespace iCON.System
             }
             
             _canvasManager.PushCanvas(TitleCanvasType.Config);
+        }
+
+        /// <summary>
+        /// ゲーム終了確認パネルを表示する
+        /// </summary>
+        private void PushQuitConfirm()
+        {
+            if (_quitConfirmCC == null)
+            {
+                _quitConfirmCC = _canvasManager.GetCanvas(TitleCanvasType.QuitConfirm) as CanvasController_QuitConfirm;
+            }
+
+            _canvasManager.PushCanvas(TitleCanvasType.QuitConfirm);
+            BindQuitConfirmEvents();
         }
     }
 }
