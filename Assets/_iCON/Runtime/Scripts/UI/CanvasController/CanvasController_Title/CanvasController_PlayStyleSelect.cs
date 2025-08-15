@@ -23,7 +23,14 @@ namespace iCON.UI
         
         [SerializeField, HighlightIfNull] private CustomButton _storyModeButton;
         [SerializeField, HighlightIfNull] private CustomButton _battleModeButton;
-        [SerializeField, HighlightIfNull] private CustomText _descriptionText;        
+        [SerializeField, HighlightIfNull] private CustomText _descriptionText;
+
+        [Header("文言キーの指定")]
+        [SerializeField] private string _descriptionKey = "TITLE_PLAYSTYLE_DESCRIPTION";
+        [SerializeField] private string _storyTimeRequiedKey = "STORY_TIME_REQUIRED";
+        [SerializeField] private string _battleTimeRequiedKey = "BATTLE_TIME_REQUIRED";
+        [SerializeField] private string _forThoseStoryKey = "FOR_THOSE_STORY";
+        [SerializeField] private string _forThoseBattleKey = "FOR_THOSE_BATTLE";
         
         /// <summary>
         /// Awake
@@ -33,6 +40,8 @@ namespace iCON.UI
             // イベント登録
             _storyModeButton.onClick.SafeAddListener(HandleStoryModeButtonClicked);
             _battleModeButton.onClick.SafeAddListener(HandleBattleModeButtonClicked);
+            
+            ChangeDescriptionText(true);
             
             // ボタンを全て有効化しておく
             AllButtonsEnabled(true);
@@ -61,13 +70,22 @@ namespace iCON.UI
         /// <summary>
         /// カーソルが合っているときに説明文章を変更する
         /// </summary>
-        private void ChangeDescriptionText()
+        private void ChangeDescriptionText(bool isStoryMode)
         {
             // TODO: カーソルが合っている時を判定する
-            if (_descriptionText != null)
+            if (_descriptionText == null)
             {
-                _descriptionText.SetWordingText("TITLE_PLAYSTYLE_DESCRIPTION");   
+                // テキストコンポーネントが設定されていなければ早期リターン
+                return;
             }
+            
+            // フォーマットの代入に利用する文言キーを取得する
+            // NOTE: isStoryMode = trueならストーリーモードのキーを取得する
+            var arg1 = isStoryMode ? _storyTimeRequiedKey : _battleTimeRequiedKey; 
+            var arg2 = isStoryMode ? _forThoseStoryKey : _forThoseBattleKey;
+            
+            // フォーマットを使ってテキストを設定する
+            _descriptionText.SetWordingTextFormat(_descriptionKey, arg1, arg2);   
         }
 
         /// <summary>
