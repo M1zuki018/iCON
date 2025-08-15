@@ -724,85 +724,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3254804116079141730, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3254804116079141730, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.g
-      value: 0.912133
-      objectReference: {fileID: 0}
-    - target: {fileID: 3254804116079141730, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3254804116079141730, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3254804116079141730, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 0.9137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 3254804116079141730, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.r
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4943837291101685377, guid: 5547a17043341854e826bd72bfffd479, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 786433890}
-    - target: {fileID: 5108619560767805093, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5108619560767805093, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.g
-      value: 0.912133
-      objectReference: {fileID: 0}
-    - target: {fileID: 5108619560767805093, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5108619560767805093, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5108619560767805093, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 0.9137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 5108619560767805093, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.r
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7241587270615209574, guid: 5547a17043341854e826bd72bfffd479, type: 3}
       propertyPath: m_Name
       value: TitleCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372155564593229177, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372155564593229177, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.g
-      value: 0.912133
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372155564593229177, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_SelectedColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372155564593229177, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372155564593229177, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 0.9137255
-      objectReference: {fileID: 0}
-    - target: {fileID: 7372155564593229177, guid: 5547a17043341854e826bd72bfffd479, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.r
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
