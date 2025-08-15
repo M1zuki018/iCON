@@ -62,7 +62,6 @@ namespace iCON.UI
         /// </summary>
         private void HandleNewGameButtonClicked()
         {
-            GameStartButtonClicked(_newGameButton);
             OnNewGameButtonClicked?.Invoke();
         }
 
