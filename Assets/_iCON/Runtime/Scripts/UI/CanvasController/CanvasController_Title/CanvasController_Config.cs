@@ -5,7 +5,7 @@ namespace iCON.UI
     /// <summary>
     /// CanvasController_Config
     /// </summary>
-    public partial class CanvasController_Config : WindowBase
+    public class CanvasController_Config : WindowBase
     {
         public override UniTask OnAwake()
         {

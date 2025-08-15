@@ -7,5 +7,8 @@ namespace iCON.Enums
     {
         Title,
         Config,
+        QuitConfirm,
+        PlayStyleSelect,
+        SaveDataSelect,
     }
 }

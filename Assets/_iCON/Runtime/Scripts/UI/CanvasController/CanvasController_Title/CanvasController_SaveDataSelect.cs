@@ -6,9 +6,9 @@ using UnityEngine;
 namespace iCON.UI
 {
     /// <summary>
-    /// {ClassName}
+    /// CanvasController_SaveDataSelect
     /// </summary>
-    public partial class {ClassName} : WindowBase
+    public class CanvasController_SaveDataSelect : WindowBase
     {
         [SerializeField, HighlightIfNull] private CustomButton _button;
                 
