@@ -119,7 +119,7 @@ namespace iCON.UI
         }
         
         /// <summary>
-        /// Destory
+        /// Destroy
         /// </summary>
         private void OnDestroy()
         {
