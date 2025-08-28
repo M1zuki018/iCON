@@ -11,6 +11,7 @@ namespace CryStar.Game.Enums
         PlayStory = 3, // ストーリー再生
         ChangeMap = 4, // マップ変更
         BattleStart = 5, // バトル
+        EventTransition = 6, // 別のイベントを実行
         
         Custom = 99,
     }
