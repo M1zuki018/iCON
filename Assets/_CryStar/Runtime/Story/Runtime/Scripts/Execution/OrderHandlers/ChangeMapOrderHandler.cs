@@ -5,6 +5,7 @@ using CryStar.Story.Data;
 using CryStar.Story.Enums;
 using CryStar.Story.UI;
 using DG.Tweening;
+using iCON.System;
 
 namespace CryStar.Story.Execution
 {
@@ -14,23 +15,20 @@ namespace CryStar.Story.Execution
     [OrderHandler(OrderType.ChangeMap)]
     public class ChangeMapOrderHandler : OrderHandlerBase
     {
-        /// <summary>
-        /// フィールドの管理クラス
-        /// </summary>
-        private MapInstanceManager _mapInstanceManager = ServiceLocator.GetLocal<MapInstanceManager>();
+        private InGameManager _gameManager = ServiceLocator.GetLocal<InGameManager>();
         
         public override OrderType SupportedOrderType => OrderType.ChangeMap;
 
         public override Tween HandleOrder(OrderData data, StoryView view)
         {
-            if (_mapInstanceManager == null)
+            if (_gameManager == null)
             {
                 // FieldManagerがnullの場合、もう一度サービスロケーターから取得を試す
-                _mapInstanceManager = ServiceLocator.GetLocal<MapInstanceManager>();
+                _gameManager = ServiceLocator.GetLocal<InGameManager>();
             }
             
             // マップを移動する
-            _mapInstanceManager.RemoveAndShowMap((int)data.OverrideTextSpeed);
+            _gameManager.RemoveAndShowMap((int)data.OverrideTextSpeed);
             return null;
         }
     }
