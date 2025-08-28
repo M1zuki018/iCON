@@ -56,6 +56,7 @@ namespace CryStar.Data
             else
             {
                 // TODO: デバッグ用
+                DeleteAllUserData();
                 CreateUserData();
             }
         }
@@ -127,6 +128,14 @@ namespace CryStar.Data
             {
                 _currentUserData = _userDataContainers.Count > 0 ? _userDataContainers[0] : null;
             }
+        }
+
+        /// <summary>
+        /// 全てのユーザーデータを削除
+        /// </summary>
+        public void DeleteAllUserData()
+        {
+            _userDataContainers.Clear();
         }
         
         /// <summary>
