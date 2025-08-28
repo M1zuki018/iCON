@@ -9,7 +9,7 @@ public static class MasterGameEvent
     private static readonly Dictionary<int, GameEventSequenceData> _eventData = new Dictionary<int, GameEventSequenceData>()
     {
         {
-            1, new GameEventSequenceData(
+            1, new GameEventSequenceData(true,
                 new GameEventExecutionData(ExecutionType.Sequential, 
                     new GameEventData[]
                     {
@@ -22,7 +22,7 @@ public static class MasterGameEvent
                     }))
         },
         {
-            2, new GameEventSequenceData(
+            2, new GameEventSequenceData(true,
                 new GameEventExecutionData(ExecutionType.Sequential, 
                     new GameEventData[]
                     {
@@ -35,7 +35,7 @@ public static class MasterGameEvent
                     }))
         },
         {
-            3, new GameEventSequenceData(
+            3, new GameEventSequenceData(true,
                 new GameEventExecutionData(ExecutionType.Parallel, 
                     new GameEventData[]
                     {
@@ -44,33 +44,7 @@ public static class MasterGameEvent
                     }))
         },
         {
-            4, new GameEventSequenceData(
-                new GameEventExecutionData(ExecutionType.Sequential, 
-                    new GameEventData[]
-                    {
-                        new(GameEventType.PlayStory, new GameEventParameters(intParam: 3)),
-                    }))
-        },
-        {
-            7, new GameEventSequenceData(
-                new GameEventExecutionData(ExecutionType.Sequential, 
-                    new GameEventData[]
-                    {
-                        new(GameEventType.PlayStory, new GameEventParameters(intParam: 5)),
-                    }),
-                new GameEventExecutionData(ExecutionType.Sequential, 
-                    new GameEventData[]
-                    {
-                        new(GameEventType.ChangeMap, new GameEventParameters(intParam: 3)),
-                    }))
-        },
-        {
-            8, new GameEventSequenceData(
-                new GameEventExecutionData(ExecutionType.Sequential, 
-                    new GameEventData[]
-                    {
-                        new(GameEventType.PlayStory, new GameEventParameters(intParam: 6)),
-                    }),
+            4, new GameEventSequenceData(false,
                 new GameEventExecutionData(ExecutionType.Sequential,
                     new GameEventData[]
                     {
@@ -78,7 +52,7 @@ public static class MasterGameEvent
                     }))
         },
         {
-            9, new GameEventSequenceData(
+            5, new GameEventSequenceData(true,
                 new GameEventExecutionData(ExecutionType.Sequential, 
                     new GameEventData[]
                     {
