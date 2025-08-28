@@ -1,7 +1,7 @@
-using CryStar.Game.Data;
 using CryStar.Game.Enums;
 using CryStar.Story.Factory;
 using Cysharp.Threading.Tasks;
+using iCON.System;
 
 namespace CryStar.Game.Events
 {
@@ -15,11 +15,16 @@ namespace CryStar.Game.Events
         /// このハンドラが担当するゲームイベントの種類
         /// </summary>
         public abstract GameEventType SupportedGameEventType { get; }
+        protected InGameManager InGameManager { get; private set; }
 
         /// <summary>
         /// ゲームイベントを実行する
         /// NOTE: 継承クラスで具体的な処理を実装する必要があります
         /// </summary>
-        public abstract UniTask HandleGameEvent(GameEventData data);
+        public UniTask HandleGameEvent(InGameManager gameManager)
+        {
+            InGameManager = gameManager;
+            return UniTask.CompletedTask;
+        }
     }
 }
