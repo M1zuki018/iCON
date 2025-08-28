@@ -10,6 +10,7 @@ namespace CryStar.Game.Enums
         StoryPreload = 2, // ストーリーデータの事前ロード
         PlayStory = 3, // ストーリー再生
         ChangeMap = 4, // マップ変更
+        BattleStart = 5, // バトル
         
         Custom = 99,
     }
