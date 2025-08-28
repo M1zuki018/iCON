@@ -37,7 +37,7 @@ public static class MasterStoryScene
         },
         {
             5, new StorySceneData(5, "衣装スタッフ会話", 1, 1, 5, 
-                "A83:O89", 1.0f, new Vector3(0.0f, 0.0f, 4.0f), null
+                "A83:O90", 1.0f, new Vector3(0.0f, 0.0f, 4.0f), null
             )
         },
         {

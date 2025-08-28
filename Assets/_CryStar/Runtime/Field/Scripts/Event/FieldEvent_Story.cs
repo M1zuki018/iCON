@@ -6,6 +6,7 @@ using CryStar.Game.Events;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
+using iCON.System;
 using UnityEngine;
 
 namespace CryStar.Field.Event
@@ -16,7 +17,7 @@ namespace CryStar.Field.Event
     public class FieldEvent_Story : FieldEventBase
     {
         /// <summary>
-        /// 再生するイベントのID
+        /// 再生するストーリーのID
         /// </summary>
         [SerializeField, Tooltip("カンマ区切りでストーリーIDを指定 (例: 1,2,3)")] 
         private string _playStoryId;
@@ -27,9 +28,9 @@ namespace CryStar.Field.Event
         private List<int> _idList = new List<int>();
 
         /// <summary>
-        /// GameEventManager
+        /// InGameManager
         /// </summary>
-        private GameEventManager _eventManager;
+        private InGameManager _gameManager;
 
         #region Life cycle
 
@@ -49,10 +50,10 @@ namespace CryStar.Field.Event
         /// </summary>
         protected override void OnPlayerEnter(Collider2D playerCollider)
         {
-            if (_eventManager == null)
+            if (_gameManager == null)
             {
                 // nullだったらInGameManagerを取得する
-                _eventManager = ServiceLocator.GetGlobal<GameEventManager>();
+                _gameManager = ServiceLocator.GetLocal<InGameManager>();
             }
             
             // ストーリーID取得のためのindexを計算する
@@ -60,7 +61,7 @@ namespace CryStar.Field.Event
             var index = Mathf.Min(Count, _idList.Count);
             
             // 再生
-            _eventManager.PlayEvent(_idList[index]).Forget();
+            _gameManager.PlayStory(_idList[index]).Forget();
         }
         
         /// <summary>
