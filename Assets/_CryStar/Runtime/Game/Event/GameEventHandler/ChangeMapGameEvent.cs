@@ -6,7 +6,7 @@ using iCON.System;
 namespace CryStar.Game.Events
 {
     /// <summary>
-    /// ChangeMap - イベントハンドラーの説明
+    /// ChangeMap - マップ変更
     /// </summary>
     [GameEventHandler(GameEventType.ChangeMap)]
     public class ChangeMapGameEvent : GameEventHandlerBase
@@ -18,8 +18,12 @@ namespace CryStar.Game.Events
         /// </summary>
         public ChangeMapGameEvent(InGameManager inGameManager) : base(inGameManager) { }
         
+        /// <summary>
+        /// マップ変更を行う
+        /// </summary>
         public override UniTask HandleGameEvent(GameEventParameters parameters)
         {
+            InGameManager.RemoveAndShowMap(parameters.IntParam);
             return UniTask.CompletedTask;
         }
     }
