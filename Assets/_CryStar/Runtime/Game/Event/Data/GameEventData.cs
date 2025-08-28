@@ -17,13 +17,14 @@ namespace CryStar.Game.Events
         
         /// <summary>
         /// パラメーター
+        /// パラメーターが存在しない場合はnullが渡される
         /// </summary>
         public GameEventParameters Parameters => _parameters;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public GameEventData(GameEventType eventType, GameEventParameters parameters)
+        public GameEventData(GameEventType eventType, GameEventParameters parameters = null)
         {
             _eventType = eventType;
             _parameters = parameters;

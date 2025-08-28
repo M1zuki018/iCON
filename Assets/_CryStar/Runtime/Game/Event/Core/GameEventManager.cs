@@ -42,6 +42,22 @@ namespace CryStar.Game.Events
             _handlers = GameEventFactory.CreateAllHandlers(ServiceLocator.GetLocal<InGameManager>());
         }
 
+        public override async UniTask OnStart()
+        {
+            await base.OnStart();
+            
+            // TODO: テスト用コード
+            
+            // var id = 1;
+            // var eventData = new GameEventData(GameEventType.GameClear);
+            // var startEvent = new GameEventExecutionData(id++, ExecutionType.Sequential, new GameEventData[] { eventData });
+            // var sequenceData = new GameEventSequenceData(id, startEvent);
+            //
+            // _eventData[id] = sequenceData;
+            //
+            // PlayEvent(id).Forget();
+        }
+
         /// <summary>
         /// イベントIDを元にイベントを実行する
         /// </summary>
@@ -62,6 +78,13 @@ namespace CryStar.Game.Events
         /// <param name="eventData"></param>
         private async UniTask Execute(GameEventExecutionData eventData)
         {
+            if (eventData == null)
+            {
+                // イベントデータがnullの場合はreturn
+                // NOTE: EndEventがない場合、正常な動作でもnullが渡されることがある
+                return;
+            }
+            
             switch (eventData.ExecutionType)
             {
                 // 順次実行

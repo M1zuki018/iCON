@@ -23,13 +23,14 @@ namespace CryStar.Game.Events
         
         /// <summary>
         /// 終了時のイベント
+        /// 終了時のイベントがない場合はnullが渡される
         /// </summary>
         public GameEventExecutionData EndEvent => _endEvent;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public GameEventSequenceData(int id, GameEventExecutionData startEvent, GameEventExecutionData endEvent)
+        public GameEventSequenceData(int id, GameEventExecutionData startEvent, GameEventExecutionData endEvent = null)
         {
             _id = id;
             _startEvent = startEvent;
