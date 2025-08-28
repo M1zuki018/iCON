@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Game.Data;
 using CryStar.Game.Enums;
 using CryStar.Game.Events.Initialization;
+using CryStar.Utility;
+using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.System;
 
@@ -20,9 +23,9 @@ namespace CryStar.Game.Events
         private Dictionary<GameEventType, GameEventHandlerBase> _handlers = new Dictionary<GameEventType, GameEventHandlerBase>();
 
         /// <summary>
-        /// イベントIDとそのIDのイベントデータのkvp
+        /// イベントIDとそのIDに対応したイベントデータのkvp
         /// </summary>
-        private Dictionary<int, GameEventData> _eventData = new Dictionary<int, GameEventData>();
+        private Dictionary<int, GameEventSequenceData> _eventData = new Dictionary<int, GameEventSequenceData>();
         
         /// <summary>
         /// Awake
@@ -42,13 +45,95 @@ namespace CryStar.Game.Events
         /// <summary>
         /// イベントIDを元にイベントを実行する
         /// </summary>
-        public async UniTask ExecuteEvent(int eventID)
+        public async UniTask PlayEvent(int eventID)
         {
-            var eventData = _eventData[eventID];
-            var eventType = eventData.EventType;
-            var handler = _handlers[eventType];
+            var sequenceData = _eventData[eventID];
             
-            await handler.HandleGameEvent(eventData.Parameter);
+            // イベント開始時に登録されている処理を実行
+            await Execute(sequenceData.StartEvent);
+            
+            // 終わったらイベント終了時に登録されている処理を実行
+            await Execute(sequenceData.EndEvent);
+        }
+
+        /// <summary>
+        /// イベント実行
+        /// </summary>
+        /// <param name="eventData"></param>
+        private async UniTask Execute(GameEventExecutionData eventData)
+        {
+            switch (eventData.ExecutionType)
+            {
+                // 順次実行
+                case ExecutionType.Sequential:
+                    await ExecuteSequential(eventData);
+                    break;
+                // 並行実行
+                case ExecutionType.Parallel:
+                    await ExecuteParallel(eventData);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// ゲームイベントを順次実行していく
+        /// </summary>
+        private async UniTask ExecuteSequential(GameEventExecutionData eventData)
+        {
+            try
+            {
+                foreach (var data in eventData.EventDataArray)
+                {
+                    var eventType = data.EventType;
+                
+                    if (!_handlers.TryGetValue(eventType, out var handler))
+                    {
+                        LogUtility.Warning($"未登録のイベントタイプです: {eventType}", LogCategory.System);
+                        continue;
+                    }
+                
+                    // 各イベントを順次実行（前のイベントが完了してから次を実行）
+                    await handler.HandleGameEvent(data.Parameters);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogUtility.Error($"オーダー実行中にエラーが発生: {ex.Message}", LogCategory.System);
+            }
+        }
+
+        /// <summary>
+        /// ゲームイベントを並列実行
+        /// </summary>
+        private async UniTask ExecuteParallel(GameEventExecutionData eventData)
+        {
+            try
+            {
+                var tasks = new List<UniTask>();
+
+                foreach (var data in eventData.EventDataArray)
+                {
+                    var eventType = data.EventType;
+
+                    if (!_handlers.TryGetValue(eventType, out var handler))
+                    {
+                        LogUtility.Warning($"未登録のイベントタイプです: {eventType}", LogCategory.System);
+                        continue;
+                    }
+
+                    // 各イベントのタスクをリストに追加（実行はまだしない）
+                    tasks.Add(handler.HandleGameEvent(data.Parameters));
+                }
+
+                // 全てのタスクを並列実行し、全て完了するまで待機
+                await UniTask.WhenAll(tasks);
+            }
+            catch (Exception ex)
+            {
+                LogUtility.Error($"オーダー実行中にエラーが発生: {ex.Message}", LogCategory.System);
+            }
         }
     }
 }

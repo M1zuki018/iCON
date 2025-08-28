@@ -35,7 +35,7 @@ namespace CryStar.Game.Events
                 _eventManager = ServiceLocator.GetGlobal<GameEventManager>();
             }
             
-            await _eventManager.ExecuteEvent(parameters.IntParam);
+            await _eventManager.PlayEvent(parameters.IntParam);
         }
     }
 }
