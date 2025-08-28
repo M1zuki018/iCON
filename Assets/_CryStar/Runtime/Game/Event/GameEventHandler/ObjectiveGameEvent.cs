@@ -6,7 +6,7 @@ using iCON.System;
 namespace CryStar.Game.Events
 {
     /// <summary>
-    /// Objective - イベントハンドラーの説明
+    /// Objective - 目標表示
     /// </summary>
     [GameEventHandler(GameEventType.Objective)]
     public class ObjectiveGameEvent : GameEventHandlerBase
@@ -18,9 +18,12 @@ namespace CryStar.Game.Events
         /// </summary>
         public ObjectiveGameEvent(InGameManager inGameManager) : base(inGameManager) { }
         
-        public override UniTask HandleGameEvent(GameEventParameters parameters)
+        /// <summary>
+        /// 目標UIを表示する
+        /// </summary>
+        public override async UniTask HandleGameEvent(GameEventParameters parameters)
         {
-            return UniTask.CompletedTask;
+            await InGameManager.ShowObjective(parameters.StringParam);
         }
     }
 }
