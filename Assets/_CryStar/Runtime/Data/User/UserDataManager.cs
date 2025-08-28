@@ -53,6 +53,11 @@ namespace CryStar.Data
                 // セーブデータが存在する場合は最後に使用していたデータを選択（または最新のデータ）
                 TrySelectUserData(0);
             }
+            else
+            {
+                // TODO: デバッグ用
+                CreateUserData();
+            }
         }
 
         /// <summary>
