@@ -57,9 +57,9 @@ namespace iCON.System
         /// </summary>
         public ReadOnlyReactiveProperty<InGameStateType> CurrentStateProp => _currentStateProp;
         
-        public override async UniTask OnStart()
+        public override async UniTask OnAwake()
         {
-            await base.OnStart();
+            await base.OnAwake();
             
             ServiceLocator.Register(this, ServiceType.Local);
             
