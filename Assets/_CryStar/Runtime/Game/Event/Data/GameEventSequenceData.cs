@@ -7,14 +7,8 @@ namespace CryStar.Game.Events
     /// </summary>
     public class GameEventSequenceData
     {
-        private int _id;
         private GameEventExecutionData _startEvent;
         private GameEventExecutionData _endEvent;
-
-        /// <summary>
-        /// Id
-        /// </summary>
-        public int Id => _id;
         
         /// <summary>
         /// 開始時のイベント
@@ -30,9 +24,8 @@ namespace CryStar.Game.Events
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public GameEventSequenceData(int id, GameEventExecutionData startEvent, GameEventExecutionData endEvent = null)
+        public GameEventSequenceData(GameEventExecutionData startEvent, GameEventExecutionData endEvent = null)
         {
-            _id = id;
             _startEvent = startEvent;
             _endEvent = endEvent;
         }

@@ -5,19 +5,30 @@ namespace CryStar.Game.Events
     /// </summary>
     public class GameEventParameters
     {
+        private int _intParam;
+        private string _stringParam;
+        private int[] _intArrayParam;
+        
         /// <summary>
         /// Int型パラメーター
         /// </summary>
-        public int IntParam { get; set; }
+        public int IntParam => _intParam;
         
         /// <summary>
         /// String型パラメーター
         /// </summary>
-        public string StringParam { get; set; }
+        public string StringParam => _stringParam;
         
         /// <summary>
         /// Int配列型パラメーター
         /// </summary>
-        public int[] IntArrayParam { get; set; }
+        public int[] IntArrayParam => _intArrayParam;
+
+        public GameEventParameters(int intParam = -1, string stringParam = null, int[] intArrayParam = null)
+        {
+            _intParam = intParam;
+            _stringParam = stringParam;
+            _intArrayParam = intArrayParam;
+        }
     }
 }
