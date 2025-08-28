@@ -59,9 +59,9 @@ namespace iCON.System
         
         public override async UniTask OnAwake()
         {
-            await base.OnAwake();
-            
             ServiceLocator.Register(this, ServiceType.Local);
+            
+            await base.OnAwake();
             
             // ストーリー再生時以外はゲームオブジェクトを非アクティブにしておく
             _storyOrchestrator.gameObject.SetActive(false);
