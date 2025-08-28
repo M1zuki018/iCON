@@ -6,7 +6,7 @@ using iCON.System;
 namespace CryStar.Game.Events
 {
     /// <summary>
-    /// PlayStory - イベントハンドラーの説明
+    /// PlayStory - ストーリー再生
     /// </summary>
     [GameEventHandler(GameEventType.PlayStory)]
     public class PlayStoryGameEvent : GameEventHandlerBase
@@ -18,8 +18,12 @@ namespace CryStar.Game.Events
         /// </summary>
         public PlayStoryGameEvent(InGameManager inGameManager) : base(inGameManager) { }
         
+        /// <summary>
+        /// ストーリーを再生する
+        /// </summary>
         public override UniTask HandleGameEvent(GameEventParameters parameters)
         {
+            InGameManager.PlayStory(parameters.IntParam);
             return UniTask.CompletedTask;
         }
     }
