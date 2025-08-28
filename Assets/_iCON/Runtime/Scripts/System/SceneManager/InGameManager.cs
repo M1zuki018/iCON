@@ -44,6 +44,7 @@ namespace iCON.System
         /// <summary>
         /// マップ管理クラス
         /// </summary>
+        [SerializeField]
         private MapInstanceManager _mapInstanceManager;
 
         /// <summary>
@@ -67,8 +68,7 @@ namespace iCON.System
             
             // NOTE: ロード画面が表示されている間に事前ロードまで進めておき、スムーズにゲームを進める
             await _storyOrchestrator.LoadSceneDataAsync(1);
-
-            _mapInstanceManager = ServiceLocator.GetLocal<MapInstanceManager>();
+            
             _onEventEnd += index => EndEvent(index).Forget();
         }
 
@@ -91,7 +91,9 @@ namespace iCON.System
                 await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Battle, false, true));
             }
         }
-        
+
+        #region ストーリー
+
         /// <summary>
         /// ストーリーを再生する
         /// </summary>
@@ -111,12 +113,6 @@ namespace iCON.System
                 }).Forget();
         }
 
-        [MethodButtonInspector]
-        public void Reset()
-        {
-            _currentEventIndex.Value = 1;
-        }
-        
         /// <summary>
         /// ストーリーの事前ロードを行う
         /// </summary>
@@ -128,6 +124,18 @@ namespace iCON.System
             }
             LogUtility.Info($"{storyIdArray.Length}件 ストーリーのプリロードを行いました", LogCategory.System);
         }
+        
+        #endregion
+
+        #region フィールド
+
+        /// <summary>
+        /// マップのInstanceを削除してから新しいマップを生成
+        /// </summary>
+        public void RemoveAndShowMap(int newMapId)
+        {
+            _mapInstanceManager.RemoveAndShowMap(newMapId);
+        }
 
         /// <summary>
         /// 目標UIを表示する
@@ -135,6 +143,14 @@ namespace iCON.System
         public async UniTask ShowObjective(string message)
         {
             await _fieldView.ShowObjectiveText(message);
+        }
+        
+        #endregion
+
+        [MethodButtonInspector]
+        public void Reset()
+        {
+            _currentEventIndex.Value = 1;
         }
         
         // TODO: 動くものは作ったのであとで設計の手直しを行う
