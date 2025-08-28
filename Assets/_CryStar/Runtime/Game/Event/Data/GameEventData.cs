@@ -1,25 +1,14 @@
 using CryStar.Game.Enums;
-using CryStar.Game.Events;
 
-namespace CryStar.Game.Data
+namespace CryStar.Game.Events
 {
     /// <summary>
-    /// ゲームイベントデータ
+    /// ゲームイベント実行に必要なゲームイベントデータの最小単位
     /// </summary>
     public class GameEventData
     {
-        #region Private Field
-
-        private int _id;
         private GameEventType _eventType;
-        private GameEventParameters _parameter;
-
-        #endregion
-
-        /// <summary>
-        /// ゲームイベントのID
-        /// </summary>
-        public int Id => _id;
+        private GameEventParameters _parameters;
         
         /// <summary>
         /// ゲームイベントの種類
@@ -27,18 +16,17 @@ namespace CryStar.Game.Data
         public GameEventType EventType => _eventType;
         
         /// <summary>
-        /// 入力されたパラメーター
+        /// パラメーター
         /// </summary>
-        public GameEventParameters Parameter => _parameter;
+        public GameEventParameters Parameters => _parameters;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public GameEventData(int id, GameEventType eventType, GameEventParameters parameter)
+        public GameEventData(GameEventType eventType, GameEventParameters parameters)
         {
-            _id = id;
             _eventType = eventType;
-            _parameter = parameter;
+            _parameters = parameters;
         }
     }
 }
