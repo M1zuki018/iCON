@@ -3,6 +3,7 @@ using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Core.ReactiveExtensions;
+using CryStar.Data;
 using CryStar.Field.Map;
 using CryStar.Field.UI;
 using CryStar.Story.Orchestrators;
@@ -43,6 +44,11 @@ namespace iCON.System
         private MapInstanceManager _mapInstanceManager;
 
         /// <summary>
+        /// UserDataManager
+        /// </summary>
+        private UserDataManager _userDataManager;
+        
+        /// <summary>
         /// 現在のInGameの状態のリアクティブプロパティ
         /// </summary>
         private readonly ReactiveProperty<InGameStateType> _currentStateProp = new ReactiveProperty<InGameStateType>(InGameStateType.Field);
@@ -57,6 +63,8 @@ namespace iCON.System
             ServiceLocator.Register(this, ServiceType.Local);
             
             await base.OnAwake();
+
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
             
             // ストーリー再生時以外はゲームオブジェクトを非アクティブにしておく
             _storyOrchestrator.gameObject.SetActive(false);
@@ -102,7 +110,7 @@ namespace iCON.System
                     _currentStateProp.Value = InGameStateType.Field;
                     
                     // ストーリー読了を記録
-                    StoryUserData.AddStoryClearData(storyId);
+                    _userDataManager.CurrentUserData.StoryUserData.AddStoryClearData(storyId);
                     
                     // ストーリー完了を通知
                     completionSource.TrySetResult(storyId);

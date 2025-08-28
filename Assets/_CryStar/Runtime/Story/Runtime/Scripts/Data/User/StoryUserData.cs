@@ -7,7 +7,7 @@ using CryStar.Data;
 /// </summary>
 public class StoryUserData : BaseUserData
 {
-    public static event Action<int> OnStorySave;
+    public event Action<int> OnStorySave;
     private static Dictionary<int, bool> _storySaveData = new Dictionary<int, bool>();
 
     public StoryUserData(int userId) : base(userId)
@@ -17,7 +17,7 @@ public class StoryUserData : BaseUserData
     /// <summary>
     /// クリアしたか
     /// </summary>
-    public static void AddStoryClearData(int storyId)
+    public void AddStoryClearData(int storyId)
     {
         if (_storySaveData.TryGetValue(storyId, out bool isCleared) && isCleared)
         {
@@ -32,7 +32,7 @@ public class StoryUserData : BaseUserData
     /// <summary>
     /// 前提ストーリーをクリアしているか
     /// </summary>
-    public static bool IsPremiseStoryClear(int storyId)
+    public bool IsPremiseStoryClear(int storyId)
     {
         return _storySaveData.ContainsKey(storyId);
     }
