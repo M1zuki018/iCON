@@ -17,6 +17,6 @@ namespace CryStar.Game.Events
         /// <summary>
         /// ゲームイベントを実行する
         /// </summary>
-        UniTask HandleGameEvent(InGameManager gameManager);
+        UniTask HandleGameEvent(GameEventParameters parameters);
     }
 }

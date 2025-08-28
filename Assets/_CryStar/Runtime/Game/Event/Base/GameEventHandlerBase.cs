@@ -15,16 +15,20 @@ namespace CryStar.Game.Events
         /// このハンドラが担当するゲームイベントの種類
         /// </summary>
         public abstract GameEventType SupportedGameEventType { get; }
-        protected InGameManager InGameManager { get; private set; }
+        protected InGameManager InGameManager { get; set; }
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public GameEventHandlerBase(InGameManager inGameManager)
+        {
+            InGameManager = inGameManager;
+        }
 
         /// <summary>
         /// ゲームイベントを実行する
         /// NOTE: 継承クラスで具体的な処理を実装する必要があります
         /// </summary>
-        public UniTask HandleGameEvent(InGameManager gameManager)
-        {
-            InGameManager = gameManager;
-            return UniTask.CompletedTask;
-        }
+        public abstract UniTask HandleGameEvent(GameEventParameters parameters);
     }
 }
