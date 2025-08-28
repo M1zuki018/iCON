@@ -6,7 +6,7 @@ using iCON.System;
 namespace CryStar.Game.Events
 {
     /// <summary>
-    /// StoryPreload - イベントハンドラーの説明
+    /// StoryPreload - ストーリーデータの事前ロード
     /// </summary>
     [GameEventHandler(GameEventType.StoryPreload)]
     public class StoryPreloadGameEvent : GameEventHandlerBase
@@ -18,9 +18,12 @@ namespace CryStar.Game.Events
         /// </summary>
         public StoryPreloadGameEvent(InGameManager inGameManager) : base(inGameManager) { }
         
-        public override UniTask HandleGameEvent(GameEventParameters parameters)
+        /// <summary>
+        /// ストーリーデータの事前ロードを行う
+        /// </summary>
+        public override async UniTask HandleGameEvent(GameEventParameters parameters)
         {
-            return UniTask.CompletedTask;
+            await InGameManager.PreloadStoryAsync(parameters.IntArrayParam);
         }
     }
 }
