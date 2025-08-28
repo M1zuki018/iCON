@@ -1,5 +1,6 @@
 using CryStar.Attribute;
 using CryStar.Core;
+using CryStar.Data;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
@@ -9,6 +10,7 @@ using iCON.Performance;
 using iCON.UI;
 using UnityEditor;
 using UnityEngine;
+using NotImplementedException = System.NotImplementedException;
 
 namespace iCON.System
 {
@@ -67,6 +69,11 @@ namespace iCON.System
         private CanvasController_PlayStyleSelect _playStyleSelectCC;
         
         /// <summary>
+        /// ユーザーデータマネージャー
+        /// </summary>
+        private UserDataManager _userDataManager;
+        
+        /// <summary>
         /// タイトルスプラッシュ完了済み
         /// </summary>
         private bool _isSplashCompleted;
@@ -85,6 +92,7 @@ namespace iCON.System
             }
             
             _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
             
             ShowTitleCanvas();
             
@@ -137,13 +145,21 @@ namespace iCON.System
         /// <summary>
         /// ゲームを始める
         /// </summary>
-        private void PlayGame() => TransitionToInGameAsync().Forget();
-        
+        private void PlayGame()
+        {
+            CheckSaveData();
+            TransitionToInGameAsync().Forget();
+        }
+
         /// <summary>
         /// ゲームを続きから始めるボタンクリック時の処理
-        /// TODO: 現状1から再生されるようになっている
         /// </summary>
-        private void OnLoadGameButtonClicked() => TransitionToInGameAsync().Forget();
+        private void OnLoadGameButtonClicked()
+        {
+            // TODO: セーブデータのスロットを選択できるようにする可能性があるので、一旦メソッドは分けておく
+            CheckSaveData();
+            TransitionToInGameAsync().Forget();
+        }
 
         /// <summary>
         /// ゲーム終了ボタンクリック時の処理
@@ -225,6 +241,18 @@ namespace iCON.System
             // BGMのフェードアウト後にシーン遷移
             await _audioManager.FadeOutBGM(_bgmFadeDuration);
             await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.InGame, true));
+        }
+        
+        /// <summary>
+        /// セーブデータを選ぶ
+        /// </summary>
+        private void CheckSaveData()
+        {
+            // TODO: 仮実装
+            if (!_userDataManager.TrySelectUserData(0))
+            {
+                _userDataManager.CreateUserData();
+            }
         }
 
         /// <summary>
