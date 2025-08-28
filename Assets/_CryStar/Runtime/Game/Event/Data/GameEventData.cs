@@ -1,4 +1,5 @@
 using CryStar.Game.Enums;
+using CryStar.Game.Events;
 
 namespace CryStar.Game.Data
 {
@@ -11,7 +12,7 @@ namespace CryStar.Game.Data
 
         private int _id;
         private GameEventType _eventType;
-        private string _parameter;
+        private GameEventParameters _parameter;
 
         #endregion
 
@@ -28,12 +29,12 @@ namespace CryStar.Game.Data
         /// <summary>
         /// 入力されたパラメーター
         /// </summary>
-        public string Parameter => _parameter;
+        public GameEventParameters Parameter => _parameter;
 
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public GameEventData(int id, GameEventType eventType, string parameter)
+        public GameEventData(int id, GameEventType eventType, GameEventParameters parameter)
         {
             _id = id;
             _eventType = eventType;
