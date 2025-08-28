@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Data;
 using CryStar.Game.Data;
 using CryStar.Game.Enums;
 using CryStar.Game.Events.Initialization;
@@ -28,6 +29,11 @@ namespace CryStar.Game.Events
         private Dictionary<int, UniTaskCompletionSource> _eventCompletionSources = new Dictionary<int, UniTaskCompletionSource>();
         
         /// <summary>
+        /// UserDataManager
+        /// </summary>
+        private UserDataManager _userDataManager;
+        
+        /// <summary>
         /// Awake
         /// </summary>
         public override async UniTask OnBind()
@@ -40,6 +46,9 @@ namespace CryStar.Game.Events
             // 念のためゲームイベントシステムが初期化されていることを確認する
             GameEventInitializer.Initialize();
             _handlers = GameEventFactory.CreateAllHandlers(ServiceLocator.GetLocal<InGameManager>());
+            
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
+            StoryUserData.OnStorySave += Check;
         }
 
         public override async UniTask OnStart()
@@ -47,6 +56,25 @@ namespace CryStar.Game.Events
             await base.OnStart();
 
             await PlayEvent(1);
+        }
+        
+        private void OnDestroy()
+        {
+            StoryUserData.OnStorySave -= Check;
+        }
+
+        /// <summary>
+        /// ストーリー読了時にトリガーすべきイベントがある場合の処理
+        /// </summary>
+        private void Check(int storyId)
+        {
+            var data = MasterStoryTriggerEvent.GetTriggerEventData(storyId);
+            if (data == null)
+            {
+                return;
+            }
+
+            PlayEvent(data.EventId).Forget();
         }
 
         /// <summary>
