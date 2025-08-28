@@ -23,11 +23,6 @@ namespace iCON.System
         /// 現在のイベントのindex
         /// </summary>
         private static ReactiveProperty<int> _currentEventIndex = new ReactiveProperty<int>(1);
-
-        /// <summary>
-        /// イベント終了アクション
-        /// </summary>
-        private event Action<int> _onEventEnd;
         
         /// <summary>
         /// ストーリーオーケストレーター
@@ -68,15 +63,6 @@ namespace iCON.System
             
             // NOTE: ロード画面が表示されている間に事前ロードまで進めておき、スムーズにゲームを進める
             await _storyOrchestrator.LoadSceneDataAsync(1);
-            
-            _onEventEnd += index => EndEvent(index).Forget();
-        }
-
-        private void Start()
-        {
-            // イベント開始処理
-            // NOTE: ロードに被らないようにMonoBehaviorのStartで行う
-            _currentEventIndex.Subscribe(x => PlayEvent(x).Forget());
         }
 
         private async void Update()
@@ -97,20 +83,30 @@ namespace iCON.System
         /// <summary>
         /// ストーリーを再生する
         /// </summary>
-        public void PlayStory(int storyId)
+        public async UniTask PlayStory(int storyId)
         {
             // 状態をストーリー中に変更する
             _currentStateProp.Value = InGameStateType.Story;
             
             _storyOrchestrator.gameObject.SetActive(true);
+            
+            // UniTaskCompletionSourceで完了を待機
+            var completionSource = new UniTaskCompletionSource<int>();
+            
             _storyOrchestrator.PlayStoryAsync(storyId,
                 () =>
                 {
                     _storyOrchestrator.gameObject.SetActive(false);
                     
-                    // イベント終了を通知
-                    _onEventEnd?.Invoke(storyId);
+                    // 状態をFieldに変更する
+                    _currentStateProp.Value = InGameStateType.Field;
+                    
+                    // ストーリー完了を通知
+                    completionSource.TrySetResult(storyId);
                 }).Forget();
+            
+            // ストーリー完了まで待機
+            await completionSource.Task;
         }
 
         /// <summary>
@@ -151,57 +147,6 @@ namespace iCON.System
         public void Reset()
         {
             _currentEventIndex.Value = 1;
-        }
-        
-        // TODO: 動くものは作ったのであとで設計の手直しを行う
-        private async UniTask PlayEvent(int index)
-        {
-            switch (index)
-            {
-                case 1:
-                    PlayStory(1);
-                    break;
-                case 2:
-                    PlayStory(2);
-                    break;
-                case 3:
-                    await ShowObjective("衣装スタッフに声をかける");
-                    await PreloadStoryAsync(new int[3]{3,4,5});
-                    break;
-                case 8:
-                    PlayStory(6);
-                    break;
-                case 9:
-                    PlayStory(7);
-                    break;
-            }
-        }
-
-        private async UniTask EndEvent(int index)
-        {
-            switch (index)
-            {
-                case 1:
-                case 2:
-                    break;
-                case 5:
-                    _mapInstanceManager.RemoveAndShowMap(3);
-                    _currentEventIndex.Value = 7;
-                    break;
-                case 6:
-                    await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Battle, false, true));
-                    break;
-                case 7:
-                    // ゲームクリア
-                    await ServiceLocator.GetGlobal<SceneLoader>().LoadSceneAsync(new SceneTransitionData(SceneType.Title, true, true));
-                    _currentEventIndex.Value = 1;
-                    return;
-            }
-            
-            _currentEventIndex.Value += 1;
-            
-            // 状態をFieldに変更する
-            _currentStateProp.Value = InGameStateType.Field;
         }
     }
 }

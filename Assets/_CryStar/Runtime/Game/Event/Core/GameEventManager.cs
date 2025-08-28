@@ -21,11 +21,11 @@ namespace CryStar.Game.Events
         /// 各ゲームイベントの列挙型と処理を行うHandlerのインスタンスのkvp
         /// </summary>
         private Dictionary<GameEventType, GameEventHandlerBase> _handlers = new Dictionary<GameEventType, GameEventHandlerBase>();
-
+        
         /// <summary>
-        /// イベントIDとそのIDに対応したイベントデータのkvp
+        /// 現在実行中のイベント完了待機用
         /// </summary>
-        private Dictionary<int, GameEventSequenceData> _eventData = new Dictionary<int, GameEventSequenceData>();
+        private Dictionary<int, UniTaskCompletionSource> _eventCompletionSources = new Dictionary<int, UniTaskCompletionSource>();
         
         /// <summary>
         /// Awake
@@ -45,17 +45,8 @@ namespace CryStar.Game.Events
         public override async UniTask OnStart()
         {
             await base.OnStart();
-            
-            // TODO: テスト用コード
-            
-            // var id = 1;
-            // var eventData = new GameEventData(GameEventType.GameClear);
-            // var startEvent = new GameEventExecutionData(id++, ExecutionType.Sequential, new GameEventData[] { eventData });
-            // var sequenceData = new GameEventSequenceData(id, startEvent);
-            //
-            // _eventData[id] = sequenceData;
-            //
-            // PlayEvent(id).Forget();
+
+            await PlayEvent(1);
         }
 
         /// <summary>
@@ -63,7 +54,7 @@ namespace CryStar.Game.Events
         /// </summary>
         public async UniTask PlayEvent(int eventID)
         {
-            var sequenceData = _eventData[eventID];
+            var sequenceData = MasterGameEvent.GetGameEventSequenceData(eventID);
             
             // イベント開始時に登録されている処理を実行
             await Execute(sequenceData.StartEvent);
@@ -75,7 +66,6 @@ namespace CryStar.Game.Events
         /// <summary>
         /// イベント実行
         /// </summary>
-        /// <param name="eventData"></param>
         private async UniTask Execute(GameEventExecutionData eventData)
         {
             if (eventData == null)
@@ -116,7 +106,7 @@ namespace CryStar.Game.Events
                         LogUtility.Warning($"未登録のイベントタイプです: {eventType}", LogCategory.System);
                         continue;
                     }
-                
+                    
                     // 各イベントを順次実行（前のイベントが完了してから次を実行）
                     await handler.HandleGameEvent(data.Parameters);
                 }

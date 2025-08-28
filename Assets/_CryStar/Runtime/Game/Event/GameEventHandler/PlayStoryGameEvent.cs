@@ -21,10 +21,9 @@ namespace CryStar.Game.Events
         /// <summary>
         /// ストーリーを再生する
         /// </summary>
-        public override UniTask HandleGameEvent(GameEventParameters parameters)
+        public override async UniTask HandleGameEvent(GameEventParameters parameters)
         {
-            InGameManager.PlayStory(parameters.IntParam);
-            return UniTask.CompletedTask;
+            await InGameManager.PlayStory(parameters.IntParam);
         }
     }
 }
