@@ -288,6 +288,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4999070202030242003, guid: d429b320b70bdfd4091da1072ae2ffa6, type: 3}
   m_PrefabInstance: {fileID: 6438527650404342122}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &367673237 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2573386593717280682, guid: 8f9ebab7fcba499429477ffef632aac8, type: 3}
+  m_PrefabInstance: {fileID: 6961900724480322555}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5e49389039f764aa6225e6b6045157, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &501279344 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6580283330011809306, guid: 9e6194a68ba0e2d4c971a68c9c3414f9, type: 3}
@@ -1502,6 +1513,10 @@ PrefabInstance:
       propertyPath: _storyOrchestrator
       value: 
       objectReference: {fileID: 5484602867204383051}
+    - target: {fileID: 8349254557646403581, guid: d0e33c4e8257247499aadfe2f0b00205, type: 3}
+      propertyPath: _mapInstanceManager
+      value: 
+      objectReference: {fileID: 367673237}
     - target: {fileID: 8349254557646403581, guid: d0e33c4e8257247499aadfe2f0b00205, type: 3}
       propertyPath: _storyLine.Array.size
       value: 3
