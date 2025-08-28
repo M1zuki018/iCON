@@ -8,8 +8,8 @@ namespace CryStar.Game.Enums
         GameClear = 0, // ゲームクリア
         Objective = 1, // 目標表示
         StoryPreload = 2, // ストーリーデータの事前ロード
-        Story = 3,
-        Map = 4,
+        PlayStory = 3, // ストーリー再生
+        ChangeMap = 4, // マップ変更
         
         Custom = 99,
     }
