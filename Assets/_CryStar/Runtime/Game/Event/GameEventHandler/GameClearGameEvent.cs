@@ -27,9 +27,7 @@ namespace CryStar.Game.Events
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public GameClearGameEvent(InGameManager inGameManager) : base(inGameManager)
-        {
-        }
+        public GameClearGameEvent(InGameManager inGameManager) : base(inGameManager) { }
         
         /// <summary>
         /// ゲームクリア処理
