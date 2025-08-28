@@ -1,6 +1,6 @@
-using CryStar.Game.Data;
 using CryStar.Game.Enums;
 using Cysharp.Threading.Tasks;
+using iCON.System;
 
 namespace CryStar.Game.Events
 {
@@ -17,6 +17,6 @@ namespace CryStar.Game.Events
         /// <summary>
         /// ゲームイベントを実行する
         /// </summary>
-        UniTask HandleGameEvent(GameEventData data);
+        UniTask HandleGameEvent(GameEventParameters parameters);
     }
 }

@@ -31,7 +31,6 @@ namespace CryStar.Field.Map
         public override async UniTask OnAwake()
         {
             await base.OnAwake();
-            ServiceLocator.Register(this, ServiceType.Local);
             ShowMap(1); // TODO: マップ生成。任意のもので初期化できるようにしないといけない
         }
 
@@ -40,7 +39,7 @@ namespace CryStar.Field.Map
         /// </summary>
         private void OnDestroy()
         {
-            DestoryAllMap();
+            DestroyAllMap();
         }
 
         #endregion
@@ -108,7 +107,7 @@ namespace CryStar.Field.Map
         /// <summary>
         /// 全てのマップインスタンスを削除する
         /// </summary>
-        public void DestoryAllMap()
+        public void DestroyAllMap()
         {
             foreach (var kvp in _instantiatedMaps)
             {

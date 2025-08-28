@@ -1,0 +1,61 @@
+using CryStar.Game.Enums;
+using CryStar.Game.Events;
+
+namespace CryStar.Game.Data
+{
+    /// <summary>
+    /// ゲームイベントの実行用データ
+    /// </summary>
+    public class GameEventExecutionData
+    {
+        #region Private Field
+
+        private int _executionIndex = 0;
+        
+        private int _id;
+        private ExecutionType _executionType;
+        private GameEventData[] _eventDataArray;
+
+        #endregion
+
+        /// <summary>
+        /// ゲームイベントのID
+        /// </summary>
+        public int Id => _id;
+        
+        /// <summary>
+        /// 現在実行中のゲームイベントのIndex
+        /// </summary>
+        public int ExecutionIndex => _executionIndex;
+        
+        /// <summary>
+        /// ゲームイベントの実行タイプ
+        /// </summary>
+        public ExecutionType ExecutionType => _executionType;
+        
+        /// <summary>
+        /// イベントデータの配列
+        /// </summary>
+        public GameEventData[] EventDataArray => _eventDataArray;
+        
+        /// <summary>
+        /// 現在実行中のゲームイベントのイベントの種類
+        /// </summary>
+        public GameEventType EventType => _eventDataArray[ExecutionIndex].EventType;
+        
+        /// <summary>
+        /// 現在実行中のゲームイベントのパラメーターデータクラス
+        /// </summary>
+        public GameEventParameters Parameters => _eventDataArray[ExecutionIndex].Parameters;
+
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public GameEventExecutionData(int id, ExecutionType executionType, GameEventData[] eventDataArray)
+        {
+            _id = id;
+            _executionType = executionType;
+            _eventDataArray = eventDataArray;
+        }
+    }
+}
