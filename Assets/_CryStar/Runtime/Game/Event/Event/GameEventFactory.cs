@@ -4,6 +4,7 @@ using System.Linq;
 using CryStar.Game.Attributes;
 using CryStar.Game.Enums;
 using CryStar.Story.Factory;
+using iCON.System;
 
 namespace CryStar.Game.Events
 {
@@ -31,10 +32,10 @@ namespace CryStar.Game.Events
         /// <summary>
         /// 全てのハンドラーを生成
         /// </summary>
-        public static Dictionary<GameEventType, GameEventHandlerBase> CreateAllHandlers()
+        public static Dictionary<GameEventType, GameEventHandlerBase> CreateAllHandlers(InGameManager gameManager)
         {
             return HandlerFactoryBase<GameEventHandlerBase, GameEventType, GameEventHandlerAttribute>
-                .CreateAllHandlers(BuildConstructorArguments);
+                .CreateAllHandlers(type => BuildConstructorArguments(type, gameManager));
         }
 
         /// <summary>
@@ -68,7 +69,7 @@ namespace CryStar.Game.Events
         /// <summary>
         /// コンストラクタ引数を構築する
         /// </summary>
-        private static object[] BuildConstructorArguments(Type handlerType)
+        private static object[] BuildConstructorArguments(Type handlerType, InGameManager gameManager)
         {
             var constructors = handlerType.GetConstructors();
             var constructor = constructors.OrderByDescending(c => c.GetParameters().Length).FirstOrDefault();
@@ -83,7 +84,11 @@ namespace CryStar.Game.Events
             {
                 var paramType = parameters[i].ParameterType;
                 
-                if (paramType.IsValueType)
+                if (paramType == typeof(InGameManager))
+                {
+                    args[i] = gameManager;
+                }
+                else if (paramType.IsValueType)
                 {
                     args[i] = Activator.CreateInstance(paramType);
                 }
