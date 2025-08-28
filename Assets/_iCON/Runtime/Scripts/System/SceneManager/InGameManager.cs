@@ -101,6 +101,9 @@ namespace iCON.System
                     // 状態をFieldに変更する
                     _currentStateProp.Value = InGameStateType.Field;
                     
+                    // ストーリー読了を記録
+                    StoryUserData.AddStoryClearData(storyId);
+                    
                     // ストーリー完了を通知
                     completionSource.TrySetResult(storyId);
                 }).Forget();
