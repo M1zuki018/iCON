@@ -48,32 +48,39 @@ namespace CryStar.Game.Events
             _handlers = GameEventFactory.CreateAllHandlers(ServiceLocator.GetLocal<InGameManager>());
             
             _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
-            StoryUserData.OnStorySave += Check;
+            _userDataManager.CurrentUserData.StoryUserData.OnStorySave += Check;
         }
 
         public override async UniTask OnStart()
         {
             await base.OnStart();
 
-            await PlayEvent(1);
+            var lastEventId = _userDataManager.CurrentUserData.GameEventUserData.GetLastClearCount();
+            
+            // イベントIDが0以上が帰ってきていれば、イベントを実行する
+            // NOTE: 全てクリア済みの場合は-1が返されるので、イベントは実行されない
+            if (lastEventId > 0)
+            {
+                await PlayEvent(lastEventId);
+            }
         }
         
         private void OnDestroy()
         {
-            StoryUserData.OnStorySave -= Check;
+            _userDataManager.CurrentUserData.StoryUserData.OnStorySave -= Check;
         }
 
         /// <summary>
         /// ストーリー読了時にトリガーすべきイベントがある場合の処理
         /// </summary>
         private void Check(int storyId)
-        {
+        { 
             var data = MasterStoryTriggerEvent.GetTriggerEventData(storyId);
             if (data == null)
             {
                 return;
             }
-
+            
             PlayEvent(data.EventId).Forget();
         }
 
@@ -89,6 +96,9 @@ namespace CryStar.Game.Events
             
             // 終わったらイベント終了時に登録されている処理を実行
             await Execute(sequenceData.EndEvent);
+            
+            // セーブデータにクリア情報を記録
+            _userDataManager.CurrentUserData.GameEventUserData.AddClearCount(eventID);
         }
 
         /// <summary>
