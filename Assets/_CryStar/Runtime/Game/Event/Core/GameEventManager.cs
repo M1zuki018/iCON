@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Data;
 using CryStar.Game.Data;
 using CryStar.Game.Enums;
 using CryStar.Game.Events.Initialization;
@@ -21,11 +22,16 @@ namespace CryStar.Game.Events
         /// 各ゲームイベントの列挙型と処理を行うHandlerのインスタンスのkvp
         /// </summary>
         private Dictionary<GameEventType, GameEventHandlerBase> _handlers = new Dictionary<GameEventType, GameEventHandlerBase>();
-
+        
         /// <summary>
-        /// イベントIDとそのIDに対応したイベントデータのkvp
+        /// 現在実行中のイベント完了待機用
         /// </summary>
-        private Dictionary<int, GameEventSequenceData> _eventData = new Dictionary<int, GameEventSequenceData>();
+        private Dictionary<int, UniTaskCompletionSource> _eventCompletionSources = new Dictionary<int, UniTaskCompletionSource>();
+        
+        /// <summary>
+        /// UserDataManager
+        /// </summary>
+        private UserDataManager _userDataManager;
         
         /// <summary>
         /// Awake
@@ -40,22 +46,42 @@ namespace CryStar.Game.Events
             // 念のためゲームイベントシステムが初期化されていることを確認する
             GameEventInitializer.Initialize();
             _handlers = GameEventFactory.CreateAllHandlers(ServiceLocator.GetLocal<InGameManager>());
+            
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
+            _userDataManager.CurrentUserData.StoryUserData.OnStorySave += Check;
         }
 
         public override async UniTask OnStart()
         {
             await base.OnStart();
+
+            var lastEventId = _userDataManager.CurrentUserData.GameEventUserData.GetLastClearCount();
             
-            // TODO: テスト用コード
+            // イベントIDが0以上が帰ってきていれば、イベントを実行する
+            // NOTE: 全てクリア済みの場合は-1が返されるので、イベントは実行されない
+            if (lastEventId > 0)
+            {
+                await PlayEvent(lastEventId);
+            }
+        }
+        
+        private void OnDestroy()
+        {
+            _userDataManager.CurrentUserData.StoryUserData.OnStorySave -= Check;
+        }
+
+        /// <summary>
+        /// ストーリー読了時にトリガーすべきイベントがある場合の処理
+        /// </summary>
+        private void Check(int storyId)
+        { 
+            var data = MasterStoryTriggerEvent.GetTriggerEventData(storyId);
+            if (data == null)
+            {
+                return;
+            }
             
-            // var id = 1;
-            // var eventData = new GameEventData(GameEventType.GameClear);
-            // var startEvent = new GameEventExecutionData(id++, ExecutionType.Sequential, new GameEventData[] { eventData });
-            // var sequenceData = new GameEventSequenceData(id, startEvent);
-            //
-            // _eventData[id] = sequenceData;
-            //
-            // PlayEvent(id).Forget();
+            PlayEvent(data.EventId).Forget();
         }
 
         /// <summary>
@@ -63,19 +89,21 @@ namespace CryStar.Game.Events
         /// </summary>
         public async UniTask PlayEvent(int eventID)
         {
-            var sequenceData = _eventData[eventID];
+            var sequenceData = MasterGameEvent.GetGameEventSequenceData(eventID);
             
             // イベント開始時に登録されている処理を実行
             await Execute(sequenceData.StartEvent);
             
             // 終わったらイベント終了時に登録されている処理を実行
             await Execute(sequenceData.EndEvent);
+            
+            // セーブデータにクリア情報を記録
+            _userDataManager.CurrentUserData.GameEventUserData.AddClearCount(eventID);
         }
 
         /// <summary>
         /// イベント実行
         /// </summary>
-        /// <param name="eventData"></param>
         private async UniTask Execute(GameEventExecutionData eventData)
         {
             if (eventData == null)
@@ -116,7 +144,7 @@ namespace CryStar.Game.Events
                         LogUtility.Warning($"未登録のイベントタイプです: {eventType}", LogCategory.System);
                         continue;
                     }
-                
+                    
                     // 各イベントを順次実行（前のイベントが完了してから次を実行）
                     await handler.HandleGameEvent(data.Parameters);
                 }

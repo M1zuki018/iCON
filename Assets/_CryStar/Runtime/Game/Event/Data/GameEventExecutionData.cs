@@ -17,11 +17,6 @@ namespace CryStar.Game.Data
         private GameEventData[] _eventDataArray;
 
         #endregion
-
-        /// <summary>
-        /// ゲームイベントのID
-        /// </summary>
-        public int Id => _id;
         
         /// <summary>
         /// 現在実行中のゲームイベントのIndex
@@ -51,9 +46,8 @@ namespace CryStar.Game.Data
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public GameEventExecutionData(int id, ExecutionType executionType, GameEventData[] eventDataArray)
+        public GameEventExecutionData(ExecutionType executionType, GameEventData[] eventDataArray)
         {
-            _id = id;
             _executionType = executionType;
             _eventDataArray = eventDataArray;
         }

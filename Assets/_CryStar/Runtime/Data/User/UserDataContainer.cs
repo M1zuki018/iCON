@@ -7,10 +7,12 @@ namespace CryStar.Data
         private FieldSaveData _fieldSaveData;
         private StoryUserData _storyUserData;
         private CharacterUserData _characterUserData;
+        private GameEventUserData _gameEventUserData;
     
         public FieldSaveData FieldSaveData => _fieldSaveData;
         public StoryUserData StoryUserData => _storyUserData;
         public CharacterUserData CharacterUserData => _characterUserData;
+        public GameEventUserData GameEventUserData => _gameEventUserData;
 
         /// <summary>
         /// コンストラクタ
@@ -20,6 +22,7 @@ namespace CryStar.Data
             _fieldSaveData = new FieldSaveData(userId);
             _storyUserData = new StoryUserData(userId);
             _characterUserData = new CharacterUserData(userId);
+            _gameEventUserData = new GameEventUserData(userId);
         }
 
         /// <summary>
@@ -30,6 +33,7 @@ namespace CryStar.Data
             _fieldSaveData?.UpdateSaveTime();
             _storyUserData?.UpdateSaveTime();
             _characterUserData?.UpdateSaveTime();
+            _gameEventUserData?.UpdateSaveTime();
         }
     }
 }

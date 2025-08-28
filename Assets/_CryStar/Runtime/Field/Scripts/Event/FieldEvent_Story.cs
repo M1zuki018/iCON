@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CryStar.Core;
+using CryStar.Game.Events;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
+using Cysharp.Threading.Tasks;
 using iCON.System;
 using UnityEngine;
 
@@ -28,7 +30,7 @@ namespace CryStar.Field.Event
         /// <summary>
         /// InGameManager
         /// </summary>
-        private InGameManager _inGameManager;
+        private InGameManager _gameManager;
 
         #region Life cycle
 
@@ -48,10 +50,10 @@ namespace CryStar.Field.Event
         /// </summary>
         protected override void OnPlayerEnter(Collider2D playerCollider)
         {
-            if (_inGameManager == null)
+            if (_gameManager == null)
             {
                 // nullだったらInGameManagerを取得する
-                _inGameManager = ServiceLocator.GetLocal<InGameManager>();
+                _gameManager = ServiceLocator.GetLocal<InGameManager>();
             }
             
             // ストーリーID取得のためのindexを計算する
@@ -59,7 +61,7 @@ namespace CryStar.Field.Event
             var index = Mathf.Min(Count, _idList.Count);
             
             // 再生
-            _inGameManager.PlayStory(_idList[index]);
+            _gameManager.PlayStory(_idList[index]).Forget();
         }
         
         /// <summary>

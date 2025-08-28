@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CryStar.Data;
 
@@ -6,7 +7,8 @@ using CryStar.Data;
 /// </summary>
 public class StoryUserData : BaseUserData
 {
-    private static Dictionary<StorySaveData, bool> _storySaveData = new Dictionary<StorySaveData, bool>();
+    public event Action<int> OnStorySave;
+    private static Dictionary<int, bool> _storySaveData = new Dictionary<int, bool>();
 
     public StoryUserData(int userId) : base(userId)
     {
@@ -15,17 +17,23 @@ public class StoryUserData : BaseUserData
     /// <summary>
     /// クリアしたか
     /// </summary>
-    public static void AddStoryClearData(StorySaveData storySaveData)
+    public void AddStoryClearData(int storyId)
     {
-        _storySaveData[storySaveData] = true;
+        if (_storySaveData.TryGetValue(storyId, out bool isCleared) && isCleared)
+        {
+            // 既にクリア済みであればreturn
+            return;
+        }
+        
+        _storySaveData[storyId] = true;
+        OnStorySave?.Invoke(storyId);
     }
 
     /// <summary>
-    /// 前提ストーリーをClearしているか
+    /// 前提ストーリーをクリアしているか
     /// </summary>
-    /// <returns></returns>
-    public static bool IsPremiseStoryClear(StorySaveData storySaveData)
+    public bool IsPremiseStoryClear(int storyId)
     {
-        return _storySaveData.ContainsKey(storySaveData);
+        return _storySaveData.ContainsKey(storyId);
     }
 }

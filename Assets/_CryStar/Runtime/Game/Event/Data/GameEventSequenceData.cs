@@ -7,14 +7,14 @@ namespace CryStar.Game.Events
     /// </summary>
     public class GameEventSequenceData
     {
-        private int _id;
+        private bool _playOnStart;
         private GameEventExecutionData _startEvent;
         private GameEventExecutionData _endEvent;
-
+        
         /// <summary>
-        /// Id
+        /// ゲーム開始時に自動再生するか
         /// </summary>
-        public int Id => _id;
+        public bool PlayOnStart => _playOnStart;
         
         /// <summary>
         /// 開始時のイベント
@@ -30,9 +30,9 @@ namespace CryStar.Game.Events
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public GameEventSequenceData(int id, GameEventExecutionData startEvent, GameEventExecutionData endEvent = null)
+        public GameEventSequenceData(bool playOnStart, GameEventExecutionData startEvent, GameEventExecutionData endEvent = null)
         {
-            _id = id;
+            _playOnStart = playOnStart;
             _startEvent = startEvent;
             _endEvent = endEvent;
         }
