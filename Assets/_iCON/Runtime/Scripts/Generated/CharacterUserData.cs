@@ -55,4 +55,12 @@ public class CharacterUserData : BaseUserData
         
         return data;
     }
+
+    /// <summary>
+    /// すべてのキャラクターデータを取得する
+    /// </summary>
+    public List<CharacterData> GetAllCharacterUserData()
+    {
+        return new List<CharacterData>(_characters.Values);
+    }
 }
