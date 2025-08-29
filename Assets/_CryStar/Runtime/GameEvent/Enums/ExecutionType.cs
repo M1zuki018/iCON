@@ -1,4 +1,4 @@
-namespace CryStar.Game.Enums
+namespace CryStar.GameEvent.Enums
 {
     /// <summary>
     /// ゲームイベントの実行タイプ

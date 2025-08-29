@@ -1,4 +1,4 @@
-using CryStar.Game.Enums;
+using CryStar.GameGameEvent.Enums;
 using CryStar.Story.Factory;
 
 namespace CryStar.GameEvent.Attributes

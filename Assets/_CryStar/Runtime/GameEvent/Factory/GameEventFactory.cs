@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CryStar.Game.Enums;
 using CryStar.GameEvent;
 using CryStar.GameEvent.Attributes;
+using CryStar.GameGameEvent.Enums;
 using CryStar.Story.Factory;
 using iCON.System;
 
