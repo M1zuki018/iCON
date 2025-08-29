@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using CryStar.Core.Constants;
 using CryStar.Core.Enums;
 using CryStar.Data.Scene;
 using CryStar.Utility;
@@ -29,6 +28,12 @@ namespace CryStar.Core
         /// </summary>
         [SerializeField]
         private float _initializationTimeout = 15f;
+
+        /// <summary>
+        /// アセットのプリロードのために待つ時間（ミリ秒）
+        /// </summary>
+        [SerializeField] 
+        private int _assetPreloadWaitTimeMs = 500;
         
         /// <summary>
         /// 遷移状態
@@ -281,7 +286,7 @@ namespace CryStar.Core
         /// </summary>
         private async UniTask PreloadAssetsAsync(CancellationToken token)
         {
-            await UniTask.Delay(KSceneManagement.ASSET_PRELOAD_WAIT_TIME_MS, cancellationToken: token);
+            await UniTask.Delay(_assetPreloadWaitTimeMs, cancellationToken: token);
         }
         
         /// <summary>
