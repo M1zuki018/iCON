@@ -225,7 +225,7 @@ namespace CryStar.Save
             userData.FieldSaveData.TransitionMap(serializableData.FieldData.LastMapId);
             userData.FieldSaveData.SetLastTranslation(
                 serializableData.FieldData.LastPosition,
-                serializableData.FieldData.LastRotation
+                serializableData.FieldData.DirectionType
             );
             
             // StoryDataの復元

@@ -114,11 +114,9 @@ namespace CryStar.Field.Player
         /// </summary>
         private void Start()
         {
-            // セーブデータから初期位置を復元
-            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
-            transform.position = _userDataManager.CurrentUserData.FieldSaveData.LastPosition;
-            _userDataManager.OnExecuteSaveEvent += OnExecuteSaveEvent;
-            
+            // 初期化
+            Initialize();
+
             // 入力を受け取るクラスを生成
             _input = new PlayerMoveInput(_moveInput, _dashInput, UpdateDirection, HandleDash, HandleDashCancel);
             
@@ -126,6 +124,23 @@ namespace CryStar.Field.Player
             // InGameManagerのリアクティブプロパティを購読する
             var inGameManager = ServiceLocator.GetLocal<InGameManager>();
             inGameManager.CurrentStateProp.Subscribe(ChangeState).AddTo(_disposable);
+        }
+
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        private void Initialize()
+        {
+            // セーブデータを読み込んで初期位置を設定
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
+            transform.position = _userDataManager.CurrentUserData.FieldSaveData.LastPosition;
+            _directionType = _userDataManager.CurrentUserData.FieldSaveData.DirectionType;
+            
+            // 向いている方向にあわせてSpriteを変更
+            ChangeAnimationSprites();
+            
+            // セーブ時のイベントを購読
+            _userDataManager.OnExecuteSaveEvent += OnExecuteSaveEvent;
         }
 
         /// <summary>
@@ -187,10 +202,9 @@ namespace CryStar.Field.Player
             
             _currentMoveInput = ctx.ReadValue<Vector2>();
             
-            // 入力がない場合
             if (_currentMoveInput == Vector2.zero)
             {
-                _directionType = MoveDirectionType.None;
+                // 入力がない場合は向きの変更は行わない
                 return;
             }
             
@@ -263,7 +277,7 @@ namespace CryStar.Field.Player
         private void OnExecuteSaveEvent()
         {
             // 最終位置を保存
-            _userDataManager.CurrentUserData.FieldSaveData.SetLastTranslation(transform.position, Vector2.zero);
+            _userDataManager.CurrentUserData.FieldSaveData.SetLastTranslation(transform.position, _directionType);
         }
     }
 }
