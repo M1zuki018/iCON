@@ -1,4 +1,4 @@
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Data
 {
     /// <summary>
     /// GameEventのパラメーター用のデータクラス

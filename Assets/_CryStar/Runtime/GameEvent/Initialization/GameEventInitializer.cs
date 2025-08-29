@@ -1,7 +1,8 @@
+using CryStar.Game.Events;
 using CryStar.Utility;
 using UnityEngine;
 
-namespace CryStar.Game.Events.Initialization
+namespace CryStar.GameEvent.Core
 {
     /// <summary>
     /// ゲームイベントSystemの初期化を行うクラス（ゲーム開始時に一度だけ実行）

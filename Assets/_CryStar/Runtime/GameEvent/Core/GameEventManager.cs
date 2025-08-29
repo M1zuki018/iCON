@@ -4,15 +4,16 @@ using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Core.UserData;
 using CryStar.Data.User;
-using CryStar.Game.Data;
 using CryStar.Game.Enums;
-using CryStar.Game.Events.Initialization;
+using CryStar.Game.Events;
+using CryStar.GameEvent.Core;
+using CryStar.GameEvent.Data;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.System;
 
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Initialization
 {
     /// <summary>
     /// Game Event Manager
@@ -45,7 +46,7 @@ namespace CryStar.Game.Events
         private GameEventUserData GameEventUserData => _userDataManager.CurrentUserData.GameEventUserData;
         
         /// <summary>
-        /// Awake
+        /// Bind
         /// </summary>
         public override async UniTask OnBind()
         {

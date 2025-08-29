@@ -1,7 +1,6 @@
 using CryStar.Game.Enums;
-using CryStar.Game.Events;
 
-namespace CryStar.Game.Data
+namespace CryStar.GameEvent.Data
 {
     /// <summary>
     /// ゲームイベントの実行用データ

@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using CryStar.Field.Enums;
-using iCON.Enums;
 using UnityEngine;
 
 namespace CryStar.Field.Data

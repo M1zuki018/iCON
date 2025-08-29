@@ -1,9 +1,9 @@
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Data
 {
     /// <summary>
     /// ストーリー終了時にトリガーしたいイベントを処理するためのデータクラス
     /// </summary>
-    public class StoryTriggerEventData
+    public class StoryEndTriggerEventData
     {
         private int _eventId;
         private float _delayDuration;
@@ -21,7 +21,7 @@ namespace CryStar.Game.Events
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public StoryTriggerEventData(int eventId, float delayDuration)
+        public StoryEndTriggerEventData(int eventId, float delayDuration)
         {
             _eventId = eventId;
             _delayDuration = delayDuration;

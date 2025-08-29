@@ -1,6 +1,6 @@
 using CryStar.Game.Enums;
 
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Data
 {
     /// <summary>
     /// ゲームイベント実行に必要なゲームイベントデータの最小単位

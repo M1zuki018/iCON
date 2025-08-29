@@ -1,7 +1,7 @@
 using CryStar.Game.Enums;
 using CryStar.Story.Factory;
 
-namespace CryStar.Game.Attributes
+namespace CryStar.GameEvent.Attributes
 {
     /// <summary>
     /// ゲームイベントハンドラを自動登録するための属性

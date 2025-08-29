@@ -1,6 +1,4 @@
-using CryStar.Game.Data;
-
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Data
 {
     /// <summary>
     /// ゲームイベントの開始時のイベントと終了時のイベントを持った最大のデータ
