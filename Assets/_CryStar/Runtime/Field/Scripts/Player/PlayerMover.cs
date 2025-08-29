@@ -133,8 +133,8 @@ namespace CryStar.Field.Player
         {
             // セーブデータを読み込んで初期位置を設定
             _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
-            transform.position = _userDataManager.CurrentUserData.FieldSaveData.LastPosition;
-            _directionType = _userDataManager.CurrentUserData.FieldSaveData.DirectionType;
+            transform.position = _userDataManager.CurrentUserData.FieldUserData.LastPosition;
+            _directionType = _userDataManager.CurrentUserData.FieldUserData.DirectionType;
             
             // 向いている方向にあわせてSpriteを変更
             ChangeAnimationSprites();
@@ -277,7 +277,7 @@ namespace CryStar.Field.Player
         private void OnExecuteSaveEvent()
         {
             // 最終位置を保存
-            _userDataManager.CurrentUserData.FieldSaveData.SetLastTranslation(transform.position, _directionType);
+            _userDataManager.CurrentUserData.FieldUserData.SetLastTranslation(transform.position, _directionType);
         }
     }
 }

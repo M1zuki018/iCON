@@ -195,12 +195,12 @@ namespace CryStar.Core.SaveData
         {
             var serializableData = new SerializableUserData
             {
-                UserId = userData.FieldSaveData.UserId,
-                LastSaveTime = userData.FieldSaveData.LastSaveTime
+                UserId = userData.FieldUserData.UserId,
+                LastSaveTime = userData.FieldUserData.LastSaveTime
             };
             
             // FieldData変換
-            serializableData.FieldData = userData.FieldSaveData;
+            serializableData.FieldData = userData.FieldUserData;
             
             // StoryData変換
             serializableData.StoryData = userData.StoryUserData;
@@ -222,8 +222,8 @@ namespace CryStar.Core.SaveData
             var userData = new UserDataContainer(serializableData.UserId);
             
             // FieldDataの復元
-            userData.FieldSaveData.TransitionMap(serializableData.FieldData.LastMapId);
-            userData.FieldSaveData.SetLastTranslation(
+            userData.FieldUserData.TransitionMap(serializableData.FieldData.LastMapId);
+            userData.FieldUserData.SetLastTranslation(
                 serializableData.FieldData.LastPosition,
                 serializableData.FieldData.DirectionType
             );

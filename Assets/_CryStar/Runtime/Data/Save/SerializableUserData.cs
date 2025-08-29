@@ -25,7 +25,7 @@ namespace CryStar.Data
         /// <summary>
         /// フィールドデータ
         /// </summary>
-        public FieldSaveData FieldData;
+        public FieldUserData FieldData;
     
         /// <summary>
         /// ストーリーデータ

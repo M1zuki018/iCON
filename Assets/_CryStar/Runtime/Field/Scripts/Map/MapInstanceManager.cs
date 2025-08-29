@@ -41,7 +41,7 @@ namespace CryStar.Field.Map
 
             _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
 
-            var mapId = Math.Max(_userDataManager.CurrentUserData.FieldSaveData.LastMapId, 1);
+            var mapId = Math.Max(_userDataManager.CurrentUserData.FieldUserData.LastMapId, 1);
             ShowMap(mapId);
         }
 
@@ -67,7 +67,7 @@ namespace CryStar.Field.Map
             }
             
             _currentMapId = Math.Max(mapId, 1);
-            _userDataManager.CurrentUserData.FieldSaveData.TransitionMap(mapId);
+            _userDataManager.CurrentUserData.FieldUserData.TransitionMap(mapId);
             
             if (_instantiatedMaps.ContainsKey(mapId))
             {

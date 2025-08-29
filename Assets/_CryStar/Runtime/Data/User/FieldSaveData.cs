@@ -1,28 +1,25 @@
 using System;
 using System.Collections.Generic;
-using CryStar.Data;
-using CryStar.Data.User;
 using CryStar.Field.Event;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using iCON.Enums;
 using UnityEngine;
 
-namespace CryStar.Field.Data
+namespace CryStar.Data.User
 {
      [Serializable]
-     public class FieldSaveData : UserDataBase
+     public class FieldUserData : UserDataBase
      {
-          #region Private Field
-
           [SerializeField] private int _lastMapId = 1; // 初期マップ
           [SerializeField] private Vector2 _lastPosition = Vector2.zero;
           [SerializeField] private MoveDirectionType _directionType = MoveDirectionType.Down;
           [SerializeField] private List<EventClearData> _clearedEvents;
           
-          private Dictionary<int, int> _eventClearCache; // 実行時のパフォーマンス向上のためのキャッシュ
-          
-          #endregion
+          /// <summary>
+          /// 実行時のパフォーマンス向上のためのキャッシュ
+          /// </summary>
+          private Dictionary<int, int> _eventClearCache; 
 
           /// <summary>
           /// 最終位置のマップID
@@ -30,12 +27,12 @@ namespace CryStar.Field.Data
           public int LastMapId => _lastMapId;
 
           /// <summary>
-          /// 最後位置のPosition
+          /// プレイヤーの座標
           /// </summary>
           public Vector2 LastPosition => _lastPosition;
 
           /// <summary>
-          /// 最終で向いている方向
+          /// プレイヤーが向いている方向
           /// </summary>
           public MoveDirectionType DirectionType => _directionType;
 
@@ -47,7 +44,7 @@ namespace CryStar.Field.Data
           /// <summary>
           /// コンストラクタ
           /// </summary>
-          public FieldSaveData(int userId) : base(userId)
+          public FieldUserData(int userId) : base(userId)
           {
                _lastMapId = 1; // 初期マップ
                _lastPosition = Vector3.zero;
