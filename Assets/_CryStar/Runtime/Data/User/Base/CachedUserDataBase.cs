@@ -53,13 +53,14 @@ namespace CryStar.Data.User
         {
             if (_clearedDataCache.ContainsKey(eventId))
             {
-                // 既にクリア済みであればreturn
-                return;
+                _clearedDataCache[eventId]++;
+            }
+            else
+            {
+                _clearedDataCache[eventId] = 1;
             }
             
             UpdateSaveDataList(eventId);
-            
-            _clearedDataCache[eventId] = 1;
         }
         
         /// <summary>

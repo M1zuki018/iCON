@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using CryStar.Field.Event;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
@@ -9,18 +8,12 @@ using UnityEngine;
 namespace CryStar.Data.User
 {
      [Serializable]
-     public class FieldUserData : UserDataBase
+     public class FieldUserData : CachedUserDataBase
      {
           [SerializeField] private int _lastMapId = 1; // 初期マップ
           [SerializeField] private Vector2 _lastPosition = Vector2.zero;
           [SerializeField] private MoveDirectionType _directionType = MoveDirectionType.Down;
-          [SerializeField] private List<EventClearData> _clearedEvents;
           
-          /// <summary>
-          /// 実行時のパフォーマンス向上のためのキャッシュ
-          /// </summary>
-          private Dictionary<int, int> _eventClearCache; 
-
           /// <summary>
           /// 最終位置のマップID
           /// </summary>
@@ -37,11 +30,6 @@ namespace CryStar.Data.User
           public MoveDirectionType DirectionType => _directionType;
 
           /// <summary>
-          /// クリア済みのイベントと回数のマッピング
-          /// </summary>
-          public List<EventClearData> ClearedEvents => _clearedEvents;
-
-          /// <summary>
           /// コンストラクタ
           /// </summary>
           public FieldUserData(int userId) : base(userId)
@@ -49,7 +37,6 @@ namespace CryStar.Data.User
                _lastMapId = 1; // 初期マップ
                _lastPosition = Vector3.zero;
                _directionType = MoveDirectionType.Down;
-               _clearedEvents = new List<EventClearData>();
                
                // 実行時用のディクショナリーを構築する
                BuildCache();
@@ -74,9 +61,10 @@ namespace CryStar.Data.User
           }
           
           /// <summary>
+          /// クリアデータを更新
           /// イベントをクリアした際に呼び出す
           /// </summary>
-          public void ClearEvent(FieldEventBase fieldEvent)
+          public void AddClearData(FieldEventBase fieldEvent)
           {
                if (fieldEvent == null)
                {
@@ -84,34 +72,7 @@ namespace CryStar.Data.User
                     return;
                }
                
-               ClearEvent(fieldEvent.EventID);
-          }
-          
-          /// <summary>
-          /// イベントIDでクリアを記録
-          /// </summary>
-          public void ClearEvent(int eventId)
-          {
-               // キャッシュを更新
-               if (_eventClearCache.ContainsKey(eventId))
-               {
-                    _eventClearCache[eventId]++;
-               }
-               else
-               {
-                    _eventClearCache[eventId] = 1;
-               }
-            
-               // シリアライズ用リストを更新
-               var existingData = _clearedEvents.Find(x => x.EventId == eventId);
-               if (existingData != null)
-               {
-                    existingData.ClearCount = _eventClearCache[eventId];
-               }
-               else
-               {
-                    _clearedEvents.Add(new EventClearData(eventId, 1));
-               }
+               AddClearData(fieldEvent.EventID);
           }
 
           /// <summary>
@@ -120,23 +81,8 @@ namespace CryStar.Data.User
           public bool IsEventCleared(FieldEventBase fieldEvent)
           {
                // クリアしたときに辞書に登録されるため、辞書にキーが存在するかを調べる
-               return _eventClearCache.ContainsKey(fieldEvent.EventID);
+               return ClearedDataCache.ContainsKey(fieldEvent.EventID);
           }
           
-          /// <summary>
-          /// パフォーマンス向上のためのキャッシュを構築
-          /// </summary>
-          private void BuildCache()
-          {
-               _eventClearCache = new Dictionary<int, int>();
-            
-               if (_clearedEvents != null)
-               {
-                    foreach (var eventData in _clearedEvents)
-                    {
-                         _eventClearCache[eventData.EventId] = eventData.ClearCount;
-                    }
-               }
-          }
      }
 }

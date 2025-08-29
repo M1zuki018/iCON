@@ -110,7 +110,7 @@ namespace iCON.System
                     _currentStateProp.Value = InGameStateType.Field;
                     
                     // ストーリー読了を記録
-                    _userDataManager.CurrentUserData.StoryUserData.AddStoryClearData(storyId);
+                    _userDataManager.CurrentUserData.StoryUserData.AddClearData(storyId);
                     
                     // ストーリー完了を通知
                     completionSource.TrySetResult(storyId);
