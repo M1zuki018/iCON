@@ -1,4 +1,4 @@
-namespace iCON.System
+namespace CryStar.Core.Enums
 {
     /// <summary>
     /// 画面遷移の状態

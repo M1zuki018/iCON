@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using iCON.System;
+using CryStar.Core.Enums;
 
 namespace CryStar.Data.Scene
 {

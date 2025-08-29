@@ -1,4 +1,4 @@
-namespace iCON.System
+namespace CryStar.Core.Enums
 {
     /// <summary>
     /// シーンの列挙型（SceneSettingsと揃える）

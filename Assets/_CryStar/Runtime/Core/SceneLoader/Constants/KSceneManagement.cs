@@ -1,4 +1,4 @@
-namespace iCON.Constants
+namespace CryStar.Core.Constants
 {
     /// <summary>
     /// シーン管理に関連する定数
