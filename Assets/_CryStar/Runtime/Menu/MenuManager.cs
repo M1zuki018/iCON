@@ -48,7 +48,7 @@ namespace CryStar.Menu
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (_currentState == MenuSystemState.None)
                 {
