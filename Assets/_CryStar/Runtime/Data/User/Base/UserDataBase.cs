@@ -3,7 +3,7 @@ using System;
 namespace CryStar.Data.User
 {
     /// <summary>
-    /// フィールドシステムにおけるユーザーデータの基底クラス
+    /// ユーザーデータの基底クラス
     /// </summary>
     public abstract class UserDataBase
     {
