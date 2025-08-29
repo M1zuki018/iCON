@@ -1,19 +1,26 @@
+using System;
 using System.Collections.Generic;
 using CryStar.Data;
 using CryStar.Field.Event;
+using CryStar.Save;
+using CryStar.Utility;
+using CryStar.Utility.Enum;
 using UnityEngine;
 
 namespace CryStar.Field.Data
 {
+     [Serializable]
      public class FieldSaveData : BaseUserData
      {
           #region Private Field
 
-          private int _currentMapId = 1; // 初期マップ
-          private Vector2 _lastPosition = Vector2.zero;
-          private Vector2 _lastRotation = Vector2.zero;
-          private Dictionary<FieldEventBase, int> _clearedEventMap = new Dictionary<FieldEventBase, int>();
-
+          [SerializeField] private int _currentMapId = 1; // 初期マップ
+          [SerializeField] private Vector2 _lastPosition = Vector2.zero;
+          [SerializeField] private Vector2 _lastRotation = Vector2.zero;
+          [SerializeField] private List<EventClearData> _clearedEvents;
+          
+          private Dictionary<int, int> _eventClearCache; // 実行時のパフォーマンス向上のためのキャッシュ
+          
           #endregion
 
           /// <summary>
@@ -34,7 +41,7 @@ namespace CryStar.Field.Data
           /// <summary>
           /// クリア済みのイベントと回数のマッピング
           /// </summary>
-          public Dictionary<FieldEventBase, int> ClearedEventMap => _clearedEventMap;
+          public List<EventClearData> ClearedEvents => _clearedEvents;
 
           /// <summary>
           /// コンストラクタ
@@ -44,7 +51,10 @@ namespace CryStar.Field.Data
                _currentMapId = 1; // 初期マップ
                _lastPosition = Vector3.zero;
                _lastRotation = Vector3.zero;
-               _clearedEventMap = new Dictionary<FieldEventBase, int>();
+               _clearedEvents = new List<EventClearData>();
+               
+               // 実行時用のディクショナリーを構築する
+               BuildCache();
           }
 
           /// <summary>
@@ -69,13 +79,40 @@ namespace CryStar.Field.Data
           /// </summary>
           public void ClearEvent(FieldEventBase fieldEvent)
           {
-               if (_clearedEventMap.ContainsKey(fieldEvent))
+               if (fieldEvent == null)
                {
-                    // 既にクリア済みで辞書に登録されていれば、クリア回数を増やす
-                    _clearedEventMap[fieldEvent]++;
+                    LogUtility.Warning("フィールドイベントがnullです", LogCategory.System);
+                    return;
                }
-
-               _clearedEventMap[fieldEvent] = 1;
+               
+               ClearEvent(fieldEvent.EventID);
+          }
+          
+          /// <summary>
+          /// イベントIDでクリアを記録
+          /// </summary>
+          public void ClearEvent(int eventId)
+          {
+               // キャッシュを更新
+               if (_eventClearCache.ContainsKey(eventId))
+               {
+                    _eventClearCache[eventId]++;
+               }
+               else
+               {
+                    _eventClearCache[eventId] = 1;
+               }
+            
+               // シリアライズ用リストを更新
+               var existingData = _clearedEvents.Find(x => x.EventId == eventId);
+               if (existingData != null)
+               {
+                    existingData.ClearCount = _eventClearCache[eventId];
+               }
+               else
+               {
+                    _clearedEvents.Add(new EventClearData(eventId, 1));
+               }
           }
 
           /// <summary>
@@ -84,7 +121,23 @@ namespace CryStar.Field.Data
           public bool IsEventCleared(FieldEventBase fieldEvent)
           {
                // クリアしたときに辞書に登録されるため、辞書にキーが存在するかを調べる
-               return _clearedEventMap.ContainsKey(fieldEvent);
+               return _eventClearCache.ContainsKey(fieldEvent.EventID);
+          }
+          
+          /// <summary>
+          /// パフォーマンス向上のためのキャッシュを構築
+          /// </summary>
+          private void BuildCache()
+          {
+               _eventClearCache = new Dictionary<int, int>();
+            
+               if (_clearedEvents != null)
+               {
+                    foreach (var eventData in _clearedEvents)
+                    {
+                         _eventClearCache[eventData.EventId] = eventData.ClearCount;
+                    }
+               }
           }
      }
 }

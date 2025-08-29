@@ -1,17 +1,23 @@
 using System;
 using System.Collections.Generic;
 using CryStar.Data;
+using CryStar.Save;
+using UnityEngine;
 
 /// <summary>
 /// ストーリーのユーザーデータ
 /// </summary>
+[Serializable]
 public class StoryUserData : BaseUserData
 {
+    [SerializeField] private List<EventClearData> _clearedStories = new List<EventClearData>();
+    
     public event Action<int> OnStorySave;
-    private static Dictionary<int, bool> _storySaveData = new Dictionary<int, bool>();
+    private Dictionary<int, int> _storyClearCache;
 
     public StoryUserData(int userId) : base(userId)
     {
+        BuildCache();
     }
 
     /// <summary>
@@ -19,13 +25,24 @@ public class StoryUserData : BaseUserData
     /// </summary>
     public void AddStoryClearData(int storyId)
     {
-        if (_storySaveData.TryGetValue(storyId, out bool isCleared) && isCleared)
+        if (_storyClearCache.ContainsKey(storyId))
         {
             // 既にクリア済みであればreturn
             return;
         }
         
-        _storySaveData[storyId] = true;
+        // シリアライズ用リストを更新
+        var existingData = _clearedStories.Find(x => x.EventId == storyId);
+        if (existingData != null)
+        {
+            existingData.ClearCount = _storyClearCache[storyId];
+        }
+        else
+        {
+            _clearedStories.Add(new EventClearData(storyId, 1));
+        }
+        
+        _storyClearCache[storyId] = 1;
         OnStorySave?.Invoke(storyId);
     }
 
@@ -34,6 +51,21 @@ public class StoryUserData : BaseUserData
     /// </summary>
     public bool IsPremiseStoryClear(int storyId)
     {
-        return _storySaveData.ContainsKey(storyId);
+        return _storyClearCache.ContainsKey(storyId);
+    }
+
+    /// <summary>
+    /// パフォーマンス向上のためのキャッシュを構築
+    /// </summary>
+    private void BuildCache()
+    {
+        _storyClearCache = new Dictionary<int, int>();
+        if (_clearedStories != null)
+        {
+            foreach (var eventData in _clearedStories)
+            {
+                _storyClearCache[eventData.EventId] = eventData.ClearCount;
+            }
+        }
     }
 }

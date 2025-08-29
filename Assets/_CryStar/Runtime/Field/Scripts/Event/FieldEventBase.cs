@@ -34,6 +34,11 @@ namespace CryStar.Field.Event
         private int _count = 0;
         
         /// <summary>
+        /// イベントID
+        /// </summary>
+        public int EventID => _eventID;
+        
+        /// <summary>
         /// インタラクション後の振る舞い
         /// </summary>
         protected InteractionBehaviorType BehaviorType => _behaviorType;
@@ -106,7 +111,7 @@ namespace CryStar.Field.Event
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(base.GetHashCode(), _eventID, (int)_behaviorType, _col);
+            return _eventID.GetHashCode();
         }
     }
 }

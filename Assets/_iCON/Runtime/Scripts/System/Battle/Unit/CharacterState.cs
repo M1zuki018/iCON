@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using CryStar.Core;
+using CryStar.Data;
 using CryStar.Story.Enums;
 using UnityEngine;
 
@@ -12,6 +14,7 @@ namespace iCON
     {
         private int _characterID;
         private CharacterData _data;
+        private UserDataManager _userDataManager;
 
         /// <summary>
         /// コンストラクタ
@@ -19,7 +22,9 @@ namespace iCON
         public CharacterState(int characterID)
         {
             _characterID = characterID;
-            _data = CharacterUserData.GetCharacterUserData(_characterID);
+
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
+            _data = _userDataManager.CurrentUserData.CharacterUserData.GetCharacterUserData(_characterID);
 
             // TODO: テスト用。プレイヤー側のキャラクターのレベルだけ変更する
             if (_characterID == 1)
