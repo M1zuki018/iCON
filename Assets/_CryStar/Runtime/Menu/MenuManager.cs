@@ -11,7 +11,7 @@ using UnityEngine;
 namespace CryStar.Menu
 {
     /// <summary>
-    /// Menuを管理するクラス
+    /// メニューシステムを管理するクラス
     /// </summary>
     public class MenuManager : MonoBehaviour
     {
