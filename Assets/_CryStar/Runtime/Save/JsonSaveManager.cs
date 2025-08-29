@@ -222,7 +222,7 @@ namespace CryStar.Save
             var userData = new UserDataContainer(serializableData.UserId);
             
             // FieldDataの復元
-            userData.FieldSaveData.TransitionMap(serializableData.FieldData.CurrentMapId);
+            userData.FieldSaveData.TransitionMap(serializableData.FieldData.LastMapId);
             userData.FieldSaveData.SetLastTranslation(
                 serializableData.FieldData.LastPosition,
                 serializableData.FieldData.LastRotation
