@@ -228,6 +228,12 @@ namespace CryStar.Save
                 serializableData.FieldData.LastRotation
             );
             
+            // StoryDataの復元
+            userData.StoryUserData.SetClearedStories(serializableData.StoryData.ClearedStories);
+            
+            // GameEventDataの復元
+            userData.GameEventUserData.SetClearedEvents(serializableData.GameEventData.ClearedEvents);
+            
             // TODO: 他も書く
             
             return userData;
