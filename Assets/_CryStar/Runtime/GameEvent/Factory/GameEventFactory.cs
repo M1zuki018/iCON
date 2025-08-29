@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CryStar.GameEvent;
 using CryStar.GameEvent.Attributes;
-using CryStar.GameGameEvent.Enums;
+using CryStar.GameEvent.Enums;
 using CryStar.Story.Factory;
 using iCON.System;
 

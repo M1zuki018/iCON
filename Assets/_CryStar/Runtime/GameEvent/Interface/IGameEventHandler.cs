@@ -1,5 +1,5 @@
 using CryStar.GameEvent.Data;
-using CryStar.GameGameEvent.Enums;
+using CryStar.GameEvent.Enums;
 using Cysharp.Threading.Tasks;
 
 namespace CryStar.Game.Events

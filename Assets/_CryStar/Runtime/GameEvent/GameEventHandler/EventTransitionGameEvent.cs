@@ -2,8 +2,8 @@ using CryStar.Core;
 using CryStar.GameEvent;
 using CryStar.GameEvent.Attributes;
 using CryStar.GameEvent.Data;
+using CryStar.GameEvent.Enums;
 using CryStar.GameEvent.Initialization;
-using CryStar.GameGameEvent.Enums;
 using Cysharp.Threading.Tasks;
 using iCON.System;
 

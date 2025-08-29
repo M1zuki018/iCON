@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CryStar.GameEvent.Data;
 using CryStar.GameEvent.Enums;
-using CryStar.GameGameEvent.Enums;
 
 public static class MasterGameEvent
 {

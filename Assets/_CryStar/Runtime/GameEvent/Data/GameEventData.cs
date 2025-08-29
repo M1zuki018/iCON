@@ -1,4 +1,4 @@
-using CryStar.GameGameEvent.Enums;
+using CryStar.GameEvent.Enums;
 
 namespace CryStar.GameEvent.Data
 {
