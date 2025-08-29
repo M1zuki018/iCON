@@ -72,5 +72,13 @@ public static class MasterGameEvent
     public static GameEventSequenceData GetGameEventSequenceData(int eventId)
     {
         return _eventData[eventId];
-    } 
+    }
+
+    /// <summary>
+    /// 登録されているゲームイベントの個数を取得する
+    /// </summary>
+    public static int GetGameEventCount()
+    {
+        return _eventData.Count;
+    }
 }

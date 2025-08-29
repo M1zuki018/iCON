@@ -9,7 +9,7 @@ using CryStar.Data;
 [Serializable]
 public class GameEventUserData : BaseUserData
 {
-    private static Dictionary<int, int> _eventClearData = new Dictionary<int, int>();
+    private Dictionary<int, int> _eventClearData = new Dictionary<int, int>();
 
     public GameEventUserData(int userId) : base(userId) { }
 
@@ -18,6 +18,11 @@ public class GameEventUserData : BaseUserData
     /// </summary>
     public void AddClearCount(int eventId)
     {
+        if (!_eventClearData.ContainsKey(eventId))
+        {
+            _eventClearData.Add(eventId, 0);
+        }
+        
         _eventClearData[eventId]++;
     }
 
@@ -29,16 +34,16 @@ public class GameEventUserData : BaseUserData
             return 1;
         }
         
-        // キーを昇順でソートしてループ
-        foreach (int eventId in _eventClearData.Keys.OrderBy(x => x))
+        // 1から順番に未クリアのイベントを探す
+        for (int eventId = 1; eventId < MasterGameEvent.GetGameEventCount() + 1; eventId++)
         {
-            if (_eventClearData[eventId] == 0)
+            if (!_eventClearData.ContainsKey(eventId))
             {
                 return eventId;
             }
         }
         
-        // 全てクリア済みだった場合は例外として-1を返す
+        // 全てのイベントをクリアしている場合は-1を返す
         return -1;
     }
 }
