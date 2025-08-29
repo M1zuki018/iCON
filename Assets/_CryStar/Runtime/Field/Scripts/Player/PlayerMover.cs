@@ -1,5 +1,7 @@
+using System;
 using CryStar.Core;
 using CryStar.Core.ReactiveExtensions;
+using CryStar.Data;
 using iCON.Enums;
 using iCON.System;
 using iCON.UI;
@@ -81,6 +83,8 @@ namespace CryStar.Field.Player
         /// </summary>
         private bool _canMove;
         
+        private UserDataManager _userDataManager;
+        
         /// <summary>
         /// InGameManagerのCurrentStateリアクティブプロパティの監視を解除するためのCompositeDisposable
         /// </summary>
@@ -110,6 +114,10 @@ namespace CryStar.Field.Player
         /// </summary>
         private void Start()
         {
+            // セーブデータから初期位置を復元
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
+            transform.position = _userDataManager.CurrentUserData.FieldSaveData.LastPosition;
+            
             // 入力を受け取るクラスを生成
             _input = new PlayerMoveInput(_moveInput, _dashInput, UpdateDirection, HandleDash, HandleDashCancel);
             
@@ -128,7 +136,13 @@ namespace CryStar.Field.Player
             Vector2 velocity = _currentMoveInput * _currentMoveSpeed;
             _rigidbody2D.linearVelocity = velocity;
         }
-        
+
+        private void OnEnable()
+        {
+            // 最終位置を保存
+            _userDataManager.CurrentUserData.FieldSaveData.SetLastTranslation(transform.position, Vector2.zero);
+        }
+
         /// <summary>
         /// Destroy
         /// </summary>
