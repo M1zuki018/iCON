@@ -1,7 +1,8 @@
+using CryStar.Menu.Enums;
 using iCON.Enums;
 using iCON.UI;
 
-namespace iCON.Menu
+namespace CryStar.Menu
 {
     /// <summary>
     /// アイテム

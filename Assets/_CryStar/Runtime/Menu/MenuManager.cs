@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using CryStar.Attribute;
+using CryStar.Menu.Enums;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using iCON.Enums;
 using iCON.UI;
 using UnityEngine;
 
-namespace iCON.Menu
+namespace CryStar.Menu
 {
     /// <summary>
     /// Menuを管理するクラス

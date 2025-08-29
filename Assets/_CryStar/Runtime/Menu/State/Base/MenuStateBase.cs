@@ -1,6 +1,6 @@
 using iCON.UI;
 
-namespace iCON.Menu
+namespace CryStar.Menu
 {
     public abstract class MenuStateBase
     {

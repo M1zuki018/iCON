@@ -1,4 +1,4 @@
-namespace iCON.Enums
+namespace CryStar.Menu.Enums
 {
     public enum MenuSystemState
     {

@@ -1,12 +1,13 @@
 using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Data.Scene;
+using CryStar.Menu.Enums;
 using Cysharp.Threading.Tasks;
 using iCON.Enums;
 using iCON.UI;
 using UnityEngine;
 
-namespace iCON.Menu
+namespace CryStar.Menu
 {
     /// <summary>
     /// メインメニュー
