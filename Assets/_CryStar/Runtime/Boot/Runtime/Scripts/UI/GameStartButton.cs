@@ -1,4 +1,5 @@
 using CryStar.Core;
+using CryStar.Data.Scene;
 using CryStar.Utility;
 using Cysharp.Threading.Tasks;
 using iCON.System;

@@ -1,4 +1,5 @@
 using CryStar.Core;
+using CryStar.Data.Scene;
 using CryStar.GameEvent.Attributes;
 using CryStar.GameEvent.Data;
 using CryStar.GameEvent.Enums;

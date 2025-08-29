@@ -1,14 +1,15 @@
 using System;
 using System.Threading;
-using CryStar.Core;
+using CryStar.Data.Scene;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.Constants;
+using iCON.System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace iCON.System
+namespace CryStar.Core
 {
     /// <summary>
     /// SceneLoader
