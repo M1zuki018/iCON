@@ -1,4 +1,4 @@
-namespace CryStar.Enums
+namespace CryStar.Audio.Enums
 {
     /// <summary>
     /// Audioの種類の列挙型
