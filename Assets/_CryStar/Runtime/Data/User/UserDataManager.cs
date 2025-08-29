@@ -255,6 +255,8 @@ namespace CryStar.Data
                 return false;
             }
 
+            OnExecuteSaveEvent?.Invoke();
+            
             _currentUserData.UpdateAllSaveTimes();
             bool success = JsonSaveManager.SaveToJson(_currentUserData, slotIndex);
             
