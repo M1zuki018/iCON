@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CryStar.Data;
 using CryStar.Utility;
@@ -7,12 +8,13 @@ using iCON;
 /// <summary>
 /// キャラクターステータスのユーザーデータ管理
 /// </summary>
+[Serializable]
 public class CharacterUserData : BaseUserData
 {
     /// <summary>
     /// キャラクターIDとユーザーデータのkvp
     /// </summary>
-    private static Dictionary<int, CharacterData> _characters = new Dictionary<int, CharacterData>();
+    private Dictionary<int, CharacterData> _characters = new Dictionary<int, CharacterData>();
     
     /// <summary>
     /// コンストラクタ
@@ -36,7 +38,7 @@ public class CharacterUserData : BaseUserData
     /// <summary>
     /// 引数で指定したキャラクターのユーザーデータを取得する
     /// </summary>
-    public static CharacterData GetCharacterUserData(int characterId)
+    public CharacterData GetCharacterUserData(int characterId)
     {
         if (_characters == null)
         {
