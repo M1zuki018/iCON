@@ -75,7 +75,7 @@ namespace CryStar.Data
             // ユーザーIDを初期化する
             InitializeUserId();
 
-            DeleteAllUserData();
+            
             // セーブデータ読み込み
             LoadExistingSaveData();
         }
