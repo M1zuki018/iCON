@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using CryStar.Data;
+using CryStar.Data.User;
 using CryStar.Utility;
 using UnityEngine;
 
-namespace CryStar.Save
+namespace CryStar.Core.SaveData
 {
     /// <summary>
     /// JSON保存・読み込みを行うセーブマネージャー
@@ -195,12 +196,12 @@ namespace CryStar.Save
         {
             var serializableData = new SerializableUserData
             {
-                UserId = userData.FieldSaveData.UserId,
-                LastSaveTime = userData.FieldSaveData.LastSaveTime
+                UserId = userData.FieldUserData.UserId,
+                LastSaveTime = userData.FieldUserData.LastSaveTime
             };
             
             // FieldData変換
-            serializableData.FieldData = userData.FieldSaveData;
+            serializableData.FieldData = userData.FieldUserData;
             
             // StoryData変換
             serializableData.StoryData = userData.StoryUserData;
@@ -222,20 +223,20 @@ namespace CryStar.Save
             var userData = new UserDataContainer(serializableData.UserId);
             
             // FieldDataの復元
-            userData.FieldSaveData.TransitionMap(serializableData.FieldData.LastMapId);
-            userData.FieldSaveData.SetLastTranslation(
+            userData.FieldUserData.TransitionMap(serializableData.FieldData.LastMapId);
+            userData.FieldUserData.SetLastTranslation(
                 serializableData.FieldData.LastPosition,
                 serializableData.FieldData.DirectionType
             );
             
             // StoryDataの復元
-            userData.StoryUserData.SetClearedStories(serializableData.StoryData.ClearedStories);
+            userData.StoryUserData.SetClearedData(serializableData.StoryData.ClearedDataList);
             
             // CharacterDataの復元
             userData.CharacterUserData.SetCharacterUserData(serializableData.CharacterData);
             
             // GameEventDataの復元
-            userData.GameEventUserData.SetClearedEvents(serializableData.GameEventData.ClearedEvents);
+            userData.GameEventUserData.SetClearedData(serializableData.GameEventData.ClearedDataList);
             
             return userData;
         }

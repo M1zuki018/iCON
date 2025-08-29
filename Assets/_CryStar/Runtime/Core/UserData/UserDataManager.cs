@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CryStar.Core;
 using CryStar.Core.Enums;
-using CryStar.Save;
+using CryStar.Core.SaveData;
+using CryStar.Data;
+using CryStar.Data.User;
 using CryStar.Utility;
 using UnityEditor;
 using UnityEngine;
 
-namespace CryStar.Data
+namespace CryStar.Core.UserData
 {
     /// <summary>
     /// ユーザーデータ管理クラス
@@ -320,14 +321,8 @@ namespace CryStar.Data
                 var userData = JsonSaveManager.LoadFromJson(slot);
                 if (userData != null)
                 {
-                    slotInfoList.Add(new SaveSlotInfo
-                    {
-                        SlotIndex = slot,
-                        UserId = userData.FieldSaveData.UserId,
-                        LastSaveTime = userData.FieldSaveData.LastSaveTime,
-                        CurrentMapId = userData.FieldSaveData.LastMapId,
-                        IsCurrentSlot = slot == _currentSaveSlot
-                    });
+                    slotInfoList.Add(new SaveSlotInfo(slot, userData.FieldUserData.UserId,
+                        userData.FieldUserData.LastSaveTime, slot == _currentSaveSlot));
                 }
             }
             

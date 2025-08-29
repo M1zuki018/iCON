@@ -1,7 +1,9 @@
 using System;
 using CryStar.Core;
 using CryStar.Core.ReactiveExtensions;
+using CryStar.Core.UserData;
 using CryStar.Data;
+using CryStar.Data.User;
 using iCON.Enums;
 using iCON.System;
 using iCON.UI;
@@ -89,6 +91,11 @@ namespace CryStar.Field.Player
         /// InGameManagerのCurrentStateリアクティブプロパティの監視を解除するためのCompositeDisposable
         /// </summary>
         private CompositeDisposable _disposable = new CompositeDisposable();
+        
+        /// <summary>
+        /// フィールドユーザーデータ
+        /// </summary>
+        private FieldUserData FieldUserData => _userDataManager.CurrentUserData.FieldUserData;
 
         #region Life cycle
 
@@ -133,8 +140,8 @@ namespace CryStar.Field.Player
         {
             // セーブデータを読み込んで初期位置を設定
             _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
-            transform.position = _userDataManager.CurrentUserData.FieldSaveData.LastPosition;
-            _directionType = _userDataManager.CurrentUserData.FieldSaveData.DirectionType;
+            transform.position = FieldUserData.LastPosition;
+            _directionType = FieldUserData.DirectionType;
             
             // 向いている方向にあわせてSpriteを変更
             ChangeAnimationSprites();
@@ -277,7 +284,7 @@ namespace CryStar.Field.Player
         private void OnExecuteSaveEvent()
         {
             // 最終位置を保存
-            _userDataManager.CurrentUserData.FieldSaveData.SetLastTranslation(transform.position, _directionType);
+            FieldUserData.SetLastTranslation(transform.position, _directionType);
         }
     }
 }

@@ -1,11 +1,11 @@
 using System;
 
-namespace CryStar.Data
+namespace CryStar.Data.User
 {
     /// <summary>
-    /// フィールドシステムにおけるユーザーデータの基底クラス
+    /// ユーザーデータの基底クラス
     /// </summary>
-    public abstract class BaseUserData
+    public abstract class UserDataBase
     {
         protected int _userId;
         protected long _lastSaveTime;
@@ -23,7 +23,7 @@ namespace CryStar.Data
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        protected BaseUserData(int userId)
+        protected UserDataBase(int userId)
         {
             _userId = userId;
             _lastSaveTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();

@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Core.UserData;
 using CryStar.Data;
+using CryStar.Data.User;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -32,6 +34,11 @@ namespace CryStar.Field.Map
         /// 現在のマップ
         /// </summary>
         public int CurrentMapId => _currentMapId;
+        
+        /// <summary>
+        /// フィールドユーザーデータ
+        /// </summary>
+        private FieldUserData FieldUserData => _userDataManager.CurrentUserData.FieldUserData;
 
         #region Life cycle
 
@@ -41,7 +48,7 @@ namespace CryStar.Field.Map
 
             _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
 
-            var mapId = Math.Max(_userDataManager.CurrentUserData.FieldSaveData.LastMapId, 1);
+            var mapId = Math.Max(FieldUserData.LastMapId, 1);
             ShowMap(mapId);
         }
 
@@ -67,7 +74,7 @@ namespace CryStar.Field.Map
             }
             
             _currentMapId = Math.Max(mapId, 1);
-            _userDataManager.CurrentUserData.FieldSaveData.TransitionMap(mapId);
+            FieldUserData.TransitionMap(mapId);
             
             if (_instantiatedMaps.ContainsKey(mapId))
             {

@@ -1,17 +1,33 @@
-using CryStar.Field.Data;
-
-namespace CryStar.Data
+namespace CryStar.Data.User
 {
+    /// <summary>
+    /// 実行中利用するユーザーデータをまとめたコンテナ
+    /// </summary>
     public class UserDataContainer
     {
-        private FieldSaveData _fieldSaveData;
+        private FieldUserData _fieldUserData;
         private StoryUserData _storyUserData;
         private CharacterUserData _characterUserData;
         private GameEventUserData _gameEventUserData;
     
-        public FieldSaveData FieldSaveData => _fieldSaveData;
+        /// <summary>
+        /// フィールドのユーザーデータ
+        /// </summary>
+        public FieldUserData FieldUserData => _fieldUserData;
+        
+        /// <summary>
+        /// ストーリーのユーザーデータ
+        /// </summary>
         public StoryUserData StoryUserData => _storyUserData;
+        
+        /// <summary>
+        /// キャラクターのパラメーターのユーザーデータ
+        /// </summary>
         public CharacterUserData CharacterUserData => _characterUserData;
+        
+        /// <summary>
+        /// ゲームイベントのユーザーデータ
+        /// </summary>
         public GameEventUserData GameEventUserData => _gameEventUserData;
 
         /// <summary>
@@ -19,7 +35,7 @@ namespace CryStar.Data
         /// </summary>
         public UserDataContainer(int userId)
         {
-            _fieldSaveData = new FieldSaveData(userId);
+            _fieldUserData = new FieldUserData(userId);
             _storyUserData = new StoryUserData(userId);
             _characterUserData = new CharacterUserData(userId);
             _gameEventUserData = new GameEventUserData(userId);
@@ -30,7 +46,7 @@ namespace CryStar.Data
         /// </summary>
         public void UpdateAllSaveTimes()
         {
-            _fieldSaveData?.UpdateSaveTime();
+            _fieldUserData?.UpdateSaveTime();
             _storyUserData?.UpdateSaveTime();
             _characterUserData?.UpdateSaveTime();
             _gameEventUserData?.UpdateSaveTime();
