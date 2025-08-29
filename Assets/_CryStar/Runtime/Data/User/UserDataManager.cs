@@ -320,14 +320,8 @@ namespace CryStar.Data
                 var userData = JsonSaveManager.LoadFromJson(slot);
                 if (userData != null)
                 {
-                    slotInfoList.Add(new SaveSlotInfo
-                    {
-                        SlotIndex = slot,
-                        UserId = userData.FieldSaveData.UserId,
-                        LastSaveTime = userData.FieldSaveData.LastSaveTime,
-                        CurrentMapId = userData.FieldSaveData.LastMapId,
-                        IsCurrentSlot = slot == _currentSaveSlot
-                    });
+                    slotInfoList.Add(new SaveSlotInfo(slot, userData.FieldSaveData.UserId,
+                        userData.FieldSaveData.LastSaveTime, slot == _currentSaveSlot));
                 }
             }
             

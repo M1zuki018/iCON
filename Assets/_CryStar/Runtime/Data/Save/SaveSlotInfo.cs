@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace CryStar.Data
 {
@@ -8,12 +9,42 @@ namespace CryStar.Data
     [Serializable]
     public class SaveSlotInfo
     {
-        public int SlotIndex;
-        public int UserId;
-        public long LastSaveTime;
-        public int CurrentMapId;
-        public bool IsCurrentSlot;
+        [SerializeField] private int _slotIndex;
+        [SerializeField] private int _userId;
+        [SerializeField] private long _lastSaveTime;
+        [SerializeField] private bool _isCurrentSlot;
+        
+        /// <summary>
+        /// セーブスロットのIndex
+        /// </summary>
+        public int SlotIndex => _slotIndex;
+        
+        /// <summary>
+        /// ユーザーID
+        /// </summary>
+        public int UserId => _userId;
+        
+        /// <summary>
+        /// 最後にセーブした時間
+        /// </summary>
+        public long LastSaveTime => _lastSaveTime;
+        
+        /// <summary>
+        /// 現在選択中のスロットか
+        /// </summary>
+        public bool IsCurrentSlot => _isCurrentSlot;
 
+        /// <summary>
+        /// コンストラクタ
+        /// </summary>
+        public SaveSlotInfo(int slotIndex, int userId, long lastSaveTime, bool isCurrentSlot = false)
+        {
+            _slotIndex = slotIndex;
+            _userId = userId;
+            _lastSaveTime = lastSaveTime;
+            _isCurrentSlot = isCurrentSlot;
+        }
+        
         /// <summary>
         /// 最後の保存時間を日時形式で取得
         /// </summary>
