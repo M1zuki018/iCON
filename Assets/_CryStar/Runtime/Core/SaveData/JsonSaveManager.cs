@@ -5,7 +5,7 @@ using CryStar.Data;
 using CryStar.Utility;
 using UnityEngine;
 
-namespace CryStar.Save
+namespace CryStar.Core.SaveData
 {
     /// <summary>
     /// JSON保存・読み込みを行うセーブマネージャー
