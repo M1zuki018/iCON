@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Save;
 using CryStar.Utility;
 using UnityEngine;
 
@@ -13,7 +15,32 @@ namespace CryStar.Data
     [DefaultExecutionOrder(-998)]
     public class UserDataManager : MonoBehaviour
     {
+        /// <summary>
+        /// セーブデータ変更時イベント
+        /// </summary>
+        public event Action<UserDataContainer> OnUserDataChanged;
+        
+        /// <summary>
+        /// セーブ完了時イベント
+        /// </summary>
+        public event Action<int> OnSaveCompleted;
+        
+        /// <summary>
+        /// ロード完了時イベント
+        /// </summary>
+        public event Action<int> OnLoadCompleted;
+        
+        [SerializeField] private bool _autoSaveEnabled = true;
+        [SerializeField] private float _autoSaveInterval = 300f; // 5分間隔
+        [SerializeField] private int _maxSaveSlots = 10;
+        
         private static int _userId = -1;
+        private float _autoSaveTimer = 0f;
+        
+        /// <summary>
+        /// 現在選択中のセーブスロット
+        /// </summary>
+        private int _currentSaveSlot = 0;
         
         /// <summary>
         /// 現在使用中のユーザーデータ
@@ -31,15 +58,52 @@ namespace CryStar.Data
         public UserDataContainer CurrentUserData => _currentUserData;
         
         /// <summary>
-        /// 保存されているユーザーデータの数を取得
+        /// 現在のセーブスロット
         /// </summary>
-        public int UserDataCount => _userDataContainers.Count;
+        public int CurrentSaveSlot => _currentSaveSlot;
+        
+        /// <summary>
+        /// 自動保存が有効か
+        /// </summary>
+        public bool AutoSaveEnabled => _autoSaveEnabled;
 
         private void Awake()
         {
             // グローバルサービスに登録しておく
             ServiceLocator.Register(this, ServiceType.Global);
 
+            // ユーザーIDを初期化する
+            InitializeUserId();
+
+            DeleteAllUserData();
+            // セーブデータ読み込み
+            LoadExistingSaveData();
+        }
+        
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.F11))
+            {
+                SaveCurrentUserData();
+            }
+            // // 自動保存処理
+            // if (_autoSaveEnabled && _currentUserData != null)
+            // {
+            //     _autoSaveTimer += Time.deltaTime;
+            //     
+            //     if (_autoSaveTimer >= _autoSaveInterval)
+            //     {
+            //         SaveCurrentUserData();
+            //         _autoSaveTimer = 0f;
+            //     }
+            // }
+        }
+
+        /// <summary>
+        /// ユーザーIDの初期化を行う
+        /// </summary>
+        private void InitializeUserId()
+        {
             if (_userId < 0)
             {
                 // UserIdが0以下 = 未設定の場合、GUIDを元にユーザーIDを生成する
@@ -47,18 +111,86 @@ namespace CryStar.Data
                 _userId = Math.Abs(guid.GetHashCode());
                 LogUtility.Info($"UserIDを生成しました ID:{_userId}");
             }
+        }
+        
+        /// <summary>
+        /// 既存のセーブデータを読み込む
+        /// </summary>
+        private void LoadExistingSaveData()
+        {
+            var existingSlots = JsonSaveManager.GetExistingSaveSlots();
             
-            if (_userDataContainers.Count > 0)
+            if (existingSlots.Count > 0)
             {
-                // セーブデータが存在する場合は最後に使用していたデータを選択（または最新のデータ）
-                TrySelectUserData(0);
+                // 最新のセーブスロットを選択
+                int latestSlot = existingSlots.Last();
+                LoadUserData(latestSlot);
             }
             else
             {
-                // TODO: デバッグ用
-                DeleteAllUserData();
-                CreateUserData();
+                // セーブデータが存在しない場合は新規作成
+                CreateNewUserData();
             }
+        }
+        
+        /// <summary>
+        /// 指定スロットからユーザーデータを読み込む
+        /// </summary>
+        public bool LoadUserData(int slotIndex)
+        {
+            var userData = JsonSaveManager.LoadFromJson(slotIndex);
+            
+            if (userData != null)
+            {
+                _currentUserData = userData;
+                _currentSaveSlot = slotIndex;
+                
+                // メモリリストも更新（互換性のため）
+                _userDataContainers.Clear();
+                _userDataContainers.Add(userData);
+                
+                LogUtility.Info($"セーブデータを読み込みました。スロット: {slotIndex}");
+                OnUserDataChanged?.Invoke(_currentUserData);
+                OnLoadCompleted?.Invoke(slotIndex);
+                return true;
+            }
+            
+            LogUtility.Warning($"セーブデータの読み込みに失敗しました。スロット: {slotIndex}");
+            return false;
+        }
+        
+        /// <summary>
+        /// 新規ユーザーデータを作成する
+        /// </summary>
+        public void CreateNewUserData()
+        {
+            _currentUserData = new UserDataContainer(_userId);
+            _currentSaveSlot = GetNextAvailableSaveSlot();
+            
+            // メモリリストにも追加（互換性のため）
+            _userDataContainers.Add(_currentUserData);
+            
+            LogUtility.Info($"新規セーブデータを作成しました。スロット: {_currentSaveSlot}");
+            OnUserDataChanged?.Invoke(_currentUserData);
+        }
+        
+        /// <summary>
+        /// 次に利用可能なセーブスロットを取得
+        /// </summary>
+        private int GetNextAvailableSaveSlot()
+        {
+            var existingSlots = JsonSaveManager.GetExistingSaveSlots();
+            
+            for (int i = 0; i < _maxSaveSlots; i++)
+            {
+                if (!existingSlots.Contains(i))
+                {
+                    return i;
+                }
+            }
+            
+            // 全スロット使用済みの場合は最古のスロットを使用
+            return existingSlots.Count > 0 ? existingSlots[0] : 0;
         }
 
         /// <summary>
@@ -100,34 +232,57 @@ namespace CryStar.Data
         }
 
         /// <summary>
-        /// ユーザーデータを保存
+        /// 現在のユーザーデータを保存
         /// </summary>
-        public void SaveUserData()
+        public bool SaveCurrentUserData()
         {
-            if (_currentUserData == null) return;
-
-            _currentUserData.UpdateAllSaveTimes();
-            LogUtility.Info("ユーザーデータを保存しました");
+            return SaveUserData(_currentSaveSlot);
         }
         
         /// <summary>
-        /// ユーザーデータを削除
+        /// 指定スロットにユーザーデータを保存
         /// </summary>
-        public void DeleteUserData(int index)
+        public bool SaveUserData(int slotIndex)
         {
-            if (!IsValidIndex(index))
+            if (_currentUserData == null)
             {
-                LogUtility.Error($"削除対象のインデックスが無効です。Index: {index}");
-                return;
+                LogUtility.Error("保存するユーザーデータが存在しません");
+                return false;
             }
-    
-            _userDataContainers.RemoveAt(index);
-    
-            // 現在選択中のデータが削除された場合の処理
-            if (_currentUserData == _userDataContainers[index])
+
+            _currentUserData.UpdateAllSaveTimes();
+            bool success = JsonSaveManager.SaveToJson(_currentUserData, slotIndex);
+            
+            if (success)
             {
-                _currentUserData = _userDataContainers.Count > 0 ? _userDataContainers[0] : null;
+                _currentSaveSlot = slotIndex;
+                LogUtility.Info($"ユーザーデータを保存しました。スロット: {slotIndex}");
+                OnSaveCompleted?.Invoke(slotIndex);
+                _autoSaveTimer = 0f; // オートセーブタイマーをリセット
             }
+            
+            return success;
+        }
+        
+        /// <summary>
+        /// 指定スロットのセーブデータを削除
+        /// </summary>
+        public bool DeleteUserData(int slotIndex)
+        {
+            bool success = JsonSaveManager.DeleteSaveFile(slotIndex);
+            
+            if (success && slotIndex == _currentSaveSlot)
+            {
+                // 現在使用中のスロットが削除された場合
+                _currentUserData = null;
+                _currentSaveSlot = -1;
+                _userDataContainers.Clear();
+                
+                LogUtility.Info($"現在使用中のセーブデータが削除されました。スロット: {slotIndex}");
+                OnUserDataChanged?.Invoke(null);
+            }
+            
+            return success;
         }
 
         /// <summary>
@@ -135,15 +290,73 @@ namespace CryStar.Data
         /// </summary>
         public void DeleteAllUserData()
         {
+            JsonSaveManager.DeleteAllSaveFiles();
             _userDataContainers.Clear();
+            _currentUserData = null;
+            _currentSaveSlot = -1;
+            
+            LogUtility.Info("全てのユーザーデータを削除しました");
+            OnUserDataChanged?.Invoke(null);
         }
         
         /// <summary>
-        /// 指定インデックスのユーザーデータが存在するかチェック
+        /// 存在するセーブスロットの情報を取得
         /// </summary>
-        public bool IsValidIndex(int index)
+        public List<SaveSlotInfo> GetSaveSlotInfoList()
         {
-            return index >= 0 && index < _userDataContainers.Count;
+            var slotInfoList = new List<SaveSlotInfo>();
+            var existingSlots = JsonSaveManager.GetExistingSaveSlots();
+            
+            foreach (int slot in existingSlots)
+            {
+                var userData = JsonSaveManager.LoadFromJson(slot);
+                if (userData != null)
+                {
+                    slotInfoList.Add(new SaveSlotInfo
+                    {
+                        SlotIndex = slot,
+                        UserId = userData.FieldSaveData.UserId,
+                        LastSaveTime = userData.FieldSaveData.LastSaveTime,
+                        CurrentMapId = userData.FieldSaveData.CurrentMapId,
+                        IsCurrentSlot = slot == _currentSaveSlot
+                    });
+                }
+            }
+            
+            return slotInfoList.OrderBy(info => info.SlotIndex).ToList();
+        }
+        
+        /// <summary>
+        /// セーブスロットが存在するかチェック
+        /// </summary>
+        public bool SaveSlotExists(int slotIndex)
+        {
+            return JsonSaveManager.SaveFileExists(slotIndex);
+        }
+
+        /// <summary>
+        /// 自動保存の有効/無効を切り替え
+        /// </summary>
+        public void SetAutoSaveEnabled(bool enabled)
+        {
+            _autoSaveEnabled = enabled;
+            if (!enabled)
+            {
+                _autoSaveTimer = 0f;
+            }
+            
+            LogUtility.Info($"自動保存を{(enabled ? "有効" : "無効")}にしました");
+        }
+
+        /// <summary>
+        /// 自動保存間隔を設定
+        /// </summary>
+        public void SetAutoSaveInterval(float intervalSeconds)
+        {
+            _autoSaveInterval = Mathf.Max(10f, intervalSeconds); // 最小10秒
+            _autoSaveTimer = 0f;
+            
+            LogUtility.Info($"自動保存間隔を{_autoSaveInterval}秒に設定しました");
         }
     }
 }
