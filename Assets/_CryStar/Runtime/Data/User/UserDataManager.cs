@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CryStar.Core;
 using CryStar.Core.Enums;
-using CryStar.Save;
+using CryStar.Core.SaveData;
 using CryStar.Utility;
 using UnityEditor;
 using UnityEngine;

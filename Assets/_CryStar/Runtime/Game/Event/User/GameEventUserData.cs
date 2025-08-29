@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using CryStar.Data;
-using CryStar.Save;
 using UnityEngine;
 
 /// <summary>
