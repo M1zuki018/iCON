@@ -1,3 +1,4 @@
+using CryStar.Data.User;
 using CryStar.Field.Data;
 
 namespace CryStar.Data
