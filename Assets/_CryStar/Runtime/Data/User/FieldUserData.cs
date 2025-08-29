@@ -7,6 +7,9 @@ using UnityEngine;
 
 namespace CryStar.Data.User
 {
+     /// <summary>
+     /// フィールドのユーザーデータ
+     /// </summary>
      [Serializable]
      public class FieldUserData : CachedUserDataBase
      {
