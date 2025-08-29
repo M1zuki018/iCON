@@ -1,4 +1,4 @@
-using CryStar.Game.Events;
+using CryStar.GameEvent.Factory;
 using CryStar.Utility;
 using UnityEngine;
 

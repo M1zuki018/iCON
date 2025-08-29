@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CryStar.GameEvent;
 using CryStar.GameEvent.Attributes;
 using CryStar.GameEvent.Enums;
 using CryStar.Story.Factory;
 using iCON.System;
 
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Factory
 {
     /// <summary>
     /// Game Event Factory
