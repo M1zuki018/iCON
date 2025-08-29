@@ -5,6 +5,7 @@ using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Save;
 using CryStar.Utility;
+using UnityEditor;
 using UnityEngine;
 
 namespace CryStar.Data
@@ -365,5 +366,26 @@ namespace CryStar.Data
             
             LogUtility.Info($"自動保存間隔を{_autoSaveInterval}秒に設定しました");
         }
+
+#if UNITY_EDITOR
+        
+        /// <summary>
+        /// 全セーブデータを削除 (Alt + Ctrl + D)
+        /// </summary>
+        [MenuItem("CryStar/Save Data/Delete All Save Data %&d")]
+        public static void DeleteAllSaveData()
+        {
+            if (EditorUtility.DisplayDialog(
+                    "警告", 
+                    "全てのセーブデータを削除します。この操作は元に戻せません。\n本当に実行しますか？", 
+                    "削除する", 
+                    "キャンセル"))
+            {
+                var manager = FindObjectOfType<UserDataManager>();
+                manager.DeleteAllUserData();
+            }
+        }
+        
+#endif
     }
 }
