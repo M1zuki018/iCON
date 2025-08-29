@@ -1,7 +1,9 @@
 using CryStar.Attribute;
+using CryStar.Audio;
 using CryStar.Core;
+using CryStar.Core.Enums;
 using CryStar.Core.UserData;
-using CryStar.Data;
+using CryStar.Data.Scene;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
@@ -11,7 +13,6 @@ using iCON.Performance;
 using iCON.UI;
 using UnityEditor;
 using UnityEngine;
-using NotImplementedException = System.NotImplementedException;
 
 namespace iCON.System
 {

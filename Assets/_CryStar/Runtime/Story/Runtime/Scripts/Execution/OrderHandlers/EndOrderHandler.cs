@@ -1,4 +1,5 @@
 using System;
+using CryStar.Audio;
 using CryStar.Core;
 using CryStar.Story.Attributes;
 using CryStar.Story.Data;
@@ -8,7 +9,6 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using iCON.System;
 
 namespace CryStar.Story.Execution
 {

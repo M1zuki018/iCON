@@ -4,22 +4,28 @@ using System.Threading;
 using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Extensions;
+using CryStar.Settings.Data;
 using CryStar.Story.Constants;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using iCON.Extensions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
 using UnityEngine.Pool;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace iCON.System
+namespace CryStar.Audio
 {
     /// <summary>
-    /// Audioを管理するManagerクラス
+    /// AudioManager
+    /// インスタンスの管理はオブジェクトプール
+    /// Clipの取得はAddressable
+    /// Clipのロードなどの非同期処理はUniTask
+    /// クロスフェードはDOTween
+    /// で行っています
     /// </summary>
     public class AudioManager : CustomBehaviour
     {
@@ -118,18 +124,18 @@ namespace iCON.System
             DontDestroyOnLoad(this);
             
             // BGM用のオブジェクト生成
-            _bgmSource = CreateAudioSource(CryStar.Enums.AudioType.BGM, "BGM_Primary");
-            _bgmSourceSecondary = CreateAudioSource(CryStar.Enums.AudioType.BGM, "BGM_Secondary");
+            _bgmSource = CreateAudioSource(CryStar.Audio.Enums.AudioType.BGM, "BGM_Primary");
+            _bgmSourceSecondary = CreateAudioSource(CryStar.Audio.Enums.AudioType.BGM, "BGM_Secondary");
             
             // 環境音用のオブジェクト生成
-            _ambienceSource = CreateAudioSource(CryStar.Enums.AudioType.Ambience, "Ambience_Primary");
-            _ambienceSourceSecondary = CreateAudioSource(CryStar.Enums.AudioType.Ambience, "Ambience_Secondary");
+            _ambienceSource = CreateAudioSource(CryStar.Audio.Enums.AudioType.Ambience, "Ambience_Primary");
+            _ambienceSourceSecondary = CreateAudioSource(CryStar.Audio.Enums.AudioType.Ambience, "Ambience_Secondary");
             
             // SE用のオブジェクトプール初期化
-            _seSourcePool = CreateAudioSourcePool(CryStar.Enums.AudioType.SE, 3, 100);
+            _seSourcePool = CreateAudioSourcePool(CryStar.Audio.Enums.AudioType.SE, 3, 100);
             
             // Voice用のオブジェクトプール初期化
-            _voiceSourcePool = CreateAudioSourcePool(CryStar.Enums.AudioType.Voice, 3, 20);
+            _voiceSourcePool = CreateAudioSourcePool(CryStar.Audio.Enums.AudioType.Voice, 3, 20);
 
             // 初期状態はボリューム0に設定
             _bgmSource.volume = 0f;
@@ -385,7 +391,7 @@ namespace iCON.System
         /// <summary>
         /// AudioSourceのオブジェクトプールを作成
         /// </summary>
-        private IObjectPool<AudioSource> CreateAudioSourcePool(CryStar.Enums.AudioType type, int defaultCapacity, int maxSize)
+        private IObjectPool<AudioSource> CreateAudioSourcePool(CryStar.Audio.Enums.AudioType type, int defaultCapacity, int maxSize)
         {
             return new ObjectPool<AudioSource>(
                 createFunc: () => CreateAudioSource(type),
@@ -400,7 +406,7 @@ namespace iCON.System
         /// <summary>
         /// 新しくGameObjectとAudioSourceを生成する
         /// </summary>
-        private AudioSource CreateAudioSource(CryStar.Enums.AudioType type, string objectName = null)
+        private AudioSource CreateAudioSource(CryStar.Audio.Enums.AudioType type, string objectName = null)
         {
             // 新規ゲームオブジェクトを生成
             GameObject obj = new GameObject(objectName ?? type.ToString());

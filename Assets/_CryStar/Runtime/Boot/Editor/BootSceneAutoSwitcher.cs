@@ -132,7 +132,7 @@ namespace CryStar.Boot.Editor
         [MenuItem("CryStar/Boot/Toggle Auto Switch", true)]
         private static bool ToggleAutoSwitchValidation()
         {
-            Menu.SetChecked("CryStar/Boot/Toggle Auto Switch", IsAutoSwitchEnabled());
+            UnityEditor.Menu.SetChecked("CryStar/Boot/Toggle Auto Switch", IsAutoSwitchEnabled());
             return true;
         }
 

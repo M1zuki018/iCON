@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using CryStar.Core;
-using CryStar.Game.Events;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
@@ -58,7 +57,7 @@ namespace CryStar.Field.Event
             
             // ストーリーID取得のためのindexを計算する
             // NOTE: 基本はオブジェクトに触れた回数。Cacheリストの範囲内になるように調節している
-            var index = Mathf.Min(Count, _idList.Count);
+            var index = Mathf.Min(Count, _idList.Count - 1);
             
             // 再生
             _gameManager.PlayStory(_idList[index]).Forget();

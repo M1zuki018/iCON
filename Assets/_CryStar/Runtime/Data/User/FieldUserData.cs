@@ -1,8 +1,8 @@
 using System;
+using CryStar.Field.Enums;
 using CryStar.Field.Event;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
-using iCON.Enums;
 using UnityEngine;
 
 namespace CryStar.Data.User

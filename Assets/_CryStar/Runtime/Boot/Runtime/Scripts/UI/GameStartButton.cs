@@ -1,7 +1,8 @@
 using CryStar.Core;
+using CryStar.Core.Enums;
+using CryStar.Data.Scene;
 using CryStar.Utility;
 using Cysharp.Threading.Tasks;
-using iCON.System;
 using UnityEngine;
 using UnityEngine.UI;
 

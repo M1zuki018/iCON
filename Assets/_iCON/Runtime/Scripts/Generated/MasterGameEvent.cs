@@ -1,8 +1,6 @@
 using System.Collections.Generic;
-using CryStar.Game.Data;
-using CryStar.Game.Enums;
-using CryStar.Game.Events;
-using UnityEngine;
+using CryStar.GameEvent.Data;
+using CryStar.GameEvent.Enums;
 
 public static class MasterGameEvent
 {

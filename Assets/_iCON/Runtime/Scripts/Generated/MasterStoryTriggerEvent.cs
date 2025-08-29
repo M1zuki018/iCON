@@ -1,18 +1,17 @@
 using System.Collections.Generic;
-using CryStar.Game.Events;
-using UnityEngine;
+using CryStar.GameEvent.Data;
 
 public static class MasterStoryTriggerEvent
 {
-    private static Dictionary<int, StoryTriggerEventData> _triggerEventDataList = new Dictionary<int, StoryTriggerEventData>()
+    private static Dictionary<int, StoryEndTriggerEventData> _triggerEventDataList = new Dictionary<int, StoryEndTriggerEventData>()
     {
-        { 6, new StoryTriggerEventData(4, 0)}
+        { 6, new StoryEndTriggerEventData(4, 0)}
     };
 
     /// <summary>
     /// 辞書の中にイベントをトリガーすべきものがないか検索する
     /// </summary>
-    public static StoryTriggerEventData GetTriggerEventData(int storyId)
+    public static StoryEndTriggerEventData GetTriggerEventData(int storyId)
     {
         if (_triggerEventDataList.TryGetValue(storyId, out var data))
         {

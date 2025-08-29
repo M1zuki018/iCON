@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using CryStar.Data.User;
-using CryStar.Field.Data;
-using iCON;
 using iCON.Battle.Data;
 
 namespace CryStar.Data

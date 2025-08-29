@@ -1,9 +1,9 @@
-using System;
 using CryStar.Core;
 using CryStar.Core.ReactiveExtensions;
 using CryStar.Core.UserData;
-using CryStar.Data;
 using CryStar.Data.User;
+using CryStar.Field.Data;
+using CryStar.Field.Enums;
 using iCON.Enums;
 using iCON.System;
 using iCON.UI;

@@ -1,11 +1,11 @@
 using System;
 using CryStar.Attribute;
+using CryStar.Extensions;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using iCON.Extensions;
 
 namespace CryStar.Effects
 {
