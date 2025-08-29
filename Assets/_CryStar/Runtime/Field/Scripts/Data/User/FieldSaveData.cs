@@ -1,17 +1,17 @@
 using System;
 using System.Collections.Generic;
 using CryStar.Data;
+using CryStar.Data.User;
 using CryStar.Field.Event;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using iCON.Enums;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CryStar.Field.Data
 {
      [Serializable]
-     public class FieldSaveData : BaseUserData
+     public class FieldSaveData : UserDataBase
      {
           #region Private Field
 

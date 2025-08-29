@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using CryStar.Data;
+using CryStar.Data.User;
 using UnityEngine;
 
 /// <summary>
 /// ゲームイベントのセーブデータ用クラス
 /// </summary>
 [Serializable]
-public class GameEventUserData : BaseUserData
+public class GameEventUserData : UserDataBase
 {
     [SerializeField] private List<EventClearData> _clearedEvents = new List<EventClearData>();
     

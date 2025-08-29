@@ -8,7 +8,7 @@ namespace CryStar.Data.User
     /// ストーリーのユーザーデータ
     /// </summary>
     [Serializable]
-    public class StoryUserData : BaseUserData
+    public class StoryUserData : UserDataBase
     {
         /// <summary>
         /// ストーリーがセーブされたときのコールバック

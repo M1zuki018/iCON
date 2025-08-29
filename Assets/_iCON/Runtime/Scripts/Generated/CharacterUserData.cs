@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CryStar.Data;
+using CryStar.Data.User;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using iCON;
@@ -9,7 +10,7 @@ using iCON;
 /// キャラクターステータスのユーザーデータ管理
 /// </summary>
 [Serializable]
-public class CharacterUserData : BaseUserData
+public class CharacterUserData : UserDataBase
 {
     /// <summary>
     /// キャラクターIDとユーザーデータのkvp
