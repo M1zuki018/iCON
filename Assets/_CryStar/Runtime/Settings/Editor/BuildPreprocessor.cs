@@ -1,9 +1,10 @@
 #if UNITY_EDITOR
+using CryStar.Settings.Data;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 
-namespace iCON.Editor
+namespace CryStar.Settings.Editor
 {
     /// <summary>
     /// ビルド前処理でProductDataSOのビルド番号を自動更新

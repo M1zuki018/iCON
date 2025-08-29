@@ -5,6 +5,7 @@ using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Extensions;
+using CryStar.Settings.Data;
 using CryStar.Story.Constants;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
