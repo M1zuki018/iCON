@@ -1,4 +1,6 @@
 using System;
+using CryStar.Core;
+using CryStar.Data;
 using CryStar.Field.Enums;
 using UnityEngine;
 
@@ -34,6 +36,11 @@ namespace CryStar.Field.Event
         private int _count = 0;
         
         /// <summary>
+        /// ユーザーデータ
+        /// </summary>
+        private UserDataManager _userDataManager;
+        
+        /// <summary>
         /// イベントID
         /// </summary>
         public int EventID => _eventID;
@@ -55,6 +62,8 @@ namespace CryStar.Field.Event
         /// </summary>
         protected virtual void Start()
         {
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
+            
             // コライダーを取得。トリガーに設定しておく
             if (TryGetComponent(out _col))
             {
@@ -102,6 +111,15 @@ namespace CryStar.Field.Event
                     Destroy(gameObject);
                     break;
             }
+
+            if (_userDataManager == null)
+            {
+                // ユーザーデータマネージャーが取得できていなかったら取得しておく
+                _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
+            }
+            
+            // クリアしたことを記録する
+            _userDataManager.CurrentUserData.FieldSaveData.ClearEvent(_eventID);
         }
 
         protected bool Equals(FieldEventBase other)

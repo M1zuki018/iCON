@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Data;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -22,16 +24,25 @@ namespace CryStar.Field.Map
         private int _currentMapId = 0;
         
         /// <summary>
+        /// UserDataManager
+        /// </summary>
+        private UserDataManager _userDataManager;
+        
+        /// <summary>
         /// 現在のマップ
         /// </summary>
         public int CurrentMapId => _currentMapId;
 
         #region Life cycle
 
-        public override async UniTask OnAwake()
+        public override async UniTask OnBind()
         {
-            await base.OnAwake();
-            ShowMap(1); // TODO: マップ生成。任意のもので初期化できるようにしないといけない
+            await base.OnBind();
+
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
+
+            var mapId = Math.Max(_userDataManager.CurrentUserData.FieldSaveData.LastMapId, 1);
+            ShowMap(mapId);
         }
 
         /// <summary>
@@ -55,7 +66,8 @@ namespace CryStar.Field.Map
                 return;
             }
             
-            _currentMapId = mapId;
+            _currentMapId = Math.Max(mapId, 1);
+            _userDataManager.CurrentUserData.FieldSaveData.TransitionMap(mapId);
             
             if (_instantiatedMaps.ContainsKey(mapId))
             {

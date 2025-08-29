@@ -10,16 +10,31 @@ using UnityEngine;
 [Serializable]
 public class StoryUserData : BaseUserData
 {
+    /// <summary>
+    /// ストーリーがセーブされたときのコールバック
+    /// </summary>
+    public event Action<int> OnStorySave;
+    
     [SerializeField] private List<EventClearData> _clearedStories = new List<EventClearData>();
     
-    public event Action<int> OnStorySave;
     private Dictionary<int, int> _storyClearCache;
 
-    public StoryUserData(int userId) : base(userId)
+    public List<EventClearData> ClearedStories => _clearedStories;
+    
+    public StoryUserData(int userId) : base(userId) { }
+
+    /// <summary>
+    /// データ復元用
+    /// </summary>
+    public void SetClearedStories(List<EventClearData> stories)
     {
+        _clearedStories.Clear();
+        _clearedStories = stories;
+        
+        // 実行時用のDictionaryを構築
         BuildCache();
     }
-
+    
     /// <summary>
     /// クリアしたか
     /// </summary>

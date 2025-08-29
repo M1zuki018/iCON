@@ -10,6 +10,7 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.System;
+using UnityEngine;
 
 namespace CryStar.Game.Events
 {
@@ -61,7 +62,11 @@ namespace CryStar.Game.Events
             // NOTE: 全てクリア済みの場合は-1が返されるので、イベントは実行されない
             if (lastEventId > 0)
             {
-                await PlayEvent(lastEventId);
+                if (MasterGameEvent.IsEventOnStart(lastEventId))
+                {
+                    // 次のイベントが実行時に即座に開始するものの場合のみ、Eventを始める
+                    await PlayEvent(lastEventId);   
+                }
             }
         }
         

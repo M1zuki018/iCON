@@ -222,13 +222,20 @@ namespace CryStar.Save
             var userData = new UserDataContainer(serializableData.UserId);
             
             // FieldDataの復元
-            userData.FieldSaveData.TransitionMap(serializableData.FieldData.CurrentMapId);
+            userData.FieldSaveData.TransitionMap(serializableData.FieldData.LastMapId);
             userData.FieldSaveData.SetLastTranslation(
                 serializableData.FieldData.LastPosition,
-                serializableData.FieldData.LastRotation
+                serializableData.FieldData.DirectionType
             );
             
-            // TODO: 他も書く
+            // StoryDataの復元
+            userData.StoryUserData.SetClearedStories(serializableData.StoryData.ClearedStories);
+            
+            // CharacterDataの復元
+            userData.CharacterUserData.SetCharacterUserData(serializableData.CharacterData);
+            
+            // GameEventDataの復元
+            userData.GameEventUserData.SetClearedEvents(serializableData.GameEventData.ClearedEvents);
             
             return userData;
         }

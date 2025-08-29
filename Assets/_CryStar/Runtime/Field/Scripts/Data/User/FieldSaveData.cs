@@ -5,7 +5,9 @@ using CryStar.Field.Event;
 using CryStar.Save;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
+using iCON.Enums;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CryStar.Field.Data
 {
@@ -14,9 +16,9 @@ namespace CryStar.Field.Data
      {
           #region Private Field
 
-          [SerializeField] private int _currentMapId = 1; // 初期マップ
+          [SerializeField] private int _lastMapId = 1; // 初期マップ
           [SerializeField] private Vector2 _lastPosition = Vector2.zero;
-          [SerializeField] private Vector2 _lastRotation = Vector2.zero;
+          [SerializeField] private MoveDirectionType _directionType = MoveDirectionType.Down;
           [SerializeField] private List<EventClearData> _clearedEvents;
           
           private Dictionary<int, int> _eventClearCache; // 実行時のパフォーマンス向上のためのキャッシュ
@@ -24,9 +26,9 @@ namespace CryStar.Field.Data
           #endregion
 
           /// <summary>
-          /// 現在のマップID
+          /// 最終位置のマップID
           /// </summary>
-          public int CurrentMapId => _currentMapId;
+          public int LastMapId => _lastMapId;
 
           /// <summary>
           /// 最後位置のPosition
@@ -34,9 +36,9 @@ namespace CryStar.Field.Data
           public Vector2 LastPosition => _lastPosition;
 
           /// <summary>
-          /// 最終位置のRotation
+          /// 最終で向いている方向
           /// </summary>
-          public Vector2 LastRotation => _lastRotation;
+          public MoveDirectionType DirectionType => _directionType;
 
           /// <summary>
           /// クリア済みのイベントと回数のマッピング
@@ -48,9 +50,9 @@ namespace CryStar.Field.Data
           /// </summary>
           public FieldSaveData(int userId) : base(userId)
           {
-               _currentMapId = 1; // 初期マップ
+               _lastMapId = 1; // 初期マップ
                _lastPosition = Vector3.zero;
-               _lastRotation = Vector3.zero;
+               _directionType = MoveDirectionType.Down;
                _clearedEvents = new List<EventClearData>();
                
                // 実行時用のディクショナリーを構築する
@@ -62,18 +64,19 @@ namespace CryStar.Field.Data
           /// </summary>
           public void TransitionMap(int newMapId)
           {
-               _currentMapId = newMapId;
+               // 1以下にならないようにする
+               _lastMapId = Math.Max(newMapId, 1);
           }
 
           /// <summary>
           /// 最終位置と回転を更新する
           /// </summary>
-          public void SetLastTranslation(Vector2 position, Vector2 rotation)
+          public void SetLastTranslation(Vector2 position, MoveDirectionType direction)
           {
                _lastPosition = position;
-               _lastRotation = rotation;
+               _directionType = direction;
           }
-
+          
           /// <summary>
           /// イベントをクリアした際に呼び出す
           /// </summary>

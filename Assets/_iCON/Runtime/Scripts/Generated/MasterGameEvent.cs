@@ -81,4 +81,12 @@ public static class MasterGameEvent
     {
         return _eventData.Count;
     }
+
+    /// <summary>
+    /// 引数で指定したイベントが実行時に自動的に始まるかチェックする
+    /// </summary>
+    public static bool IsEventOnStart(int eventId)
+    {
+        return _eventData[eventId].PlayOnStart;
+    }
 }

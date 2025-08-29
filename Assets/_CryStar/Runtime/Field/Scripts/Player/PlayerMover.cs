@@ -1,5 +1,7 @@
+using System;
 using CryStar.Core;
 using CryStar.Core.ReactiveExtensions;
+using CryStar.Data;
 using iCON.Enums;
 using iCON.System;
 using iCON.UI;
@@ -81,6 +83,8 @@ namespace CryStar.Field.Player
         /// </summary>
         private bool _canMove;
         
+        private UserDataManager _userDataManager;
+        
         /// <summary>
         /// InGameManagerのCurrentStateリアクティブプロパティの監視を解除するためのCompositeDisposable
         /// </summary>
@@ -110,6 +114,9 @@ namespace CryStar.Field.Player
         /// </summary>
         private void Start()
         {
+            // 初期化
+            Initialize();
+
             // 入力を受け取るクラスを生成
             _input = new PlayerMoveInput(_moveInput, _dashInput, UpdateDirection, HandleDash, HandleDashCancel);
             
@@ -117,6 +124,23 @@ namespace CryStar.Field.Player
             // InGameManagerのリアクティブプロパティを購読する
             var inGameManager = ServiceLocator.GetLocal<InGameManager>();
             inGameManager.CurrentStateProp.Subscribe(ChangeState).AddTo(_disposable);
+        }
+
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        private void Initialize()
+        {
+            // セーブデータを読み込んで初期位置を設定
+            _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
+            transform.position = _userDataManager.CurrentUserData.FieldSaveData.LastPosition;
+            _directionType = _userDataManager.CurrentUserData.FieldSaveData.DirectionType;
+            
+            // 向いている方向にあわせてSpriteを変更
+            ChangeAnimationSprites();
+            
+            // セーブ時のイベントを購読
+            _userDataManager.OnExecuteSaveEvent += OnExecuteSaveEvent;
         }
 
         /// <summary>
@@ -137,6 +161,11 @@ namespace CryStar.Field.Player
             // 入力購読を破棄
             _input.Dispose();
             _disposable?.Dispose();
+
+            if (_userDataManager != null)
+            {
+                _userDataManager.OnExecuteSaveEvent -= OnExecuteSaveEvent;
+            }
         }
 
         #endregion
@@ -173,10 +202,9 @@ namespace CryStar.Field.Player
             
             _currentMoveInput = ctx.ReadValue<Vector2>();
             
-            // 入力がない場合
             if (_currentMoveInput == Vector2.zero)
             {
-                _directionType = MoveDirectionType.None;
+                // 入力がない場合は向きの変更は行わない
                 return;
             }
             
@@ -241,6 +269,15 @@ namespace CryStar.Field.Player
         {
             // 速度をデフォルトに戻す
             _currentMoveSpeed = _moveSpeed;
+        }
+        
+        /// <summary>
+        /// セーブ時に呼び出す処理
+        /// </summary>
+        private void OnExecuteSaveEvent()
+        {
+            // 最終位置を保存
+            _userDataManager.CurrentUserData.FieldSaveData.SetLastTranslation(transform.position, _directionType);
         }
     }
 }

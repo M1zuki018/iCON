@@ -14,12 +14,23 @@ public class GameEventUserData : BaseUserData
     [SerializeField] private List<EventClearData> _clearedEvents = new List<EventClearData>();
     
     private Dictionary<int, int> _eventClearCache = new Dictionary<int, int>();
+    
+    public List<EventClearData> ClearedEvents => _clearedEvents;
 
-    public GameEventUserData(int userId) : base(userId)
+    public GameEventUserData(int userId) : base(userId) { }
+
+    /// <summary>
+    /// セーブデータの復元用
+    /// </summary>
+    public void SetClearedEvents(List<EventClearData> events)
     {
+        _clearedEvents.Clear();
+        _clearedEvents = events;
+        
+        // 実行時用のキャッシュを構築
         BuildCache();
     }
-
+    
     /// <summary>
     /// イベントクリアを記録する
     /// </summary>
