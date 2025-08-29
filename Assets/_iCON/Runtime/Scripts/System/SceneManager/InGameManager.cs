@@ -4,6 +4,7 @@ using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Core.ReactiveExtensions;
 using CryStar.Data;
+using CryStar.Data.User;
 using CryStar.Field.Map;
 using CryStar.Field.UI;
 using CryStar.Story.Orchestrators;
@@ -58,6 +59,11 @@ namespace iCON.System
         /// </summary>
         public ReadOnlyReactiveProperty<InGameStateType> CurrentStateProp => _currentStateProp;
         
+        /// <summary>
+        /// ストーリーユーザーデータ
+        /// </summary>
+        private StoryUserData StoryUserData => _userDataManager.CurrentUserData.StoryUserData;
+        
         public override async UniTask OnAwake()
         {
             ServiceLocator.Register(this, ServiceType.Local);
@@ -110,7 +116,7 @@ namespace iCON.System
                     _currentStateProp.Value = InGameStateType.Field;
                     
                     // ストーリー読了を記録
-                    _userDataManager.CurrentUserData.StoryUserData.AddClearData(storyId);
+                    StoryUserData.AddClearData(storyId);
                     
                     // ストーリー完了を通知
                     completionSource.TrySetResult(storyId);

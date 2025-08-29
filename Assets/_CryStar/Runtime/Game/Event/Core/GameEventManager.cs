@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Data;
+using CryStar.Data.User;
 using CryStar.Game.Data;
 using CryStar.Game.Enums;
 using CryStar.Game.Events.Initialization;
@@ -35,6 +36,16 @@ namespace CryStar.Game.Events
         private UserDataManager _userDataManager;
         
         /// <summary>
+        /// ストーリーユーザーデータ
+        /// </summary>
+        private StoryUserData StoryUserData => _userDataManager.CurrentUserData.StoryUserData;
+        
+        /// <summary>
+        /// ゲームイベントユーザーデータ
+        /// </summary>
+        private GameEventUserData GameEventUserData => _userDataManager.CurrentUserData.GameEventUserData;
+        
+        /// <summary>
         /// Awake
         /// </summary>
         public override async UniTask OnBind()
@@ -49,14 +60,14 @@ namespace CryStar.Game.Events
             _handlers = GameEventFactory.CreateAllHandlers(ServiceLocator.GetLocal<InGameManager>());
             
             _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
-            _userDataManager.CurrentUserData.StoryUserData.OnStorySave += Check;
+            StoryUserData.OnStorySave += Check;
         }
 
         public override async UniTask OnStart()
         {
             await base.OnStart();
 
-            var lastEventId = _userDataManager.CurrentUserData.GameEventUserData.GetLastClearCount();
+            var lastEventId = GameEventUserData.GetLastClearCount();
             
             // イベントIDが0以上が帰ってきていれば、イベントを実行する
             // NOTE: 全てクリア済みの場合は-1が返されるので、イベントは実行されない
@@ -72,7 +83,7 @@ namespace CryStar.Game.Events
         
         private void OnDestroy()
         {
-            _userDataManager.CurrentUserData.StoryUserData.OnStorySave -= Check;
+            StoryUserData.OnStorySave -= Check;
         }
 
         /// <summary>
@@ -103,7 +114,7 @@ namespace CryStar.Game.Events
             await Execute(sequenceData.EndEvent);
             
             // セーブデータにクリア情報を記録
-            _userDataManager.CurrentUserData.GameEventUserData.AddClearData(eventID);
+            GameEventUserData.AddClearData(eventID);
         }
 
         /// <summary>

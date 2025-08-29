@@ -1,6 +1,7 @@
 using System;
 using CryStar.Core;
 using CryStar.Data;
+using CryStar.Data.User;
 using CryStar.Field.Enums;
 using UnityEngine;
 
@@ -54,6 +55,11 @@ namespace CryStar.Field.Event
         /// イベントが発火した回数
         /// </summary>
         protected int Count => _count;
+        
+        /// <summary>
+        /// フィールドユーザーデータ
+        /// </summary>
+        private FieldUserData FieldUserData => _userDataManager.CurrentUserData.FieldUserData;
 
         #region Life cycle
 
@@ -119,7 +125,7 @@ namespace CryStar.Field.Event
             }
             
             // クリアしたことを記録する
-            _userDataManager.CurrentUserData.FieldUserData.AddClearData(_eventID);
+            FieldUserData.AddClearData(_eventID);
         }
 
         protected bool Equals(FieldEventBase other)
