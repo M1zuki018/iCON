@@ -16,6 +16,11 @@ namespace CryStar.Data
     public class UserDataManager : MonoBehaviour
     {
         /// <summary>
+        /// セーブ実行時に呼び出されるイベント
+        /// </summary>
+        public event Action OnExecuteSaveEvent;
+        
+        /// <summary>
         /// セーブデータ変更時イベント
         /// </summary>
         public event Action<UserDataContainer> OnUserDataChanged;
@@ -86,17 +91,17 @@ namespace CryStar.Data
             {
                 SaveCurrentUserData();
             }
-            // // 自動保存処理
-            // if (_autoSaveEnabled && _currentUserData != null)
-            // {
-            //     _autoSaveTimer += Time.deltaTime;
-            //     
-            //     if (_autoSaveTimer >= _autoSaveInterval)
-            //     {
-            //         SaveCurrentUserData();
-            //         _autoSaveTimer = 0f;
-            //     }
-            // }
+            // 自動保存処理
+            if (_autoSaveEnabled && _currentUserData != null)
+            {
+                _autoSaveTimer += Time.deltaTime;
+                
+                if (_autoSaveTimer >= _autoSaveInterval)
+                {
+                    SaveCurrentUserData();
+                    _autoSaveTimer = 0f;
+                }
+            }
         }
 
         /// <summary>
@@ -317,7 +322,7 @@ namespace CryStar.Data
                         SlotIndex = slot,
                         UserId = userData.FieldSaveData.UserId,
                         LastSaveTime = userData.FieldSaveData.LastSaveTime,
-                        CurrentMapId = userData.FieldSaveData.CurrentMapId,
+                        CurrentMapId = userData.FieldSaveData.LastMapId,
                         IsCurrentSlot = slot == _currentSaveSlot
                     });
                 }
