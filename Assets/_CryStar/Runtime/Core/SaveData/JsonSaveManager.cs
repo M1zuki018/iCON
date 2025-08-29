@@ -229,13 +229,13 @@ namespace CryStar.Core.SaveData
             );
             
             // StoryDataの復元
-            userData.StoryUserData.SetClearedStories(serializableData.StoryData.ClearedStories);
+            userData.StoryUserData.SetClearedData(serializableData.StoryData.ClearedDataList);
             
             // CharacterDataの復元
             userData.CharacterUserData.SetCharacterUserData(serializableData.CharacterData);
             
             // GameEventDataの復元
-            userData.GameEventUserData.SetClearedEvents(serializableData.GameEventData.ClearedEvents);
+            userData.GameEventUserData.SetClearedData(serializableData.GameEventData.ClearedDataList);
             
             return userData;
         }
