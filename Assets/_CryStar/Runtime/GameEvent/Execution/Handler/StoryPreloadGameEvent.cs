@@ -1,11 +1,10 @@
-using CryStar.GameEvent;
 using CryStar.GameEvent.Attributes;
 using CryStar.GameEvent.Data;
 using CryStar.GameEvent.Enums;
 using Cysharp.Threading.Tasks;
 using iCON.System;
 
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Execution
 {
     /// <summary>
     /// StoryPreload - ストーリーデータの事前ロード

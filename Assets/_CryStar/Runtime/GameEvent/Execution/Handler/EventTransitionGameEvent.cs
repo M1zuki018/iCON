@@ -1,5 +1,4 @@
 using CryStar.Core;
-using CryStar.GameEvent;
 using CryStar.GameEvent.Attributes;
 using CryStar.GameEvent.Data;
 using CryStar.GameEvent.Enums;
@@ -7,7 +6,7 @@ using CryStar.GameEvent.Initialization;
 using Cysharp.Threading.Tasks;
 using iCON.System;
 
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Execution
 {
     /// <summary>
     /// EventTransition - 別のイベントを実行

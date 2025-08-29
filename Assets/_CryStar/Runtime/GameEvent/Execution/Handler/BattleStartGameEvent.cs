@@ -1,18 +1,17 @@
 using CryStar.Core;
-using CryStar.GameEvent;
 using CryStar.GameEvent.Attributes;
 using CryStar.GameEvent.Data;
 using CryStar.GameEvent.Enums;
 using Cysharp.Threading.Tasks;
 using iCON.System;
 
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Execution
 {
     /// <summary>
-    /// GameClear - ゲームクリア
+    /// BattleStart - バトル開始
     /// </summary>
-    [GameEventHandler(GameEventType.GameClear)]
-    public class GameClearGameEvent : GameEventHandlerBase
+    [GameEventHandler(GameEventType.BattleStart)]
+    public class BattleStartGameEvent : GameEventHandlerBase
     {
         /// <summary>
         /// SceneLoader
@@ -22,17 +21,18 @@ namespace CryStar.Game.Events
         /// <summary>
         /// シーン遷移時に必要なデータクラス
         /// </summary>
-        private SceneTransitionData _titleTransitionData = new(SceneType.Title, true, true);
+        private SceneTransitionData _battleTransitionData = new(SceneType.Battle, true, true);
+
         
-        public override GameEventType SupportedGameEventType => GameEventType.GameClear;
+        public override GameEventType SupportedGameEventType => GameEventType.BattleStart;
         
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public GameClearGameEvent(InGameManager inGameManager) : base(inGameManager) { }
+        public BattleStartGameEvent(InGameManager inGameManager) : base(inGameManager) { }
         
         /// <summary>
-        /// ゲームクリア処理
+        /// バトル開始
         /// </summary>
         public override async UniTask HandleGameEvent(GameEventParameters parameters)
         {
@@ -42,14 +42,14 @@ namespace CryStar.Game.Events
                 _sceneLoader = ServiceLocator.GetGlobal<SceneLoader>();
             }
 
-            if (_titleTransitionData == null)
+            if (_battleTransitionData == null)
             {
                 // Titleシーンへの遷移データが存在しなければ作成
-                _titleTransitionData = new SceneTransitionData(SceneType.Title, true, true);
+                _battleTransitionData = new SceneTransitionData(SceneType.Battle, true, true);
             }
             
             // シーン遷移を実行
-            await _sceneLoader.LoadSceneAsync(_titleTransitionData);
+            await _sceneLoader.LoadSceneAsync(_battleTransitionData);
         }
     }
 }

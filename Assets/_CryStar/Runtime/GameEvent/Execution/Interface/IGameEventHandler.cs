@@ -2,7 +2,7 @@ using CryStar.GameEvent.Data;
 using CryStar.GameEvent.Enums;
 using Cysharp.Threading.Tasks;
 
-namespace CryStar.Game.Events
+namespace CryStar.GameEvent.Execution
 {
     /// <summary>
     /// GameEventHandlerが継承すべきインターフェース

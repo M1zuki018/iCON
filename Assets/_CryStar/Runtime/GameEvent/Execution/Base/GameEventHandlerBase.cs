@@ -1,11 +1,10 @@
-using CryStar.Game.Events;
 using CryStar.GameEvent.Data;
 using CryStar.GameEvent.Enums;
 using CryStar.Story.Factory;
 using Cysharp.Threading.Tasks;
 using iCON.System;
 
-namespace CryStar.GameEvent
+namespace CryStar.GameEvent.Execution
 {
     /// <summary>
     /// ゲームイベントを処理するための基底クラス
