@@ -1,7 +1,6 @@
 using CryStar.Data.User;
-using CryStar.Field.Data;
 
-namespace CryStar.Data
+namespace CryStar.Data.User
 {
     public class UserDataContainer
     {

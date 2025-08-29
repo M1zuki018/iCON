@@ -4,32 +4,35 @@ using CryStar.Data;
 using CryStar.Data.User;
 using UnityEngine;
 
-/// <summary>
-/// ゲームイベントのセーブデータ用クラス
-/// </summary>
-[Serializable]
-public class GameEventUserData : CachedUserDataBase
+namespace CryStar.Data.User
 {
-    public GameEventUserData(int userId) : base(userId) { }
-
-    public int GetLastClearCount()
+    /// <summary>
+    /// ゲームイベントのセーブデータ用クラス
+    /// </summary>
+    [Serializable]
+    public class GameEventUserData : CachedUserDataBase
     {
-        // まだ一つもクリアしていない場合は1を返す
-        if (ClearedDataCache.Count == 0)
+        public GameEventUserData(int userId) : base(userId) { }
+
+        public int GetLastClearCount()
         {
-            return 1;
-        }
-        
-        // 1から順番に未クリアのイベントを探す
-        for (int eventId = 1; eventId < MasterGameEvent.GetGameEventCount() + 1; eventId++)
-        {
-            if (!ClearedDataCache.ContainsKey(eventId))
+            // まだ一つもクリアしていない場合は1を返す
+            if (ClearedDataCache.Count == 0)
             {
-                return eventId;
+                return 1;
             }
-        }
         
-        // 全てのイベントをクリアしている場合は-1を返す
-        return -1;
+            // 1から順番に未クリアのイベントを探す
+            for (int eventId = 1; eventId < MasterGameEvent.GetGameEventCount() + 1; eventId++)
+            {
+                if (!ClearedDataCache.ContainsKey(eventId))
+                {
+                    return eventId;
+                }
+            }
+        
+            // 全てのイベントをクリアしている場合は-1を返す
+            return -1;
+        }
     }
 }

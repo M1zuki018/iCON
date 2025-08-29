@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using CryStar.Data;
+using CryStar.Data.User;
 using CryStar.Utility;
 using UnityEngine;
 

@@ -4,6 +4,7 @@ using System.Linq;
 using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Core.SaveData;
+using CryStar.Data.User;
 using CryStar.Utility;
 using UnityEditor;
 using UnityEngine;

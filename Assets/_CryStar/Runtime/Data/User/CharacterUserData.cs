@@ -2,13 +2,12 @@ using System;
 using System.Collections.Generic;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
-using iCON;
 using iCON.Battle.Data;
 
 namespace CryStar.Data.User
 {
     /// <summary>
-    /// キャラクターステータスのユーザーデータ管理
+    /// キャラクターステータスのユーザーデータ
     /// </summary>
     [Serializable]
     public class CharacterUserData : UserDataBase
