@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace iCON
+namespace iCON.Battle.Data
 {
     /// <summary>
     /// キャラクターのセーブデータ
     /// </summary>
     [Serializable]
-    public class CharacterData
+    public class BattleCharacterData
     {
         [SerializeField] private int _characterID;
         
@@ -107,7 +107,7 @@ namespace iCON
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public CharacterData(int characterID)
+        public BattleCharacterData(int characterID)
         {
             _characterID = characterID;
         }

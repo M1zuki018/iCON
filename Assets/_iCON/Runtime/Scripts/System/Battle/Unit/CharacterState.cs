@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Data;
 using CryStar.Story.Enums;
+using iCON.Battle.Data;
 using UnityEngine;
 
 namespace iCON
@@ -13,7 +14,7 @@ namespace iCON
     public class CharacterState
     {
         private int _characterID;
-        private CharacterData _data;
+        private BattleCharacterData _data;
         private UserDataManager _userDataManager;
 
         /// <summary>

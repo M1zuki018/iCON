@@ -44,7 +44,7 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
         sb.AppendLine("{");
         
         // データ辞書の生成
-        sb.AppendLine("    private static readonly Dictionary<int, CharacterData> _characterData = new Dictionary<int, CharacterData>");
+        sb.AppendLine("    private static readonly Dictionary<int, BattleCharacterData> _characterData = new Dictionary<int, BattleCharacterData>");
         sb.AppendLine("    {");
 
         foreach (var row in data)
@@ -59,7 +59,7 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
             
             // Color解析（#8B0000形式を想定）
             sb.AppendLine($"        {{");
-            sb.AppendLine($"            {id}, new CharacterData({id}, \"{fullName}\", \"{displayName}\", ");
+            sb.AppendLine($"            {id}, new BattleCharacterData({id}, \"{fullName}\", \"{displayName}\", ");
             
             if (ColorUtility.TryParseHtmlString(colorString, out Color color))
             {
@@ -137,7 +137,7 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
         sb.AppendLine("    /// <summary>");
         sb.AppendLine("    /// IDからキャラクターデータを取得");
         sb.AppendLine("    /// </summary>");
-        sb.AppendLine("    public static CharacterData GetCharacter(int id)");
+        sb.AppendLine("    public static BattleCharacterData GetCharacter(int id)");
         sb.AppendLine("    {");
         sb.AppendLine("        return _characterData.GetValueOrDefault(id, null);");
         sb.AppendLine("    }");
@@ -146,7 +146,7 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
         sb.AppendLine("    /// <summary>");
         sb.AppendLine("    /// フルネームからキャラクターデータを取得");
         sb.AppendLine("    /// </summary>");
-        sb.AppendLine("    public static CharacterData GetCharacterByName(string fullName)");
+        sb.AppendLine("    public static BattleCharacterData GetCharacterByName(string fullName)");
         sb.AppendLine("    {");
         sb.AppendLine("        foreach (var kvp in _characterData)");
         sb.AppendLine("        {");
@@ -193,7 +193,7 @@ public class StoryCharacterMasterGeneratorWindow : BaseMasterGeneratorWindow
         sb.AppendLine("    /// <summary>");
         sb.AppendLine("    /// 全キャラクターデータを取得");
         sb.AppendLine("    /// </summary>");
-        sb.AppendLine("    public static IEnumerable<CharacterData> GetAllCharacters()");
+        sb.AppendLine("    public static IEnumerable<BattleCharacterData> GetAllCharacters()");
         sb.AppendLine("    {");
         sb.AppendLine("        return _characterData.Values;");
         sb.AppendLine("    }");
