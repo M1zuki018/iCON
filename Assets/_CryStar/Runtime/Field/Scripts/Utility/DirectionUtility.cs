@@ -1,12 +1,12 @@
 using CryStar.Field.Enums;
 using UnityEngine;
 
-namespace iCON.Utility
+namespace CryStar.Field.Utility
 {
     /// <summary>
-    /// 方向に関するUtilityクラス
+    /// プレイヤーの移動方向決定に関するUtilityクラス
     /// </summary>
-    public class DirectionUtility : MonoBehaviour
+    public class DirectionUtility
     {
         /// <summary>
         /// 移動方向からVector2を取得する
@@ -30,5 +30,4 @@ namespace iCON.Utility
             };
         }
     }
-
 }
