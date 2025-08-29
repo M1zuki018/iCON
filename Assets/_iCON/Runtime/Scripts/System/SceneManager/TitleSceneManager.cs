@@ -1,5 +1,6 @@
 using CryStar.Attribute;
 using CryStar.Core;
+using CryStar.Core.UserData;
 using CryStar.Data;
 using CryStar.Utility;
 using CryStar.Utility.Enum;

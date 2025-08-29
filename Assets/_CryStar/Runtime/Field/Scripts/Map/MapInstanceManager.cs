@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Core.UserData;
 using CryStar.Data;
 using CryStar.Data.User;
 using Cysharp.Threading.Tasks;

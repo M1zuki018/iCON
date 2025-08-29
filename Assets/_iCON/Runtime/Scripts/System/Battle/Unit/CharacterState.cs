@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using CryStar.Core;
+using CryStar.Core.UserData;
 using CryStar.Data;
 using CryStar.Data.User;
 using CryStar.Story.Enums;

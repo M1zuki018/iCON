@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Core.SaveData;
+using CryStar.Data;
 using CryStar.Data.User;
 using CryStar.Utility;
 using UnityEditor;
 using UnityEngine;
 
-namespace CryStar.Data
+namespace CryStar.Core.UserData
 {
     /// <summary>
     /// ユーザーデータ管理クラス
