@@ -99,7 +99,7 @@ namespace iCON.System
         public override async UniTask OnAwake()
         {
             await base.OnAwake();
-
+            
             // GlobalServiceに既に自身が登録されているかチェックする
             if (ServiceLocator.IsRegisteredGlobal<AudioManager>())
             {
@@ -112,6 +112,8 @@ namespace iCON.System
                 // 初期化済みなので早期return
                 return;
             }
+            
+            Debug.LogError("A");
             
             // 未登録の場合、GlobalServiceとDDOLに登録
             ServiceLocator.Register(this, ServiceType.Global);
@@ -142,7 +144,10 @@ namespace iCON.System
                 _seSourcePool.Get();
                 _voiceSourcePool.Get();
             }
+        }
 
+        private void Start()
+        {
             // GameSettingsを元にAudioMixerの音量を設定
             SetVolume("Master", _gameSettings.MasterVolume);
             SetVolume("BGM", _gameSettings.BGMVolume);
@@ -374,11 +379,8 @@ namespace iCON.System
         private void SetVolume(string type, float volume)
         {
             float volumeInDb = volume > 0 ? Mathf.Log10(volume) * 20 : -80;
-            _mixer.SetFloat($"{type}Volume", volumeInDb);
-
-            // TODO: Debug用
-            _mixer.GetFloat($"{type}Volume", out volume);
-            Debug.Log($"{type}Volume: {volume}");
+            var paramName = $"{type}Volume";
+            _mixer.SetFloat(paramName, volumeInDb);
         }
 
         /// <summary>
