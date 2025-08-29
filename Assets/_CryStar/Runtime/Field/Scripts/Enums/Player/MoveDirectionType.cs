@@ -1,4 +1,4 @@
-namespace iCON.Enums
+namespace CryStar.Field.Enums
 {
     /// <summary>
     /// 移動方向の列挙型

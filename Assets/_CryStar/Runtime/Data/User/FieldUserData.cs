@@ -1,4 +1,5 @@
 using System;
+using CryStar.Field.Enums;
 using CryStar.Field.Event;
 using CryStar.Utility;
 using CryStar.Utility.Enum;

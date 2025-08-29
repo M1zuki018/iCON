@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using CryStar.Field.Enums;
 using iCON.Enums;
 using UnityEngine;
 
-namespace CryStar.Field.Player
+namespace CryStar.Field.Data
 {
     /// <summary>
     /// プレイヤーの歩行アニメーションのSpriteを設定するスクリプタブルオブジェクト
@@ -32,5 +33,4 @@ namespace CryStar.Field.Player
             return sprites;
         }
     }
-
 }

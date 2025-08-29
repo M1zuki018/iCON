@@ -1,4 +1,4 @@
-using iCON.Enums;
+using CryStar.Field.Enums;
 using UnityEngine;
 
 namespace iCON.Utility
