@@ -117,6 +117,7 @@ namespace CryStar.Field.Player
             // セーブデータから初期位置を復元
             _userDataManager = ServiceLocator.GetGlobal<UserDataManager>();
             transform.position = _userDataManager.CurrentUserData.FieldSaveData.LastPosition;
+            _userDataManager.OnExecuteSaveEvent += OnExecuteSaveEvent;
             
             // 入力を受け取るクラスを生成
             _input = new PlayerMoveInput(_moveInput, _dashInput, UpdateDirection, HandleDash, HandleDashCancel);
@@ -136,13 +137,7 @@ namespace CryStar.Field.Player
             Vector2 velocity = _currentMoveInput * _currentMoveSpeed;
             _rigidbody2D.linearVelocity = velocity;
         }
-
-        private void OnEnable()
-        {
-            // 最終位置を保存
-            _userDataManager.CurrentUserData.FieldSaveData.SetLastTranslation(transform.position, Vector2.zero);
-        }
-
+        
         /// <summary>
         /// Destroy
         /// </summary>
@@ -151,6 +146,11 @@ namespace CryStar.Field.Player
             // 入力購読を破棄
             _input.Dispose();
             _disposable?.Dispose();
+
+            if (_userDataManager != null)
+            {
+                _userDataManager.OnExecuteSaveEvent -= OnExecuteSaveEvent;
+            }
         }
 
         #endregion
@@ -255,6 +255,15 @@ namespace CryStar.Field.Player
         {
             // 速度をデフォルトに戻す
             _currentMoveSpeed = _moveSpeed;
+        }
+        
+        /// <summary>
+        /// セーブ時に呼び出す処理
+        /// </summary>
+        private void OnExecuteSaveEvent()
+        {
+            // 最終位置を保存
+            _userDataManager.CurrentUserData.FieldSaveData.SetLastTranslation(transform.position, Vector2.zero);
         }
     }
 }
