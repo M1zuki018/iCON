@@ -1,5 +1,3 @@
-using CryStar.Data.User;
-
 namespace CryStar.Data.User
 {
     public class UserDataContainer
@@ -9,9 +7,24 @@ namespace CryStar.Data.User
         private CharacterUserData _characterUserData;
         private GameEventUserData _gameEventUserData;
     
+        /// <summary>
+        /// フィールドのユーザーデータ
+        /// </summary>
         public FieldUserData FieldUserData => _fieldUserData;
+        
+        /// <summary>
+        /// ストーリーのユーザーデータ
+        /// </summary>
         public StoryUserData StoryUserData => _storyUserData;
+        
+        /// <summary>
+        /// キャラクターのパラメーターのユーザーデータ
+        /// </summary>
         public CharacterUserData CharacterUserData => _characterUserData;
+        
+        /// <summary>
+        /// ゲームイベントのユーザーデータ
+        /// </summary>
         public GameEventUserData GameEventUserData => _gameEventUserData;
 
         /// <summary>
