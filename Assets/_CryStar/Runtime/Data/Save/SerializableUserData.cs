@@ -3,36 +3,42 @@ using System.Collections.Generic;
 using CryStar.Field.Data;
 using iCON;
 
-[Serializable]
-public class SerializableUserData
+namespace CryStar.Data
 {
     /// <summary>
-    /// ユーザーID
+    /// Jsonファイルに変換するためのシリアライズ可能なユーザーデータクラス
     /// </summary>
-    public int UserId;
+    [Serializable]
+    public class SerializableUserData
+    {
+        /// <summary>
+        /// ユーザーID
+        /// </summary>
+        public int UserId;
     
-    /// <summary>
-    /// 最終セーブ時間
-    /// </summary>
-    public long LastSaveTime;
+        /// <summary>
+        /// 最終セーブ時間
+        /// </summary>
+        public long LastSaveTime;
     
-    /// <summary>
-    /// フィールドデータ
-    /// </summary>
-    public FieldSaveData FieldData;
+        /// <summary>
+        /// フィールドデータ
+        /// </summary>
+        public FieldSaveData FieldData;
     
-    /// <summary>
-    /// ストーリーデータ
-    /// </summary>
-    public StoryUserData StoryData;
+        /// <summary>
+        /// ストーリーデータ
+        /// </summary>
+        public StoryUserData StoryData;
     
-    /// <summary>
-    /// バトル・フィールド用のキャラクターデータ
-    /// </summary>
-    public List<CharacterData> CharacterData = new List<CharacterData>();
+        /// <summary>
+        /// バトル・フィールド用のキャラクターデータ
+        /// </summary>
+        public List<CharacterData> CharacterData = new List<CharacterData>();
 
-    /// <summary>
-    /// ゲームイベントデータ
-    /// </summary>
-    public GameEventUserData GameEventData;
+        /// <summary>
+        /// ゲームイベントデータ
+        /// </summary>
+        public GameEventUserData GameEventData;
+    }
 }
