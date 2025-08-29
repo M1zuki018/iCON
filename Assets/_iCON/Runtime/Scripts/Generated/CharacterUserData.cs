@@ -63,4 +63,18 @@ public class CharacterUserData : BaseUserData
     {
         return new List<CharacterData>(_characters.Values);
     }
+
+    /// <summary>
+    /// セーブデータ復元
+    /// </summary>
+    public void SetCharacterUserData(List<CharacterData> characters)
+    {
+        foreach (var data in characters)
+        {
+            if (_characters.ContainsKey(data.CharacterID))
+            {
+                _characters[data.CharacterID] = data;
+            }
+        }
+    }
 }
