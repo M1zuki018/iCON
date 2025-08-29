@@ -1,7 +1,5 @@
-using System;
 using CryStar.Core;
 using CryStar.Core.UserData;
-using CryStar.Data;
 using CryStar.Data.User;
 using CryStar.Field.Enums;
 using UnityEngine;

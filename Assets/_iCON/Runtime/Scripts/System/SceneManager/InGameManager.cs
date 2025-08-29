@@ -1,10 +1,8 @@
-using System;
 using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Core.ReactiveExtensions;
 using CryStar.Core.UserData;
-using CryStar.Data;
 using CryStar.Data.User;
 using CryStar.Field.Map;
 using CryStar.Field.UI;

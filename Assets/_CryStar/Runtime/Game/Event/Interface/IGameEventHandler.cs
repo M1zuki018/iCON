@@ -1,6 +1,5 @@
 using CryStar.Game.Enums;
 using Cysharp.Threading.Tasks;
-using iCON.System;
 
 namespace CryStar.Game.Events
 {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Core.UserData;
-using CryStar.Data;
 using CryStar.Data.User;
 using CryStar.Game.Data;
 using CryStar.Game.Enums;
@@ -12,7 +11,6 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using iCON.System;
-using UnityEngine;
 
 namespace CryStar.Game.Events
 {

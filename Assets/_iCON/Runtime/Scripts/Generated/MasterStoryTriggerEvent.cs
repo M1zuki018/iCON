@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using CryStar.Game.Events;
-using UnityEngine;
 
 public static class MasterStoryTriggerEvent
 {

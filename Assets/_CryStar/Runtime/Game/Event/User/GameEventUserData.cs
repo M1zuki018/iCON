@@ -1,8 +1,4 @@
 using System;
-using System.Collections.Generic;
-using CryStar.Data;
-using CryStar.Data.User;
-using UnityEngine;
 
 namespace CryStar.Data.User
 {

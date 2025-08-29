@@ -4,22 +4,27 @@ using System.Threading;
 using CryStar.Attribute;
 using CryStar.Core;
 using CryStar.Core.Enums;
+using CryStar.Extensions;
 using CryStar.Story.Constants;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using iCON.Extensions;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.Audio;
 using UnityEngine.Pool;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
-namespace iCON.System
+namespace CryStar.Audio
 {
     /// <summary>
-    /// Audioを管理するManagerクラス
+    /// AudioManager
+    /// インスタンスの管理はオブジェクトプール
+    /// Clipの取得はAddressable
+    /// Clipのロードなどの非同期処理はUniTask
+    /// クロスフェードはDOTween
+    /// で行っています
     /// </summary>
     public class AudioManager : CustomBehaviour
     {
