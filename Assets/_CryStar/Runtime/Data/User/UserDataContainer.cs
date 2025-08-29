@@ -1,5 +1,8 @@
 namespace CryStar.Data.User
 {
+    /// <summary>
+    /// 実行中利用するユーザーデータをまとめたコンテナ
+    /// </summary>
     public class UserDataContainer
     {
         private FieldUserData _fieldUserData;
