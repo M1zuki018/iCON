@@ -113,8 +113,6 @@ namespace iCON.System
                 return;
             }
             
-            Debug.LogError("A");
-            
             // 未登録の場合、GlobalServiceとDDOLに登録
             ServiceLocator.Register(this, ServiceType.Global);
             DontDestroyOnLoad(this);
@@ -149,6 +147,7 @@ namespace iCON.System
         private void Start()
         {
             // GameSettingsを元にAudioMixerの音量を設定
+            // NOTE: Awakeの中だと実行されなかったので、Startに書いている
             SetVolume("Master", _gameSettings.MasterVolume);
             SetVolume("BGM", _gameSettings.BGMVolume);
             SetVolume("SE", _gameSettings.SEVolume);
