@@ -6,6 +6,7 @@ using CryStar.Save;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CryStar.Field.Data
 {
@@ -14,7 +15,7 @@ namespace CryStar.Field.Data
      {
           #region Private Field
 
-          [SerializeField] private int _currentMapId = 1; // 初期マップ
+          [SerializeField] private int _lastMapId = 1; // 初期マップ
           [SerializeField] private Vector2 _lastPosition = Vector2.zero;
           [SerializeField] private Vector2 _lastRotation = Vector2.zero;
           [SerializeField] private List<EventClearData> _clearedEvents;
@@ -24,9 +25,9 @@ namespace CryStar.Field.Data
           #endregion
 
           /// <summary>
-          /// 現在のマップID
+          /// 最終位置のマップID
           /// </summary>
-          public int CurrentMapId => _currentMapId;
+          public int LastMapId => _lastMapId;
 
           /// <summary>
           /// 最後位置のPosition
@@ -48,7 +49,7 @@ namespace CryStar.Field.Data
           /// </summary>
           public FieldSaveData(int userId) : base(userId)
           {
-               _currentMapId = 1; // 初期マップ
+               _lastMapId = 1; // 初期マップ
                _lastPosition = Vector3.zero;
                _lastRotation = Vector3.zero;
                _clearedEvents = new List<EventClearData>();
@@ -62,7 +63,8 @@ namespace CryStar.Field.Data
           /// </summary>
           public void TransitionMap(int newMapId)
           {
-               _currentMapId = newMapId;
+               // 1以下にならないようにする
+               _lastMapId = Math.Max(newMapId, 1);
           }
 
           /// <summary>
@@ -73,7 +75,7 @@ namespace CryStar.Field.Data
                _lastPosition = position;
                _lastRotation = rotation;
           }
-
+          
           /// <summary>
           /// イベントをクリアした際に呼び出す
           /// </summary>
