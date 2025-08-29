@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using CryStar.Data;
 using CryStar.Field.Event;
@@ -8,6 +9,7 @@ using UnityEngine;
 
 namespace CryStar.Field.Data
 {
+     [Serializable]
      public class FieldSaveData : BaseUserData
      {
           #region Private Field
