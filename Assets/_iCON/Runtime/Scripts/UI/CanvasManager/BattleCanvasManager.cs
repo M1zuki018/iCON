@@ -45,6 +45,47 @@ namespace iCON.UI
         {
             base.ShowCanvas((int)canvasType);
         }
+
+        /// <summary>
+        /// キャンバスを開き直す
+        /// NOTE: 通常のShowCanvasメソッドだと同じCanvasを開こうとしたときにreturnされてしまうので
+        /// こちらのメソッドを使う
+        /// </summary>
+        public void ShowCanvasReopen(BattleCanvasType canvasType)
+        {
+            var index = (int)canvasType;
+            
+            // インデックスの範囲チェック
+            if (index < 0 || index >= _canvasObjects.Count)
+            {
+                Debug.LogError($"キャンバスインデックスが範囲外です: {index}");
+                return;
+            }
+        
+            if (_currentCanvasIndex >= 0)
+            {
+                // 現在のCanvasの切り替わり処理を実行
+                // NOTE: 初期値を-1にしているためエラーにならないように条件文を書いている
+                _canvasObjects[_currentCanvasIndex]?.Exit();
+            }
+        
+            // 全てのキャンバスを非表示にする
+            foreach (var canvas in _canvasObjects)
+            {
+                canvas?.Exit();
+                canvas?.Hide();
+            }
+        
+            // スタックをクリアして新しいインデックスをプッシュ
+            _canvasStack.Clear();
+            _canvasStack.Push(index);
+        
+            _currentCanvasIndex = index; // 現在のインデックスを更新
+        
+            // 新しいCanvasの切り替わり処理を実行
+            _canvasObjects[index]?.Enter(); 
+            _canvasObjects[index]?.Show();   
+        }
         
         /// <summary>
         /// キャラクターアイコンを生成する
