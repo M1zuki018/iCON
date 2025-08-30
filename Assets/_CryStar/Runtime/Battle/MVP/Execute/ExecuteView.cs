@@ -1,14 +1,22 @@
 using CryStar.Attribute;
 using UnityEngine;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// CanvasController_Execute
+    /// Execute_View
     /// </summary>
-    public partial class CanvasController_Execute : WindowBase
+    public class ExecuteView : MonoBehaviour
     {
         [SerializeField, HighlightIfNull] private CustomText _textBox;
+        
+        /// <summary>
+        /// Setup
+        /// </summary>
+        public void Setup()
+        {
+            // 引数にActionを羅列する
+        }
 
         /// <summary>
         /// テキストを設定
@@ -17,10 +25,12 @@ namespace iCON.UI
         {
             _textBox.SetText(text);
         }
-        
-        public override void Hide()
+
+        /// <summary>
+        /// Exit
+        /// </summary>
+        public void Exit()
         {
-            base.Hide();
             // テキストはリセットして空にしておく
             _textBox.SetText("");
         }
