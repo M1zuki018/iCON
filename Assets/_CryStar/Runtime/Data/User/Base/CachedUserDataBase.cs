@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CryStar.Data.User
 {
@@ -10,19 +11,19 @@ namespace CryStar.Data.User
     [Serializable]
     public abstract class CachedUserDataBase : UserDataBase
     {
-        [SerializeField] protected List<EventClearData> _clearedDataList = new List<EventClearData>();
+        [SerializeField] protected List<IdCountPairData> _dataList = new List<IdCountPairData>();
 
-        protected Dictionary<int, int> _clearedDataCache = new Dictionary<int, int>();
+        protected Dictionary<int, int> _dataCache = new Dictionary<int, int>();
         
         /// <summary>
         /// セーブデータのリストのプロパティ（復元用）
         /// </summary>
-        public List<EventClearData> ClearedDataList => _clearedDataList;
+        public List<IdCountPairData> DataList => _dataList;
         
         /// <summary>
         /// EventClearDataのキャッシュ
         /// </summary>
-        public IReadOnlyDictionary<int, int> ClearedDataCache => _clearedDataCache;
+        public IReadOnlyDictionary<int, int> DataCache => _dataCache;
 
         /// <summary>
         /// コンストラクタ
@@ -32,15 +33,15 @@ namespace CryStar.Data.User
         /// <summary>
         /// データ復元用
         /// </summary>
-        public void SetClearedData(List<EventClearData> clearedData)
+        public void SetRestorationData(List<IdCountPairData> restorationData)
         {
-            if (_clearedDataList == null)
+            if (_dataList == null)
             {
-                _clearedDataList = new List<EventClearData>();
+                _dataList = new List<IdCountPairData>();
             }
             
-            _clearedDataList.Clear();
-            _clearedDataList = clearedData;
+            _dataList.Clear();
+            _dataList = restorationData;
             
             // 実行時用のDictionaryを構築する
             BuildCache();
@@ -49,42 +50,42 @@ namespace CryStar.Data.User
         /// <summary>
         /// クリアデータを更新
         /// </summary>
-        public virtual void AddClearData(int eventId)
+        public virtual void AddData(int id)
         {
-            if (_clearedDataCache.ContainsKey(eventId))
+            if (_dataCache.ContainsKey(id))
             {
-                _clearedDataCache[eventId]++;
+                _dataCache[id]++;
             }
             else
             {
-                _clearedDataCache[eventId] = 1;
+                _dataCache[id] = 1;
             }
             
-            UpdateSaveDataList(eventId);
+            UpdateSaveDataList(id);
         }
         
         /// <summary>
-        /// 前提ストーリーをクリアしているか
+        /// 前提をクリアしているか
         /// </summary>
-        public bool IsPremiseStoryClear(int storyId)
+        public bool IsPremiseStoryClear(int id)
         {
-            return _clearedDataCache.ContainsKey(storyId);
+            return _dataCache.ContainsKey(id);
         }
         
         /// <summary>
         /// セーブデータを更新する
         /// </summary>
-        protected void UpdateSaveDataList(int eventId)
+        protected void UpdateSaveDataList(int id)
         {
             // シリアライズ用リストを更新
-            var existingData = _clearedDataList.Find(x => x.EventId == eventId);
+            var existingData = _dataList.Find(x => x.Id == id);
             if (existingData != null)
             {
-                existingData.ClearCount = _clearedDataCache[eventId];
+                existingData.Count = _dataCache[id];
             }
             else
             {
-                _clearedDataList.Add(new EventClearData(eventId, 1));
+                _dataList.Add(new IdCountPairData(id, 1));
             }
         }
         
@@ -93,12 +94,12 @@ namespace CryStar.Data.User
         /// </summary>
         protected virtual void BuildCache()
         {
-            _clearedDataCache = new Dictionary<int, int>();
-            if (_clearedDataList != null)
+            _dataCache = new Dictionary<int, int>();
+            if (_dataList != null)
             {
-                foreach (var eventData in _clearedDataList)
+                foreach (var eventData in _dataList)
                 {
-                    _clearedDataCache[eventData.EventId] = eventData.ClearCount;
+                    _dataCache[eventData.Id] = eventData.Count;
                 }
             }
         }

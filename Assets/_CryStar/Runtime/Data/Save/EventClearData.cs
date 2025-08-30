@@ -4,38 +4,38 @@ namespace CryStar.Data
 {
     /// <summary>
     /// Json保存用のイベントデータ
-    /// NOTE: 実行時はDictionaryに変換して使う
+    /// NOTE: 実行時はDictionaryに変換して使うとパフォーマンス的にいい
     /// </summary>
     [Serializable]
-    public class EventClearData : IEquatable<EventClearData>
+    public class IdCountPairData : IEquatable<IdCountPairData>
     {
         /// <summary>
-        /// イベントID
+        /// ID
         /// </summary>
-        public int EventId;
+        public int Id;
         
         /// <summary>
-        /// クリア回数
+        /// カウント
         /// </summary>
-        public int ClearCount;
+        public int Count;
         
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public EventClearData(int eventId, int clearCount)
+        public IdCountPairData(int id, int count)
         {
-            EventId = eventId;
-            ClearCount = clearCount;
+            Id = id;
+            Count = count;
         }
 
         /// <summary>
         /// 等しいかどうか判定
         /// </summary>
-        public bool Equals(EventClearData other)
+        public bool Equals(IdCountPairData other)
         {
             if (other is null) return false;
             if (ReferenceEquals(this, other)) return true;
-            return EventId == other.EventId && ClearCount == other.ClearCount;
+            return Id == other.Id && Count == other.Count;
         }
         
         /// <summary>
@@ -43,7 +43,7 @@ namespace CryStar.Data
         /// </summary>
         public override string ToString()
         {
-            return $"EventClearData(EventId: {EventId}, ClearCount: {ClearCount})";
+            return $"IdCountPairData(Id: {Id}, Count: {Count})";
         }
     }
 }

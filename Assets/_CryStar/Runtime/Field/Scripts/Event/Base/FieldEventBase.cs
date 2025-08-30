@@ -124,7 +124,7 @@ namespace CryStar.Field.Event
             }
             
             // クリアしたことを記録する
-            FieldUserData.AddClearData(_eventID);
+            FieldUserData.AddData(_eventID);
         }
 
         protected bool Equals(FieldEventBase other)

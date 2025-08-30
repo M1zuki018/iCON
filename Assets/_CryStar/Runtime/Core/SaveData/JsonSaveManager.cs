@@ -212,6 +212,9 @@ namespace CryStar.Core.SaveData
             // GameEventData変換
             serializableData.GameEventData = userData.GameEventUserData;
             
+            // InventoryData変換
+            serializableData.InventoryData = userData.InventoryUserData;
+            
             return serializableData;
         }
         
@@ -230,13 +233,16 @@ namespace CryStar.Core.SaveData
             );
             
             // StoryDataの復元
-            userData.StoryUserData.SetClearedData(serializableData.StoryData.ClearedDataList);
+            userData.StoryUserData.SetRestorationData(serializableData.StoryData.DataList);
             
             // CharacterDataの復元
             userData.CharacterUserData.SetCharacterUserData(serializableData.CharacterData);
             
             // GameEventDataの復元
-            userData.GameEventUserData.SetClearedData(serializableData.GameEventData.ClearedDataList);
+            userData.GameEventUserData.SetRestorationData(serializableData.GameEventData.DataList);
+            
+            // InventoryDataの復元
+            userData.InventoryUserData.SetRestorationData(serializableData.InventoryData.DataList);
             
             return userData;
         }

@@ -5,10 +5,11 @@ namespace CryStar.Data.User
     /// </summary>
     public class UserDataContainer
     {
-        private FieldUserData _fieldUserData;
-        private StoryUserData _storyUserData;
-        private CharacterUserData _characterUserData;
-        private GameEventUserData _gameEventUserData;
+        private readonly FieldUserData _fieldUserData;
+        private readonly StoryUserData _storyUserData;
+        private readonly CharacterUserData _characterUserData;
+        private readonly GameEventUserData _gameEventUserData;
+        private readonly InventoryUserData _inventoryUserData;
     
         /// <summary>
         /// フィールドのユーザーデータ
@@ -29,6 +30,11 @@ namespace CryStar.Data.User
         /// ゲームイベントのユーザーデータ
         /// </summary>
         public GameEventUserData GameEventUserData => _gameEventUserData;
+        
+        /// <summary>
+        /// アイテムインベントリのユーザーデータ
+        /// </summary>
+        public InventoryUserData InventoryUserData => _inventoryUserData;
 
         /// <summary>
         /// コンストラクタ
@@ -39,6 +45,7 @@ namespace CryStar.Data.User
             _storyUserData = new StoryUserData(userId);
             _characterUserData = new CharacterUserData(userId);
             _gameEventUserData = new GameEventUserData(userId);
+            _inventoryUserData = new InventoryUserData(userId);
         }
 
         /// <summary>
@@ -50,6 +57,7 @@ namespace CryStar.Data.User
             _storyUserData?.UpdateSaveTime();
             _characterUserData?.UpdateSaveTime();
             _gameEventUserData?.UpdateSaveTime();
+            _inventoryUserData?.UpdateSaveTime();
         }
     }
 }

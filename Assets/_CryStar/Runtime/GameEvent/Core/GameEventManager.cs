@@ -115,7 +115,7 @@ namespace CryStar.GameEvent.Initialization
             await Execute(sequenceData.EndEvent);
             
             // セーブデータにクリア情報を記録
-            GameEventUserData.AddClearData(eventID);
+            GameEventUserData.AddData(eventID);
         }
 
         /// <summary>

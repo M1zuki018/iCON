@@ -39,5 +39,10 @@ namespace CryStar.Data
         /// ゲームイベントデータ
         /// </summary>
         public GameEventUserData GameEventData;
+        
+        /// <summary>
+        /// アイテムイベントリのデータ
+        /// </summary>
+        public InventoryUserData InventoryData;
     }
 }

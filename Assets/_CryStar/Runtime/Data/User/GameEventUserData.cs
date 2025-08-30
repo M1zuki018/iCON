@@ -13,7 +13,7 @@ namespace CryStar.Data.User
         public int GetLastClearCount()
         {
             // まだ一つもクリアしていない場合は1を返す
-            if (ClearedDataCache.Count == 0)
+            if (DataCache.Count == 0)
             {
                 return 1;
             }
@@ -21,7 +21,7 @@ namespace CryStar.Data.User
             // 1から順番に未クリアのイベントを探す
             for (int eventId = 1; eventId < MasterGameEvent.GetGameEventCount() + 1; eventId++)
             {
-                if (!ClearedDataCache.ContainsKey(eventId))
+                if (!DataCache.ContainsKey(eventId))
                 {
                     return eventId;
                 }
