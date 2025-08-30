@@ -10,6 +10,7 @@ public abstract class CoordinatorManagerBase : CustomBehaviour
 {
     [SerializeField] protected List<CoordinatorBase> _coordinators = new List<CoordinatorBase>();
     [SerializeField] protected int _defaultIndex = 1;
+    [SerializeField] protected bool _defalutOpen = true;
     
     protected Stack<int> _coordinatorStack = new Stack<int>(); // スタック管理用
     protected int _currentIndex = -1; // 現在アクティブなコーディネーターのインデックス
@@ -21,7 +22,11 @@ public abstract class CoordinatorManagerBase : CustomBehaviour
     
     public override UniTask OnStart()
     {
-        TransitionTo(_defaultIndex);
+        if (_defalutOpen)
+        {
+            TransitionTo(_defaultIndex);
+        }
+        
         return base.OnStart();
     }
 
@@ -150,6 +155,22 @@ public abstract class CoordinatorManagerBase : CustomBehaviour
         
         _currentIndex = targetIndex; // 現在のインデックスを更新
         _coordinators[targetIndex].Enter(); // 新しいコーディネーターの切り替わり処理を実行
+    }
+
+    /// <summary>
+    /// 全てのコーディネーターを非アクティブ化する
+    /// </summary>
+    public virtual void AllHide()
+    {
+        foreach (var coordinator in _coordinators)
+        {
+            coordinator?.Exit();
+        }
+        
+        // スタックをクリア
+        _coordinatorStack.Clear();
+
+        _currentIndex = -1;
     }
     
     /// <summary>

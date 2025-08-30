@@ -8,7 +8,7 @@ namespace CryStar.CommandBattle.Execution
     public class BattleCoordinator : CoordinatorManagerBase
     {
         /// <summary>
-        /// キャンバスを切り替える
+        /// コーディネーターを切り替える
         /// </summary>
         public void TransitionToPhase(BattlePhaseType phaseType)
         {

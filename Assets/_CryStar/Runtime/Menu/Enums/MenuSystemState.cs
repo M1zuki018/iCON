@@ -3,10 +3,8 @@ namespace CryStar.Menu.Enums
     /// <summary>
     /// メニューのステートの列挙型
     /// </summary>
-    public enum MenuSystemState
+    public enum MenuStateType
     {
-        None,
-        
         /// <summary>メインメニュー</summary>
         MainMenu,
         
