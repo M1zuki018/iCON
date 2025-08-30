@@ -73,6 +73,8 @@ namespace CryStar.CommandBattle
             // 次のコマンド選択があるかチェックし、適切な状態に遷移
             _battleManager.SetState(_battleManager.CheckNextCommandSelect()
                 ? BattleSystemState.CommandSelect : BattleSystemState.Execute);
+            _battleManager.View.ShowCanvas(_battleManager.CheckNextCommandSelect()
+            ? BattleCanvasType.CommandSelect : BattleCanvasType.Execute);
         }
         
         /// <summary>
