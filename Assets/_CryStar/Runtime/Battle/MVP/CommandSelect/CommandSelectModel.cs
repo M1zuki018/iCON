@@ -40,6 +40,7 @@ namespace CryStar.CommandBattle
         {
             _battleManager.PlaySelectedSe(false).Forget();
             _battleManager.SetState(BattleSystemState.Idea);
+            _battleManager.View.ShowCanvas(BattleCanvasType.Idea);
         }
 
         /// <summary>
