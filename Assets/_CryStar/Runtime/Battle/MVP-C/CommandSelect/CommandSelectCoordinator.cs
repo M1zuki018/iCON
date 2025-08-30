@@ -4,20 +4,20 @@ using UnityEngine;
 namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// Lose_Coordinator
+    /// CommandSelect_Coordinator
     /// </summary>
-    public class LoseCoordinator : WindowBase
+    public class CommandSelectCoordinator : CoordinatorBase
     {
         /// <summary>
         /// View
         /// </summary>
         [SerializeField, HighlightIfNull] 
-        private LoseView _view;
+        private CommandSelectView _view;
         
         /// <summary>
         /// Presenter
         /// </summary>
-        private LosePresenter _presenter = new LosePresenter();
+        private CommandSelectPresenter _presenter = new CommandSelectPresenter();
         
         public override void Enter()
         {

@@ -7,7 +7,7 @@ namespace iCON.UI
     /// <summary>
     /// CanvasController_Battle
     /// </summary>
-    public partial class CanvasController_Battle : WindowBase
+    public partial class CanvasController_Battle : CoordinatorBase
     {
         [SerializeField, HighlightIfNull] private CustomButton _button;
                 

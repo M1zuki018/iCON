@@ -4,25 +4,30 @@ using UnityEngine;
 namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// FirstSelect_Coordinator
+    /// Idea_Coordinator
     /// </summary>
-    public class FirstSelectCoordinator : WindowBase
+    public class IdeaCoordinator : CoordinatorBase
     {
         /// <summary>
         /// View
         /// </summary>
         [SerializeField, HighlightIfNull] 
-        private FirstSelectView _view;
+        private IdeaView _view;
         
         /// <summary>
         /// Presenter
         /// </summary>
-        private FirstSelectPresenter _presenter = new FirstSelectPresenter();
-
+        private IdeaPresenter _presenter = new IdeaPresenter();
+        
         public override void Enter()
         {
             base.Enter();
             _presenter?.Setup(_view);
+        }
+
+        public override void Cancel()
+        {
+            _presenter?.Cancel();
         }
 
         public override void Exit()

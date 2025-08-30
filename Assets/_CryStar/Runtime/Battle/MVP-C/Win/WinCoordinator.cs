@@ -4,20 +4,20 @@ using UnityEngine;
 namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// TryEscape_Coordinator
+    /// Win_Coordinator
     /// </summary>
-    public class TryEscapeCoordinator : WindowBase
+    public class WinCoordinator : CoordinatorBase
     {
         /// <summary>
         /// View
         /// </summary>
         [SerializeField, HighlightIfNull] 
-        private TryEscapeView _view;
+        private WinView _view;
         
         /// <summary>
         /// Presenter
         /// </summary>
-        private TryEscapePresenter _presenter = new TryEscapePresenter();
+        private WinPresenter _presenter = new WinPresenter();
         
         public override void Enter()
         {

@@ -4,30 +4,25 @@ using UnityEngine;
 namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// Idea_Coordinator
+    /// Execute_Coordinator
     /// </summary>
-    public class IdeaCoordinator : WindowBase
+    public class ExecuteCoordinator : CoordinatorBase
     {
         /// <summary>
         /// View
         /// </summary>
         [SerializeField, HighlightIfNull] 
-        private IdeaView _view;
+        private ExecuteView _view;
         
         /// <summary>
         /// Presenter
         /// </summary>
-        private IdeaPresenter _presenter = new IdeaPresenter();
+        private ExecutePresenter _presenter = new ExecutePresenter();
         
         public override void Enter()
         {
             base.Enter();
             _presenter?.Setup(_view);
-        }
-
-        public override void Cancel()
-        {
-            _presenter?.Cancel();
         }
 
         public override void Exit()
