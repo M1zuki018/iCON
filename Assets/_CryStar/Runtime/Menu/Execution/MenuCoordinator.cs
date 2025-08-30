@@ -10,7 +10,7 @@ namespace CryStar.Menu.Execution
         /// <summary>
         /// コーディネーターを切り替える
         /// </summary>
-        public void TransitionToMenu(MenuSystemState menuType)
+        public void TransitionToMenu(MenuStateType menuType)
         {
             base.TransitionTo((int)menuType);
         }

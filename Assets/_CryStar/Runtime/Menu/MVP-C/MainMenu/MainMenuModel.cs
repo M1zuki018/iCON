@@ -2,6 +2,7 @@ using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Data.Scene;
 using CryStar.Menu.Enums;
+using CryStar.Menu.Execution;
 using Cysharp.Threading.Tasks;
 using iCON.Enums;
 
@@ -33,7 +34,6 @@ namespace CryStar.Menu
             TryGetMenuManager();
             
             // メニュー画面を閉じる
-            _manager.View.CurrentCanvas.Hide();
             _manager.View.ShowCanvas(InGameCanvasType.InGame);
         }
         
@@ -43,7 +43,7 @@ namespace CryStar.Menu
         public void HandleStatusButton()
         {
             TryGetMenuManager();
-            _manager.View.ShowCanvas(InGameCanvasType.CharacterStates);
+            _manager.MenuCoordinator.TransitionToMenu(MenuStateType.CharacterStates);
         }
 
         /// <summary>
@@ -52,7 +52,7 @@ namespace CryStar.Menu
         public void HandleItemButton()
         {
             TryGetMenuManager();
-            _manager.View.ShowCanvas(InGameCanvasType.Item);
+            _manager.MenuCoordinator.TransitionToMenu(MenuStateType.Item);
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
 using CryStar.Core;
+using CryStar.Menu.Enums;
+using CryStar.Menu.Execution;
 using iCON.Enums;
 
 namespace CryStar.Menu
@@ -12,13 +14,13 @@ namespace CryStar.Menu
         /// MenuManager
         /// </summary>
         private MenuManager _manager;
-        
+
         /// <summary>
         /// Setup
         /// </summary>
         public void Setup()
         {
-            // TODO{ClassName}
+            // TODO
         }
 
         /// <summary>
@@ -28,7 +30,7 @@ namespace CryStar.Menu
         {
             TryGetMenuManager();
             // メインメニューへ遷移
-            _manager.View.ShowCanvas(InGameCanvasType.MainMenu);
+            _manager.MenuCoordinator.TransitionToMenu(MenuStateType.MainMenu);
         }
         
         /// <summary>
