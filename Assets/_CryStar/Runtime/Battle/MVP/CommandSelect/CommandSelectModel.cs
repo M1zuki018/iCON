@@ -1,0 +1,94 @@
+using CryStar.Core;
+using Cysharp.Threading.Tasks;
+using iCON.Battle;
+using iCON.Enums;
+
+namespace CryStar.CommandBattle
+{
+    /// <summary>
+    /// CommandSelect_Model
+    /// </summary>
+    public class CommandSelectModel
+    {
+        /// <summary>
+        /// BattleManager
+        /// </summary>
+        private BattleManager _battleManager;
+
+        /// <summary>
+        /// Setup
+        /// </summary>
+        public void Setup()
+        {
+            _battleManager = ServiceLocator.GetLocal<BattleManager>();
+        }
+
+        /// <summary>
+        /// 攻撃コマンドを選択したときの処理
+        /// </summary>
+        public void Attack()
+        {
+            // コマンドを記録
+            _battleManager.AddCommandList(CommandType.Attack);
+            Next();
+        }
+
+        /// <summary>
+        /// Idea
+        /// </summary>
+        public void Idea()
+        {
+            _battleManager.PlaySelectedSe(false).Forget();
+            _battleManager.SetState(BattleSystemState.Idea);
+        }
+
+        /// <summary>
+        /// Item
+        /// </summary>
+        public void Item()
+        {
+            // TODO: 実装
+        }
+
+        /// <summary>
+        /// ガード
+        /// </summary>
+        public void Guard()
+        {
+            _battleManager.AddCommandList(CommandType.Guard);
+            Next();
+        }
+        
+        /// <summary>
+        /// 次の行動に進める
+        /// </summary>
+        private void Next()
+        {
+            _battleManager.PlaySelectedSe(true).Forget();
+            
+            // 次のコマンド選択に移れるか確認
+            if (_battleManager.CheckNextCommandSelect())
+            {
+                _battleManager.SetState(BattleSystemState.CommandSelect);
+                _battleManager.View.ShowCanvasReopen(BattleCanvasType.CommandSelect);
+            }
+            else
+            {
+                // バトル実行に移る
+                _battleManager.SetState(BattleSystemState.Execute);
+                _battleManager.View.ShowCanvas(BattleCanvasType.Execute);
+            }
+        }
+
+        /// <summary>
+        /// バトルマネージャーが取得できているか確認し、取得できていなかったらServiceLocatorから取得する
+        /// </summary>
+        private void TryGetBattleManager()
+        {
+            if (_battleManager == null)
+            {
+                _battleManager = ServiceLocator.GetLocal<BattleManager>();
+            }
+        }
+    }
+}
