@@ -30,9 +30,11 @@ namespace CryStar.CommandBattle
         {
             // バトルマネージャーの参照がとれているか確認
             TryGetBattleManager();
+            
             _battleManager.PlayCancelSound().Forget();
             // コマンド選択に戻る
             _battleManager.SetState(BattleSystemState.CommandSelect);
+            _battleManager.View.ShowCanvas(BattleCanvasType.CommandSelect);
         }
 
         /// <summary>
@@ -53,10 +55,10 @@ namespace CryStar.CommandBattle
             // バトルマネージャーの参照がとれているか確認
             TryGetBattleManager();
             
-            // 現在選択中のユニットのアイデアのIDリストから、選択されたアイデアの情報を取得する
-            var selectedIdea = _battleManager.CurrentSelectingUnit.UserData.IdeaIdList[selectedIdeaId];
-            
             // TODO: 未実装
+            // 現在選択中のユニットのアイデアのIDリストから、選択されたアイデアの情報を取得する
+            //var selectedIdea = _battleManager.CurrentSelectingUnit.UserData.IdeaIdList[selectedIdeaId];
+            
             // 選択されたアイデアをコマンドリストに追加
             _battleManager.AddCommandList(CommandType.Idea);
             Next();
