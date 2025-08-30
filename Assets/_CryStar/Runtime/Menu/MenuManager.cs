@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using CryStar.Attribute;
+using CryStar.Core;
+using CryStar.Core.Enums;
 using CryStar.Menu.Enums;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
@@ -36,11 +38,15 @@ namespace CryStar.Menu
         /// Enumとステートマシン用クラスのkvpの辞書
         /// </summary>
         private Dictionary<MenuSystemState, MenuStateBase> _states;
+        
+        public InGameCanvasManager View => _view;
 
         #region Life cycle
 
         private void Start()
         {
+            ServiceLocator.Register(this, ServiceType.Local);
+            
             // ステートマシンの初期化
             InitializeStates();
             SetState(_currentState);
