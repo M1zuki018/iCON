@@ -13,7 +13,6 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CryStar.CommandBattle.Execution
 {
@@ -26,7 +25,7 @@ namespace CryStar.CommandBattle.Execution
         /// Coordinator Manager
         /// </summary>
         [SerializeField, HighlightIfNull]
-        private BattleCanvasManager _coordinatorManager;
+        private BattleCoordinator _coordinatorManager;
 
         /// <summary>
         /// View
@@ -87,7 +86,7 @@ namespace CryStar.CommandBattle.Execution
         /// <summary>
         /// CanvasManager
         /// </summary>
-        public BattleCanvasManager CoordinatorManager => _coordinatorManager;
+        public BattleCoordinator CoordinatorManager => _coordinatorManager;
         
         /// <summary>
         /// バトルで使用する変数をまとめたクラス

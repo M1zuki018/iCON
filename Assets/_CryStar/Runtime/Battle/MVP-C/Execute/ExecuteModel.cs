@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using CryStar.CommandBattle.Data;
+using CryStar.CommandBattle.Enums;
 using CryStar.CommandBattle.Execution;
 using CryStar.Core;
 using Cysharp.Threading.Tasks;
-using iCON.Enums;
 
 namespace CryStar.CommandBattle
 {
@@ -54,12 +54,12 @@ namespace CryStar.CommandBattle
             if (result.isFinish)
             {
                 // バトルが終了している場合は勝敗に合わせてステートを変更
-                _battleManager.CoordinatorManager.ShowCanvas(result.isWin ? BattleCanvasType.Win : BattleCanvasType.Lose);
+                _battleManager.CoordinatorManager.ShowCanvas(result.isWin ? BattlePhaseType.Win : BattlePhaseType.Lose);
             }
             else
             {
                 // バトルが終了していなければ最初の選択に戻る
-                _battleManager.CoordinatorManager.ShowCanvas(BattleCanvasType.FirstSelect);
+                _battleManager.CoordinatorManager.ShowCanvas(BattlePhaseType.FirstSelect);
             }
         }
 

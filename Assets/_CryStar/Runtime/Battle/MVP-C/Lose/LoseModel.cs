@@ -1,6 +1,6 @@
+using CryStar.CommandBattle.Enums;
 using CryStar.CommandBattle.Execution;
 using CryStar.Core;
-using iCON.Enums;
 
 namespace CryStar.CommandBattle
 {
@@ -29,7 +29,7 @@ namespace CryStar.CommandBattle
         {
             // BGM再生を止める
             _battleManager.FinishBGM();
-            _battleManager.CoordinatorManager.ShowCanvas(BattleCanvasType.Lose);
+            _battleManager.CoordinatorManager.ShowCanvas(BattlePhaseType.Lose);
         }
 
         /// <summary>

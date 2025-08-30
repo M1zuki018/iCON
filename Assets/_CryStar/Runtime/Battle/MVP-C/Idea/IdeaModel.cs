@@ -2,7 +2,6 @@ using CryStar.CommandBattle.Enums;
 using CryStar.CommandBattle.Execution;
 using CryStar.Core;
 using Cysharp.Threading.Tasks;
-using iCON.Enums;
 
 namespace CryStar.CommandBattle
 {
@@ -34,7 +33,7 @@ namespace CryStar.CommandBattle
             
             _battleManager.PlayCancelSound().Forget();
             // コマンド選択に戻る
-            _battleManager.CoordinatorManager.ShowCanvas(BattleCanvasType.CommandSelect);
+            _battleManager.CoordinatorManager.ShowCanvas(BattlePhaseType.CommandSelect);
         }
 
         /// <summary>
@@ -72,7 +71,7 @@ namespace CryStar.CommandBattle
             _battleManager.PlaySelectedSe(true).Forget();
             // 次のコマンド選択があるかチェックし、適切な状態に遷移
             _battleManager.CoordinatorManager.ShowCanvas(_battleManager.CheckNextCommandSelect()
-            ? BattleCanvasType.CommandSelect : BattleCanvasType.Execute);
+            ? BattlePhaseType.CommandSelect : BattlePhaseType.Execute);
         }
         
         /// <summary>

@@ -1,9 +1,9 @@
 using System;
 using System.Threading;
+using CryStar.CommandBattle.Enums;
 using CryStar.CommandBattle.Execution;
 using CryStar.Core;
 using Cysharp.Threading.Tasks;
-using iCON.Enums;
 
 namespace CryStar.CommandBattle
 {
@@ -95,7 +95,7 @@ namespace CryStar.CommandBattle
             finally
             {
                 // 選択に戻る
-                manager.CoordinatorManager.ShowCanvas(BattleCanvasType.FirstSelect);
+                manager.CoordinatorManager.ShowCanvas(BattlePhaseType.FirstSelect);
             }
         }
         
