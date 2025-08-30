@@ -31,6 +31,7 @@ namespace CryStar.CommandBattle
             TryGetBattleManager();   
             _battleManager.PlaySelectedSe(true).Forget();
             _battleManager.SetState(BattleSystemState.CommandSelect);
+            _battleManager.View.ShowCanvas(BattleCanvasType.CommandSelector);
         }
 
         /// <summary>
@@ -41,6 +42,7 @@ namespace CryStar.CommandBattle
             TryGetBattleManager();
             _battleManager.PlaySelectedSe(false).Forget();
             _battleManager.SetState(BattleSystemState.TryEscape);
+            _battleManager.View.ShowCanvas(BattleCanvasType.TryEscape);
         }
 
         /// <summary>
