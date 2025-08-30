@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using iCON.Enums;
+using CryStar.CommandBattle.Enums;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Command
 {
     /// <summary>
     /// バトルコマンドオブジェクトを生成・管理するファクトリークラス

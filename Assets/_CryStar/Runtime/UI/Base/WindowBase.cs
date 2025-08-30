@@ -20,6 +20,29 @@ public class WindowBase : CustomBehaviour
     {
         _canvasGroup = GetComponent<CanvasGroup>();
     }
+
+    /// <summary>
+    /// Canvasが切り替わったときの処理
+    /// </summary>
+    public virtual void Exit()
+    {
+        Show();
+    }
+
+    /// <summary>
+    /// Canvasが切り替わり非表示になるときの処理
+    /// </summary>
+    public virtual void Enter()
+    {
+        Hide();
+    }
+
+    /// <summary>
+    /// Canvasを閉じるなどのキャンセル処理
+    /// NOTE: Updateで監視されて呼び出されている
+    /// キャンセル処理がある継承先のクラスで実装を書く
+    /// </summary>
+    public virtual void Cancel(){ }
     
     /// <summary>
     /// 表示

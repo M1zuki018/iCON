@@ -1,7 +1,8 @@
+using CryStar.CommandBattle.Data;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Command
 {
     /// <summary>
     /// 攻撃コマンド
@@ -12,18 +13,18 @@ namespace iCON.Battle
         public int Priority => 50;
         public string DisplayName => "攻撃";
         
-        public bool CanExecute(BattleUnit executor)
+        public bool CanExecute(BattleUnitData executor)
         {
             // 使用者が生きていれば実行可能
             return executor.IsAlive;
         }
         
-        public async UniTask<BattleCommandResult> ExecuteAsync(BattleUnit executor, BattleUnit[] targets)
+        public async UniTask<BattleCommandResultData> ExecuteAsync(BattleUnitData executor, BattleUnitData[] targets)
         {
             if (targets.Length == 0)
             {
                 // 敵がいない場合はコマンド失敗としてリザルトを作成
-                return new BattleCommandResult(false, "対象が存在しません");
+                return new BattleCommandResultData(false, "対象が存在しません");
             }
             
             // 単体攻撃
@@ -48,9 +49,9 @@ namespace iCON.Battle
             target.TakeDamage(damage);
             
             // エフェクトデータ作成
-            var effects = new BattleEffectData[]
+            var effects = new BattleCommandEffectData[]
             {
-                new BattleEffectData
+                new BattleCommandEffectData
                 {
                     Target = target,
                     Damage = damage,
@@ -64,13 +65,13 @@ namespace iCON.Battle
                 $"会心の一撃！{target.Name}に{damage}のダメージ！" :
                 $"{target.Name}に{damage}のダメージ！";
             
-            return new BattleCommandResult(true, message, effects);
+            return new BattleCommandResultData(true, message, effects);
         }
         
         /// <summary>
         /// ダメージ計算を行う
         /// </summary>
-        private int CalculateDamage(BattleUnit attacker, BattleUnit defender)
+        private int CalculateDamage(BattleUnitData attacker, BattleUnitData defender)
         {
             // 基本ダメージ計算式
             // 攻撃力: アタッカー物理攻撃
@@ -98,7 +99,7 @@ namespace iCON.Battle
         /// <summary>
         /// 攻撃演出を実行する
         /// </summary>
-        private async UniTask PlayAttackEffectAsync(BattleUnit target, bool isCritical)
+        private async UniTask PlayAttackEffectAsync(BattleUnitData target, bool isCritical)
         {
             // 現在は最小限の待機のみ
             // TODO: 将来的にエフェクト演出、アニメーション、サウンドなどを追加

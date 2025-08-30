@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
-using iCON.Battle.Data;
 
 namespace CryStar.Data.User
 {
@@ -15,7 +14,7 @@ namespace CryStar.Data.User
         /// <summary>
         /// キャラクターIDとユーザーデータのkvp
         /// </summary>
-        private Dictionary<int, BattleCharacterData> _characters = new Dictionary<int, BattleCharacterData>();
+        private Dictionary<int, InGameCharacterData> _characters = new Dictionary<int, InGameCharacterData>();
         
         /// <summary>
         /// コンストラクタ
@@ -25,21 +24,21 @@ namespace CryStar.Data.User
             if (_characters == null)
             {
                 // nullの場合、辞書を生成する
-                _characters = new Dictionary<int, BattleCharacterData>();
+                _characters = new Dictionary<int, InGameCharacterData>();
             }
             
             // Characterのマスターデータに登録されているキャラクター数の数だけ、ユーザーデータ生成処理を行う
             for (int i = 1; i <= MasterCharacter.RegisteredCharacterCount; i++)
             {
                 var index = i;
-                _characters[index] = new BattleCharacterData(index);
+                _characters[index] = new InGameCharacterData(index);
             }
         }
     
         /// <summary>
         /// 引数で指定したキャラクターのユーザーデータを取得する
         /// </summary>
-        public BattleCharacterData GetCharacterUserData(int characterId)
+        public InGameCharacterData GetCharacterUserData(int characterId)
         {
             if (_characters == null)
             {
@@ -60,15 +59,15 @@ namespace CryStar.Data.User
         /// <summary>
         /// すべてのキャラクターデータを取得する
         /// </summary>
-        public List<BattleCharacterData> GetAllCharacterUserData()
+        public List<InGameCharacterData> GetAllCharacterUserData()
         {
-            return new List<BattleCharacterData>(_characters.Values);
+            return new List<InGameCharacterData>(_characters.Values);
         }
     
         /// <summary>
         /// セーブデータ復元
         /// </summary>
-        public void SetCharacterUserData(List<BattleCharacterData> characters)
+        public void SetCharacterUserData(List<InGameCharacterData> characters)
         {
             foreach (var data in characters)
             {
