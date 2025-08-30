@@ -8,11 +8,12 @@ using CryStar.Core.Enums;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
+using iCON.Battle;
 using iCON.Enums;
 using iCON.UI;
 using UnityEngine;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle
 {
     /// <summary>
     /// バトルを管理するクラス
@@ -24,12 +25,6 @@ namespace iCON.Battle
         /// </summary>
         [SerializeField, HighlightIfNull]
         private BattleCanvasManager _view;
-        
-        /// <summary>
-        /// バトルの進行状態
-        /// </summary>
-        [SerializeField]
-        private BattleSystemState _currentState;
 
         /// <summary>
         /// 戦闘BGMのPath　TODO: 仮
@@ -60,16 +55,6 @@ namespace iCON.Battle
         /// </summary>
         [SerializeField]
         private string _cancelSePath;
-        
-        /// <summary>
-        /// 現在のステートのステートマシン用クラスの参照
-        /// </summary>
-        private BattleStateBase _currentStateHandler;
-        
-        /// <summary>
-        /// Enumとステートマシン用クラスのkvpの辞書
-        /// </summary>
-        private Dictionary<BattleSystemState, BattleStateBase> _states;
 
         /// <summary>
         /// バトルで使用する変数をまとめたクラス
@@ -106,20 +91,13 @@ namespace iCON.Battle
         /// </summary>
         public BattleUnit CurrentSelectingUnit => _currentCommandSelectIndex < _data.UnitCount ? 
             _data.UnitData[_currentCommandSelectIndex] : null;
-        
-        /// <summary>
-        /// AudioManager
-        /// </summary>
-        public AudioManager AudioManager => _audioManager;
 
         #region Life cycle
 
         private void Awake()
         {
-            // サービスロケーターに登録（特にGrobalで使用する必要はないのでLocalで登録する）
+            // サービスロケーターに登録（特にGlobalで使用する必要はないのでLocalで登録する）
             ServiceLocator.Register(this, ServiceType.Local);
-            // ステートマシンの初期化
-            InitializeStates();
         }
 
         private void Start()
@@ -332,30 +310,6 @@ namespace iCON.Battle
         }
 
         #endregion
-        
-        
-        /// <summary>
-        /// StateMachineの初期化
-        /// </summary>
-        private void InitializeStates()
-        {
-            _states = new Dictionary<BattleSystemState, BattleStateBase>();
-    
-            try
-            {
-                _states.Add(BattleSystemState.FirstSelect, new FirstSelectState());
-                _states.Add(BattleSystemState.TryEscape, new TryEscapeState());
-                _states.Add(BattleSystemState.CommandSelect, new CommandSelectState());
-                _states.Add(BattleSystemState.Execute, new ExecuteState());
-                _states.Add(BattleSystemState.Win, new WinState());
-                _states.Add(BattleSystemState.Lose, new LoseState());
-                _states.Add(BattleSystemState.Idea, new IdeaState());
-            }
-            catch(Exception e)
-            {
-                LogUtility.Error($"State初期化中に例外が発生: {e.Message}", LogCategory.Gameplay);
-            }
-        }
 
         #region Battle Private Methods
 

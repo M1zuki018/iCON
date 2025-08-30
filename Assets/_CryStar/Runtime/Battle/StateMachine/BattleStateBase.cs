@@ -1,3 +1,4 @@
+using CryStar.CommandBattle;
 using iCON.UI;
 
 namespace iCON.Battle
