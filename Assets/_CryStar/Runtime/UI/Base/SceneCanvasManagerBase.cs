@@ -41,17 +41,9 @@ public abstract class SceneCanvasManagerBase : CustomBehaviour
         if (_currentCanvasIndex == index  && _canvasStack.Count == 1 && _canvasStack.Peek() == index)
             return;
 
-        if (_currentCanvasIndex >= 0)
-        {
-            // 現在のCanvasの切り替わり処理を実行
-            // NOTE: 初期値を-1にしているためエラーにならないように条件文を書いている
-            _canvasObjects[_currentCanvasIndex]?.Exit();
-        }
-        
         // 全てのキャンバスを非表示にする
         foreach (var canvas in _canvasObjects)
         {
-            canvas?.Exit();
             canvas?.Hide();
         }
         
@@ -61,8 +53,6 @@ public abstract class SceneCanvasManagerBase : CustomBehaviour
         
         _currentCanvasIndex = index; // 現在のインデックスを更新
         
-        // 新しいCanvasの切り替わり処理を実行
-        _canvasObjects[index]?.Enter(); 
         _canvasObjects[index]?.Show();
     }
     
@@ -82,9 +72,6 @@ public abstract class SceneCanvasManagerBase : CustomBehaviour
         if (_currentCanvasIndex == index)
             return;
         
-        // 現在のCanvasの切り替わり処理を実行
-        _canvasObjects[_currentCanvasIndex]?.Exit();
-        
         // キャンバス切り替え
         for (int i = 0; i < _canvasObjects.Count; i++)
         {
@@ -100,7 +87,6 @@ public abstract class SceneCanvasManagerBase : CustomBehaviour
         
         _canvasStack.Push(index); // スタックに新しいインデックスをプッシュ
         _currentCanvasIndex = index; // 現在のインデックスを更新
-        _canvasObjects[index].Enter(); // 新しいCanvasの切り替わり処理を実行
     }
 
     /// <summary>
@@ -118,14 +104,10 @@ public abstract class SceneCanvasManagerBase : CustomBehaviour
         int currentIndex = _canvasStack.Pop(); // 現在の画面をポップ
         int previousIndex = _canvasStack.Peek(); // 一つ前の画面を取得
         
-        // 現在のCanvasの切り替わり処理を実行
-        _canvasObjects[currentIndex]?.Exit();
-        
         _canvasObjects[currentIndex]?.Hide();　// 現在の画面を非表示にする
         _canvasObjects[previousIndex]?.Unblock();　// 一つ前の画面のブロックを解除
         
         _currentCanvasIndex = previousIndex; // 現在のインデックスを更新
-        _canvasObjects[previousIndex].Enter(); // 新しいCanvasの切り替わり処理を実行
     }
     
     /// <summary>
@@ -144,14 +126,10 @@ public abstract class SceneCanvasManagerBase : CustomBehaviour
         if (_currentCanvasIndex == targetIndex)
             return;
             
-        // 現在のCanvasの切り替わり処理を実行
-        _canvasObjects[_currentCanvasIndex]?.Exit();
-            
         // 目的のインデックスが出てくるまでポップして非表示にする
         while (_canvasStack.Count > 0 && _canvasStack.Peek() != targetIndex)
         {
             int index = _canvasStack.Pop();
-            _canvasObjects[index]?.Exit();
             _canvasObjects[index]?.Hide();
         }
         
@@ -159,7 +137,6 @@ public abstract class SceneCanvasManagerBase : CustomBehaviour
         _canvasObjects[targetIndex]?.Unblock();
         
         _currentCanvasIndex = targetIndex; // 現在のインデックスを更新
-        _canvasObjects[targetIndex].Enter(); // 新しいCanvasの切り替わり処理を実行
     }
     
     /// <summary>
