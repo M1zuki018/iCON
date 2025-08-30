@@ -7,6 +7,8 @@ namespace CryStar.Item.Data
     /// </summary>
     public class ItemData
     {
+        #region Private Fields
+        
         private int _id;
         private string _name;
         private string _description;
@@ -20,6 +22,8 @@ namespace CryStar.Item.Data
         private bool _useInBattle;
         private bool _useInField;
 
+        #endregion
+        
         /// <summary>
         /// アイテムID
         /// </summary>
