@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+
 namespace CryStar.CommandBattle
 {
     /// <summary>
@@ -18,6 +20,8 @@ namespace CryStar.CommandBattle
             
             _model.Setup();
             _view.Setup();
+            
+            TryEscape();
         }
 
         /// <summary>
@@ -26,6 +30,15 @@ namespace CryStar.CommandBattle
         public void Exit()
         {
             _view?.Exit();
+            _model?.Exit();
+        }
+
+        /// <summary>
+        /// 逃走チェック
+        /// </summary>
+        private void TryEscape()
+        {
+            _model.ExecuteEscapeAttemptAsync().Forget();
         }
     }
 }

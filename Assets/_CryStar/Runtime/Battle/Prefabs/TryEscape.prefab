@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 9078537940442508249}
   - component: {fileID: 4071778512620069552}
   - component: {fileID: 5012765879748252306}
+  - component: {fileID: 3449697096405314468}
   m_Layer: 0
   m_Name: TryEscape
   m_TagString: Untagged
@@ -137,6 +138,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c96a33ba26a475e42b2a2eec00cac5a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 3449697096405314468}
+--- !u!114 &3449697096405314468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3892755584556530289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c2f205dfb548b4ea6ec1ea6da4c5f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6435729436491519408
