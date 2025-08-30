@@ -1,24 +1,23 @@
 using CryStar.Attribute;
-using CryStar.CommandBattle;
 using UnityEngine;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// CanvasController_Lose
+    /// Execute_Coordinator
     /// </summary>
-    public class CanvasController_Lose : WindowBase
+    public class ExecuteCoordinator : WindowBase
     {
         /// <summary>
         /// View
         /// </summary>
         [SerializeField, HighlightIfNull] 
-        private LoseView _view;
+        private ExecuteView _view;
         
         /// <summary>
         /// Presenter
         /// </summary>
-        private LosePresenter _presenter = new LosePresenter();
+        private ExecutePresenter _presenter = new ExecutePresenter();
         
         public override void Enter()
         {

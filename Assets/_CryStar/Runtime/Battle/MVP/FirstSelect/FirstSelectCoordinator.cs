@@ -4,21 +4,21 @@ using UnityEngine;
 namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// CanvasController_TryEscape
+    /// FirstSelect_Coordinator
     /// </summary>
-    public class CanvasController_TryEscape : WindowBase
+    public class FirstSelectCoordinator : WindowBase
     {
         /// <summary>
         /// View
         /// </summary>
         [SerializeField, HighlightIfNull] 
-        private TryEscapeView _view;
+        private FirstSelectView _view;
         
         /// <summary>
         /// Presenter
         /// </summary>
-        private TryEscapePresenter _presenter = new TryEscapePresenter();
-        
+        private FirstSelectPresenter _presenter = new FirstSelectPresenter();
+
         public override void Enter()
         {
             base.Enter();
