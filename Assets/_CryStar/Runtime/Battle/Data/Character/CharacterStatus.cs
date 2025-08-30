@@ -9,7 +9,7 @@ namespace CryStar.CommandBattle.Data
     /// <summary>
     /// キャラクターのステータス
     /// </summary>
-    public class CharacterState
+    public class CharacterStatus
     {
         private int _characterID;
         private InGameCharacterData _data;
@@ -23,7 +23,7 @@ namespace CryStar.CommandBattle.Data
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public CharacterState(int characterID)
+        public CharacterStatus(int characterID)
         {
             _characterID = characterID;
 

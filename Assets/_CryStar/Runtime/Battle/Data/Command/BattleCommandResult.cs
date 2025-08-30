@@ -20,7 +20,7 @@ namespace CryStar.CommandBattle.Data
         /// <summary>
         /// コマンド実行によって発生したバトルエフェクトの配列
         /// </summary>
-        public BattleEffectData[] Effects { get; set; }
+        public BattleCommandEffectData[] Effects { get; set; }
         
         /// <summary>
         /// コンストラクタ
@@ -28,11 +28,11 @@ namespace CryStar.CommandBattle.Data
         /// <param name="isSuccess">コマンドが成功したか</param>
         /// <param name="message">ログとして表示するメッセージ</param>
         /// <param name="effects">コマンド実行によって発生したバトルエフェクトの配列</param>
-        public BattleCommandResultData(bool isSuccess, string message = "", BattleEffectData[] effects = null)
+        public BattleCommandResultData(bool isSuccess, string message = "", BattleCommandEffectData[] effects = null)
         {
             IsSuccess = isSuccess;
             Message = message;
-            Effects = effects ?? Array.Empty<BattleEffectData>();
+            Effects = effects ?? Array.Empty<BattleCommandEffectData>();
         }
     }
 }

@@ -49,9 +49,9 @@ namespace CryStar.CommandBattle.Command
             target.TakeDamage(damage);
             
             // エフェクトデータ作成
-            var effects = new BattleEffectData[]
+            var effects = new BattleCommandEffectData[]
             {
-                new BattleEffectData
+                new BattleCommandEffectData
                 {
                     Target = target,
                     Damage = damage,

@@ -11,7 +11,7 @@ namespace CryStar.CommandBattle.Data
     /// </summary>
     public class BattleUnitData
     {
-        public CharacterState UserData { get; set; }
+        public CharacterStatus UserData { get; set; }
         public int CurrentHp { get; set; }
         public int CurrentWill { get; set; }
         public int CurrentSp { get; set; }
@@ -66,7 +66,7 @@ namespace CryStar.CommandBattle.Data
         {
             // TODO: idを元にデータを検索
 
-            UserData = new CharacterState(id);
+            UserData = new CharacterStatus(id);
             
             if (UserData == null)
             {

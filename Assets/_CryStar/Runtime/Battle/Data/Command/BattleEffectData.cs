@@ -3,7 +3,7 @@ namespace CryStar.CommandBattle.Data
     /// <summary>
     /// 戦闘効果のデータ
     /// </summary>
-    public class BattleEffectData
+    public class BattleCommandEffectData
     {
         /// <summary>
         /// コマンドを実行する対象
