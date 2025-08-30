@@ -699,7 +699,8 @@ GameObject:
   - component: {fileID: 1765699319990072307}
   - component: {fileID: 2068354351275886030}
   - component: {fileID: 9174768809318841868}
-  - component: {fileID: 255705185850962119}
+  - component: {fileID: 7426577868402595450}
+  - component: {fileID: 6398550879246136313}
   m_Layer: 5
   m_Name: MenuCanvas
   m_TagString: Untagged
@@ -782,7 +783,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &255705185850962119
+--- !u!114 &7426577868402595450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -791,7 +792,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 8531103831547722912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52e1462a5e090c74b95e0b4485b45fb9, type: 3}
+  m_Script: {fileID: 11500000, guid: a6d9e24a356dbbf469c77630b1b977a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 6398550879246136313}
+--- !u!114 &6398550879246136313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8531103831547722912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c695369fc8777e449a13a0e1078d741a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _statusButton: {fileID: 1863229504425258460}
