@@ -1,4 +1,4 @@
-using iCON.Enums;
+using CryStar.CommandBattle.Enums;
 
 namespace iCON.Battle
 {

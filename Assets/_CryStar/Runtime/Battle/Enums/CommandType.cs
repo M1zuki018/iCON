@@ -1,4 +1,4 @@
-namespace iCON.Enums
+namespace CryStar.CommandBattle.Enums
 {
     /// <summary>
     /// コマンドの種類の列挙型
@@ -25,5 +25,4 @@ namespace iCON.Enums
         /// </summary>
         Item,
     }
-
 }

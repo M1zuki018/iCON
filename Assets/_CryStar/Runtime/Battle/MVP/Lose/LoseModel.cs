@@ -1,5 +1,4 @@
 using CryStar.Core;
-using iCON.Battle;
 using iCON.Enums;
 
 namespace CryStar.CommandBattle

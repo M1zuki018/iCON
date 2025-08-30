@@ -1,4 +1,4 @@
-namespace iCON.Enums
+namespace CryStar.CommandBattle.Enums
 {
     /// <summary>
     /// 効果対象の指定方法
@@ -16,4 +16,3 @@ namespace iCON.Enums
         Select,
     }
 }
-

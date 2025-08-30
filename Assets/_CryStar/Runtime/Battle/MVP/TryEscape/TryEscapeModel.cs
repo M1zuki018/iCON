@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using CryStar.Core;
 using Cysharp.Threading.Tasks;
-using iCON.Battle;
 using iCON.Enums;
 
 namespace CryStar.CommandBattle

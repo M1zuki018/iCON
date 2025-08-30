@@ -1,4 +1,4 @@
-namespace iCON.Enums
+namespace CryStar.CommandBattle.Enums
 {
     /// <summary>
     /// 効果の種類
