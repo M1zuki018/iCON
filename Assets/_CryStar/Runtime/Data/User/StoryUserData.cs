@@ -18,15 +18,15 @@ namespace CryStar.Data.User
         /// <summary>
         /// クリアしたか
         /// </summary>
-        public override void AddClearData(int storyId)
+        public override void AddData(int id)
         {
-            if (!_clearedDataCache.ContainsKey(storyId))
+            if (!_dataCache.ContainsKey(id))
             {
                 // 未クリアの場合、コールバックを呼び出す
-                OnStorySave?.Invoke(storyId);
+                OnStorySave?.Invoke(id);
             }
             
-            base.AddClearData(storyId);
+            base.AddData(id);
         }
     }   
 }

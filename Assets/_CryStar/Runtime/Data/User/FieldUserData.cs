@@ -75,7 +75,7 @@ namespace CryStar.Data.User
                     return;
                }
                
-               AddClearData(fieldEvent.EventID);
+               AddData(fieldEvent.EventID);
           }
 
           /// <summary>
@@ -84,7 +84,7 @@ namespace CryStar.Data.User
           public bool IsEventCleared(FieldEventBase fieldEvent)
           {
                // クリアしたときに辞書に登録されるため、辞書にキーが存在するかを調べる
-               return ClearedDataCache.ContainsKey(fieldEvent.EventID);
+               return DataCache.ContainsKey(fieldEvent.EventID);
           }
           
      }
