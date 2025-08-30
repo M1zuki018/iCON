@@ -1,20 +1,22 @@
-using System;
 using CryStar.Attribute;
-using CryStar.Utility;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle
 {
     /// <summary>
     /// CanvasController_FirstSelect
     /// </summary>
     public class CanvasController_FirstSelect : WindowBase
     {
+        /// <summary>
+        /// View
+        /// </summary>
         [SerializeField, HighlightIfNull] 
         private FirstSelectView _view;
         
+        /// <summary>
+        /// Presenter
+        /// </summary>
         private FirstSelectPresenter _presenter = new FirstSelectPresenter();
 
         public override void Enter()

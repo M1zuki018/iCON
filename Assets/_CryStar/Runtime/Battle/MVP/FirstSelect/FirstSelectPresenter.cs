@@ -1,22 +1,31 @@
-using iCON.Battle;
-using UnityEngine;
-
-public class FirstSelectPresenter
+namespace CryStar.CommandBattle
 {
-    private FirstSelectView _view;
-    private FirstSelectModel _model;
-    
-    public void Setup(FirstSelectView view)
+    /// <summary>
+    /// FirstSelect_Presenter
+    /// </summary>
+    public class FirstSelectPresenter
     {
-        _view = view;
-        _model = new FirstSelectModel();
-        
-        _model.Setup();
-        _view.Setup(_model.StartBattle, _model.TryEscape);
-    }
+        private FirstSelectView _view;
+        private FirstSelectModel _model;
 
-    public void Exit()
-    {
-        _view?.Exit();
+        /// <summary>
+        /// Setup（Enterのタイミングで呼び出し）
+        /// </summary>
+        public void Setup(FirstSelectView view)
+        {
+            _view = view;
+            _model = new FirstSelectModel();
+
+            _model.Setup();
+            _view.Setup(_model.StartBattle, _model.TryEscape);
+        }
+
+        /// <summary>
+        /// Exit
+        /// </summary>
+        public void Exit()
+        {
+            _view?.Exit();
+        }
     }
 }

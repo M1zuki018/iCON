@@ -3,30 +3,55 @@ using Cysharp.Threading.Tasks;
 using iCON.Battle;
 using iCON.Enums;
 
-public class FirstSelectModel
+namespace CryStar.CommandBattle
 {
-    private BattleManager _battleManager;
-    
-    public void Setup()
-    {
-        _battleManager = ServiceLocator.GetLocal<BattleManager>();
-    }
-    
     /// <summary>
-    /// バトルを開始してコマンド選択に移る
+    /// FirstSelect_Model
     /// </summary>
-    public void StartBattle()
+    public class FirstSelectModel
     {
-        _battleManager.PlaySelectedSe(true).Forget();
-        _battleManager.SetState(BattleSystemState.CommandSelect);
-    }
+        /// <summary>
+        /// BattleManager
+        /// </summary>
+        private BattleManager _battleManager;
 
-    /// <summary>
-    /// 逃走チェック
-    /// </summary>
-    public void TryEscape()
-    {
-        _battleManager.PlaySelectedSe(false).Forget();
-        _battleManager.SetState(BattleSystemState.TryEscape);
+        /// <summary>
+        /// Setup
+        /// </summary>
+        public void Setup()
+        {
+            _battleManager = ServiceLocator.GetLocal<BattleManager>();
+        }
+
+        /// <summary>
+        /// バトルを開始してコマンド選択に移る
+        /// </summary>
+        public void StartBattle()
+        {
+            TryGetBattleManager();   
+            _battleManager.PlaySelectedSe(true).Forget();
+            _battleManager.SetState(BattleSystemState.CommandSelect);
+        }
+
+        /// <summary>
+        /// 逃走チェック
+        /// </summary>
+        public void TryEscape()
+        {
+            TryGetBattleManager();
+            _battleManager.PlaySelectedSe(false).Forget();
+            _battleManager.SetState(BattleSystemState.TryEscape);
+        }
+
+        /// <summary>
+        /// バトルマネージャーが取得できているか確認し、取得できていなかったらServiceLocatorから取得する
+        /// </summary>
+        private void TryGetBattleManager()
+        {
+            if (_battleManager == null)
+            {
+                _battleManager = ServiceLocator.GetLocal<BattleManager>();
+            }
+        }
     }
 }
