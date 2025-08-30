@@ -2,10 +2,9 @@ using System.Collections.Generic;
 using CryStar.Core;
 using CryStar.Core.UserData;
 using CryStar.Data.User;
-using iCON.Battle.Data;
 using UnityEngine;
 
-namespace iCON
+namespace CryStar.CommandBattle.Data
 {
     /// <summary>
     /// キャラクターのステータス
@@ -13,7 +12,7 @@ namespace iCON
     public class CharacterState
     {
         private int _characterID;
-        private BattleCharacterData _data;
+        private InGameCharacterData _data;
         private UserDataManager _userDataManager;
 
         /// <summary>

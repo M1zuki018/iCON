@@ -4,12 +4,12 @@ using CryStar.Utility.Enum;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Data
 {
     /// <summary>
     /// バトル時に使用するキャラクターデータ
     /// </summary>
-    public class BattleUnit
+    public class BattleUnitData
     {
         public CharacterState UserData { get; set; }
         public int CurrentHp { get; set; }
@@ -62,7 +62,7 @@ namespace iCON.Battle
         /// コンストラクタ
         /// </summary>
         /// <param name="id">キャラクターID</param>
-        public BattleUnit(int id)
+        public BattleUnitData(int id)
         {
             // TODO: idを元にデータを検索
 

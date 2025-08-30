@@ -1,3 +1,5 @@
+using CryStar.CommandBattle.Data;
+
 namespace iCON.Battle
 {
     /// <summary>
@@ -8,7 +10,7 @@ namespace iCON.Battle
         /// <summary>
         /// コマンドを実行する対象
         /// </summary>
-        public BattleUnit Target { get; set; }
+        public BattleUnitData Target { get; set; }
         
         /// <summary>
         /// 与えるダメージ量（回復の場合は負の数にする）

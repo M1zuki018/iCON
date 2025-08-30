@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using CryStar.Data.User;
-using iCON.Battle.Data;
 
 namespace CryStar.Data
 {
@@ -34,7 +33,7 @@ namespace CryStar.Data
         /// <summary>
         /// バトル・フィールド用のキャラクターデータ
         /// </summary>
-        public List<BattleCharacterData> CharacterData = new List<BattleCharacterData>();
+        public List<InGameCharacterData> CharacterData = new List<InGameCharacterData>();
 
         /// <summary>
         /// ゲームイベントデータ

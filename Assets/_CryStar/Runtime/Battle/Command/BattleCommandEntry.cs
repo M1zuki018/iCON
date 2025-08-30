@@ -1,3 +1,6 @@
+using CryStar.CommandBattle.Command;
+using CryStar.CommandBattle.Data;
+
 namespace iCON.Battle
 {
     /// <summary>
@@ -8,7 +11,7 @@ namespace iCON.Battle
         /// <summary>
         /// コマンドを実行するバトルユニット（実行者）
         /// </summary>
-        public BattleUnit Executor { get; set; }
+        public BattleUnitData Executor { get; set; }
         
         /// <summary>
         /// 実行されるバトルコマンドのインスタンス
@@ -18,7 +21,7 @@ namespace iCON.Battle
         /// <summary>
         /// コマンドの実行対象となるバトルユニットの配列
         /// </summary>
-        public BattleUnit[] Targets { get; set; }
+        public BattleUnitData[] Targets { get; set; }
         
         /// <summary>
         /// コマンドの実行優先度
@@ -31,7 +34,7 @@ namespace iCON.Battle
         /// <param name="executor">コマンドを実行するバトルユニット（実行者）</param>
         /// <param name="command">実行されるバトルコマンドのインスタンス</param>
         /// <param name="targets">コマンドの実行対象となるバトルユニットの配列</param>
-        public BattleCommandEntry(BattleUnit executor, IBattleCommand command, BattleUnit[] targets)
+        public BattleCommandEntry(BattleUnitData executor, IBattleCommand command, BattleUnitData[] targets)
         {
             Executor = executor;
             Command = command;

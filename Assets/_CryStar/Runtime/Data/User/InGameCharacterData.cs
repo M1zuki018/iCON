@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace iCON.Battle.Data
+namespace CryStar.Data.User
 {
     /// <summary>
-    /// キャラクターのセーブデータ
+    /// フィールド、バトルで利用するキャラクターデータ
     /// </summary>
     [Serializable]
-    public class BattleCharacterData
+    public class InGameCharacterData
     {
         [SerializeField] private int _characterID;
         
@@ -107,7 +107,7 @@ namespace iCON.Battle.Data
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        public BattleCharacterData(int characterID)
+        public InGameCharacterData(int characterID)
         {
             _characterID = characterID;
         }

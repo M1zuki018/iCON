@@ -56,7 +56,7 @@ namespace CryStar.CommandBattle
             
             // TODO: 未実装
             // 現在選択中のユニットのアイデアのIDリストから、選択されたアイデアの情報を取得する
-            //var selectedIdea = _battleManager.CurrentSelectingUnit.UserData.IdeaIdList[selectedIdeaId];
+            //var selectedIdea = _battleManager.CurrentSelectingUnitData.UserData.IdeaIdList[selectedIdeaId];
             
             // 選択されたアイデアをコマンドリストに追加
             _battleManager.AddCommandList(CommandType.Idea);

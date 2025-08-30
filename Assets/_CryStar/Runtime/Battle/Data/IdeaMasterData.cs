@@ -1,11 +1,11 @@
 using CryStar.CommandBattle.Enums;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Data
 {
     /// <summary>
-    /// Ideaのマスタデータ
+    /// Ideaのコマンドのデータクラス
     /// </summary>
-    public class IdeaMasterData
+    public class IdeaCommandData
     {
         /// <summary>
         /// 使用者のキャラクターID

@@ -1,6 +1,8 @@
+using CryStar.CommandBattle.Data;
 using Cysharp.Threading.Tasks;
+using iCON.Battle;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Command
 {
     /// <summary>
     /// バトルコマンドのインターフェース
@@ -13,12 +15,12 @@ namespace iCON.Battle
         /// <param name="executor">実行者</param>
         /// <param name="targets">対象</param>
         /// <returns>実行結果</returns>
-        public UniTask<BattleCommandResult> ExecuteAsync(BattleUnit executor, BattleUnit[] targets);
+        public UniTask<BattleCommandResult> ExecuteAsync(BattleUnitData executor, BattleUnitData[] targets);
         
         /// <summary>
         /// コマンドが実行可能かチェック
         /// </summary>
-        public bool CanExecute(BattleUnit executor);
+        public bool CanExecute(BattleUnitData executor);
         
         /// <summary>
         /// コマンドの優先度

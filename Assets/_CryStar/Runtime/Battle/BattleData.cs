@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CryStar.CommandBattle.Data;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 
@@ -12,12 +13,12 @@ namespace iCON.Battle
         /// <summary>
         /// 戦闘に参加しているキャラクターのデータ
         /// </summary>
-        public List<BattleUnit> UnitData { get; private set; }
+        public List<BattleUnitData> UnitData { get; private set; }
         
         /// <summary>
         /// 戦闘に参加している敵のデータ
         /// </summary>
-        public List<BattleUnit> EnemyData {get; private set;}
+        public List<BattleUnitData> EnemyData {get; private set;}
         
         /// <summary>
         /// 戦闘BGMのパス
@@ -40,21 +41,21 @@ namespace iCON.Battle
         public BattleData(IReadOnlyList<int> units, IReadOnlyList<int> enemies, string bgmPath)
         {
             // ユニットのデータリストを作成
-            UnitData = new List<BattleUnit>(units.Count);
+            UnitData = new List<BattleUnitData>(units.Count);
             for (int i = 0; i < units.Count; i++)
             {
                 // キャラクターIDを渡してバトルデータを生成
-                var unitData = new BattleUnit(units[i]);
+                var unitData = new BattleUnitData(units[i]);
                 UnitData.Add(unitData);
                 LogUtility.Verbose($"生成されたUnitData {UnitCount}", LogCategory.Gameplay);
             }
             
             // 敵のデータリストを作成
-            EnemyData = new List<BattleUnit>(enemies.Count);
+            EnemyData = new List<BattleUnitData>(enemies.Count);
             for (int i = 0; i < enemies.Count; i++)
             {
                 // キャラクターIDを渡してバトルデータを生成
-                var enemyData = new BattleUnit(enemies[i]);
+                var enemyData = new BattleUnitData(enemies[i]);
                 EnemyData.Add(enemyData);
                 LogUtility.Verbose($"生成されたEnemyData {EnemyCount}", LogCategory.Gameplay);
             }

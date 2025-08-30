@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using CryStar.Attribute;
 using CryStar.Audio;
+using CryStar.CommandBattle.Command;
+using CryStar.CommandBattle.Data;
 using CryStar.CommandBattle.Enums;
 using CryStar.Core;
 using CryStar.Core.Enums;
@@ -89,7 +91,7 @@ namespace CryStar.CommandBattle
         /// <summary>
         /// 現在コマンドを選んでいるキャラクターのデータ
         /// </summary>
-        public BattleUnit CurrentSelectingUnit => _currentCommandSelectIndex < _data.UnitCount ? 
+        public BattleUnitData CurrentSelectingUnitData => _currentCommandSelectIndex < _data.UnitCount ? 
             _data.UnitData[_currentCommandSelectIndex] : null;
 
         #region Life cycle
@@ -131,7 +133,7 @@ namespace CryStar.CommandBattle
         /// <summary>
         /// コマンドをリストに追加
         /// </summary>
-        public void AddCommandList(CommandType commandType, BattleUnit[] targets = null)
+        public void AddCommandList(CommandType commandType, BattleUnitData[] targets = null)
         {
             // コマンドを取得
             var command = BattleCommandFactory.GetCommand(commandType);
@@ -142,7 +144,7 @@ namespace CryStar.CommandBattle
             }
             
             // コマンドの実行者は現在コマンドを選択中のキャラクターとする
-            var executor = CurrentSelectingUnit;
+            var executor = CurrentSelectingUnitData;
             if (executor == null)
             {
                 LogUtility.Error("実行者が設定されていません", LogCategory.Gameplay);
@@ -316,7 +318,7 @@ namespace CryStar.CommandBattle
         /// <summary>
         /// デフォルトターゲットを取得
         /// </summary>
-        private BattleUnit[] GetDefaultTargets(CommandType commandType)
+        private BattleUnitData[] GetDefaultTargets(CommandType commandType)
         {
             return commandType switch
             {
@@ -325,8 +327,8 @@ namespace CryStar.CommandBattle
                 CommandType.Idea => _data.EnemyData.Where(u => u.IsAlive).Take(1).ToArray(),
                 
                 // ガードは自身をターゲットに設定
-                CommandType.Guard => new BattleUnit[] { CurrentSelectingUnit },
-                _ => Array.Empty<BattleUnit>()
+                CommandType.Guard => new BattleUnitData[] { CurrentSelectingUnitData },
+                _ => Array.Empty<BattleUnitData>()
             };
         }
         

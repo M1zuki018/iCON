@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using CryStar.CommandBattle.Data;
 using Cysharp.Threading.Tasks;
 using iCON.Battle;
 using iCON.Enums;
@@ -90,7 +91,7 @@ namespace iCON.UI
         /// <summary>
         /// キャラクターアイコンを生成する
         /// </summary>
-        public async UniTask SetupIcons(IReadOnlyList<BattleUnit> unitData, IReadOnlyList<BattleUnit> enemyData)
+        public async UniTask SetupIcons(IReadOnlyList<BattleUnitData> unitData, IReadOnlyList<BattleUnitData> enemyData)
         {
             // リストを新規作成
             _icons = new List<CharacterIconContents>(unitData.Count);
@@ -121,7 +122,7 @@ namespace iCON.UI
         /// <summary>
         /// キャラクターのHP・SP変動アクションを購読する
         /// </summary>
-        private void SubscribeToUnitEvents(IReadOnlyList<BattleUnit> unitData)
+        private void SubscribeToUnitEvents(IReadOnlyList<BattleUnitData> unitData)
         {
             // 味方ユニットのイベント購読
             for (int i = 0; i < unitData.Count; i++)
@@ -138,7 +139,7 @@ namespace iCON.UI
         /// <summary>
         /// エネミーのHP変動アクションを購読する
         /// </summary>
-        private void SubscribeToEnemyEvents(IReadOnlyList<BattleUnit> enemyData)
+        private void SubscribeToEnemyEvents(IReadOnlyList<BattleUnitData> enemyData)
         {
             // エネミーのイベント購読
             for (int i = 0; i < enemyData.Count; i++)

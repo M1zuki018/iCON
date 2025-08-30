@@ -1,7 +1,9 @@
+using CryStar.CommandBattle.Data;
 using Cysharp.Threading.Tasks;
+using iCON.Battle;
 using UnityEngine;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Command
 {
     /// <summary>
     /// 攻撃コマンド
@@ -12,13 +14,13 @@ namespace iCON.Battle
         public int Priority => 50;
         public string DisplayName => "攻撃";
         
-        public bool CanExecute(BattleUnit executor)
+        public bool CanExecute(BattleUnitData executor)
         {
             // 使用者が生きていれば実行可能
             return executor.IsAlive;
         }
         
-        public async UniTask<BattleCommandResult> ExecuteAsync(BattleUnit executor, BattleUnit[] targets)
+        public async UniTask<BattleCommandResult> ExecuteAsync(BattleUnitData executor, BattleUnitData[] targets)
         {
             if (targets.Length == 0)
             {
@@ -70,7 +72,7 @@ namespace iCON.Battle
         /// <summary>
         /// ダメージ計算を行う
         /// </summary>
-        private int CalculateDamage(BattleUnit attacker, BattleUnit defender)
+        private int CalculateDamage(BattleUnitData attacker, BattleUnitData defender)
         {
             // 基本ダメージ計算式
             // 攻撃力: アタッカー物理攻撃
@@ -98,7 +100,7 @@ namespace iCON.Battle
         /// <summary>
         /// 攻撃演出を実行する
         /// </summary>
-        private async UniTask PlayAttackEffectAsync(BattleUnit target, bool isCritical)
+        private async UniTask PlayAttackEffectAsync(BattleUnitData target, bool isCritical)
         {
             // 現在は最小限の待機のみ
             // TODO: 将来的にエフェクト演出、アニメーション、サウンドなどを追加

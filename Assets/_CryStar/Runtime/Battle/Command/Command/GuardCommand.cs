@@ -1,6 +1,8 @@
+using CryStar.CommandBattle.Data;
 using Cysharp.Threading.Tasks;
+using iCON.Battle;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Command
 {
     /// <summary>
     /// ガードコマンド
@@ -10,13 +12,13 @@ namespace iCON.Battle
         public int Priority => 3; // 優先度高め
         public string DisplayName => "ガード";
         
-        public bool CanExecute(BattleUnit executor)
+        public bool CanExecute(BattleUnitData executor)
         {
             // 使用者が生存していれば実行可能
             return executor.IsAlive;
         }
         
-        public async UniTask<BattleCommandResult> ExecuteAsync(BattleUnit executor, BattleUnit[] targets)
+        public async UniTask<BattleCommandResult> ExecuteAsync(BattleUnitData executor, BattleUnitData[] targets)
         {
             // Unitの状態をガード中に変更
             executor.IsGuarding = true;
