@@ -1,9 +1,7 @@
-using CryStar.CommandBattle.Data;
-
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Data
 {
     /// <summary>
-    /// バトルエフェクトのデータ
+    /// 戦闘効果のデータ
     /// </summary>
     public class BattleEffectData
     {

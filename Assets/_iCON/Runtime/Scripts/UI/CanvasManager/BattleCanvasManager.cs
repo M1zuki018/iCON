@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using CryStar.CommandBattle.Data;
 using Cysharp.Threading.Tasks;
-using iCON.Battle;
 using iCON.Enums;
 using UnityEngine;
 

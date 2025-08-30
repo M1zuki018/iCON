@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using CryStar.CommandBattle.Data;
 using CryStar.Core;
 using Cysharp.Threading.Tasks;
-using iCON.Battle;
 using iCON.Enums;
 
 namespace CryStar.CommandBattle
@@ -28,7 +28,7 @@ namespace CryStar.CommandBattle
         /// 登録されているコマンドのリストを取得する
         /// </summary>
         /// <returns></returns>
-        public List<BattleCommandEntry> GetCommandList()
+        public List<BattleCommandEntryData> GetCommandList()
         {
             TryGetBattleManager();
             return _battleManager.CreateCommandList();
@@ -37,7 +37,7 @@ namespace CryStar.CommandBattle
         /// <summary>
         /// 演出を実行したあと実行メッセージを取得する
         /// </summary>
-        public async UniTask<string> ExecuteCommandAndGetMessage(BattleCommandEntry entry)
+        public async UniTask<string> ExecuteCommandAndGetMessage(BattleCommandEntryData entry)
         {
             return await _battleManager.ExecuteCommandAsync(entry);
         }

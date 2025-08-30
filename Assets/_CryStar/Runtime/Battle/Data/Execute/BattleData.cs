@@ -1,9 +1,8 @@
 using System.Collections.Generic;
-using CryStar.CommandBattle.Data;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Data
 {
     /// <summary>
     /// バトルに使用するデータ

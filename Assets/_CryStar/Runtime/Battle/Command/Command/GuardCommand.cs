@@ -1,6 +1,5 @@
 using CryStar.CommandBattle.Data;
 using Cysharp.Threading.Tasks;
-using iCON.Battle;
 
 namespace CryStar.CommandBattle.Command
 {
@@ -18,7 +17,7 @@ namespace CryStar.CommandBattle.Command
             return executor.IsAlive;
         }
         
-        public async UniTask<BattleCommandResult> ExecuteAsync(BattleUnitData executor, BattleUnitData[] targets)
+        public async UniTask<BattleCommandResultData> ExecuteAsync(BattleUnitData executor, BattleUnitData[] targets)
         {
             // Unitの状態をガード中に変更
             executor.IsGuarding = true;
@@ -28,7 +27,7 @@ namespace CryStar.CommandBattle.Command
             
             string message = $"{executor.Name}は身を守っている！";
             
-            return new BattleCommandResult(true, message);
+            return new BattleCommandResultData(true, message);
         }
         
         /// <summary>

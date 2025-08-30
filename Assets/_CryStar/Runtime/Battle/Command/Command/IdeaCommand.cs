@@ -1,6 +1,5 @@
 using CryStar.CommandBattle.Data;
 using Cysharp.Threading.Tasks;
-using iCON.Battle;
 using UnityEngine;
 
 namespace CryStar.CommandBattle.Command
@@ -20,12 +19,12 @@ namespace CryStar.CommandBattle.Command
             return executor.IsAlive;
         }
         
-        public async UniTask<BattleCommandResult> ExecuteAsync(BattleUnitData executor, BattleUnitData[] targets)
+        public async UniTask<BattleCommandResultData> ExecuteAsync(BattleUnitData executor, BattleUnitData[] targets)
         {
             if (targets.Length == 0)
             {
                 // 敵がいない場合はコマンド失敗としてリザルトを作成
-                return new BattleCommandResult(false, "対象が存在しません");
+                return new BattleCommandResultData(false, "対象が存在しません");
             }
             
             // 単体攻撃
@@ -65,7 +64,7 @@ namespace CryStar.CommandBattle.Command
                 $"会心の一撃！{target.Name}に{damage}のダメージ！" :
                 $"{target.Name}に{damage}のダメージ！";
             
-            return new BattleCommandResult(true, message, effects);
+            return new BattleCommandResultData(true, message, effects);
         }
         
         /// <summary>

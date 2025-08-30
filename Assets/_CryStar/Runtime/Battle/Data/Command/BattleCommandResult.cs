@@ -1,11 +1,11 @@
 using System;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.Data
 {
     /// <summary>
     /// バトルコマンドの実行結果を表すクラス
     /// </summary>
-    public class BattleCommandResult
+    public class BattleCommandResultData
     {
         /// <summary>
         /// コマンドの実行が成功したか
@@ -28,7 +28,7 @@ namespace iCON.Battle
         /// <param name="isSuccess">コマンドが成功したか</param>
         /// <param name="message">ログとして表示するメッセージ</param>
         /// <param name="effects">コマンド実行によって発生したバトルエフェクトの配列</param>
-        public BattleCommandResult(bool isSuccess, string message = "", BattleEffectData[] effects = null)
+        public BattleCommandResultData(bool isSuccess, string message = "", BattleEffectData[] effects = null)
         {
             IsSuccess = isSuccess;
             Message = message;

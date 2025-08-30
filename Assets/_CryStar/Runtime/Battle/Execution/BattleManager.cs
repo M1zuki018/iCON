@@ -11,7 +11,6 @@ using CryStar.Core.Enums;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
-using iCON.Battle;
 using iCON.UI;
 using UnityEngine;
 
@@ -66,7 +65,7 @@ namespace CryStar.CommandBattle
         /// <summary>
         /// 実行待ちのコマンドを記録しておくリスト
         /// </summary>
-        private List<BattleCommandEntry> _commandList = new List<BattleCommandEntry>();
+        private List<BattleCommandEntryData> _commandList = new List<BattleCommandEntryData>();
         
         /// <summary>
         /// 現在コマンドを選んでいるキャラクターのIndex
@@ -158,7 +157,7 @@ namespace CryStar.CommandBattle
             }
             
             // 実行待ちコマンドを登録
-            var entry = new BattleCommandEntry(executor, command, targets);
+            var entry = new BattleCommandEntryData(executor, command, targets);
             _commandList.Add(entry);
             
             LogUtility.Info($"{executor.Name}のコマンド登録: {commandType}");
@@ -178,7 +177,7 @@ namespace CryStar.CommandBattle
         /// コマンドリストを作成する
         /// </summary>
         /// <returns></returns>
-        public List<BattleCommandEntry> CreateCommandList()
+        public List<BattleCommandEntryData> CreateCommandList()
         {
             // 敵のAI行動を追加
             AddEnemyCommands();
@@ -195,7 +194,7 @@ namespace CryStar.CommandBattle
         /// <summary>
         /// コマンドを実行する
         /// </summary>
-        public async UniTask<string> ExecuteCommandAsync(BattleCommandEntry entry)
+        public async UniTask<string> ExecuteCommandAsync(BattleCommandEntryData entry)
         {
             // コマンドの実行終了を待機
             var result = await entry.Command.ExecuteAsync(entry.Executor, entry.Targets);
@@ -345,7 +344,7 @@ namespace CryStar.CommandBattle
                 
                 if (command != null && targets.Length > 0)
                 {
-                    var entry = new BattleCommandEntry(enemy, command, targets);
+                    var entry = new BattleCommandEntryData(enemy, command, targets);
                     _commandList.Add(entry);
                 }
             }
