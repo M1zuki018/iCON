@@ -5,8 +5,6 @@ namespace CryStar.Menu.Enums
     /// </summary>
     public enum MenuStateType
     {
-        None,
-        
         /// <summary>メインメニュー</summary>
         MainMenu,
         

@@ -5,7 +5,6 @@ using CryStar.Menu.Enums;
 using iCON.Enums;
 using iCON.UI;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace CryStar.Menu.Execution
 {
@@ -29,8 +28,8 @@ namespace CryStar.Menu.Execution
         /// <summary>
         /// メニューの状態
         /// </summary>
-        [FormerlySerializedAs("_currentState")] [SerializeField]
-        private MenuStateType currentStateType;
+        [SerializeField]
+        private MenuStateType _currentStateType;
         
         /// <summary>
         /// InGameのUI管理クラス
@@ -47,22 +46,27 @@ namespace CryStar.Menu.Execution
         private void Start()
         {
             ServiceLocator.Register(this, ServiceType.Local);
+            
+            // メニューを全て非表示にする
+            _menuCoordinator.AllHide();
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                if (currentStateType == MenuStateType.None)
+                if (_view.GetCurrentCanvasIndex() != (int)InGameCanvasType.MainMenu)
                 {
                     // 現在メニューを開いていない状態だったらメニューを開いて早期リターン
-                    _view.GetCanvas(InGameCanvasType.MainMenu).Show();
+                    _view.ShowCanvas(InGameCanvasType.MainMenu);
                     _menuCoordinator.TransitionToMenu(MenuStateType.MainMenu);
                     return;
                 }
-                
-                // Escapeキーが押されたら各ハンドルの画面を閉じる処理を呼び出す
-                _menuCoordinator.CurrentCoordinator?.Cancel();
+                else
+                {
+                    _menuCoordinator.CurrentCoordinator.Cancel();
+                    // NOTE: 画面を閉じる処理はMVP側で実装
+                }
             }
         }
 

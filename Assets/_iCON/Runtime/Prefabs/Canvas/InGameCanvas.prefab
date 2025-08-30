@@ -1078,8 +1078,8 @@ GameObject:
   - component: {fileID: 4297485547815760813}
   - component: {fileID: 4262292697754488296}
   - component: {fileID: 6580283330011809306}
-  - component: {fileID: 525355183553278644}
-  - component: {fileID: 622477328241381500}
+  - component: {fileID: 5835479672271141052}
+  - component: {fileID: 6016083072180923174}
   m_Layer: 5
   m_Name: InGameCanvas
   m_TagString: Untagged
@@ -1202,7 +1202,7 @@ MonoBehaviour:
   - {fileID: 8443328034737166954}
   - {fileID: 6146814377041282359}
   _defaultCanvasIndex: 0
---- !u!114 &525355183553278644
+--- !u!114 &5835479672271141052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1215,9 +1215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _view: {fileID: 6580283330011809306}
-  _menuCoordinator: {fileID: 622477328241381500}
-  _currentState: 0
---- !u!114 &622477328241381500
+  _menuCoordinator: {fileID: 6016083072180923174}
+  _currentStateType: 0
+--- !u!114 &6016083072180923174
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1233,7 +1233,8 @@ MonoBehaviour:
   - {fileID: 6146814377041282359}
   - {fileID: 6885265463952514277}
   - {fileID: 6398758445790833928}
-  _defaultIndex: 1
+  _defaultIndex: 0
+  _defalutOpen: 0
 --- !u!1 &8008067176279644582
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,6 +1616,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterStatusCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4271765111735848687, guid: 61aaa34dc0bb69e428e9678eaf041264, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271765111735848687, guid: 61aaa34dc0bb69e428e9678eaf041264, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4271765111735848687, guid: 61aaa34dc0bb69e428e9678eaf041264, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1728,6 +1741,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MenuCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 9174768809318841868, guid: 4ecc7f97f66d499489a00ab7a8751fd3, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174768809318841868, guid: 4ecc7f97f66d499489a00ab7a8751fd3, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9174768809318841868, guid: 4ecc7f97f66d499489a00ab7a8751fd3, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1757,6 +1782,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2645920889907406468}
     m_Modifications:
+    - target: {fileID: 1453730484995987083, guid: cd889937b9b4f6a44981ddb2e2411289, type: 3}
+      propertyPath: m_Alpha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453730484995987083, guid: cd889937b9b4f6a44981ddb2e2411289, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1453730484995987083, guid: cd889937b9b4f6a44981ddb2e2411289, type: 3}
+      propertyPath: m_BlocksRaycasts
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2097395462771299367, guid: cd889937b9b4f6a44981ddb2e2411289, type: 3}
       propertyPath: m_Name
       value: ItemCanvas
