@@ -127,9 +127,9 @@ namespace CryStar.CommandBattle.Execution
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                CoordinatorManager.CurrentCanvas.Cancel();
+                _coordinatorManager.CurrentCanvas.Cancel();
             }
         }
 
