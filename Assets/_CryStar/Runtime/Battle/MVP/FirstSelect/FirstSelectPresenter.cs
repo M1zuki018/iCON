@@ -17,7 +17,9 @@ namespace CryStar.CommandBattle
             _model = new FirstSelectModel();
 
             _model.Setup();
-            _view.Setup(_model.StartBattle, _model.TryEscape);
+            _view.Setup(
+                startAction: _model.StartBattle, 
+                escapeAction: _model.TryEscape);
         }
 
         /// <summary>
