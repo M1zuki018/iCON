@@ -33,7 +33,8 @@ namespace CryStar.Menu
         {
             TryGetMenuManager();
             
-            // メニュー画面を閉じる
+            // すべてのメニュー画面を閉じる
+            _manager.MenuCoordinator.AllHide();
             _manager.View.ShowCanvas(InGameCanvasType.InGame);
         }
         
