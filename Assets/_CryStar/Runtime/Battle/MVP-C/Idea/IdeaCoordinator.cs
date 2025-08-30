@@ -1,29 +1,33 @@
 using CryStar.Attribute;
-using CryStar.CommandBattle;
 using UnityEngine;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// CanvasController_Lose
+    /// Idea_Coordinator
     /// </summary>
-    public class CanvasController_Lose : WindowBase
+    public class IdeaCoordinator : CoordinatorBase
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull] 
-        private LoseView _view;
+        private IdeaView _view;
         
         /// <summary>
         /// Presenter
         /// </summary>
-        private LosePresenter _presenter = new LosePresenter();
+        private IdeaPresenter _presenter = new IdeaPresenter();
         
         public override void Enter()
         {
             base.Enter();
             _presenter?.Setup(_view);
+        }
+
+        public override void Cancel()
+        {
+            _presenter?.Cancel();
         }
 
         public override void Exit()

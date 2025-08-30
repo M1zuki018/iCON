@@ -33,7 +33,7 @@ namespace iCON.System
         private StoryOrchestrator _storyOrchestrator;
         
         /// <summary>
-        /// Field View
+        /// Field CoordinatorManager
         /// </summary>
         [SerializeField]
         private FieldView _fieldView;

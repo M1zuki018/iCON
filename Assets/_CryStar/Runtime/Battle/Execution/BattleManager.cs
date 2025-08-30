@@ -22,11 +22,17 @@ namespace CryStar.CommandBattle.Execution
     public class BattleManager : MonoBehaviour
     {
         /// <summary>
-        /// View
+        /// Coordinator Manager
         /// </summary>
         [SerializeField, HighlightIfNull]
-        private BattleCanvasManager _view;
+        private BattleCoordinator _coordinatorManager;
 
+        /// <summary>
+        /// View
+        /// </summary>
+        [SerializeField, HighlightIfNull] 
+        private BattleView _view;
+        
         /// <summary>
         /// 戦闘BGMのPath　TODO: 仮
         /// </summary>
@@ -80,7 +86,7 @@ namespace CryStar.CommandBattle.Execution
         /// <summary>
         /// CanvasManager
         /// </summary>
-        public BattleCanvasManager View => _view;
+        public BattleCoordinator CoordinatorManager => _coordinatorManager;
         
         /// <summary>
         /// バトルで使用する変数をまとめたクラス
@@ -121,9 +127,9 @@ namespace CryStar.CommandBattle.Execution
 
         private void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                View.CurrentCanvas.Cancel();
+                _coordinatorManager.CurrentCoordinator.Cancel();
             }
         }
 

@@ -4,12 +4,12 @@ using UnityEngine;
 namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// CanvasController_CommandSelect
+    /// CommandSelect_Coordinator
     /// </summary>
-    public class CanvasController_CommandSelect : WindowBase
+    public class CommandSelectCoordinator : CoordinatorBase
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull] 
         private CommandSelectView _view;

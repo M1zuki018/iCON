@@ -1,9 +1,9 @@
-namespace iCON.Enums
+namespace CryStar.CommandBattle.Enums
 {
     /// <summary>
-    /// Battleシーンのキャンバスの列挙型
+    /// Battleの状態の列挙型
     /// </summary>
-    public enum BattleCanvasType
+    public enum BattlePhaseType
     {
         Battle,
         FirstSelect,

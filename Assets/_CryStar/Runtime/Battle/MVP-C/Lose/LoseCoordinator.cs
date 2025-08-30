@@ -4,21 +4,21 @@ using UnityEngine;
 namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// CanvasController_FirstSelect
+    /// Lose_Coordinator
     /// </summary>
-    public class CanvasController_FirstSelect : WindowBase
+    public class LoseCoordinator : CoordinatorBase
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull] 
-        private FirstSelectView _view;
+        private LoseView _view;
         
         /// <summary>
         /// Presenter
         /// </summary>
-        private FirstSelectPresenter _presenter = new FirstSelectPresenter();
-
+        private LosePresenter _presenter = new LosePresenter();
+        
         public override void Enter()
         {
             base.Enter();
