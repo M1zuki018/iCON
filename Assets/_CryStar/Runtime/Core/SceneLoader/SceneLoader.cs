@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using CryStar.Core.Enums;
 using CryStar.Data.Scene;
 using CryStar.Utility;
@@ -170,41 +171,22 @@ namespace CryStar.Core
                 // タイムアウト設定
                 var timeoutTask = UniTask.Delay(delayTimeSpan:TimeSpan.FromSeconds(_loadingTimeout), cancellationToken: token);
                 
-                // シーンの初期化完了を待機
-                WaitForSceneInitialization(token).Forget();
-                
                 // シーンを保存しておく
                 // NOTE: LoadSceneModeをAdditiveにしているため、自分でシーンを破棄する必要がある
                 Scene currentScene = SceneManager.GetActiveScene();
                 Scene loadingScene = default;
                 
-                // ロードシーンの表示
                 if (data.UseLoadingScreen)
                 {
-                    loadingScene = await LoadLoadingScreenAsync(token);
+                    // ロードシーンを使う場合
+                    return await UseLoadingSceneAsync(data, token, currentScene, timeoutTask);
                 }
-
-                // アセットのプリロードを行うか確認
-                if (data.PreloadAssets)
+                else
                 {
-                    await PreloadAssetsAsync(token);
+                    // ロードシーンを使わない場合
+                    // NOTE: LoadSceneMode.Singleで遷移を行ってエラーが起こらないようにしている
+                    return await DontUseLoadingSceneAsync(data);
                 }
-
-                // 次のシーンをロードする処理
-                var loadTask = LoadTargetSceneAsync(data.TargetScene, token);
-                
-                // ロードが早く終わるかタイムアウトが早いか判定
-                var completedTask = await UniTask.WhenAny(loadTask, timeoutTask);
-                if (completedTask == 1)
-                {
-                    // タイムアウトした場合
-                    throw new TimeoutException($"シーン遷移 タイムアウト: {data.TargetScene}");
-                }
-                
-                // ロード画面を非表示にするなど
-                await SwitchToNewSceneAsync(data, loadingScene, currentScene);
-
-                return true;
             }
             catch (OperationCanceledException)
             {
@@ -213,6 +195,70 @@ namespace CryStar.Core
             catch (Exception ex)
             {
                 LogUtility.Error($"シーン遷移に失敗しました: {ex.Message}", LogCategory.System);
+                return false;
+            }
+        }
+        
+        /// <summary>
+        /// ロードシーンを使用する場合のロード処理
+        /// </summary>
+        private async UniTask<bool> UseLoadingSceneAsync(SceneTransitionData data, CancellationToken token, Scene currentScene,
+            UniTask timeoutTask)
+        {
+            Scene loadingScene;
+            loadingScene = await LoadLoadingScreenAsync(token);
+
+            // アセットのプリロードを行うか確認
+            if (data.PreloadAssets)
+            {
+                await PreloadAssetsAsync(token);
+            }
+
+            // 現在のシーンをアンロード
+            // NOTE: 先に古いシーンを消しておかないと、アンロードのタイミングでLocalServiceがクリアされてしまうので
+            // 必ず古いシーンのアンロード処理を先に行う
+            await UnloadCurrentSceneAsync(data, currentScene);
+
+            // シーンの初期化完了を待機開始
+            // NOTE: 軽量なシーンだとロードしてすぐに処理が終わってしまうので、先に待機状態にしておいてからシーンをロードする
+            WaitForSceneInitialization(token).Forget();
+                
+            // 次のシーンをロードする処理
+            var loadTask = LoadTargetSceneAsync(data.TargetScene, token);
+                
+            // ロードが早く終わるかタイムアウトが早いか判定
+            var completedTask = await UniTask.WhenAny(loadTask, timeoutTask);
+            if (completedTask == 1)
+            {
+                // タイムアウトした場合
+                throw new TimeoutException($"シーン遷移 タイムアウト: {data.TargetScene}");
+            }
+                
+            // ロード画面を非表示にする
+            await SwitchToNewSceneAsync(data, loadingScene);
+
+            return true;
+        }
+        
+        /// <summary>
+        /// ロードシーンを使用しない場合のロード処理
+        /// </summary>
+        private async UniTask<bool> DontUseLoadingSceneAsync(SceneTransitionData data)
+        {
+            try
+            {
+                await SceneManager.LoadSceneAsync(data.TargetScene.ToString(), LoadSceneMode.Single);
+                return true;
+            }
+            catch (OperationCanceledException)
+            {
+                // キャンセル処理
+                throw;
+            }
+            catch (Exception ex)
+            {
+                // エラーログ出力
+                Debug.LogError($"シーン遷移エラー: {data.TargetScene} - {ex.Message}");
                 return false;
             }
         }
@@ -298,24 +344,31 @@ namespace CryStar.Core
             token.ThrowIfCancellationRequested();
         }
         
+        
         /// <summary>
-        /// 新しいシーンへの切り替え
+        /// 現在のシーンを削除
         /// </summary>
-        private async UniTask SwitchToNewSceneAsync(SceneTransitionData data, Scene loadingScene, Scene currentScene)
+        private async UniTask UnloadCurrentSceneAsync(SceneTransitionData data, Scene currentScene)
         {
-            // 新しいシーンを取得してアクティブに設定
-            Scene newScene = SceneManager.GetSceneByName(data.TargetScene.ToString());
-            SceneManager.SetActiveScene(newScene);
-            
             if (currentScene.IsValid() && _currentScene.ToString() != data.TargetScene.ToString())
             {
                 // 古いメインシーンをアンロード
                 await SceneManager.UnloadSceneAsync(currentScene);
             }
+        }
+        
+        /// <summary>
+        /// 新しいシーンへの切り替え
+        /// </summary>
+        private async UniTask SwitchToNewSceneAsync(SceneTransitionData data, Scene loadingScene)
+        {
+            // 新しいシーンを取得してアクティブに設定
+            Scene newScene = SceneManager.GetSceneByName(data.TargetScene.ToString());
+            SceneManager.SetActiveScene(newScene);
             
             if (data.UseLoadingScreen && loadingScene.IsValid())
             {
-                // ローディングスクリーンと古いシーンの削除
+                // ローディングスクリーンを削除
                 await SceneManager.UnloadSceneAsync(loadingScene);
             }
         }
