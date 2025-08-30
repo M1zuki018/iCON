@@ -1,14 +1,22 @@
 using CryStar.Attribute;
 using UnityEngine;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// CanvasController_Win
+    /// Win_View
     /// </summary>
-    public partial class CanvasController_Win : WindowBase
+    public class WinView : MonoBehaviour
     {
         [SerializeField, HighlightIfNull] private CustomText _textBox;
+        
+        /// <summary>
+        /// Setup
+        /// </summary>
+        public void Setup()
+        {
+            // 引数にActionを羅列する
+        }
 
         /// <summary>
         /// テキストを設定
@@ -17,10 +25,12 @@ namespace iCON.UI
         {
             _textBox.SetText($"{name}の勝利\n経験値{experience}を手に入れた");
         }
-        
-        public override void Hide()
+
+        /// <summary>
+        /// Exit
+        /// </summary>
+        public void Exit()
         {
-            base.Hide();
             // テキストはリセットして空にしておく
             _textBox.SetText("");
         }
