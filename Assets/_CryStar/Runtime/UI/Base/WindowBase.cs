@@ -36,6 +36,13 @@ public class WindowBase : CustomBehaviour
     {
         Hide();
     }
+
+    /// <summary>
+    /// Canvasを閉じるなどのキャンセル処理
+    /// NOTE: Updateで監視されて呼び出されている
+    /// キャンセル処理がある継承先のクラスで実装を書く
+    /// </summary>
+    public virtual void Cancel(){ }
     
     /// <summary>
     /// 表示

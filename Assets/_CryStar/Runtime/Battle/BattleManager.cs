@@ -146,6 +146,7 @@ namespace iCON.Battle
             if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
             {
                 _currentStateHandler.Cancel();
+                View.CurrentCanvas.Cancel();
             }
         }
 
