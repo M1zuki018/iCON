@@ -9,7 +9,7 @@ namespace CryStar.CommandBattle
     public class LoseCoordinator : CoordinatorBase
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull] 
         private LoseView _view;

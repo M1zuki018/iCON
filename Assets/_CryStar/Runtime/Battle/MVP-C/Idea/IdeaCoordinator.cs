@@ -9,7 +9,7 @@ namespace CryStar.CommandBattle
     public class IdeaCoordinator : CoordinatorBase
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull] 
         private IdeaView _view;

@@ -9,7 +9,7 @@ namespace CryStar.CommandBattle
     public class FirstSelectCoordinator : CoordinatorBase
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull] 
         private FirstSelectView _view;

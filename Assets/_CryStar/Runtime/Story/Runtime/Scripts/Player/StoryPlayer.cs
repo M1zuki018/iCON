@@ -18,7 +18,7 @@ namespace CryStar.Story.Player
     public class StoryPlayer : CustomBehaviour
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField] 
         private StoryView _view;

@@ -9,7 +9,7 @@ using UnityEngine;
 namespace CryStar.Field.UI
 {
     /// <summary>
-    /// Field View
+    /// Field CoordinatorManager
     /// </summary>
     public class FieldView : MonoBehaviour
     {

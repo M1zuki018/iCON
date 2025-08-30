@@ -9,7 +9,7 @@ namespace CryStar.CommandBattle
     public class TryEscapeCoordinator : CoordinatorBase
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull] 
         private TryEscapeView _view;

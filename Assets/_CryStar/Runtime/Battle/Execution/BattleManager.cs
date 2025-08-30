@@ -13,6 +13,7 @@ using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CryStar.CommandBattle.Execution
 {
@@ -22,11 +23,17 @@ namespace CryStar.CommandBattle.Execution
     public class BattleManager : MonoBehaviour
     {
         /// <summary>
-        /// View
+        /// Coordinator Manager
         /// </summary>
         [SerializeField, HighlightIfNull]
-        private BattleCanvasManager _view;
+        private BattleCanvasManager _coordinatorManager;
 
+        /// <summary>
+        /// View
+        /// </summary>
+        [SerializeField, HighlightIfNull] 
+        private BattleView _view;
+        
         /// <summary>
         /// 戦闘BGMのPath　TODO: 仮
         /// </summary>
@@ -80,7 +87,7 @@ namespace CryStar.CommandBattle.Execution
         /// <summary>
         /// CanvasManager
         /// </summary>
-        public BattleCanvasManager View => _view;
+        public BattleCanvasManager CoordinatorManager => _coordinatorManager;
         
         /// <summary>
         /// バトルで使用する変数をまとめたクラス
@@ -123,7 +130,7 @@ namespace CryStar.CommandBattle.Execution
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
             {
-                View.CurrentCanvas.Cancel();
+                CoordinatorManager.CurrentCanvas.Cancel();
             }
         }
 

@@ -16,7 +16,7 @@ namespace CryStar.Menu
     public class MenuManager : MonoBehaviour
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull]
         private InGameCanvasManager _view;

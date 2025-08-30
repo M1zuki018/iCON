@@ -9,7 +9,7 @@ namespace CryStar.CommandBattle
     public class WinCoordinator : CoordinatorBase
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull] 
         private WinView _view;

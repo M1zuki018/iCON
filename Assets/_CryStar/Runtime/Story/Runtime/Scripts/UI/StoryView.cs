@@ -15,7 +15,7 @@ using UnityEngine.Rendering;
 namespace CryStar.Story.UI
 {
     /// <summary>
-    /// Story View
+    /// Story CoordinatorManager
     /// </summary>
     [RequireComponent(typeof(CanvasGroup))]
     public class StoryView : MonoBehaviour

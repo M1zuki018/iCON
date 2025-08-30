@@ -1,5 +1,5 @@
 /// <summary>
-/// MVP-C（Model View Presenter with Coordinators）パターンを利用するときの
+/// MVP-C（Model CoordinatorManager Presenter with Coordinators）パターンを利用するときの
 /// コーディネータークラスのベースクラス
 /// </summary>
 public class CoordinatorBase : WindowBase

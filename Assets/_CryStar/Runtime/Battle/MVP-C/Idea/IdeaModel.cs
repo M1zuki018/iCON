@@ -34,7 +34,7 @@ namespace CryStar.CommandBattle
             
             _battleManager.PlayCancelSound().Forget();
             // コマンド選択に戻る
-            _battleManager.View.ShowCanvas(BattleCanvasType.CommandSelect);
+            _battleManager.CoordinatorManager.ShowCanvas(BattleCanvasType.CommandSelect);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace CryStar.CommandBattle
         {
             // バトルマネージャーの参照がとれているか確認
             TryGetBattleManager();
-            _battleManager.View.PopCanvas();
+            _battleManager.CoordinatorManager.PopCanvas();
         }
         
         /// <summary>
@@ -71,7 +71,7 @@ namespace CryStar.CommandBattle
         {
             _battleManager.PlaySelectedSe(true).Forget();
             // 次のコマンド選択があるかチェックし、適切な状態に遷移
-            _battleManager.View.ShowCanvas(_battleManager.CheckNextCommandSelect()
+            _battleManager.CoordinatorManager.ShowCanvas(_battleManager.CheckNextCommandSelect()
             ? BattleCanvasType.CommandSelect : BattleCanvasType.Execute);
         }
         

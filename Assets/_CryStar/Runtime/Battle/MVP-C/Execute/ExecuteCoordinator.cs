@@ -9,7 +9,7 @@ namespace CryStar.CommandBattle
     public class ExecuteCoordinator : CoordinatorBase
     {
         /// <summary>
-        /// View
+        /// CoordinatorManager
         /// </summary>
         [SerializeField, HighlightIfNull] 
         private ExecuteView _view;
