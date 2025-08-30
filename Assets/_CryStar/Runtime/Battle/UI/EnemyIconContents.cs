@@ -3,7 +3,7 @@ using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle.UI
 {
     /// <summary>
     /// バトルの敵キャラクターのUIを管理するクラス

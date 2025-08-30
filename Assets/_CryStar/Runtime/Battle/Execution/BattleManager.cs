@@ -6,15 +6,15 @@ using CryStar.Audio;
 using CryStar.CommandBattle.Command;
 using CryStar.CommandBattle.Data;
 using CryStar.CommandBattle.Enums;
+using CryStar.CommandBattle.UI;
 using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Utility;
 using CryStar.Utility.Enum;
 using Cysharp.Threading.Tasks;
-using iCON.UI;
 using UnityEngine;
 
-namespace CryStar.CommandBattle
+namespace CryStar.CommandBattle.Execution
 {
     /// <summary>
     /// バトルを管理するクラス

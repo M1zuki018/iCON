@@ -1,7 +1,7 @@
 using System;
 using CryStar.Attribute;
+using CryStar.CommandBattle.UI;
 using CryStar.Utility;
-using iCON.Battle;
 using UnityEngine;
 
 namespace CryStar.CommandBattle

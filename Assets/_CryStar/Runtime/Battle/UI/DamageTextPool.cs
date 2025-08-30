@@ -2,7 +2,7 @@ using CryStar.Attribute;
 using UnityEngine;
 using UnityEngine.Pool;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle.UI
 {
     /// <summary>
     /// 戦闘でダメージ表記のオブジェクトのオブジェクトプールを管理するクラス

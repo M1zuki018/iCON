@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle.UI
 {
     /// <summary>
     /// バトルのキャラクターのUIを管理するクラス

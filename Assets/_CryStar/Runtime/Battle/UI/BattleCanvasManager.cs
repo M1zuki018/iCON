@@ -4,7 +4,7 @@ using Cysharp.Threading.Tasks;
 using iCON.Enums;
 using UnityEngine;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle.UI
 {
     /// <summary>
     /// バトルシーンのCanvasManager

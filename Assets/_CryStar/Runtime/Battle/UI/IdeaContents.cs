@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace iCON.Battle
+namespace CryStar.CommandBattle.UI
 {
     /// <summary>
     /// Idea（スキル）のコンテンツ
