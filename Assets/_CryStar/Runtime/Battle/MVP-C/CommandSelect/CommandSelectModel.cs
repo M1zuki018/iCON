@@ -39,7 +39,7 @@ namespace CryStar.CommandBattle
         public void Idea()
         {
             _battleManager.PlaySelectedSe(false).Forget();
-            _battleManager.CoordinatorManager.ShowCanvas(BattlePhaseType.Idea);
+            _battleManager.CoordinatorManager.TransitionToPhase(BattlePhaseType.Idea);
         }
 
         /// <summary>
@@ -69,12 +69,12 @@ namespace CryStar.CommandBattle
             // 次のコマンド選択に移れるか確認
             if (_battleManager.CheckNextCommandSelect())
             {
-                _battleManager.CoordinatorManager.ShowCanvasReopen(BattlePhaseType.CommandSelect);
+                _battleManager.CoordinatorManager.TransitionToPhase(BattlePhaseType.CommandSelect);
             }
             else
             {
                 // バトル実行に移る
-                _battleManager.CoordinatorManager.ShowCanvas(BattlePhaseType.Execute);
+                _battleManager.CoordinatorManager.TransitionToPhase(BattlePhaseType.Execute);
             }
         }
 

@@ -54,12 +54,12 @@ namespace CryStar.CommandBattle
             if (result.isFinish)
             {
                 // バトルが終了している場合は勝敗に合わせてステートを変更
-                _battleManager.CoordinatorManager.ShowCanvas(result.isWin ? BattlePhaseType.Win : BattlePhaseType.Lose);
+                _battleManager.CoordinatorManager.TransitionToPhase(result.isWin ? BattlePhaseType.Win : BattlePhaseType.Lose);
             }
             else
             {
                 // バトルが終了していなければ最初の選択に戻る
-                _battleManager.CoordinatorManager.ShowCanvas(BattlePhaseType.FirstSelect);
+                _battleManager.CoordinatorManager.TransitionToPhase(BattlePhaseType.FirstSelect);
             }
         }
 

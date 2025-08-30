@@ -29,7 +29,7 @@ namespace CryStar.CommandBattle
         {
             // BGM再生を止める
             _battleManager.FinishBGM();
-            _battleManager.CoordinatorManager.ShowCanvas(BattlePhaseType.Lose);
+            _battleManager.CoordinatorManager.TransitionToPhase(BattlePhaseType.Lose);
         }
 
         /// <summary>

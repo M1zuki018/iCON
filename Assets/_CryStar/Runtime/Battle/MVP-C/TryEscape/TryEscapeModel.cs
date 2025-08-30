@@ -95,7 +95,7 @@ namespace CryStar.CommandBattle
             finally
             {
                 // 選択に戻る
-                manager.CoordinatorManager.ShowCanvas(BattlePhaseType.FirstSelect);
+                manager.CoordinatorManager.TransitionToPhase(BattlePhaseType.FirstSelect);
             }
         }
         

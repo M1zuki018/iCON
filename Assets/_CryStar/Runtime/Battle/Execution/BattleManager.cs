@@ -129,7 +129,7 @@ namespace CryStar.CommandBattle.Execution
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                _coordinatorManager.CurrentCanvas.Cancel();
+                _coordinatorManager.CurrentCoordinator.Cancel();
             }
         }
 

@@ -30,7 +30,7 @@ namespace CryStar.CommandBattle
         {
             TryGetBattleManager();   
             _battleManager.PlaySelectedSe(true).Forget();
-            _battleManager.CoordinatorManager.ShowCanvas(BattlePhaseType.CommandSelect);
+            _battleManager.CoordinatorManager.TransitionToPhase(BattlePhaseType.CommandSelect);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace CryStar.CommandBattle
         {
             TryGetBattleManager();
             _battleManager.PlaySelectedSe(false).Forget();
-            _battleManager.CoordinatorManager.ShowCanvas(BattlePhaseType.TryEscape);
+            _battleManager.CoordinatorManager.TransitionToPhase(BattlePhaseType.TryEscape);
         }
 
         /// <summary>
