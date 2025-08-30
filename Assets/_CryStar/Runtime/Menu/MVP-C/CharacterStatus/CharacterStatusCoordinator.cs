@@ -27,7 +27,7 @@ namespace CryStar.Menu
         
         public override void Cancel()
         {
-            _presenter?.Setup(_view);
+            _presenter?.Cancel();
         }        
 
         public override void Exit()
