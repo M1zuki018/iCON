@@ -160,4 +160,12 @@ public static class MasterItem
         items.Sort((a, b) => a.SortOrder.CompareTo(b.SortOrder));
         return items;
     }
+
+    /// <summary>
+    /// 指定したアイテムの最大スタック数を取得
+    /// </summary>
+    public static int GetMaxStackCount(int itemId)
+    {
+        return _itemData[itemId].MaxStackCount;
+    }
 }
