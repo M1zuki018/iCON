@@ -1,25 +1,29 @@
 using CryStar.Attribute;
 using UnityEngine;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// CanvasController_Lose
+    /// Lose_View
     /// </summary>
-    public partial class CanvasController_Lose : WindowBase
+    public class LoseView : MonoBehaviour
     {
         [SerializeField, HighlightIfNull] private CustomText _textBox;
-
-        public override void Show()
+        
+        /// <summary>
+        /// Setup
+        /// </summary>
+        public void Setup()
         {
-            base.Show();
             // メッセージを表示
             _textBox.SetText($"負けてしまった...");
         }
 
-        public override void Hide()
+        /// <summary>
+        /// Exit
+        /// </summary>
+        public void Exit()
         {
-            base.Hide();
             // テキストはリセットして空にしておく
             _textBox.SetText("");
         }
