@@ -28,6 +28,8 @@ namespace CryStar.CommandBattle
         /// </summary>
         public void Attack()
         {
+            TryGetBattleManager();
+            
             // コマンドを記録
             _battleManager.AddCommandList(CommandType.Attack);
             Next();
@@ -38,6 +40,8 @@ namespace CryStar.CommandBattle
         /// </summary>
         public void Idea()
         {
+            TryGetBattleManager();
+            
             _battleManager.PlaySelectedSe(false).Forget();
             _battleManager.CoordinatorManager.TransitionToPhase(BattlePhaseType.Idea);
         }
@@ -55,6 +59,8 @@ namespace CryStar.CommandBattle
         /// </summary>
         public void Guard()
         {
+            TryGetBattleManager();
+            
             _battleManager.AddCommandList(CommandType.Guard);
             Next();
         }
