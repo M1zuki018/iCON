@@ -1,9 +1,3 @@
-using CryStar.Utility;
-using CryStar.Utility.Enum;
-using Cysharp.Threading.Tasks;
-using iCON.Enums;
-using iCON.UI;
-
 namespace iCON.Battle
 {
     /// <summary>
@@ -11,59 +5,5 @@ namespace iCON.Battle
     /// </summary>
     public class IdeaState : BattleStateBase
     {
-        private CanvasController_Idea _canvasController;
-        
-        public override void Enter(BattleManager manager, BattleCanvasManager view)
-        {
-            base.Enter(manager, view);
-            view.ShowCanvas(BattleCanvasType.Idea);
-            
-            _canvasController = view.CurrentCanvas as CanvasController_Idea;
-            if (_canvasController == null)
-            {
-                LogUtility.Fatal("CanvasController_FirstSelect が取得できませんでした", LogCategory.Gameplay);
-                return;
-            }
-            
-            _canvasController.OnIdeaSelected += HandleIdeaSelected;
-        }
-
-        public override void Cancel()
-        {
-            BattleManager.PlayCancelSound().Forget();
-            // コマンド選択に戻る
-            BattleManager.SetState(BattleSystemState.CommandSelect);
-        }
-
-        public override void Exit()
-        {
-            base.Exit();
-            _canvasController.OnIdeaSelected -= HandleIdeaSelected;
-            View.PopCanvas();
-        }
-
-        /// <summary>
-        /// Ideaが選択されたときの処理
-        /// </summary>
-        private void HandleIdeaSelected(int selectedIdeaId)
-        {
-            // 現在選択中のユニットのアイデアのIDリストから、選択されたアイデアの情報を取得する
-            var selectedIdea = BattleManager.CurrentSelectingUnit.UserData.IdeaIdList[selectedIdeaId];
-            
-            // 選択されたアイデアをコマンドリストに追加
-            BattleManager.AddCommandList(CommandType.Idea);
-            Next();
-        }
-        
-        /// <summary>
-        /// 次の行動に進める
-        /// </summary>
-        private void Next()
-        {
-            BattleManager.PlaySelectedSe(true).Forget();
-            // 次のコマンド選択があるかチェックし、適切な状態に遷移
-            BattleManager.SetState(BattleManager.CheckNextCommandSelect()
-                ? BattleSystemState.CommandSelect : BattleSystemState.Execute);
-        }
     }
 }

@@ -1,48 +1,55 @@
 using System;
 using CryStar.Attribute;
 using CryStar.Utility;
-using Cysharp.Threading.Tasks;
 using iCON.Battle;
 using UnityEngine;
 
-namespace iCON.UI
+namespace CryStar.CommandBattle
 {
     /// <summary>
-    /// CanvasController_Idea
+    /// Idea_View
     /// </summary>
-    public partial class CanvasController_Idea : WindowBase
+    public class IdeaView : MonoBehaviour
     {
+        /// <summary>
+        /// Ideaを選択したときのコールバック
+        /// </summary>
+        private event Action<int> _onIdeaSelected;
+        
         [SerializeField, HighlightIfNull] private IdeaContents _commandIdeaContents;
         [SerializeField, HighlightIfNull] private IdeaContents _actorIdeaContents;
         [SerializeField, HighlightIfNull] private CustomButton _command;
         [SerializeField, HighlightIfNull] private CustomButton _actor;
         
         /// <summary>
-        /// Ideaを選択したときのコールバック
+        /// Setup
         /// </summary>
-        public event Action<int> OnIdeaSelected;
-        
-        public override UniTask OnAwake()
+        public void Setup(Action<int> onIdeaSelected)
         {
             _command.onClick.SafeReplaceListener(HandleCommand);
             _actor.onClick.SafeReplaceListener(HandleActor);
-            return base.OnAwake();
+            
+            _onIdeaSelected += onIdeaSelected;
         }
-
-        public override void Hide()
+        
+        /// <summary>
+        /// Exit
+        /// </summary>
+        public void Exit()
         {
-            base.Hide();
+            _command.onClick.SafeRemoveAllListeners();
+            _actor.onClick.SafeRemoveAllListeners();
+            CleanupButtonListeners();
+            
+            _onIdeaSelected = null;
             
             _command.gameObject.SetActive(true);
             _actor.gameObject.SetActive(true);
             
             CanvasSetActive(_commandIdeaContents.CanvasGroup, false);
             CanvasSetActive(_actorIdeaContents.CanvasGroup, false);
-            
-            // リスナーのクリーンアップ
-            CleanupButtonListeners();
         }
-        
+
         /// <summary>
         /// コマンドが選択された場合の処理
         /// </summary>
@@ -86,7 +93,7 @@ namespace iCON.UI
             CleanupActorButtonListeners();
             SetupActorButtonListeners();
         }
-
+        
         /// <summary>
         /// コマンドボタンのリスナーを設定
         /// </summary>
@@ -95,7 +102,7 @@ namespace iCON.UI
             for (int i = 0; i < _commandIdeaContents.IdeaButtons.Count; i++)
             {
                 int index = i; // クロージャ問題を回避
-                _commandIdeaContents.IdeaButtons[i].onClick.SafeReplaceListener(() => OnIdeaSelected?.Invoke(index));
+                _commandIdeaContents.IdeaButtons[i].onClick.SafeReplaceListener(() => _onIdeaSelected?.Invoke(index));
             }
         }
         
@@ -107,7 +114,7 @@ namespace iCON.UI
             for (int i = 0; i < _actorIdeaContents.IdeaButtons.Count; i++)
             {
                 int index = i; // クロージャ問題を回避
-                _actorIdeaContents.IdeaButtons[i].onClick.SafeReplaceListener(() => OnIdeaSelected?.Invoke(index));
+                _actorIdeaContents.IdeaButtons[i].onClick.SafeReplaceListener(() => _onIdeaSelected?.Invoke(index));
             }
         }
         
@@ -150,13 +157,6 @@ namespace iCON.UI
             canvasGroup.alpha = isActive ? 1 : 0;
             canvasGroup.interactable = isActive;
             canvasGroup.blocksRaycasts = isActive;
-        }
-        
-        private void OnDestroy()
-        {
-            _command.onClick.SafeRemoveAllListeners();
-            _actor.onClick.SafeRemoveAllListeners();
-            CleanupButtonListeners();
         }
     }
 }
