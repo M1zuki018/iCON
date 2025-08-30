@@ -95,7 +95,6 @@ namespace CryStar.CommandBattle
             finally
             {
                 // 選択に戻る
-                manager.SetState(BattleSystemState.FirstSelect);
                 manager.View.ShowCanvas(BattleCanvasType.FirstSelect);
             }
         }

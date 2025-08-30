@@ -53,13 +53,11 @@ namespace CryStar.CommandBattle
             if (result.isFinish)
             {
                 // バトルが終了している場合は勝敗に合わせてステートを変更
-                _battleManager.SetState(result.isWin ? BattleSystemState.Win : BattleSystemState.Lose);
                 _battleManager.View.ShowCanvas(result.isWin ? BattleCanvasType.Win : BattleCanvasType.Lose);
             }
             else
             {
                 // バトルが終了していなければ最初の選択に戻る
-                _battleManager.SetState(BattleSystemState.FirstSelect);
                 _battleManager.View.ShowCanvas(BattleCanvasType.FirstSelect);
             }
         }

@@ -120,7 +120,6 @@ namespace iCON.Battle
             ServiceLocator.Register(this, ServiceType.Local);
             // ステートマシンの初期化
             InitializeStates();
-            SetState(_currentState);
         }
 
         private void Start()
@@ -145,31 +144,12 @@ namespace iCON.Battle
         {
             if (UnityEngine.Input.GetKeyDown(KeyCode.Escape))
             {
-                _currentStateHandler.Cancel();
                 View.CurrentCanvas.Cancel();
             }
         }
 
         #endregion
 
-        /// <summary>
-        /// バトルの状態を変更する
-        /// </summary>
-        public void SetState(BattleSystemState state)
-        {
-            try
-            {
-                _currentStateHandler?.Exit();
-                _currentState = state;
-                _currentStateHandler = _states[state];
-                _currentStateHandler.Enter(this, _view);
-            }
-            catch(Exception e)
-            {
-                LogUtility.Error($"バトル進行中に例外が発生しました {e.Message}", LogCategory.Gameplay);
-            }
-        }
-        
         /// <summary>
         /// コマンドをリストに追加
         /// </summary>
