@@ -76,8 +76,22 @@ namespace CryStar.Core.UserData
 
         private void Awake()
         {
+            // GlobalServiceに既に自身が登録されているかチェックする
+            if (ServiceLocator.IsRegisteredGlobal<UserDataManager>())
+            {
+                // 既に登録されていた場合は、登録されているInstanceが自分ではない場合、オブジェクトを削除する
+                if (ServiceLocator.GetGlobal<UserDataManager>() != this)
+                {
+                    Destroy(gameObject);
+                }
+                
+                // 初期化済みなので早期return
+                return;
+            }
+            
             // グローバルサービスに登録しておく
             ServiceLocator.Register(this, ServiceType.Global);
+            DontDestroyOnLoad(gameObject);
 
             // ユーザーIDを初期化する
             InitializeUserId();

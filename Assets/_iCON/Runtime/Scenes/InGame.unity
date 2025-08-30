@@ -1183,7 +1183,6 @@ MonoBehaviour:
   _prefabsToInstantiate:
   - {fileID: 1601944199579590465, guid: 6c9f3975c0ad1764294384380864cea7, type: 3}
   - {fileID: 7241587270615209574, guid: 9e6194a68ba0e2d4c971a68c9c3414f9, type: 3}
-  - {fileID: 3196341517799860835, guid: c1b7c9d373ab0f5488d55a55cf2bdd12, type: 3}
   - {fileID: 7482452493075937763, guid: d8a4942130f9c83459c5e031f54ac178, type: 3}
   - {fileID: 4143247246296507986, guid: 8f9ebab7fcba499429477ffef632aac8, type: 3}
   - {fileID: 4801339468575427108, guid: d0e33c4e8257247499aadfe2f0b00205, type: 3}
