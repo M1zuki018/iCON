@@ -90,6 +90,11 @@ namespace iCON.Battle
         /// AudioManager
         /// </summary>
         private AudioManager _audioManager;
+
+        /// <summary>
+        /// CanvasManager
+        /// </summary>
+        public BattleCanvasManager View => _view;
         
         /// <summary>
         /// バトルで使用する変数をまとめたクラス
@@ -163,7 +168,7 @@ namespace iCON.Battle
                 LogUtility.Error($"バトル進行中に例外が発生しました {e.Message}", LogCategory.Gameplay);
             }
         }
-
+        
         /// <summary>
         /// コマンドをリストに追加
         /// </summary>
