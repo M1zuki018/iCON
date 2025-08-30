@@ -6,29 +6,29 @@ namespace CryStar.Item.Enums
     public enum RarityType
     {
         /// <summary>
-        /// ノーマル（最低レアリティ）
+        /// コモン（最低レアリティ）
         /// </summary>
-        N = 0,
+        Common = 0,
+        
+        /// <summary>
+        /// アンコモン
+        /// </summary>
+        Uncommon = 1,
         
         /// <summary>
         /// レア
         /// </summary>
-        R = 1,
+        Rare = 2,
         
         /// <summary>
-        /// スーパーレア
+        /// エピック
         /// </summary>
-        SR = 2,
+        Epic = 3,
         
         /// <summary>
-        /// SSR
+        /// レジェンダリー（最高レアリティ）
         /// </summary>
-        SSR = 3,
-        
-        /// <summary>
-        /// アルティメットレア（最高レアリティ）
-        /// </summary>
-        UR = 4,
+        Legendary = 4,
     }
 }
 
