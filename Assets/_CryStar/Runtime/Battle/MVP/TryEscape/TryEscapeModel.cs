@@ -10,7 +10,7 @@ namespace CryStar.CommandBattle
     /// <summary>
     /// TryEscape_Model
     /// </summary>
-    public class TryEscapeModel
+    public class TryEscapeModel : IDisposable
     {
         /// <summary>
         /// 乱数生成器（staticで再利用できるようにする）
@@ -51,9 +51,7 @@ namespace CryStar.CommandBattle
         /// </summary>
         public void Exit()
         {
-            _cts?.Cancel();
-            _cts?.Dispose();
-            _cts = null;
+            Dispose();
         }
 
         /// <summary>
@@ -76,17 +74,14 @@ namespace CryStar.CommandBattle
                 await HandleEscapeFailureAsync(_battleManager);
             }
         }
-
+        
         /// <summary>
         /// 逃走失敗時の処理
         /// </summary>
         private async UniTask HandleEscapeFailureAsync(BattleManager manager)
         {
             // 念のためキャンセルトークンソースをクリーンアップしておく
-            _cts?.Cancel();
-            _cts?.Dispose();
-            _cts = null;
-            
+            Dispose();
             _cts = new CancellationTokenSource();
 
             try
@@ -124,6 +119,16 @@ namespace CryStar.CommandBattle
             {
                 _battleManager = ServiceLocator.GetLocal<BattleManager>();
             }
+        }
+        
+        /// <summary>
+        /// キャンセルトークンソースのクリーンアップ
+        /// </summary>
+        public void Dispose()
+        {
+            _cts?.Cancel();
+            _cts?.Dispose();
+            _cts = null;
         }
     }
 }
