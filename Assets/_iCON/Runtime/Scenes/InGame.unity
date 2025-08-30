@@ -1065,10 +1065,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 786433890}
-    - target: {fileID: 6016083072180923174, guid: 9e6194a68ba0e2d4c971a68c9c3414f9, type: 3}
-      propertyPath: _defaultIndex
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7241587270615209574, guid: 9e6194a68ba0e2d4c971a68c9c3414f9, type: 3}
       propertyPath: m_Name
       value: InGameCanvas
