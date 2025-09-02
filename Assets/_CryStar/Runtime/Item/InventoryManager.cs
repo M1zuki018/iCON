@@ -4,6 +4,7 @@ using CryStar.Core;
 using CryStar.Core.Enums;
 using CryStar.Core.UserData;
 using CryStar.Data.User;
+using CryStar.Item.Data;
 using CryStar.Utility;
 using UnityEngine;
 
@@ -76,6 +77,17 @@ namespace CryStar.Item
             
             // 余剰分が出ていないかboolで結果を返す
             return sum <= maxCount;
+        }
+
+        public List<ItemData> GetAllItems()
+        {
+            var itemDataList = new List<ItemData>();
+            foreach (var itemId in InventoryUserData.GetAllItemIds())
+            {
+                itemDataList.Add(MasterItem.GetItem(itemId));
+            }
+
+            return itemDataList;
         }
 
         /// <summary>

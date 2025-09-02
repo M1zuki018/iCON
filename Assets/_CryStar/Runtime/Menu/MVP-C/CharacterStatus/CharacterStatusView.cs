@@ -1,3 +1,4 @@
+using CryStar.Menu.UI;
 using UnityEngine;
 
 namespace CryStar.Menu
@@ -8,14 +9,19 @@ namespace CryStar.Menu
     public class CharacterStatusView : MonoBehaviour
     {
         /// <summary>
+        /// ステータス表記のコンテンツ
+        /// </summary>
+        [SerializeField] 
+        private UIContents_Status _status;
+        
+        /// <summary>
         /// Setup
         /// </summary>
-        public void Setup()
+        public void Setup(UIContents_Status.ViewData viewData)
         {
-            // 引数にActionを羅列する
+            // TODO: キャラクターを切り替えるボタンを追加→ボタンが押されたときに表示されるキャラクターを切り替える処理
+            _status.Setup(viewData);
         }
-
-        // TODO: 実装
 
         /// <summary>
         /// Exit

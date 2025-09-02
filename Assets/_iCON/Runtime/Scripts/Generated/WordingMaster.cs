@@ -1,6 +1,6 @@
 // ============================================================================
 // AUTO GENERATED - DO NOT MODIFY
-// Generated at: 2025-08-15 20:25:00
+// Generated at: 2025-09-02 11:41:54
 // ============================================================================
 
 using System.Collections.Generic;
@@ -42,6 +42,23 @@ public static class WordingMaster
         { "BATTLE_TIME_REQUIRED", "3" },
         { "FOR_THOSE_STORY", "ストーリーを知りたい" },
         { "FOR_THOSE_BATTLE", "サクっとバトルを体験したい" },
+        { "PARAM_LEVEL", "レベル" },
+        { "PARAM_HP", "体力" },
+        { "PARAM_WILL", "意思力" },
+        { "PARAM_STAMINA", "スタミナ" },
+        { "PARAM_SP", "アイデアポイント" },
+        { "PARAM_PHYSICAL_ATTACK", "物理攻撃力" },
+        { "PARAM_SKILL_ATTACK", "アイデア攻撃力" },
+        { "PARAM_INTELLIGENCE", "知力" },
+        { "PARAM_PHYSICAL_DEFENSE", "物理防御力" },
+        { "PARAM_SKILL_DEFENSE", "アイデア防御力" },
+        { "PARAM_SPEED", "攻撃速度" },
+        { "PARAM_DODGE_SPEED", "回避速度" },
+        { "PARAM_ARMOR_PENETRATION", "防御無視" },
+        { "PARAM_CRITICAL_LATE", "クリティカル率" },
+        { "PARAM_CRITICAL_DAMAGE", "クリティカルダメージ" },
+        { "STATUS", "ステータス" },
+        { "EQUIOMENT", "装備" },
     };
 
     public static string GetText(string key)

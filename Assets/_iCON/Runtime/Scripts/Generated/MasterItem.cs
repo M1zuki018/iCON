@@ -16,52 +16,52 @@ public static class MasterItem
     {
         {
             1, new ItemData(1, "ヒールポーション", "HPを50回復する薬草から作られた回復薬", 
-                RarityType.Common, "Assets/Images/Items/Icons/heal_potion_small.png",
+                RarityType.Common, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 99, 100, 10, 1, 1, true, true)
         },
         {
             2, new ItemData(2, "ハイヒールポーション", "HPを150回復する高級な回復薬", 
-                RarityType.Rare, "Assets/Images/Items/Icons/heal_potion_large.png",
+                RarityType.Rare, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 50, 200, 50, 1, 1, true, true)
         },
         {
             3, new ItemData(3, "マナポーション", "MPを30回復する魔法の薬", 
-                RarityType.Common, "Assets/Images/Items/Icons/mana_potion.png",
+                RarityType.Common, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 99, 150, 15, 1, 2, true, true)
         },
         {
             4, new ItemData(4, "鉄の剣", "よく鍛えられた鉄製の剣。攻撃力+15", 
-                RarityType.Common, "Assets/Images/Items/Icons/iron_sword.png",
+                RarityType.Common, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 1, 300, 100, 2, 1, false, false)
         },
         {
             5, new ItemData(5, "銀の指輪", "魔法防御力を高める美しい銀の指輪", 
-                RarityType.Uncommon, "Assets/Images/Items/Icons/silver_ring.png",
+                RarityType.Uncommon, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 1, 400, 200, 2, 3, false, false)
         },
         {
             6, new ItemData(6, "炎の石", "炎の魔法を強化する赤く輝く石", 
-                RarityType.Rare, "Assets/Images/Items/Icons/fire_stone.png",
+                RarityType.Rare, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 10, 500, 300, 3, 1, false, true)
         },
         {
             7, new ItemData(7, "古い鍵", "何かを開くための古びた鍵", 
-                RarityType.Common, "Assets/Images/Items/Icons/old_key.png",
+                RarityType.Common, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 5, 600, 0, 4, 1, false, true)
         },
         {
             8, new ItemData(8, "竜の鱗", "伝説の竜から剥がれ落ちた貴重な鱗", 
-                RarityType.Legendary, "Assets/Images/Items/Icons/dragon_scale.png",
+                RarityType.Legendary, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 3, 700, 1000, 3, 2, false, false)
         },
         {
             9, new ItemData(9, "パン", "焼きたての美味しいパン。HPを10回復", 
-                RarityType.Common, "Assets/Images/Items/Icons/bread.png",
+                RarityType.Common, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 20, 50, 5, 1, 3, false, true)
         },
         {
             10, new ItemData(10, "魔法の杖", "魔力を増幅する神秘的な杖。魔法攻撃力+25", 
-                RarityType.Epic, "Assets/Images/Items/Icons/magic_staff.png",
+                RarityType.Epic, "Assets/AssetStoreTools/Images/iCON_Icon.png",
                 1, 800, 500, 2, 2, false, false)
         }
     };
