@@ -1,3 +1,5 @@
+using CryStar.Core.Enums;
+using CryStar.Menu.UI;
 using UnityEngine;
 
 namespace CryStar.Menu
@@ -8,14 +10,17 @@ namespace CryStar.Menu
     public class CharacterStatusView : MonoBehaviour
     {
         /// <summary>
+        /// ステータス表記のコンテンツ
+        /// </summary>
+        [SerializeField] private UIContents_Status _status;
+        
+        /// <summary>
         /// Setup
         /// </summary>
         public void Setup()
         {
-            // 引数にActionを羅列する
+            _status.Setup(1);
         }
-
-        // TODO: 実装
 
         /// <summary>
         /// Exit
