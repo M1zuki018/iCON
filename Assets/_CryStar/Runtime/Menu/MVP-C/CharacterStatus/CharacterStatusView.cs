@@ -1,4 +1,3 @@
-using CryStar.Core.Enums;
 using CryStar.Menu.UI;
 using UnityEngine;
 
@@ -12,14 +11,22 @@ namespace CryStar.Menu
         /// <summary>
         /// ステータス表記のコンテンツ
         /// </summary>
-        [SerializeField] private UIContents_Status _status;
+        [SerializeField] 
+        private UIContents_Status _status;
+        
+        /// <summary>
+        /// 初期状態で表示されるキャラクターのID
+        /// </summary>
+        [SerializeField] 
+        private int _defaultCharacterId = 1;
         
         /// <summary>
         /// Setup
         /// </summary>
         public void Setup()
         {
-            _status.Setup(1);
+            // TODO: キャラクターを切り替えるボタンを追加→ボタンが押されたときに表示されるキャラクターを切り替える処理
+            _status.Setup(_defaultCharacterId);
         }
 
         /// <summary>
