@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5929463972878831965}
   - component: {fileID: 4684208244303668884}
-  - component: {fileID: 1764222793531198627}
+  - component: {fileID: 4643922937857098293}
   m_Layer: 5
   m_Name: Base
   m_TagString: Untagged
@@ -45,7 +45,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1878297025875337810}
   m_CullTransparentMesh: 1
---- !u!114 &1764222793531198627
+--- !u!114 &4643922937857098293
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,18 +54,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1878297025875337810}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 5bd478f742f815e4d9056a5728614452, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.42554522, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ffa237eba8ee2ec4ab83d4a68a11b63d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -75,6 +75,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+  _assetName: Assets/AssetStoreTools/Images/Menu/iCON_MenuBg.png
 --- !u!1 &2854548139941483378
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,8 +112,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 3}
-  m_SizeDelta: {x: 783.6217, y: 121.4677}
+  m_AnchoredPosition: {x: -613.12, y: 131.29332}
+  m_SizeDelta: {x: 597.38, y: 103.3613}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1897722265002229027
 CanvasRenderer:
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3fd8dc0897587fa4eb058d22c75d2121, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -152,7 +153,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  _assetName: 
+  _assetName: Assets/AssetStoreTools/Images/Menu/iCON_Button.png
 --- !u!114 &3643714011803715138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,8 +198,84 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  _assetName: 
+  _assetName: Assets/AssetStoreTools/Images/Menu/iCON_Button.png
   _wordingKey: 
+--- !u!1 &4007965414758569199
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6509335792646576709}
+  - component: {fileID: 1298351537642245723}
+  - component: {fileID: 5110794995463812882}
+  m_Layer: 5
+  m_Name: MenuPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6509335792646576709
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4007965414758569199}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4945031155414365681}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1298351537642245723
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4007965414758569199}
+  m_CullTransparentMesh: 1
+--- !u!114 &5110794995463812882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4007965414758569199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd478f742f815e4d9056a5728614452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 6c2d7c12dc5f3fc4d8d39a763027aafa, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+  _assetName: Assets/AssetStoreTools/Images/Menu/iCON_Menu.png
 --- !u!1 &4310057308655135549
 GameObject:
   m_ObjectHideFlags: 0
@@ -266,7 +343,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: fc70d11028633814ca4e447cac4d780f, type: 3}
-    m_FontSize: 80
+    m_FontSize: 62
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -315,8 +392,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -247}
-  m_SizeDelta: {x: 783.6217, y: 121.4677}
+  m_AnchoredPosition: {x: -613.12, y: -17.759888}
+  m_SizeDelta: {x: 597.38, y: 121.4677}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1235005165771653978
 CanvasRenderer:
@@ -346,7 +423,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3fd8dc0897587fa4eb058d22c75d2121, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -356,7 +433,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  _assetName: 
+  _assetName: Assets/AssetStoreTools/Images/Menu/iCON_Button.png
 --- !u!114 &1445991394098933000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +478,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  _assetName: 
+  _assetName: Assets/AssetStoreTools/Images/Menu/iCON_Button.png
   _wordingKey: 
 --- !u!1 &5053295601856590966
 GameObject:
@@ -470,7 +547,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: fc70d11028633814ca4e447cac4d780f, type: 3}
-    m_FontSize: 80
+    m_FontSize: 62
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -550,7 +627,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: fc70d11028633814ca4e447cac4d780f, type: 3}
-    m_FontSize: 80
+    m_FontSize: 62
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -599,8 +676,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 253}
-  m_SizeDelta: {x: 783.6217, y: 121.4677}
+  m_AnchoredPosition: {x: -613.119, y: 271}
+  m_SizeDelta: {x: 597.3837, y: 105.9479}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5120145105080492163
 CanvasRenderer:
@@ -630,7 +707,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3fd8dc0897587fa4eb058d22c75d2121, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -640,7 +717,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  _assetName: 
+  _assetName: Assets/AssetStoreTools/Images/Menu/iCON_Button.png
 --- !u!114 &1863229504425258460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -685,7 +762,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
-  _assetName: 
+  _assetName: Assets/AssetStoreTools/Images/Menu/iCON_Button.png
   _wordingKey: 
 --- !u!1 &8531103831547722912
 GameObject:
@@ -721,6 +798,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5929463972878831965}
+  - {fileID: 6509335792646576709}
   - {fileID: 7706572583329118050}
   - {fileID: 1009227018621190336}
   - {fileID: 3418318251352268603}
