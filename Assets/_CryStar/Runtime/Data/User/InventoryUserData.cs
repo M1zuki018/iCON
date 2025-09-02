@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace CryStar.Data.User
 {
@@ -36,6 +37,20 @@ namespace CryStar.Data.User
         {
             _dataCache[itemId] = count;
             OnInventoryChanged?.Invoke();
+        }
+
+        /// <summary>
+        /// 所持しているアイテムIDの配列を作成
+        /// </summary>
+        public List<int> GetAllItemIds()
+        {
+            var idArray = new List<int>();
+            foreach (var key in _dataCache.Keys)
+            {
+                idArray.Add(key);
+            }
+            
+            return idArray;
         }
     }
 }
