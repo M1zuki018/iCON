@@ -17,7 +17,7 @@ namespace CryStar.Menu
             _model = new ItemModel();
             
             _model.Setup();
-            _view.Setup();
+            _view.Setup(_model.GetAllItems());
         }
 
         /// <summary>
