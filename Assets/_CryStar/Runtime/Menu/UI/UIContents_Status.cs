@@ -1,7 +1,5 @@
 using System.Collections.Generic;
-using CryStar.Core;
 using CryStar.Core.Enums;
-using CryStar.Core.UserData;
 using UnityEngine;
 
 namespace CryStar.Menu.UI
@@ -17,40 +15,26 @@ namespace CryStar.Menu.UI
         [SerializeField]
         private List<UIContents_Parameter> _parameters = new List<UIContents_Parameter>();
 
-        private int _characterId = 0;
-
         /// <summary>
         /// Setup
         /// </summary>
-        public void Setup(int characterId)
+        public void Setup(ViewData viewData)
         {
-            _characterId = characterId;
-            Initialize();
-        }
-        
-        /// <summary>
-        /// 初期化
-        /// </summary>
-        private void Initialize()
-        {
-            var userData = ServiceLocator.GetGlobal<UserDataManager>().CurrentUserData.CharacterUserData.GetCharacterUserData(_characterId);
-            var level = userData.Level;
-            
-            SetValue(StatusType.Level, level);
-            SetValue(StatusType.Hp, MasterCharacter.GetHp(_characterId, level) - userData.DecreaseHp + userData.BonusHp);
-            SetValue(StatusType.Will, 5); // TODO
-            SetValue(StatusType.Stamina,100); // TODO
-            SetValue(StatusType.Sp,MasterCharacter.GetSp(_characterId, level) - userData.DecreaseSp + userData.BonusSp);
-            SetValue(StatusType.PhysicalAttack, MasterCharacter.GetAttack(_characterId, level) + userData.BonusAttack);
-            SetValue(StatusType.SkillAttack, MasterCharacter.GetAttack(_characterId, level) + userData.BonusAttack); // TODO
-            SetValue(StatusType.Intelligence,MasterCharacter.GetStatusResistance(_characterId, level) + userData.BonusStatusResistance);
-            SetValue(StatusType.PhysicalDefense, MasterCharacter.GetDefense(_characterId, level) + userData.BonusDefense);
-            SetValue(StatusType.SkillDefense, MasterCharacter.GetDefense(_characterId, level) + userData.BonusDefense); // TODO
-            SetValue(StatusType.Speed, MasterCharacter.GetSpeed(_characterId, level) + userData.BonusSpeed);
-            SetValue(StatusType.DodgeSpeed, MasterCharacter.GetDodgeSpeed(_characterId, level) + userData.BonusDodgeSpeed);
-            SetValue(StatusType.ArmorPenetration, MasterCharacter.GetArmorPenetration(_characterId, level) + userData.BonusArmorPenetration);
-            SetValue(StatusType.CriticalRate, MasterCharacter.GetCriticalRate(_characterId, level) + userData.BonusCriticalRate);
-            SetValue(StatusType.CriticalDamage, MasterCharacter.GetCriticalDamage(_characterId, level) + userData.BonusCriticalDamage);
+            SetValue(StatusType.Level, viewData.Level);
+            SetValue(StatusType.Hp, viewData.Hp);
+            SetValue(StatusType.Will, viewData.Will);
+            SetValue(StatusType.Stamina, viewData.Stamina);
+            SetValue(StatusType.Sp, viewData.Sp);
+            SetValue(StatusType.PhysicalAttack, viewData.PhysicalAttack);
+            SetValue(StatusType.SkillAttack, viewData.SkillAttack);
+            SetValue(StatusType.Intelligence, viewData.Intelligence);
+            SetValue(StatusType.PhysicalDefense, viewData.PhysicalDefense);
+            SetValue(StatusType.SkillDefense, viewData.SkillDefense);
+            SetValue(StatusType.Speed, viewData.Speed);
+            SetValue(StatusType.DodgeSpeed, viewData.DodgeSpeed);
+            SetValue(StatusType.ArmorPenetration, viewData.ArmorPenetration);
+            SetValue(StatusType.CriticalRate, viewData.CriticalRate);
+            SetValue(StatusType.CriticalDamage, viewData.CriticalDamage);
         }
         
         /// <summary>
@@ -59,6 +43,25 @@ namespace CryStar.Menu.UI
         private void SetValue(StatusType statusType, int value)
         {
             _parameters[(int)statusType].SetValue(value);
+        }
+        
+        public class ViewData
+        {
+            public int Level { get; set; }
+            public int Hp { get; set; }
+            public int Will { get; set; }
+            public int Stamina { get; set; }
+            public int Sp { get; set; }
+            public int PhysicalAttack { get; set; }
+            public int SkillAttack { get; set; }
+            public int Intelligence { get; set; }
+            public int PhysicalDefense { get; set; }
+            public int SkillDefense { get; set; }
+            public int Speed { get; set; }
+            public int DodgeSpeed { get; set; }
+            public int ArmorPenetration { get; set; }
+            public int CriticalRate { get; set; }
+            public int CriticalDamage { get; set; }
         }
     }
 }
