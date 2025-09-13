@@ -14,7 +14,7 @@ namespace CryStar.Story.Execution
     [OrderHandler(OrderType.ChangeMap)]
     public class ChangeMapOrderHandler : OrderHandlerBase
     {
-        private InGameManager _gameManager = ServiceLocator.GetLocal<InGameManager>();
+        private InGameManager _gameManager;
         
         public override OrderType SupportedOrderType => OrderType.ChangeMap;
 

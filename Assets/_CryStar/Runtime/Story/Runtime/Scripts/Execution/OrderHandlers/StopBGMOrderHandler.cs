@@ -18,14 +18,13 @@ namespace CryStar.Story.Execution
         /// <summary>
         /// AudioManager
         /// </summary>
-        private AudioManager _audioManager = ServiceLocator.GetGlobal<AudioManager>();
+        private AudioManager _audioManager;
         public override OrderType SupportedOrderType => OrderType.StopBGM;
         
         public override Tween HandleOrder(OrderData data, StoryView view)
         {
             if (_audioManager == null)
             {
-                // 万が一初期化時に取得出来ていなかったら、取得しなおし
                 _audioManager = ServiceLocator.GetGlobal<AudioManager>();
             }
             _audioManager.FadeOutBGM(data.Duration).Forget();
